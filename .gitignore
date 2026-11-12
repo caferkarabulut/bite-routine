@@ -1,40 +1,24 @@
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.egg-info/
-dist/
-build/
-*.egg
-
-# Virtual environments
-venv/
-.venv/
-env/
+# Node
+node_modules/
 
 # Environment files
 .env
 .env.*
 !.env.example
 
-# Database files
-*.db
-*.sqlite3
+# Signing and store credentials
+*.jks
+*.keystore
+*.p8
+*.p12
+*.mobileprovision
+*.pem
+credentials.json
+google-service-account*.json
 
 # IDE
 .vscode/
 .idea/
-
-# Jupyter
-.ipynb_checkpoints/
-
-# Streamlit
-.streamlit/
-
-# Node
-node_modules/
-.next/
-out/
 
 # OS
 .DS_Store
@@ -42,6 +26,3 @@ Thumbs.db
 
 # Logs
 *.log
-
-# Azure
-.azure/

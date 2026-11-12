@@ -1,10 +1,23 @@
 # Bite Routine çalışma notları
 
-- Güncel backend: `backend-dotnet/` altında .NET 10, EF Core, Npgsql ve PostgreSQL 17. Azure SQL ve eski Python backend yeni geliştirme için temel değildir.
-- Hedef pazar Türkiye: Türkçe arama ve içerik, gram/kcal birimleri, kullanıcıya gösterilen öğün günleri için Europe/Istanbul. Kaynağı ve birimi doğrulanmamış besin verisini yayımlama.
-- Başlamadan önce Git durumunu ve `docs/PROJECT_STATUS.md` dosyasını oku; yerel değişiklikleri koru. Gizli bağlantı bilgilerini commit etme veya çıktıda gösterme.
-- `backend-dotnet/` içinde: `dotnet restore BiteRoutine.slnx`, `dotnet build BiteRoutine.slnx --no-restore --configuration Release`, gerçek PostgreSQL 17 ile `dotnet test BiteRoutine.slnx --no-build --configuration Release`. Test bağlantısı yalnız `bite_routine_test` veritabanına yönelmeli.
-- Migration değişirse `dotnet tool restore` ve `dotnet ef migrations has-pending-model-changes --project src/BiteRoutine.Api --no-build --configuration Release` çalıştır. Yeni migration için geçici kopyada scaffold ve derleme de doğrula. API uç noktası değişirse yerel HTTP kontrolü yap.
-- Sonuçta çalışan kontrolleri, kalan engeli ve gerçekten gereken manuel işlemi kısa raporla. Merge, deployment ve dal silme yalnız açık görev kapsamında yapılır.
-- Commit mesajlarını kısa tut; PR açıklamasını yapılan değişikliği ve gerekli doğrulamayı anlatan birkaç cümleyle yaz.
-- Kök README ürün tanıtımıdır; her görevde güncellenmez. Teknik ayrıntılar ilgili belgelerde tutulur.
+## Ürün
+
+- Ürün yalnız iOS ve Android mobil uygulamadır (`mobile/`, Expo). Sunucu, hesap, abonelik ve reklam yoktur; tüm kullanıcı verisi cihazda (SQLite) tutulur.
+- Yalnız Türkiye mağazalarında yayımlanır. Türkçe ana dil, İngilizce ikinci dil. Birimler gram/kcal; günler Europe/Istanbul.
+- Kapsam ve fazlar: [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md). Kapsam dışı özellik ekleme.
+
+## Besin verisi kuralı
+
+- Yemekler için yapay zekâ yalnız tarif üretir (malzeme + gram, pişmiş ağırlık, porsiyon ölçüleri). Besin değerleri her zaman `catalog/` altındaki program tarafından kaynak tablolardan (USDA FoodData Central, CC0) hesaplanır. Yapay zekânın yazdığı kcal/makro sayısı yayımlanmaz.
+- Paketli ürünler Open Food Facts Türkiye verisidir (ODbL): uygulamada ve mağaza sayfasında atıf zorunludur.
+- Uygulamada değerlerin yaklaşık olduğu ve tıbbi tavsiye olmadığı belirtilir.
+
+## Çalışma kuralları
+
+- Başlamadan önce Git durumunu ve `docs/PROJECT_STATUS.md` dosyasını oku; yerel değişiklikleri koru.
+- Paralel çalışan ajanlar aynı dosyaya aynı anda dokunmaz; her ajana önceden dosya seti veya ayrı worktree atanır.
+- Commit, PR ve kod/belge dosyalarına yapay zekâ aracı imzası veya "ile yapıldı" notu eklenmez.
+- İmzalama sertifikası, keystore, mağaza API anahtarı veya `.env` dosyası commit edilmez.
+- `mobile/` içinde iş bitmeden: `npm run check:deps`, `npm run typecheck`, `npm run lint`, `npm test`. Expo API'leri için `mobile/AGENTS.md` kurallarına uy.
+- Commit mesajları kısa; PR açıklaması yapılan değişikliği ve doğrulamayı birkaç cümleyle anlatır. Merge ve mağazaya gönderim yalnız açık görev kapsamında yapılır.
+- Sonuçta çalışan kontrolleri, kalan engeli ve gereken manuel işlemi kısa raporla.
