@@ -1,6 +1,0 @@
-@BiteRoutine.Api_HostAddress = http://localhost:5034
-
-GET {{BiteRoutine.Api_HostAddress}}/health/live
-Accept: application/json
-
-###

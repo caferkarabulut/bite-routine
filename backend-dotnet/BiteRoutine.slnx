@@ -1,8 +1,0 @@
-<Solution>
-  <Folder Name="/src/">
-    <Project Path="src/BiteRoutine.Api/BiteRoutine.Api.csproj" />
-  </Folder>
-  <Folder Name="/tests/">
-    <Project Path="tests/BiteRoutine.Api.Tests/BiteRoutine.Api.Tests.csproj" />
-  </Folder>
-</Solution>
