@@ -29,3 +29,8 @@ Thumbs.db
 
 # Catalog pipeline downloads
 catalog/.cache/
+
+# Agent tooling
+.orchestration-checkpoint.md
+.worktrees/
+.claude/settings.local.json
