@@ -2,7 +2,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { addDays, gramsForPortion, parseAmount, todayInIstanbul } from "../domain";
-import { formatDate, formatGrams, useI18n } from "../i18n";
+import { formatDate, formatGrams, formatNumber, useI18n } from "../i18n";
 import { MEAL_SLOTS, type LocalDate, type MealSlot, type Portion, type PortionSnapshot } from "../types";
 import { ChoiceChips, TextField } from "./components";
 import { colors, spacing, typography, TOUCH } from "./theme";
@@ -14,6 +14,18 @@ export type ResolvedAmount = { grams: number; portion: PortionSnapshot | null };
 
 export function portionName(portion: Portion, lang: "tr" | "en"): string {
   return lang === "en" && portion.nameEn ? portion.nameEn : portion.nameTr;
+}
+
+/**
+ * "1,5 kepçe" for quantity 1.5 of a portion named "1 kepçe". Names that do not start
+ * with "1 " keep their own wording: "2 × Dilim".
+ */
+export function portionAmountText(quantity: number, name: string, lang: "tr" | "en"): string {
+  if (quantity === 1) return name;
+  const digits = Number.isInteger(quantity) ? 0 : Number.isInteger(quantity * 10) ? 1 : 2;
+  const q = formatNumber(quantity, lang, digits);
+  const single = /^1\s+(?![\d/])(.+)$/.exec(name);
+  return single ? `${q} ${single[1]}` : `${q} × ${name}`;
 }
 
 /** Converts the input into grams (+ portion snapshot), or null when invalid. */
