@@ -48,7 +48,9 @@
     "smoke:session": "node scripts/session-smoke.mts",
     "start:dev": "expo start --dev-client",
     "build:ios:device": "EX_DEV_CLIENT_NETWORK_INSPECTOR=false expo run:ios --device",
-    "export:android": "expo export --platform android --output-dir dist-android"
+    "export:android": "expo export --platform android --output-dir dist-android",
+    "sync:catalog": "node scripts/sync-catalog.mjs",
+    "check:catalog": "node scripts/sync-catalog.mjs --check"
   },
   "private": true,
   "engines": {
