@@ -31,8 +31,10 @@ appId: com.biteroutine.mobile
     element: "200 ml ekle"
 - assertVisible: "0 / 2.500 ml"
 - tapOn: "Ayarlar(, tab.*)?"
+# Center the button: at the end of the list it can sit half under the tab bar, which takes the tap.
 - scrollUntilVisible:
     element: "Tüm verileri sil"
+    centerElement: true
 - tapOn: "Tüm verileri sil"
 - assertVisible: "Tüm veriler silinsin mi?"
 - tapOn:

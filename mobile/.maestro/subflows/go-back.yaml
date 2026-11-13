@@ -1,6 +1,6 @@
-# Leaves the current screen the way a user does on each platform.
+# Leaves a modal form the way a user does on each platform.
 # Android: close the keyboard first (the first back press would only close it), then the hardware/gesture back key.
-# iOS: tap the header back button (its accessible name is the previous screen's title or "Geri"/"Back").
+# iOS: modal forms (custom food) have no header back button; swipe the sheet down from its header.
 appId: com.biteroutine.mobile
 ---
 - runFlow:
@@ -13,4 +13,7 @@ appId: com.biteroutine.mobile
     when:
       platform: iOS
     commands:
-      - tapOn: "Geri|Back|Katalog"
+      - swipe:
+          start: 50%, 8%
+          end: 50%, 90%
+          duration: 500
