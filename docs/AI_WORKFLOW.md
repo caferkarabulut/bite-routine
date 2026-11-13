@@ -19,7 +19,7 @@ Ajanlar aynı anda çalıştı; çakışmayı önlemek için her ajana önceden 
 | 2 | 4 tarif ajanı (paralel) | `catalog/recipes/<kategori>.json`: her kategori tek ajanda |
 | 2 | Hesap programı | `catalog/scripts/`: USDA toplu verisini indirme, arama, hesaplama, doğrulama, testler |
 | 2 | Temel gıdalar | `catalog/base-foods.json`: 50 tek malzemeli gıda (ekmek, zeytin, peynirler, meyveler) |
-| 2 | Paketli ürünler | `catalog/packaged/`: Open Food Facts Türkiye süzmesi (ayrı teslim) |
+| 2 | Paketli ürünler | `catalog/packaged/`: Open Food Facts Türkiye süzmesi; 4.448 indirilen üründen ad, dört temel besin, aralık ve enerji tutarlılığı kontrolünden geçen 2.455'i |
 | 3 | Eşleştirme | `catalog/ingredients.json`: 99 malzeme anahtarı → USDA kaydı; yaklaşık eşleşmeler gerekçeli |
 | 4 | Bağımsız denetim | Farklı bir sağlayıcının modeli tarifleri ve hesaplanan değerleri yalnız okuma izniyle denetledi |
 | 5 | Koordinatör | Bulguları doğruladı, düzeltmeleri uyguladı, testleri ve katı derlemeyi çalıştırdı |

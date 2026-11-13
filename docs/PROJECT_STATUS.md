@@ -22,7 +22,7 @@ Kapsam dışı: hesap, senkronizasyon, barkod, fotoğrafla tahmin, abonelik, rek
 | Faz | İçerik | Durum |
 | --- | --- | --- |
 | 0 | Repo temizliği, Expo sürüm uyumu, belgeler | Tamamlandı |
-| 1 | Veri hattı: 100 Türk yemeği tarifi, 80 USDA temel gıda, malzeme eşleştirme ve hesap programı, bağımsız denetim ([süreç](AI_WORKFLOW.md)) | Tamamlandı; Open Food Facts Türkiye paketli ürünleri ayrı teslim edilecek |
+| 1 | Veri hattı: 100 Türk yemeği tarifi, 80 USDA temel gıda, malzeme eşleştirme ve hesap programı, bağımsız denetim ([süreç](AI_WORKFLOW.md)) | Tamamlandı; Open Food Facts Türkiye'den süzülmüş 2.455 paketli ürün eklendi |
 | 2 | Uygulama: yerel SQLite katmanı, TR/EN dil altyapısı, tüm ekranlar ([mimari](../mobile/docs/ARCHITECTURE.md)) | Kod tamam, 306 test; Simulator'da açılış doğrulandı, uçtan uca elle test bekliyor |
 | 3 | Görsel tasarım turu | Bekliyor |
 | 4 | Test: otomatik testler, Simulator, fiziksel cihazlar | Bekliyor |
