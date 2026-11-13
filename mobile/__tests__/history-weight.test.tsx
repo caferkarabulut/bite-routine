@@ -4,8 +4,10 @@ import { Alert } from "react-native";
 import { addWeight, getProfile, listWeights, saveProfile } from "../src/db";
 import { WeightScreen } from "../src/features/history/WeightScreen";
 import { freezeDate, freshDb, renderWithApp, TODAY } from "./helpers/history-harness";
+import { guard, resetGuard } from "./helpers/prevent-remove";
 
 jest.mock("expo-localization", () => ({ useLocales: () => [{ languageCode: "tr" }] }));
+jest.mock("expo-router", () => ({ usePreventRemove: require("./helpers/prevent-remove").usePreventRemove }));
 
 const profile = {
   birthYear: 1990,
@@ -53,23 +55,23 @@ describe("WeightScreen", () => {
     expect(rows[0].kg).toBe(71.5);
   });
 
-  it.each(["", "abc", "19,9", "400,1", "0", "-70"])("rejects invalid input %p", async (value) => {
+  it.each(["", "abc", "29,9", "300,1", "0", "-70"])("rejects invalid input %p", async (value) => {
     const db = await freshDb();
     await renderWithApp(<WeightScreen />, db);
     await screen.findByText("Henüz kilo kaydı yok.");
     await enter(value);
-    expect(await screen.findByText("Kilo 20 ile 400 kg arasında olmalı.")).toBeTruthy();
+    expect(await screen.findByText("Kilo 30 ile 300 kg arasında olmalı.")).toBeTruthy();
     expect(await listWeights(db)).toHaveLength(0);
   });
 
-  it("accepts the 20 and 400 kg bounds", async () => {
+  it("accepts the 30 and 300 kg bounds", async () => {
     const db = await freshDb();
     await renderWithApp(<WeightScreen />, db);
     await screen.findByText("Henüz kilo kaydı yok.");
-    await enter("20");
+    await enter("30");
     await screen.findByText("Kilo kaydedildi.");
-    await enter("400");
-    await waitFor(() => expect(screen.getByText("400,0 kg")).toBeTruthy());
+    await enter("300");
+    await waitFor(() => expect(screen.getByText("300,0 kg")).toBeTruthy());
   });
 
   it("lists newest first and shows the chart summary with min/max", async () => {
@@ -155,5 +157,29 @@ describe("WeightScreen", () => {
     await enter("70");
     await screen.findByText("Kilo kaydedildi.");
     expect(screen.queryByRole("button", { name: "Profildeki kiloyu da güncelle" })).toBeNull();
+  });
+
+  describe("unsaved changes guard", () => {
+    beforeEach(() => resetGuard());
+
+    it("is dirty only while the weight field holds text", async () => {
+      const db = await freshDb();
+      await renderWithApp(<WeightScreen />, db);
+      await screen.findByText("Henüz kilo kaydı yok.");
+      expect(guard.active).toBe(false);
+      await fireEvent.changeText(screen.getByLabelText("Kilo (kg)"), "72");
+      expect(guard.active).toBe(true);
+      await fireEvent.changeText(screen.getByLabelText("Kilo (kg)"), "");
+      expect(guard.active).toBe(false);
+    });
+
+    it("is clean again after the weight is saved", async () => {
+      const db = await freshDb();
+      await renderWithApp(<WeightScreen />, db);
+      await screen.findByText("Henüz kilo kaydı yok.");
+      await enter("72,4");
+      expect(await screen.findByText("Kilo kaydedildi.")).toBeTruthy();
+      expect(guard.active).toBe(false);
+    });
   });
 });

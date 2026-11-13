@@ -1,0 +1,55 @@
+# Unsaved-changes guard on the custom food form: leaving with typed text asks first; discarding leaves,
+# keeping stays in the form; an untouched form leaves without a prompt.
+appId: com.biteroutine.mobile
+---
+- launchApp:
+    clearState: true
+- runFlow: subflows/onboarding.yaml
+- tapOn: "Katalog(, tab.*)?"
+- scrollUntilVisible:
+    element: "+ Kendi yemeğini oluştur"
+- tapOn: "+ Kendi yemeğini oluştur"
+
+# Untouched form: back leaves straight away.
+- assertVisible:
+    id: custom-name
+- runFlow: subflows/go-back.yaml
+- extendedWaitUntil:
+    visible:
+      id: catalog-search
+    timeout: 5000
+- assertNotVisible: "Kaydedilmemiş değişiklikler"
+
+# Typed text: back asks first.
+- scrollUntilVisible:
+    element: "+ Kendi yemeğini oluştur"
+- tapOn: "+ Kendi yemeğini oluştur"
+- tapOn:
+    id: custom-name
+- inputText: "Taslak Yemek"
+- runFlow: subflows/go-back.yaml
+- extendedWaitUntil:
+    visible: "Kaydedilmemiş değişiklikler"
+    timeout: 5000
+- assertVisible: "Yaptığın değişiklikler kaydedilmeyecek."
+
+# Keep editing: still on the form with the text intact.
+- tapOn: "Düzenlemeye devam et"
+- assertNotVisible: "Kaydedilmemiş değişiklikler"
+- assertVisible:
+    id: custom-name
+- assertVisible: "Taslak Yemek"
+
+# Back again, discard: leaves for the catalog and nothing was saved.
+- runFlow: subflows/go-back.yaml
+- extendedWaitUntil:
+    visible: "Kaydedilmemiş değişiklikler"
+    timeout: 5000
+- tapOn: "Çık"
+- extendedWaitUntil:
+    visible:
+      id: catalog-search
+    timeout: 5000
+- assertNotVisible:
+    id: custom-name
+- assertNotVisible: "Taslak Yemek"

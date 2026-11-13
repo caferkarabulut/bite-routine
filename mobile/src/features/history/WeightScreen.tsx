@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
+import { Alert, Keyboard, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { addWeight, deleteWeight, listWeights, useDb } from "../../db";
 import { parseAmount, todayInIstanbul } from "../../domain";
@@ -21,13 +21,15 @@ import {
   spacing,
   typography,
   TOUCH,
+  useUnsavedChangesGuard,
 } from "../../ui";
 import { buildWeightChart } from "./aggregate";
 
-const MIN_KG = 20;
-const MAX_KG = 400;
+// Same range as the profile form.
+const MIN_KG = 30;
+const MAX_KG = 300;
 
-/** Parses a typed weight; null when outside 20-400 kg or not a number. */
+/** Parses a typed weight; null when outside 30-300 kg or not a number. */
 export function parseWeight(text: string): number | null {
   const n = parseAmount(text);
   if (n === null) return null;
@@ -46,6 +48,7 @@ export function WeightScreen() {
   const [notice, setNotice] = useState<string | null>(null);
   const [offerKg, setOfferKg] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
+  useUnsavedChangesGuard(text.trim() !== "");
 
   useEffect(() => {
     let active = true;
@@ -75,6 +78,7 @@ export function WeightScreen() {
       return;
     }
     setError(null);
+    Keyboard.dismiss();
     setBusy(true);
     try {
       await addWeight(db, todayInIstanbul(), kg);

@@ -7,7 +7,7 @@ import { MAX_AMOUNT, parseAmount } from "../../domain";
 import { useI18n } from "../../i18n";
 import { useAppState } from "../../state/AppState";
 import type { CustomFood, Nutrients, Portion } from "../../types";
-import { Button, Card, EmptyState, Loading, Screen, SectionTitle, TextField, colors, spacing, typography } from "../../ui";
+import { Button, Card, EmptyState, Loading, Screen, SectionTitle, TextField, colors, spacing, typography, useUnsavedChangesGuard } from "../../ui";
 import { asString } from "./foodView";
 
 type PortionDraft = { key: string; id: string | null; name: string; grams: string };
@@ -76,6 +76,10 @@ function CustomFoodForm({ food }: { food: CustomFood | null }) {
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState(false);
 
+  const [initialSnapshot] = useState(() => customFoodSnapshot({ name, kcal, protein, carbs, fat, portions }));
+  const isDirty = customFoodSnapshot({ name, kcal, protein, carbs, fat, portions }) !== initialSnapshot;
+  const allowLeave = useUnsavedChangesGuard(isDirty);
+
   const addPortionRow = () => {
     setPortions((list) => [...list, { key: `p${nextKey}`, id: null, name: "", grams: "" }]);
     setNextKey((n) => n + 1);
@@ -133,6 +137,7 @@ function CustomFoodForm({ food }: { food: CustomFood | null }) {
     try {
       await saveCustomFood(db, { id: food?.id, nameTr: trimmed, per100g, portions: portionList });
       notifyDataChanged();
+      allowLeave();
       router.back();
     } catch {
       setSaveError(true);
@@ -152,6 +157,7 @@ function CustomFoodForm({ food }: { food: CustomFood | null }) {
             try {
               await deleteCustomFood(db, food.id);
               notifyDataChanged();
+              allowLeave();
               // The detail screen of a deleted food would be empty, so leave both screens.
               router.dismissTo("/catalog");
             } catch {
@@ -252,4 +258,16 @@ function CustomFoodForm({ food }: { food: CustomFood | null }) {
 
 function numText(v: number | null | undefined): string {
   return v === null || v === undefined ? "" : String(v);
+}
+
+/** Form text that the user can edit; row keys, ids and fully empty portion rows are not part of it. */
+export function customFoodSnapshot(v: {
+  name: string;
+  kcal: string;
+  protein: string;
+  carbs: string;
+  fat: string;
+  portions: PortionDraft[];
+}): string {
+  return JSON.stringify([v.name, v.kcal, v.protein, v.carbs, v.fat, v.portions.filter((p) => p.name !== "" || p.grams !== "").map((p) => [p.name, p.grams])]);
 }

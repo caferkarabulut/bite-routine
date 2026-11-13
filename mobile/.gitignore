@@ -42,3 +42,4 @@ yarn-error.*
 
 # Android Metro verification output
 dist-android/
+/android

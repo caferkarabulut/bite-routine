@@ -23,6 +23,7 @@ import {
   SectionTitle,
   spacing,
   typography,
+  useUnsavedChangesGuard,
   type AmountValue,
 } from "../../ui";
 
@@ -66,6 +67,7 @@ export function EntryEditScreen() {
   const [showError, setShowError] = useState(false);
   const [busy, setBusy] = useState(false);
   const [saveError, setSaveError] = useState(false);
+  const [initial, setInitial] = useState<{ amount: AmountValue; meal: MealSlot; date: LocalDate } | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -80,9 +82,11 @@ export function EntryEditScreen() {
         const { portions, missing } = await loadPortions(db, entry);
         if (!active) return;
         setLoaded({ entry, portions, foodMissing: missing });
-        setAmount(initialAmount(entry, lang));
+        const startAmount = initialAmount(entry, lang);
+        setAmount(startAmount);
         setMeal(entry.mealSlot);
         setDate(entry.date);
+        setInitial({ amount: startAmount, meal: entry.mealSlot, date: entry.date });
         setNotFound(false);
         setLoadError(false);
       } catch {
@@ -95,6 +99,14 @@ export function EntryEditScreen() {
     // The editor state is initialised once per entry; language changes must not reset typed input.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [db, id, reloadKey]);
+
+  const isDirty =
+    initial !== null &&
+    (amount.unit !== initial.amount.unit ||
+      amount.text !== initial.amount.text ||
+      meal !== initial.meal ||
+      date !== initial.date);
+  const allowLeave = useUnsavedChangesGuard(isDirty);
 
   const resolved = useMemo(
     () => (loaded ? resolveAmount(amount, loaded.portions, lang) : null),
@@ -157,6 +169,7 @@ export function EntryEditScreen() {
         await updateEntry(db, entry.id, patch);
         notifyDataChanged();
       }
+      allowLeave();
       router.back();
     } catch {
       setSaveError(true);
@@ -170,6 +183,7 @@ export function EntryEditScreen() {
     try {
       await deleteEntry(db, entry.id);
       notifyDataChanged();
+      allowLeave();
       router.back();
     } catch {
       setSaveError(true);

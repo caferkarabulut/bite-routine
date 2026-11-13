@@ -1,0 +1,75 @@
+# Android hardware/gesture back behaviour. Every step is wrapped in `when: platform: Android` so the folder-wide
+# run (config.yaml) stays green on iOS, where there is no back key.
+appId: com.biteroutine.mobile
+---
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      # 1. Onboarding: back must not reveal the tabs. With a single screen on the stack it leaves the app.
+      - launchApp:
+          clearState: true
+      - assertVisible: "Seni tanıyalım"
+      - pressKey: back
+      - assertNotVisible: "Bugün(, tab.*)?"
+      - assertNotVisible: "Seni tanıyalım"
+      # Relaunch without clearing: still no profile, so onboarding again (not the tabs).
+      - launchApp
+      - assertVisible: "Seni tanıyalım"
+      - assertNotVisible: "Bugün(, tab.*)?"
+
+      # 2. After onboarding: back on the Today tab leaves the app and never returns to onboarding.
+      - runFlow: subflows/onboarding.yaml
+      - assertVisible: "0 / .* kcal"
+      - pressKey: back
+      - assertNotVisible: "Seni tanıyalım"
+      - assertNotVisible: "Bugün(, tab.*)?"
+      - launchApp
+      - extendedWaitUntil:
+          visible: "Bugün(, tab.*)?"
+          timeout: 15000
+      - assertNotVisible: "Seni tanıyalım"
+
+      # 3. Catalog -> food detail: back returns to the catalog list.
+      - tapOn: "Katalog(, tab.*)?"
+      - tapOn:
+          id: catalog-search
+      - inputText: "mercimek"
+      - tapOn:
+          text: "Mercimek çorbası.*"
+      - scrollUntilVisible:
+          element:
+            id: add-to-diary
+      - pressKey: back
+      - extendedWaitUntil:
+          visible:
+            id: catalog-search
+          timeout: 5000
+      - assertNotVisible:
+          id: add-to-diary
+
+      # 4. Catalog -> custom food (modal screen): back returns to the catalog.
+      - runFlow:
+          file: subflows/dismiss-keyboard.yaml
+      - scrollUntilVisible:
+          element: "+ Kendi yemeğini oluştur"
+      - tapOn: "+ Kendi yemeğini oluştur"
+      - assertVisible:
+          id: custom-name
+      - pressKey: back
+      - extendedWaitUntil:
+          visible:
+            id: catalog-search
+          timeout: 5000
+      - assertNotVisible:
+          id: custom-name
+
+      # 5. Open modal: back closes the delete-all dialog first and stays on Settings.
+      - tapOn: "Ayarlar(, tab.*)?"
+      - scrollUntilVisible:
+          element: "Tüm verileri sil"
+      - tapOn: "Tüm verileri sil"
+      - assertVisible: "Tüm veriler silinsin mi?"
+      - pressKey: back
+      - assertNotVisible: "Tüm veriler silinsin mi?"
+      - assertVisible: "Tüm verileri sil"
