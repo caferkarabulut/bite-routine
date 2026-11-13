@@ -1,9 +1,10 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { DatabaseProvider } from "../db";
+import { syncReminders } from "../features/settings/reminders";
 import { I18nProvider, useI18n } from "../i18n";
 import { AppStateProvider, useAppState } from "../state/AppState";
 import { colors, ErrorState, Loading } from "../ui";
@@ -39,8 +40,14 @@ function SettingsLanguage({ children }: { children: ReactNode }) {
 }
 
 function RootStack() {
-  const { t } = useI18n();
-  const { status, reload } = useAppState();
+  const { t, lang } = useI18n();
+  const { status, reload, settings } = useAppState();
+
+  // Re-register enabled reminders on start and whenever they or the language change.
+  useEffect(() => {
+    if (status === "ready") void syncReminders(settings.reminders, lang);
+  }, [status, settings.reminders, lang]);
+
   if (status === "loading") return <BootLoading />;
   if (status === "error") return <BootError onRetry={reload} />;
   return (

@@ -28,7 +28,13 @@
       "expo-dev-client",
       "expo-sqlite",
       "expo-localization",
-      "expo-sharing"
+      "expo-sharing",
+      [
+        "expo-notifications",
+        {
+          "color": "#173f34"
+        }
+      ]
     ],
     "scheme": "biteroutine",
     "experiments": {
