@@ -118,10 +118,10 @@ export function CatalogScreen() {
   }, [segment, q, debounced, category, customFoods, favorites, lang, t]);
 
   const openFood = (food: FoodView) => {
-    const p: Record<string, string> = { id: food.ref.id };
-    if (date) p.date = date;
-    if (meal) p.meal = meal;
-    router.push({ pathname: "/food/[id]", params: p });
+    router.push({
+      pathname: "/food/[id]",
+      params: { id: food.ref.id, ...(date ? { date } : {}), ...(meal ? { meal } : {}) },
+    });
   };
 
   const renderItem = ({ item }: { item: Row }) => {
