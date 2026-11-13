@@ -1,0 +1,430 @@
+{
+  "version": 1,
+  "category": "kahvalti",
+  "recipes": [
+    {
+      "dishId": "menemen",
+      "servings": 2,
+      "ingredients": [
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 200
+        },
+        {
+          "key": "domates",
+          "nameTr": "Domates",
+          "grams": 300
+        },
+        {
+          "key": "sivri-biber",
+          "nameTr": "Sivri biber",
+          "grams": 80
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 55
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 28
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 3
+        }
+      ],
+      "cookedWeightGrams": 520,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 260
+        }
+      ],
+      "assumptions": "4 yumurtalı, soğanlı menemen, 2 kişilik; domates ve soğan ~%35 su kaybeder.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "sahanda-yumurta",
+      "servings": 2,
+      "ingredients": [
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 200
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 14
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 2
+        }
+      ],
+      "cookedWeightGrams": 196,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon (2 yumurta)",
+          "nameEn": "1 serving (2 eggs)",
+          "grams": 98
+        },
+        {
+          "id": "adet",
+          "nameTr": "1 yumurta",
+          "nameEn": "1 egg",
+          "grams": 49
+        }
+      ],
+      "assumptions": "2 kişi için 4 yumurta, tereyağında; kızarırken ~%10 su kaybı.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "sucuklu-yumurta",
+      "servings": 2,
+      "ingredients": [
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 200
+        },
+        {
+          "key": "sucuk",
+          "nameTr": "Sucuk",
+          "grams": 100
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 14
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 1
+        }
+      ],
+      "cookedWeightGrams": 260,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 130
+        }
+      ],
+      "assumptions": "4 yumurta, 100 g sucuk; sucuk pişince ~%30 küçülür.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "omlet",
+      "servings": 2,
+      "ingredients": [
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 200
+        },
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Tam yağlı süt",
+          "grams": 30
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 14
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 2
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 0.5
+        }
+      ],
+      "cookedWeightGrams": 220,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 110
+        }
+      ],
+      "assumptions": "4 yumurtalı sade omlet, tereyağlı; ~%10 su kaybı.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "kasarli-tost",
+      "servings": 1,
+      "ingredients": [
+        {
+          "key": "tost-ekmegi",
+          "nameTr": "Tost ekmeği",
+          "grams": 60
+        },
+        {
+          "key": "kasar-peyniri",
+          "nameTr": "Kaşar peyniri",
+          "grams": 45
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 5
+        }
+      ],
+      "cookedWeightGrams": 105,
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 piece",
+          "grams": 105
+        },
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 105
+        }
+      ],
+      "assumptions": "Büfe usulü tek tost: 2 dilim ekmek, kaşar; makinede ~%5 kayıp.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "karisik-tost",
+      "servings": 1,
+      "ingredients": [
+        {
+          "key": "tost-ekmegi",
+          "nameTr": "Tost ekmeği",
+          "grams": 60
+        },
+        {
+          "key": "kasar-peyniri",
+          "nameTr": "Kaşar peyniri",
+          "grams": 40
+        },
+        {
+          "key": "sucuk",
+          "nameTr": "Sucuk",
+          "grams": 30
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 5
+        }
+      ],
+      "cookedWeightGrams": 128,
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 piece",
+          "grams": 128
+        },
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 128
+        }
+      ],
+      "assumptions": "Kaşar + sucuk; sucuk pişince küçülür, ekmek hafif kurur.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "cilbir",
+      "servings": 1,
+      "ingredients": [
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 100
+        },
+        {
+          "key": "yogurt-tam-yagli",
+          "nameTr": "Tam yağlı yoğurt",
+          "grams": 200
+        },
+        {
+          "key": "sarimsak",
+          "nameTr": "Sarımsak",
+          "grams": 5
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 14
+        },
+        {
+          "key": "pul-biber",
+          "nameTr": "Pul biber",
+          "grams": 2
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 2
+        }
+      ],
+      "cookedWeightGrams": 320,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 320
+        }
+      ],
+      "assumptions": "2 haşlama yumurta, sarımsaklı yoğurt, pul biberli tereyağı.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "mihlama",
+      "servings": 2,
+      "ingredients": [
+        {
+          "key": "misir-unu",
+          "nameTr": "Mısır unu",
+          "grams": 30
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 50
+        },
+        {
+          "key": "kasar-peyniri",
+          "nameTr": "Kaşar peyniri",
+          "grams": 220
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 100
+        }
+      ],
+      "cookedWeightGrams": 390,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 220
+        }
+      ],
+      "assumptions": "Karadeniz usulü bol tereyağlı; kaşar ile hazırlanmış (mıhlama peyniri yerine). ~%10 su buharlaşması. Tereyağı 50 g’a indirildi.",
+      "confidence": "low"
+    },
+    {
+      "dishId": "yumurtali-ekmek",
+      "servings": 2,
+      "ingredients": [
+        {
+          "key": "ekmek-beyaz",
+          "nameTr": "Beyaz ekmek",
+          "grams": 120
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 100
+        },
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Tam yağlı süt",
+          "grams": 60
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 26
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 2
+        }
+      ],
+      "cookedWeightGrams": 270,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 135
+        }
+      ],
+      "assumptions": "Bayat ekmek, yumurta-sütte bekletilip kızartma; yağın bir kısmı ekmeğe geçer.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "pisi",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 330
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 200
+        },
+        {
+          "key": "maya-kuru",
+          "nameTr": "Kuru maya",
+          "grams": 7
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 5
+        },
+        {
+          "key": "seker",
+          "nameTr": "Şeker",
+          "grams": 5
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 60
+        }
+      ],
+      "cookedWeightGrams": 555,
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 piece",
+          "grams": 40
+        },
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon (~3.5 adet)",
+          "nameEn": "1 serving (~3.5 pieces)",
+          "grams": 139
+        }
+      ],
+      "assumptions": "Maya hamuru ~14 pişi x 40 g; kızartmada ~%10 su kaybı, hamur ~60 g yağ çeker.",
+      "confidence": "medium"
+    }
+  ]
+}

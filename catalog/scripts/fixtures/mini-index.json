@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "count": 8,
+  "foods": [
+    { "fdcId": 1, "dataType": "SR Legacy", "description": "Lentils, pink or red, raw", "kcal": 358, "protein": 23.9, "carbs": 63.1, "fat": 2.2, "fiber": 10.8, "sodium": 6 },
+    { "fdcId": 2, "dataType": "SR Legacy", "description": "Lentils, raw", "kcal": 352, "protein": 24.6, "carbs": 63.4, "fat": 1.1, "fiber": null, "sodium": null },
+    { "fdcId": 3, "dataType": "SR Legacy", "description": "Lentils, mature seeds, cooked, boiled, without salt", "kcal": 116, "protein": 9, "carbs": 20.1, "fat": 0.4, "fiber": null, "sodium": null },
+    { "fdcId": 4, "dataType": "SR Legacy", "description": "Onions, raw", "kcal": 40, "protein": 1.1, "carbs": 9.3, "fat": 0.1, "fiber": 1.7, "sodium": 4 },
+    { "fdcId": 5, "dataType": "SR Legacy", "description": "Onions, cooked, boiled, drained, without salt", "kcal": 44, "protein": 1.4, "carbs": 10.2, "fat": 0.2, "fiber": null, "sodium": null },
+    { "fdcId": 6, "dataType": "SR Legacy", "description": "Grapefruit, raw, pink and red, Florida", "kcal": 30, "protein": 0.6, "carbs": 7.5, "fat": 0.1, "fiber": null, "sodium": null },
+    { "fdcId": 7, "dataType": "Foundation", "description": "Butter, stick, salted", "kcal": null, "protein": null, "carbs": null, "fat": 82.2, "fiber": null, "sodium": null },
+    { "fdcId": 8, "dataType": "SR Legacy", "description": "Oil, olive, salad or cooking", "kcal": 884, "protein": 0, "carbs": 0, "fat": 100, "fiber": null, "sodium": null }
+  ]
+}

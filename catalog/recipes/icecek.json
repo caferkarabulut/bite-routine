@@ -1,0 +1,200 @@
+{
+  "version": 1,
+  "category": "icecek",
+  "recipes": [
+    {
+      "dishId": "ayran",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "yogurt-tam-yagli",
+          "nameTr": "Yoğurt (tam yağlı)",
+          "grams": 400
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 400
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        }
+      ],
+      "cookedWeightGrams": 806,
+      "portions": [
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak",
+          "nameEn": "1 glass",
+          "grams": 200
+        },
+        {
+          "id": "buyuk-bardak",
+          "nameTr": "1 büyük bardak",
+          "nameEn": "1 large glass",
+          "grams": 300
+        }
+      ],
+      "assumptions": "1:1 yoğurt:su, 1.5 g tuz/bardak.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "cay-sekersiz",
+      "servings": 1,
+      "ingredients": [
+        {
+          "key": "cay-demlenmis",
+          "nameTr": "Çay (demlenmiş)",
+          "grams": 100
+        }
+      ],
+      "cookedWeightGrams": 100,
+      "portions": [
+        {
+          "id": "bardak",
+          "nameTr": "1 ince belli bardak",
+          "nameEn": "1 glass",
+          "grams": 100
+        }
+      ],
+      "assumptions": "İnce belli bardak ~100 g demlenmiş çay.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "cay-sekerli",
+      "servings": 1,
+      "ingredients": [
+        {
+          "key": "cay-demlenmis",
+          "nameTr": "Çay (demlenmiş)",
+          "grams": 100
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 7
+        }
+      ],
+      "cookedWeightGrams": 107,
+      "portions": [
+        {
+          "id": "bardak",
+          "nameTr": "1 ince belli bardak",
+          "nameEn": "1 glass",
+          "grams": 107
+        }
+      ],
+      "assumptions": "2 küp şeker ≈ 7 g (küp ~3.5 g).",
+      "confidence": "high"
+    },
+    {
+      "dishId": "turk-kahvesi",
+      "servings": 1,
+      "ingredients": [
+        {
+          "key": "kahve-demlenmis",
+          "nameTr": "Kahve (demlenmiş)",
+          "grams": 60
+        }
+      ],
+      "cookedWeightGrams": 60,
+      "portions": [
+        {
+          "id": "fincan",
+          "nameTr": "1 fincan",
+          "nameEn": "1 cup",
+          "grams": 60
+        }
+      ],
+      "assumptions": "Sade Türk kahvesi. Demlenmiş kahve kullanıldı çünkü telve içilmiyor; çiğ öğütülmüş kahve 7 g yazmak kaloriyi aşırı yükseltirdi.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "salgam-suyu",
+      "servings": 1,
+      "ingredients": [
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 175
+        },
+        {
+          "key": "havuc-kirmizi",
+          "nameTr": "Kırmızı havuç",
+          "grams": 10
+        },
+        {
+          "key": "salgam-turpu",
+          "nameTr": "Şalgam (turp)",
+          "grams": 10
+        },
+        {
+          "key": "bulgur-kuru",
+          "nameTr": "Bulgur (kuru)",
+          "grams": 2
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 3
+        }
+      ],
+      "cookedWeightGrams": 200,
+      "portions": [
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak",
+          "nameEn": "1 glass",
+          "grams": 200
+        },
+        {
+          "id": "kucuk-bardak",
+          "nameTr": "1 küçük bardak",
+          "nameEn": "1 small glass",
+          "grams": 100
+        }
+      ],
+      "assumptions": "Ticari tip şalgam yaklaşık: havuç ve şalgam fermantasyonu temsil edilmiştir (düşük güven).",
+      "confidence": "low"
+    },
+    {
+      "dishId": "salep",
+      "servings": 1,
+      "ingredients": [
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Süt (tam yağlı)",
+          "grams": 220
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 15
+        },
+        {
+          "key": "salep-tozu",
+          "nameTr": "Salep tozu",
+          "grams": 4
+        },
+        {
+          "key": "tarcin",
+          "nameTr": "Tarçın",
+          "grams": 1
+        }
+      ],
+      "cookedWeightGrams": 235,
+      "portions": [
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak",
+          "nameEn": "1 glass",
+          "grams": 235
+        }
+      ],
+      "assumptions": "Ev usulü salep; sütte ~%2 buharlaşma. Hazır karışım salepler farklı olabilir.",
+      "confidence": "medium"
+    }
+  ]
+}

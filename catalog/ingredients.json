@@ -1,0 +1,603 @@
+{
+  "version": 1,
+  "ingredients": {
+    "aci-biber": {
+      "fdcId": 170497,
+      "dataType": "SR Legacy",
+      "description": "Peppers, hot chili, green, raw",
+      "note": "Yeşil acı biber ile eşlendi."
+    },
+    "aycicek-yagi": {
+      "fdcId": 171025,
+      "dataType": "SR Legacy",
+      "description": "Oil, sunflower, linoleic, (approx. 65%)",
+      "note": ""
+    },
+    "balkabagi": {
+      "fdcId": 169295,
+      "dataType": "SR Legacy",
+      "description": "Squash, winter, butternut, raw",
+      "note": ""
+    },
+    "bamya": {
+      "fdcId": 169260,
+      "dataType": "SR Legacy",
+      "description": "Okra, raw",
+      "note": ""
+    },
+    "barbunya-kuru": {
+      "fdcId": 175189,
+      "dataType": "SR Legacy",
+      "description": "Beans, cranberry (roman), mature seeds, raw",
+      "note": "Barbunya = cranberry (roman) fasulyesi."
+    },
+    "beyaz-peynir": {
+      "fdcId": 173420,
+      "dataType": "SR Legacy",
+      "description": "Cheese, feta",
+      "note": "Yaklaşık: Türk beyaz peyniri yerine feta; tuz ve yağ oranı farklı olabilir."
+    },
+    "biber-salcasi": {
+      "fdcId": 170459,
+      "dataType": "SR Legacy",
+      "description": "Tomato products, canned, paste, without salt added (Includes foods for USDA's Food Distribution Program)",
+      "note": "Yaklaşık: USDA'da biber salçası yok; en yakın bileşimli domates salçası."
+    },
+    "bugday-asurelik-kuru": {
+      "fdcId": 169719,
+      "dataType": "SR Legacy",
+      "description": "Wheat, hard white",
+      "note": "Yaklaşık: aşurelik buğday için sert beyaz buğday."
+    },
+    "bulgur-kuru": {
+      "fdcId": 2710820,
+      "dataType": "Foundation",
+      "description": "Bulgur, dry, raw",
+      "note": ""
+    },
+    "cam-fistigi": {
+      "fdcId": 170591,
+      "dataType": "SR Legacy",
+      "description": "Nuts, pine nuts, dried",
+      "note": ""
+    },
+    "cay-demlenmis": {
+      "fdcId": 173227,
+      "dataType": "SR Legacy",
+      "description": "Beverages, tea, black, brewed, prepared with tap water",
+      "note": ""
+    },
+    "ceviz-ici": {
+      "fdcId": 170187,
+      "dataType": "SR Legacy",
+      "description": "Nuts, walnuts, english",
+      "note": ""
+    },
+    "dana-kiyma-orta-yagli": {
+      "fdcId": 174036,
+      "dataType": "SR Legacy",
+      "description": "Beef, ground, 80% lean meat / 20% fat, raw",
+      "note": "Yaklaşık: çiğ %80 yağsız / %20 yağlı sığır kıyması."
+    },
+    "dana-kusbasi": {
+      "fdcId": 171206,
+      "dataType": "SR Legacy",
+      "description": "Beef, chuck for stew, separable lean and fat, all grades, raw",
+      "note": "Yaklaşık: sığır yahnilik (chuck), yağlı+yağsız, çiğ."
+    },
+    "dereotu": {
+      "fdcId": 172233,
+      "dataType": "SR Legacy",
+      "description": "Dill weed, fresh",
+      "note": ""
+    },
+    "dolmalik-biber": {
+      "fdcId": 170427,
+      "dataType": "SR Legacy",
+      "description": "Peppers, sweet, green, raw",
+      "note": ""
+    },
+    "domates": {
+      "fdcId": 170457,
+      "dataType": "SR Legacy",
+      "description": "Tomatoes, red, ripe, raw, year round average",
+      "note": ""
+    },
+    "domates-salcasi": {
+      "fdcId": 170459,
+      "dataType": "SR Legacy",
+      "description": "Tomato products, canned, paste, without salt added (Includes foods for USDA's Food Distribution Program)",
+      "note": "Tuzsuz konserve salça; Türk salçası daha koyu kıvamlı olabilir."
+    },
+    "ekmek-beyaz": {
+      "fdcId": 167532,
+      "dataType": "SR Legacy",
+      "description": "Bread, white wheat",
+      "note": "Yaklaşık: beyaz buğday ekmeği."
+    },
+    "fistik-antep": {
+      "fdcId": 170184,
+      "dataType": "SR Legacy",
+      "description": "Nuts, pistachio nuts, raw",
+      "note": ""
+    },
+    "hamsi": {
+      "fdcId": 174182,
+      "dataType": "SR Legacy",
+      "description": "Fish, anchovy, european, raw",
+      "note": ""
+    },
+    "havuc": {
+      "fdcId": 170393,
+      "dataType": "SR Legacy",
+      "description": "Carrots, raw",
+      "note": ""
+    },
+    "havuc-kirmizi": {
+      "fdcId": 170393,
+      "dataType": "SR Legacy",
+      "description": "Carrots, raw",
+      "note": "Havuçla aynı kayıt."
+    },
+    "incir-kuru": {
+      "fdcId": 174665,
+      "dataType": "SR Legacy",
+      "description": "Figs, dried, uncooked",
+      "note": ""
+    },
+    "irmik": {
+      "fdcId": 168933,
+      "dataType": "SR Legacy",
+      "description": "Semolina, unenriched",
+      "note": ""
+    },
+    "iskembe-haslanmis": {
+      "fdcId": 174769,
+      "dataType": "SR Legacy",
+      "description": "Beef, variety meats and by-products, tripe, cooked, simmered",
+      "note": "Yaklaşık: haşlanmış sığır işkembesi."
+    },
+    "ispanak": {
+      "fdcId": 168462,
+      "dataType": "SR Legacy",
+      "description": "Spinach, raw",
+      "note": ""
+    },
+    "kabak": {
+      "fdcId": 169291,
+      "dataType": "SR Legacy",
+      "description": "Squash, summer, zucchini, includes skin, raw",
+      "note": "Sakız kabağı (zucchini)."
+    },
+    "kabartma-tozu": {
+      "fdcId": 172804,
+      "dataType": "SR Legacy",
+      "description": "Leavening agents, baking powder, double-acting, straight phosphate",
+      "note": ""
+    },
+    "kahve-demlenmis": {
+      "fdcId": 171890,
+      "dataType": "SR Legacy",
+      "description": "Beverages, coffee, brewed, prepared with tap water",
+      "note": ""
+    },
+    "karabiber": {
+      "fdcId": 170931,
+      "dataType": "SR Legacy",
+      "description": "Spices, pepper, black",
+      "note": ""
+    },
+    "kasar-peyniri": {
+      "fdcId": 170850,
+      "dataType": "SR Legacy",
+      "description": "Cheese, provolone",
+      "note": "Yaklaşık: kaşar yerine provolone (~350 kcal, yarı sert); gerçek kaşar 330-380 kcal."
+    },
+    "kayisi-kuru": {
+      "fdcId": 173941,
+      "dataType": "SR Legacy",
+      "description": "Apricots, dried, sulfured, uncooked",
+      "note": ""
+    },
+    "kimyon": {
+      "fdcId": 170923,
+      "dataType": "SR Legacy",
+      "description": "Spices, cumin seed",
+      "note": ""
+    },
+    "kirmizi-mercimek-kuru": {
+      "fdcId": 174284,
+      "dataType": "SR Legacy",
+      "description": "Lentils, pink or red, raw",
+      "note": ""
+    },
+    "krema-sivi": {
+      "fdcId": 170859,
+      "dataType": "SR Legacy",
+      "description": "Cream, fluid, heavy whipping",
+      "note": "Yaklaşık: yemeklik krema yerine yoğun krema (%36 yağ); Türk kremasında yağ daha düşük olabilir."
+    },
+    "kunefe-peyniri": {
+      "fdcId": 171244,
+      "dataType": "SR Legacy",
+      "description": "Cheese, mozzarella, low moisture, part-skim",
+      "note": "Yaklaşık: künefe peyniri yerine az nemli mozzarella."
+    },
+    "kuru-fasulye-kuru": {
+      "fdcId": 175202,
+      "dataType": "SR Legacy",
+      "description": "Beans, white, mature seeds, raw",
+      "note": "Kuru beyaz fasulye."
+    },
+    "kus-uzumu": {
+      "fdcId": 171724,
+      "dataType": "SR Legacy",
+      "description": "Currants, zante, dried",
+      "note": "Kurutulmuş Zante kuş üzümü."
+    },
+    "kuyruk-yagi": {
+      "fdcId": 172572,
+      "dataType": "SR Legacy",
+      "description": "Lamb, Australian, imported, fresh, separable fat, raw",
+      "note": "Yaklaşık: kuzu ayrılabilir yağı, çiğ (Avustralya kaydı)."
+    },
+    "kuzu-eti": {
+      "fdcId": 174311,
+      "dataType": "SR Legacy",
+      "description": "Lamb, leg, whole (shank and sirloin), separable lean and fat, trimmed to 1/4\" fat, choice, raw",
+      "note": "Yaklaşık: bütün kuzu but, yağlı+yağsız, çiğ."
+    },
+    "kuzu-kiyma": {
+      "fdcId": 174370,
+      "dataType": "SR Legacy",
+      "description": "Lamb, ground, raw",
+      "note": ""
+    },
+    "kuzu-kiyma-izgara": {
+      "fdcId": 172544,
+      "dataType": "SR Legacy",
+      "description": "Lamb, ground, cooked, broiled",
+      "note": "Pişmiş (ızgara) ağırlık; damlayan yağ kaybı USDA kaydında zaten var."
+    },
+    "lavas": {
+      "fdcId": 167535,
+      "dataType": "SR Legacy",
+      "description": "Tortillas, ready-to-bake or -fry, flour, shelf stable",
+      "note": "Yaklaşık: lavaş yerine un tortilla."
+    },
+    "limon-suyu": {
+      "fdcId": 167747,
+      "dataType": "SR Legacy",
+      "description": "Lemon juice, raw",
+      "note": ""
+    },
+    "makarna-kuru": {
+      "fdcId": 168927,
+      "dataType": "SR Legacy",
+      "description": "Pasta, dry, unenriched",
+      "note": ""
+    },
+    "mantar-kultur": {
+      "fdcId": 169251,
+      "dataType": "SR Legacy",
+      "description": "Mushrooms, white, raw",
+      "note": ""
+    },
+    "marul": {
+      "fdcId": 169247,
+      "dataType": "SR Legacy",
+      "description": "Lettuce, cos or romaine, raw",
+      "note": "Marul olarak romaine."
+    },
+    "maya-kuru": {
+      "fdcId": 175043,
+      "dataType": "SR Legacy",
+      "description": "Leavening agents, yeast, baker's, active dry",
+      "note": ""
+    },
+    "maydanoz": {
+      "fdcId": 170416,
+      "dataType": "SR Legacy",
+      "description": "Parsley, fresh",
+      "note": ""
+    },
+    "mayonez": {
+      "fdcId": 171009,
+      "dataType": "SR Legacy",
+      "description": "Salad dressing, mayonnaise, regular",
+      "note": ""
+    },
+    "misir-unu": {
+      "fdcId": 169697,
+      "dataType": "SR Legacy",
+      "description": "Cornmeal, whole-grain, yellow",
+      "note": "Tam tane sarı mısır unu."
+    },
+    "nane-kuru": {
+      "fdcId": 172239,
+      "dataType": "SR Legacy",
+      "description": "Spearmint, dried",
+      "note": "Kuru nane = kurutulmuş yarpuz (spearmint)."
+    },
+    "nar-eksisi": {
+      "fdcId": 168820,
+      "dataType": "SR Legacy",
+      "description": "Molasses",
+      "note": "Yaklaşık: nar ekşisi yerine pekmez/molasses (konsantre şurup); şeker ve asit oranı farklı."
+    },
+    "nisasta-misir": {
+      "fdcId": 169698,
+      "dataType": "SR Legacy",
+      "description": "Cornstarch",
+      "note": ""
+    },
+    "nohut-kuru": {
+      "fdcId": 173756,
+      "dataType": "SR Legacy",
+      "description": "Chickpeas (garbanzo beans, bengal gram), mature seeds, raw",
+      "note": ""
+    },
+    "patates": {
+      "fdcId": 170026,
+      "dataType": "SR Legacy",
+      "description": "Potatoes, flesh and skin, raw",
+      "note": ""
+    },
+    "patlican": {
+      "fdcId": 169228,
+      "dataType": "SR Legacy",
+      "description": "Eggplant, raw",
+      "note": ""
+    },
+    "pekmez": {
+      "fdcId": 168820,
+      "dataType": "SR Legacy",
+      "description": "Molasses",
+      "note": "Yaklaşık: üzüm pekmezi yerine molasses (şeker kamışı); benzer şeker yoğunluğu."
+    },
+    "pide-ekmegi": {
+      "fdcId": 174915,
+      "dataType": "SR Legacy",
+      "description": "Bread, pita, white, enriched",
+      "note": "Yaklaşık: pide ekmeği yerine beyaz pita."
+    },
+    "pirasa": {
+      "fdcId": 169246,
+      "dataType": "SR Legacy",
+      "description": "Leeks, (bulb and lower leaf-portion), raw",
+      "note": ""
+    },
+    "pirinc-kuru": {
+      "fdcId": 169756,
+      "dataType": "SR Legacy",
+      "description": "Rice, white, long-grain, regular, raw, unenriched",
+      "note": ""
+    },
+    "pirinc-unu": {
+      "fdcId": 169714,
+      "dataType": "SR Legacy",
+      "description": "Rice flour, white, unenriched",
+      "note": ""
+    },
+    "pul-biber": {
+      "fdcId": 170932,
+      "dataType": "SR Legacy",
+      "description": "Spices, pepper, red or cayenne",
+      "note": "Yaklaşık: pul biber yerine kırmızı/cayenne biber."
+    },
+    "salatalik": {
+      "fdcId": 168409,
+      "dataType": "SR Legacy",
+      "description": "Cucumber, with peel, raw",
+      "note": ""
+    },
+    "salep-tozu": {
+      "fdcId": 169698,
+      "dataType": "SR Legacy",
+      "description": "Cornstarch",
+      "note": "Yaklaşık: salep tozu yerine mısır nişastası (nişasta benzeri)."
+    },
+    "salgam-turpu": {
+      "fdcId": 170465,
+      "dataType": "SR Legacy",
+      "description": "Turnips, raw",
+      "note": "Yaklaşık: şalgam için turp (turnip)."
+    },
+    "sarimsak": {
+      "fdcId": 169230,
+      "dataType": "SR Legacy",
+      "description": "Garlic, raw",
+      "note": ""
+    },
+    "sehriye-kuru": {
+      "fdcId": 168927,
+      "dataType": "SR Legacy",
+      "description": "Pasta, dry, unenriched",
+      "note": "Tel şehriye için kuru makarna."
+    },
+    "seker": {
+      "fdcId": 169655,
+      "dataType": "SR Legacy",
+      "description": "Sugars, granulated",
+      "note": ""
+    },
+    "sirke": {
+      "fdcId": 172237,
+      "dataType": "SR Legacy",
+      "description": "Vinegar, distilled",
+      "note": ""
+    },
+    "sivri-biber": {
+      "fdcId": 170427,
+      "dataType": "SR Legacy",
+      "description": "Peppers, sweet, green, raw",
+      "note": "Yeşil tatlı biber."
+    },
+    "sogan-kuru": {
+      "fdcId": 170000,
+      "dataType": "SR Legacy",
+      "description": "Onions, raw",
+      "note": ""
+    },
+    "su": {
+      "fdcId": null,
+      "zero": true
+    },
+    "sucuk": {
+      "fdcId": 174582,
+      "dataType": "SR Legacy",
+      "description": "Salami, dry or hard, pork, beef",
+      "note": "Yaklaşık: sucuk yerine kuru dana-domuz salam; gerçek sucuk biraz daha yağlı olabilir."
+    },
+    "sumak": {
+      "fdcId": 171329,
+      "dataType": "SR Legacy",
+      "description": "Spices, paprika",
+      "note": "Yaklaşık: USDA'da sumak yok; pul biber/paprika benzeri baharat (kullanım miktarı çok düşük)."
+    },
+    "susam": {
+      "fdcId": 170150,
+      "dataType": "SR Legacy",
+      "description": "Seeds, sesame seeds, whole, dried",
+      "note": ""
+    },
+    "sut-tam-yagli": {
+      "fdcId": 171265,
+      "dataType": "SR Legacy",
+      "description": "Milk, whole, 3.25% milkfat, with added vitamin D",
+      "note": ""
+    },
+    "tahin": {
+      "fdcId": 170189,
+      "dataType": "SR Legacy",
+      "description": "Seeds, sesame butter, tahini, from roasted and toasted kernels (most common type)",
+      "note": ""
+    },
+    "tarcin": {
+      "fdcId": 171320,
+      "dataType": "SR Legacy",
+      "description": "Spices, cinnamon, ground",
+      "note": ""
+    },
+    "tarhana-kuru": {
+      "fdcId": 168893,
+      "dataType": "SR Legacy",
+      "description": "Wheat flour, whole-grain (Includes foods for USDA's Food Distribution Program)",
+      "note": "Yaklaşık: USDA'da tarhana yok; bileşimi en yakın tam tahıl buğday unu."
+    },
+    "tavuk-but": {
+      "fdcId": 172378,
+      "dataType": "SR Legacy",
+      "description": "Chicken, broilers or fryers, leg, meat and skin, raw",
+      "note": "Derili but (but+baget), kemiksiz, çiğ."
+    },
+    "tavuk-ciger": {
+      "fdcId": 171060,
+      "dataType": "SR Legacy",
+      "description": "Chicken, liver, all classes, raw",
+      "note": ""
+    },
+    "tavuk-gogsu": {
+      "fdcId": 171077,
+      "dataType": "SR Legacy",
+      "description": "Chicken, broiler or fryers, breast, skinless, boneless, meat only, raw",
+      "note": ""
+    },
+    "taze-fasulye": {
+      "fdcId": 169961,
+      "dataType": "SR Legacy",
+      "description": "Beans, snap, green, raw",
+      "note": ""
+    },
+    "taze-sogan": {
+      "fdcId": 170005,
+      "dataType": "SR Legacy",
+      "description": "Onions, spring or scallions (includes tops and bulb), raw",
+      "note": ""
+    },
+    "tel-kadayif": {
+      "fdcId": 172791,
+      "dataType": "SR Legacy",
+      "description": "Phyllo dough",
+      "note": "Yaklaşık: tel kadayıf yerine phyllo hamuru."
+    },
+    "tereyagi": {
+      "fdcId": 173410,
+      "dataType": "SR Legacy",
+      "description": "Butter, salted",
+      "note": ""
+    },
+    "tost-ekmegi": {
+      "fdcId": 167532,
+      "dataType": "SR Legacy",
+      "description": "Bread, white wheat",
+      "note": "Yaklaşık: beyaz buğday ekmeği."
+    },
+    "tuz": {
+      "fdcId": 173468,
+      "dataType": "SR Legacy",
+      "description": "Salt, table",
+      "note": ""
+    },
+    "un-bugday": {
+      "fdcId": 169761,
+      "dataType": "SR Legacy",
+      "description": "Wheat flour, white, all-purpose, unenriched",
+      "note": ""
+    },
+    "uzum-kuru": {
+      "fdcId": 168165,
+      "dataType": "SR Legacy",
+      "description": "Raisins, dark, seedless (Includes foods for USDA's Food Distribution Program)",
+      "note": ""
+    },
+    "uzum-yapragi-salamura": {
+      "fdcId": 169393,
+      "dataType": "SR Legacy",
+      "description": "Grape leaves, canned",
+      "note": "Konserve (salamura) asma yaprağı."
+    },
+    "yenibahar": {
+      "fdcId": 171315,
+      "dataType": "SR Legacy",
+      "description": "Spices, allspice, ground",
+      "note": ""
+    },
+    "yesil-mercimek-kuru": {
+      "fdcId": 172420,
+      "dataType": "SR Legacy",
+      "description": "Lentils, raw",
+      "note": ""
+    },
+    "yogurt-suzme": {
+      "fdcId": 171304,
+      "dataType": "SR Legacy",
+      "description": "Yogurt, Greek, plain, whole milk",
+      "note": "Yaklaşık: süzme yoğurt yerine tam yağlı Yunan yoğurdu."
+    },
+    "yogurt-tam-yagli": {
+      "fdcId": 171284,
+      "dataType": "SR Legacy",
+      "description": "Yogurt, plain, whole milk",
+      "note": ""
+    },
+    "yufka": {
+      "fdcId": 172791,
+      "dataType": "SR Legacy",
+      "description": "Phyllo dough",
+      "note": "Yaklaşık: yufka yerine phyllo hamuru."
+    },
+    "yumurta": {
+      "fdcId": 171287,
+      "dataType": "SR Legacy",
+      "description": "Egg, whole, raw, fresh",
+      "note": ""
+    },
+    "zeytinyagi": {
+      "fdcId": 171413,
+      "dataType": "SR Legacy",
+      "description": "Oil, olive, salad or cooking",
+      "note": ""
+    }
+  }
+}

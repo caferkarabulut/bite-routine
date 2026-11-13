@@ -1,0 +1,843 @@
+{
+  "version": 1,
+  "category": "et-tavuk",
+  "recipes": [
+    {
+      "dishId": "izgara-kofte",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "dana-kiyma-orta-yagli",
+          "nameTr": "Dana kıyma (orta yağlı)",
+          "grams": 700
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 70
+        },
+        {
+          "key": "ekmek-beyaz",
+          "nameTr": "Beyaz ekmek içi",
+          "grams": 40
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 9
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 2
+        },
+        {
+          "key": "kimyon",
+          "nameTr": "Kimyon",
+          "grams": 2
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 12
+        }
+      ],
+      "cookedWeightGrams": 600,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 150
+        },
+        {
+          "id": "adet",
+          "nameTr": "1 köfte",
+          "nameEn": "1 meatball",
+          "grams": 35
+        }
+      ],
+      "assumptions": "Kasap köfte: orta yağlı dana kıyma, rendelenmiş soğan ve ekmek içi; ızgarada ~%28 ağırlık kaybı (850 g çiğ karışım -> ~600 g). Porsiyon yaklaşık 150 g pişmiş köfte (~4 köfte); 1 köfte ~35 g. Ekmek ve soğan ağırlığı tarife göre değişir.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "adana-kebap",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "kuzu-kiyma-izgara",
+          "nameTr": "Kuzu kıyma (kuyruk yağlı, ızgarada pişmiş ağırlık)",
+          "grams": 540
+        },
+        {
+          "key": "pul-biber",
+          "nameTr": "Pul biber",
+          "grams": 6
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 9
+        }
+      ],
+      "cookedWeightGrams": 555,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 140
+        },
+        {
+          "id": "adet",
+          "nameTr": "1 şiş",
+          "nameEn": "1 skewer",
+          "grams": 140
+        }
+      ],
+      "assumptions": "Lokanta usulü kuyruk yağlı kuzu kıyma. Izgarada damlayan yağ çiğ hesapta modellenemediği için et, pişmiş ızgara kuzu kıyma kaydıyla (USDA 172544) pişmiş ağırlık üzerinden hesaplanır: ~855 g çiğ karışım → ~540 g pişmiş. Yan malzemeler (lavaş, biber, soğan) dahil değil.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "tavuk-sis",
+      "servings": 3,
+      "ingredients": [
+        {
+          "key": "tavuk-gogsu",
+          "nameTr": "Tavuk göğsü",
+          "grams": 600
+        },
+        {
+          "key": "yogurt-tam-yagli",
+          "nameTr": "Tam yağlı yoğurt",
+          "grams": 80
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 20
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 20
+        },
+        {
+          "key": "sarimsak",
+          "nameTr": "Sarımsak",
+          "grams": 8
+        },
+        {
+          "key": "limon-suyu",
+          "nameTr": "Limon suyu",
+          "grams": 10
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 2
+        },
+        {
+          "key": "pul-biber",
+          "nameTr": "Pul biber",
+          "grams": 2
+        }
+      ],
+      "cookedWeightGrams": 520,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 173
+        },
+        {
+          "id": "adet",
+          "nameTr": "1 şiş",
+          "nameEn": "1 skewer",
+          "grams": 90
+        }
+      ],
+      "assumptions": "Yoğurtlu-salçalı marinasyon; tavuk göğsü ızgarada ~%25 küçülür (450 g), marinasyonun yaklaşık yarısı ette kalır (toplam ~520 g). Marinasyonun bir kısmı atıldığı için malzeme toplamı pişmiş ağırlıktan fazladır. Yan sebze/pilav dahil değil.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "et-doner",
+      "servings": 3,
+      "ingredients": [
+        {
+          "key": "dana-kusbasi",
+          "nameTr": "Dana kuşbaşı",
+          "grams": 330
+        },
+        {
+          "key": "kuzu-eti",
+          "nameTr": "Kuzu eti",
+          "grams": 200
+        },
+        {
+          "key": "kuyruk-yagi",
+          "nameTr": "Kuyruk yağı",
+          "grams": 50
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 30
+        },
+        {
+          "key": "yogurt-tam-yagli",
+          "nameTr": "Tam yağlı yoğurt",
+          "grams": 20
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 8
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 1.5
+        },
+        {
+          "key": "kimyon",
+          "nameTr": "Kimyon",
+          "grams": 1
+        }
+      ],
+      "cookedWeightGrams": 450,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 150
+        },
+        {
+          "id": "yarim-porsiyon",
+          "nameTr": "Yarım porsiyon",
+          "nameEn": "Half serving",
+          "grams": 100
+        }
+      ],
+      "assumptions": "Lokanta usulü tipik dönerin karışımı: dana + kuzu + kuyruk yağı, dikey ızgarada kesilen et. Döner pişerken yağ ve su kaybı ~%30 (~645 g -> ~450 g). Karışım oranları işletmeden işletmeye çok değişir; ekmek/lavaş ve garnitür dahil değil.",
+      "confidence": "low"
+    },
+    {
+      "dishId": "tavuk-doner",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "tavuk-but",
+          "nameTr": "Tavuk but (derili)",
+          "grams": 500
+        },
+        {
+          "key": "tavuk-gogsu",
+          "nameTr": "Tavuk göğsü",
+          "grams": 150
+        },
+        {
+          "key": "yogurt-tam-yagli",
+          "nameTr": "Tam yağlı yoğurt",
+          "grams": 60
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 25
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 15
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 30
+        },
+        {
+          "key": "sarimsak",
+          "nameTr": "Sarımsak",
+          "grams": 6
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 7
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 1.5
+        },
+        {
+          "key": "kimyon",
+          "nameTr": "Kimyon",
+          "grams": 1
+        }
+      ],
+      "cookedWeightGrams": 540,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 135
+        },
+        {
+          "id": "yarim-porsiyon",
+          "nameTr": "Yarım porsiyon",
+          "nameEn": "Half serving",
+          "grams": 90
+        }
+      ],
+      "assumptions": "Marine edilmiş derili tavuk but (kemiksiz) ve göğüs, dikey ızgarada ~%32 kayıp (~795 g -> ~540 g). Ekmek/lavaş ve garnitür dahil değil. Tavuk but/göğüs oranı işletmeye göre değişir.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "iskender-kebap",
+      "servings": 2,
+      "ingredients": [
+        {
+          "key": "dana-kusbasi",
+          "nameTr": "Dana kuşbaşı",
+          "grams": 200
+        },
+        {
+          "key": "kuzu-eti",
+          "nameTr": "Kuzu eti",
+          "grams": 100
+        },
+        {
+          "key": "kuyruk-yagi",
+          "nameTr": "Kuyruk yağı",
+          "grams": 30
+        },
+        {
+          "key": "pide-ekmegi",
+          "nameTr": "Pide ekmeği",
+          "grams": 180
+        },
+        {
+          "key": "domates",
+          "nameTr": "Domates",
+          "grams": 200
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 20
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 50
+        },
+        {
+          "key": "yogurt-tam-yagli",
+          "nameTr": "Tam yağlı yoğurt",
+          "grams": 160
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 10
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 60
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 9
+        }
+      ],
+      "cookedWeightGrams": 830,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 415
+        }
+      ],
+      "assumptions": "2 tabak: döner eti (dana+kuzu+kuyruk yağı, ~%30 kayıp -> ~250 g), doğranmış pide (180 g), tereyağlı domates sosu (200 g domates + salça + 25 g tereyağı + su, kısılınca ~220 g), üzerine 25 g eritilmiş tereyağı ve 160 g yoğurt. Tabak başı ~415 g. Sos/tereyağı miktarı lokantaya göre çok değişir.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "tas-kebabi",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "dana-kusbasi",
+          "nameTr": "Dana kuşbaşı",
+          "grams": 500
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 150
+        },
+        {
+          "key": "patates",
+          "nameTr": "Patates",
+          "grams": 400
+        },
+        {
+          "key": "domates",
+          "nameTr": "Domates",
+          "grams": 200
+        },
+        {
+          "key": "sivri-biber",
+          "nameTr": "Sivri biber",
+          "grams": 100
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 20
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 28
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 26
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 400
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 8
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 2
+        }
+      ],
+      "cookedWeightGrams": 1350,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 340
+        },
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 250
+        }
+      ],
+      "assumptions": "Ev usulü tencere yemeği: dana kuşbaşı, soğan, patates, domates ve biberle ~40 dk kısık ateşte; kaynama ve buharlaşmayla ~%26 ağırlık kaybı (1834 g -> ~1350 g).",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "tavuk-sote",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "tavuk-gogsu",
+          "nameTr": "Tavuk göğsü",
+          "grams": 500
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 100
+        },
+        {
+          "key": "sivri-biber",
+          "nameTr": "Sivri biber",
+          "grams": 100
+        },
+        {
+          "key": "domates",
+          "nameTr": "Domates",
+          "grams": 200
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 26
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 15
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 100
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 2
+        }
+      ],
+      "cookedWeightGrams": 780,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 195
+        },
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 150
+        }
+      ],
+      "assumptions": "Ev usulü sebzeli tavuk sote; tavuk göğsü küp doğranıp yağda kavrulur, sebzeler eklenir. Tavuk ve sebzeden su çıkar, sos kısılır; ~%25 kayıp (1049 g -> ~780 g).",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "firin-tavuk",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "tavuk-but",
+          "nameTr": "Tavuk but (derili)",
+          "grams": 800
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 30
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 20
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 50
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 2
+        }
+      ],
+      "cookedWeightGrams": 640,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 160
+        },
+        {
+          "id": "adet",
+          "nameTr": "1 but",
+          "nameEn": "1 thigh/drumstick piece",
+          "grams": 160
+        }
+      ],
+      "assumptions": "Derili tavuk but, yenilebilir kısım (kemik hariç) 800 g; salça-yağ sosuyla fırında. Pişerken ~%25 et kaybı + yağ salınımı: ~600 g et + tepsi sosu ~40 g. Patates/pilav gibi garnitür dahil değil. Derinin yenip yenmemesi besin değerini değiştirir; deri dahil varsayıldı.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "kuzu-tandir",
+      "servings": 3,
+      "ingredients": [
+        {
+          "key": "kuzu-eti",
+          "nameTr": "Kuzu eti",
+          "grams": 1000
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 100
+        },
+        {
+          "key": "sarimsak",
+          "nameTr": "Sarımsak",
+          "grams": 10
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 28
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 150
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 10
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 2
+        }
+      ],
+      "cookedWeightGrams": 760,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 200
+        }
+      ],
+      "assumptions": "Kemiksiz eşdeğer 1000 g yağlı kuzu (but/kol), uzun süre kısık fırında; ~%38 küçülme (et suyu ve yağ tepsiye akar, sos ağırlığı dahil değil). Pişmiş ağırlık yalnız et + az sos. Kuzu kısmına göre yağ oranı çok değişir. Pişmiş ağırlık Codex kontrolü sonrası 760 g (tepsiye akan yağın bir kısmı ete geri döner varsayımı).",
+      "confidence": "low"
+    },
+    {
+      "dishId": "hunkar-begendi",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "kuzu-eti",
+          "nameTr": "Kuzu eti",
+          "grams": 400
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 80
+        },
+        {
+          "key": "domates",
+          "nameTr": "Domates",
+          "grams": 150
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 15
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 26
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 300
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 8
+        },
+        {
+          "key": "patlican",
+          "nameTr": "Patlıcan",
+          "grams": 800
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 40
+        },
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 40
+        },
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Tam yağlı süt",
+          "grams": 250
+        },
+        {
+          "key": "kasar-peyniri",
+          "nameTr": "Kaşar peyniri",
+          "grams": 60
+        }
+      ],
+      "cookedWeightGrams": 1500,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 375
+        },
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 250
+        }
+      ],
+      "assumptions": "Üst: kuzu kuşbaşı ev usulü közlenmiş domatesli yahni (~650 g pişmiş). Alt: közlenmiş patlıcan (800 g çiğ -> ~500 g) + tereyağlı un-süt beşamel + kaşar; birleşik püre ~850 g. Toplam ~1500 g, 4 porsiyon.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "hamsi-tava",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "hamsi",
+          "nameTr": "Hamsi (temizlenmiş)",
+          "grams": 800
+        },
+        {
+          "key": "misir-unu",
+          "nameTr": "Mısır unu",
+          "grams": 60
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 100
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 8
+        }
+      ],
+      "cookedWeightGrams": 800,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 200
+        },
+        {
+          "id": "adet",
+          "nameTr": "1 hamsi",
+          "nameEn": "1 anchovy",
+          "grams": 15
+        }
+      ],
+      "assumptions": "Temizlenmiş hamsi mısır unuyla kaplanıp derin yağda kızartılır. Yağın yalnız emilen kısmı sayıldı (~%12.5 balık ağırlığı = 100 g); balık ~%20 su kaybeder (640 g) + un kaplama 60 g + emilen yağ 100 g = ~800 g. Kızartma yağı seviyesi değişken.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "icli-kofte",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "bulgur-kuru",
+          "nameTr": "Bulgur (kuru)",
+          "grams": 250
+        },
+        {
+          "key": "irmik",
+          "nameTr": "İrmik",
+          "grams": 50
+        },
+        {
+          "key": "dana-kiyma-orta-yagli",
+          "nameTr": "Dana kıyma (orta yağlı)",
+          "grams": 280
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 180
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 100
+        },
+        {
+          "key": "ceviz-ici",
+          "nameTr": "Ceviz içi",
+          "grams": 40
+        },
+        {
+          "key": "maydanoz",
+          "nameTr": "Maydanoz",
+          "grams": 15
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 20
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 200
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 13
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 4
+        },
+        {
+          "key": "pul-biber",
+          "nameTr": "Pul biber",
+          "grams": 5
+        }
+      ],
+      "cookedWeightGrams": 960,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 240
+        },
+        {
+          "id": "adet",
+          "nameTr": "1 içli köfte",
+          "nameEn": "1 stuffed kofte",
+          "grams": 80
+        }
+      ],
+      "assumptions": "12 adet kızarmış içli köfte: kabuk ince bulgur + irmik + az kıyma (su yoğurma sırasında bulgurda kalır), iç: kıymalı-cevizli harç (40 g yağda kavrulur). Kızartmada ~60 g yağ emilir (100 g toplam yağ = 40 g iç + 60 g kızartma); su kaybı ~%15 (1155 g -> ~960 g). Haşlama versiyonu yağsızdır.",
+      "confidence": "medium"
+    }
+  ]
+}

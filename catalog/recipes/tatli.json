@@ -1,0 +1,486 @@
+{
+  "version": 1,
+  "category": "tatli",
+  "recipes": [
+    {
+      "dishId": "sutlac",
+      "servings": 7,
+      "ingredients": [
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Süt (tam yağlı)",
+          "grams": 1000
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 200
+        },
+        {
+          "key": "pirinc-kuru",
+          "nameTr": "Pirinç (kuru)",
+          "grams": 90
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 150
+        },
+        {
+          "key": "nisasta-misir",
+          "nameTr": "Mısır nişastası",
+          "grams": 15
+        }
+      ],
+      "cookedWeightGrams": 1240,
+      "portions": [
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 175
+        }
+      ],
+      "assumptions": "Fırın sütlaç yerine sade ocak sütlacı; buharlaşma ~%15.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "baklava",
+      "servings": 26,
+      "ingredients": [
+        {
+          "key": "yufka",
+          "nameTr": "Yufka",
+          "grams": 500
+        },
+        {
+          "key": "fistik-antep",
+          "nameTr": "Antep fıstığı",
+          "grams": 250
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 250
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 350
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 300
+        }
+      ],
+      "cookedWeightGrams": 1550,
+      "portions": [
+        {
+          "id": "dilim",
+          "nameTr": "1 dilim",
+          "nameEn": "1 slice",
+          "grams": 60
+        }
+      ],
+      "assumptions": "Tepsi baklava; şerbetin tatlıya çekilen kısmı ~650 g (seker 350 + su 300) hesaplandı, tavada kalan şerbet sayılmadı. Yufka+iç+yağ fırında ~%10 kaybeder (900 g) + 650 g şerbet.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "kazandibi",
+      "servings": 8,
+      "ingredients": [
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Süt (tam yağlı)",
+          "grams": 1000
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 200
+        },
+        {
+          "key": "nisasta-misir",
+          "nameTr": "Mısır nişastası",
+          "grams": 60
+        },
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 30
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 15
+        }
+      ],
+      "cookedWeightGrams": 1160,
+      "portions": [
+        {
+          "id": "dilim",
+          "nameTr": "1 dilim",
+          "nameEn": "1 slice",
+          "grams": 145
+        }
+      ],
+      "assumptions": "Sade kazandibi; 50 g şeker karamel. Buharlaşma ~%11.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "kunefe",
+      "servings": 5,
+      "ingredients": [
+        {
+          "key": "tel-kadayif",
+          "nameTr": "Tel kadayıf",
+          "grams": 250
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 125
+        },
+        {
+          "key": "kunefe-peyniri",
+          "nameTr": "Künefe peyniri (dil/tuzsuz)",
+          "grams": 250
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 150
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 150
+        },
+        {
+          "key": "fistik-antep",
+          "nameTr": "Antep fıstığı",
+          "grams": 30
+        }
+      ],
+      "cookedWeightGrams": 900,
+      "portions": [
+        {
+          "id": "tabak",
+          "nameTr": "1 tabak",
+          "nameEn": "1 plate",
+          "grams": 180
+        }
+      ],
+      "assumptions": "Şerbetin çektiği kısım ~300 g (seker 150 + su 150). Pişirmede yağ/su kaybı ~%8 (575 g) + şerbet + fıstık.",
+      "confidence": "low"
+    },
+    {
+      "dishId": "revani",
+      "servings": 16,
+      "ingredients": [
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 150
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 150
+        },
+        {
+          "key": "yogurt-tam-yagli",
+          "nameTr": "Yoğurt (tam yağlı)",
+          "grams": 100
+        },
+        {
+          "key": "irmik",
+          "nameTr": "İrmik",
+          "grams": 150
+        },
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 100
+        },
+        {
+          "key": "kabartma-tozu",
+          "nameTr": "Kabartma tozu",
+          "grams": 10
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 100
+        },
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Süt (tam yağlı)",
+          "grams": 100
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 250
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 350
+        }
+      ],
+      "cookedWeightGrams": 1360,
+      "portions": [
+        {
+          "id": "dilim",
+          "nameTr": "1 dilim",
+          "nameEn": "1 slice",
+          "grams": 85
+        }
+      ],
+      "assumptions": "Revani keki; hamur fırında ~%12 kaybeder (760 g), şerbet (seker 250 + su 350) tamamen emilir.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "asure",
+      "servings": 12,
+      "ingredients": [
+        {
+          "key": "bugday-asurelik-kuru",
+          "nameTr": "Aşurelik buğday",
+          "grams": 150
+        },
+        {
+          "key": "nohut-kuru",
+          "nameTr": "Nohut (kuru)",
+          "grams": 50
+        },
+        {
+          "key": "kuru-fasulye-kuru",
+          "nameTr": "Kuru fasulye",
+          "grams": 50
+        },
+        {
+          "key": "pirinc-kuru",
+          "nameTr": "Pirinç (kuru)",
+          "grams": 30
+        },
+        {
+          "key": "kayisi-kuru",
+          "nameTr": "Kuru kayısı",
+          "grams": 60
+        },
+        {
+          "key": "incir-kuru",
+          "nameTr": "Kuru incir",
+          "grams": 60
+        },
+        {
+          "key": "uzum-kuru",
+          "nameTr": "Kuru üzüm",
+          "grams": 50
+        },
+        {
+          "key": "ceviz-ici",
+          "nameTr": "Ceviz içi",
+          "grams": 50
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 350
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 2500
+        }
+      ],
+      "cookedWeightGrams": 2280,
+      "portions": [
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 190
+        }
+      ],
+      "assumptions": "Uzun kaynatma, ~%32 buharlaşma; 12 kase.",
+      "confidence": "low"
+    },
+    {
+      "dishId": "irmik-helvasi",
+      "servings": 6,
+      "ingredients": [
+        {
+          "key": "irmik",
+          "nameTr": "İrmik",
+          "grams": 200
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 100
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 150
+        },
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Süt (tam yağlı)",
+          "grams": 400
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 200
+        },
+        {
+          "key": "cam-fistigi",
+          "nameTr": "Çam fıstığı",
+          "grams": 15
+        }
+      ],
+      "cookedWeightGrams": 940,
+      "portions": [
+        {
+          "id": "tabak",
+          "nameTr": "1 tabak",
+          "nameEn": "1 plate",
+          "grams": 155
+        }
+      ],
+      "assumptions": "Sade ev helvası; buharlaşma ~%12.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "tulumba-tatlisi",
+      "servings": 36,
+      "ingredients": [
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 470
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 110
+        },
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 180
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 100
+        },
+        {
+          "key": "irmik",
+          "nameTr": "İrmik",
+          "grams": 20
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 1
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 250
+        }
+      ],
+      "cookedWeightGrams": 900,
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 piece",
+          "grams": 25
+        }
+      ],
+      "assumptions": "Hamur (su, yağ, un, yumurta, irmik) kızartmada su kaybeder; ~70 g kızartma yağı emilir (hamurdaki 40 g ile toplam 110 g); ~470 g şerbet (seker 250 + su 220) çekilir. Adet ~25 g.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "muhallebi",
+      "servings": 6,
+      "ingredients": [
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Süt (tam yağlı)",
+          "grams": 1000
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 150
+        },
+        {
+          "key": "nisasta-misir",
+          "nameTr": "Mısır nişastası",
+          "grams": 50
+        },
+        {
+          "key": "pirinc-unu",
+          "nameTr": "Pirinç unu",
+          "grams": 30
+        }
+      ],
+      "cookedWeightGrams": 1140,
+      "portions": [
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 190
+        }
+      ],
+      "assumptions": "Sade muhallebi; buharlaşma ~%7.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "kabak-tatlisi",
+      "servings": 6,
+      "ingredients": [
+        {
+          "key": "balkabagi",
+          "nameTr": "Balkabağı (kabuksuz)",
+          "grams": 1000
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 300
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 100
+        },
+        {
+          "key": "ceviz-ici",
+          "nameTr": "Ceviz içi",
+          "grams": 60
+        }
+      ],
+      "cookedWeightGrams": 1050,
+      "portions": [
+        {
+          "id": "tabak",
+          "nameTr": "1 tabak",
+          "nameEn": "1 plate",
+          "grams": 175
+        }
+      ],
+      "assumptions": "Balkabağı kabuk ve çekirdek ayıklanmış; su ~%28 buharlaşır, ceviz servis edilir.",
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "FoundationFoods": [
+    {
+      "fdcId": 100, "dataType": "Foundation", "description": "Test food, raw",
+      "foodNutrients": [
+        { "nutrient": { "id": 2047, "name": "Energy (Atwater General Factors)", "unitName": "kcal" }, "amount": 200.5 },
+        { "nutrient": { "id": 2048, "name": "Energy (Atwater Specific Factors)", "unitName": "kcal" }, "amount": 999 },
+        { "nutrient": { "id": 1003, "name": "Protein", "unitName": "g" }, "amount": 0 },
+        { "nutrient": { "id": 1004, "name": "Total lipid (fat)", "unitName": "g" }, "amount": 10 },
+        { "nutrient": { "id": 1093, "name": "Sodium, Na", "unitName": "mg" }, "amount": 12 }
+      ]
+    },
+    {
+      "fdcId": 101, "dataType": "SR Legacy", "description": "Test food 2",
+      "foodNutrients": [
+        { "nutrient": { "id": 1008, "name": "Energy", "unitName": "kcal" }, "amount": 50 },
+        { "nutrient": { "id": 1079, "name": "Fiber", "unitName": "g" }, "amount": 3.2 }
+      ]
+    }
+  ]
+}
