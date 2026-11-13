@@ -1,0 +1,16 @@
+# Leaves the current screen the way a user does on each platform.
+# Android: close the keyboard first (the first back press would only close it), then the hardware/gesture back key.
+# iOS: tap the header back button (its accessible name is the previous screen's title or "Geri"/"Back").
+appId: com.biteroutine.mobile
+---
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - runFlow: dismiss-keyboard.yaml
+      - pressKey: back
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - tapOn: "Geri|Back|Katalog"

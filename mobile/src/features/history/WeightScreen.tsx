@@ -21,6 +21,7 @@ import {
   spacing,
   typography,
   TOUCH,
+  useUnsavedChangesGuard,
 } from "../../ui";
 import { buildWeightChart } from "./aggregate";
 
@@ -47,6 +48,7 @@ export function WeightScreen() {
   const [notice, setNotice] = useState<string | null>(null);
   const [offerKg, setOfferKg] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
+  useUnsavedChangesGuard(text.trim() !== "");
 
   useEffect(() => {
     let active = true;

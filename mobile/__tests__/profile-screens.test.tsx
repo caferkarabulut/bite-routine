@@ -4,10 +4,11 @@ import { OnboardingScreen } from "../src/features/profile/OnboardingScreen";
 import { ProfileScreen } from "../src/features/profile/ProfileScreen";
 import type { Profile } from "../src/types";
 import { withI18n } from "./helpers/profile-harness";
+import { attemptLeave, guard, resetGuard } from "./helpers/prevent-remove";
 
 const mockReplace = jest.fn();
 const mockBack = jest.fn();
-jest.mock("expo-router", () => ({ router: { replace: (...a: unknown[]) => mockReplace(...a), back: () => mockBack() } }));
+jest.mock("expo-router", () => ({ usePreventRemove: require("./helpers/prevent-remove").usePreventRemove, router: { replace: (...a: unknown[]) => mockReplace(...a), back: () => mockBack() } }));
 jest.mock("expo-localization", () => ({ useLocales: () => [{ languageCode: "tr", languageTag: "tr-TR" }] }));
 
 const mockSaveProfile = jest.fn();
@@ -146,5 +147,42 @@ describe("ProfileScreen", () => {
     await fireEvent.press(screen.getByLabelText("Kaydet"));
     expect(mockSaveProfile).not.toHaveBeenCalled();
     expect(mockBack).not.toHaveBeenCalled();
+  });
+
+  describe("unsaved changes guard", () => {
+    beforeEach(() => resetGuard());
+
+    it("is clean on open, dirty after an edit, clean after reverting", async () => {
+      mockProfile = stored;
+      await render(withI18n(<ProfileScreen />));
+      expect(guard.active).toBe(false);
+      await fireEvent.changeText(screen.getByLabelText("Boy (cm)"), "170");
+      expect(guard.active).toBe(true);
+      expect(attemptLeave()).toBe(false);
+      await fireEvent.changeText(screen.getByLabelText("Boy (cm)"), "165");
+      expect(guard.active).toBe(false);
+    });
+
+    it("treats a changed choice as a change", async () => {
+      mockProfile = stored;
+      await render(withI18n(<ProfileScreen />));
+      await fireEvent.press(screen.getByLabelText("Erkek"));
+      expect(guard.active).toBe(true);
+    });
+
+    it("turns the guard off before going back after a save", async () => {
+      mockProfile = stored;
+      await render(withI18n(<ProfileScreen />));
+      await fireEvent.changeText(screen.getByLabelText("Kilo (kg)"), "63");
+      await fireEvent.press(screen.getByLabelText("Kaydet"));
+      expect(mockBack).toHaveBeenCalled();
+      expect(guard.disable).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not guard onboarding", async () => {
+      await render(withI18n(<OnboardingScreen />));
+      await fireEvent.changeText(screen.getByLabelText("Boy (cm)"), "170");
+      expect(guard.callback).toBeUndefined();
+    });
   });
 });
