@@ -1,0 +1,14 @@
+appId: com.biteroutine.mobile
+---
+- launchApp:
+    clearState: true
+- runFlow: subflows/onboarding.yaml
+- scrollUntilVisible:
+    element: "200 ml ekle"
+- assertVisible: "0 / 2.000 ml"
+- tapOn: "200 ml ekle"
+- assertVisible: "200 / 2.000 ml"
+- tapOn: "500 ml ekle"
+- assertVisible: "700 / 2.000 ml"
+- tapOn: "Son eklemeyi geri al"
+- assertVisible: "200 / 2.000 ml"

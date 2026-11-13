@@ -1,0 +1,63 @@
+appId: com.biteroutine.mobile
+---
+- clearState
+- launchApp:
+    clearState: true
+- assertVisible: "Seni tanıyalım"
+- tapOn: "Erkek"
+- scrollUntilVisible:
+    element: "Orta aktif.*"
+- tapOn: "Orta aktif.*"
+- scrollUntilVisible:
+    element: "Kilomu koru.*"
+- tapOn: "Kilomu koru.*"
+- scrollUntilVisible:
+    element:
+      id: onboarding-birth-year
+    direction: UP
+- tapOn:
+    id: onboarding-birth-year
+- inputText: "1996"
+- tapOn:
+    id: onboarding-height
+- inputText: "178"
+- tapOn:
+    id: onboarding-weight
+- inputText: "78,5"
+# The number pad covers the Başla button and hideKeyboard is unreliable for it: tap the (static) title
+# at the top of the form, which dismisses the keyboard.
+- scrollUntilVisible:
+    element: "Seni tanıyalım"
+    direction: UP
+- tapOn: "Seni tanıyalım"
+- waitForAnimationToEnd
+# Live target preview replaces the empty-state text.
+- scrollUntilVisible:
+    element: "Günlük hedefin \\(önizleme\\)"
+- assertNotVisible: "Bilgileri doldurunca.*"
+- assertVisible: ".* kcal"
+- takeScreenshot: onboarding-preview
+- scrollUntilVisible:
+    element: "Başla"
+- waitForAnimationToEnd
+- tapOn: "Başla"
+# The tap occasionally lands while the layout is still settling after the keyboard closes: retry once.
+- extendedWaitUntil:
+    visible: "Bugün, tab.*"
+    timeout: 4000
+    optional: true
+- runFlow:
+    when:
+      notVisible: "Bugün, tab.*"
+    commands:
+      - scrollUntilVisible:
+          element: "Başla"
+      - tapOn: "Başla"
+- extendedWaitUntil:
+    visible: "Bugün, tab.*"
+    timeout: 15000
+- scrollUntilVisible:
+    element: "Kalori"
+    direction: UP
+- assertVisible: "Kahvaltı"
+- assertVisible: "0 / .* kcal"

@@ -1,0 +1,10 @@
+# Closes the number pad: Enter blurs the focused field, then wait until the keys are gone.
+# hideKeyboard does nothing for the decimal/number pad (no return key), and tapping outside the field does not
+# dismiss it either. The pad takes a few seconds to slide away in the simulator; until it is gone it covers the
+# lower half of the screen and swallows taps.
+appId: com.biteroutine.mobile
+---
+- pressKey: Enter
+- extendedWaitUntil:
+    notVisible: "Delete"
+    timeout: 20000

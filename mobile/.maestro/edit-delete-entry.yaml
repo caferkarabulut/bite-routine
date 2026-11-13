@@ -1,0 +1,51 @@
+appId: com.biteroutine.mobile
+---
+- launchApp:
+    clearState: true
+- runFlow: subflows/onboarding.yaml
+- runFlow: subflows/add-lentil-soup.yaml
+- extendedWaitUntil:
+    visible: "Mercimek çorbası.*"
+    timeout: 8000
+- scrollUntilVisible:
+    element: "Kalori"
+    direction: UP
+- scrollUntilVisible:
+    element: ".*1,5 1 kepçe.*"
+- tapOn: ".*1,5 1 kepçe.*"
+- extendedWaitUntil:
+    visible:
+      id: amount-input
+    timeout: 5000
+- tapOn:
+    id: amount-input
+- eraseText: 5
+- inputText: "2"
+- runFlow:
+    file: subflows/dismiss-keyboard.yaml
+- scrollUntilVisible:
+    element: "Kaydet"
+- tapOn: "Kaydet"
+- scrollUntilVisible:
+    element: "Kalori"
+    direction: UP
+- scrollUntilVisible:
+    element: ".*, 2 1 kepçe"
+- assertVisible: "183 kcal"
+- tapOn: ".*, 2 1 kepçe"
+- extendedWaitUntil:
+    visible:
+      id: amount-input
+    timeout: 5000
+- scrollUntilVisible:
+    element: "Kaydı sil"
+- tapOn: "Kaydı sil"
+- tapOn: "Sil"
+- extendedWaitUntil:
+    visible: "Bugün henüz bir şey eklemedin."
+    timeout: 5000
+- assertNotVisible: "Mercimek çorbası.*"
+- scrollUntilVisible:
+    element: "Kalori"
+    direction: UP
+- assertVisible: "0 / .* kcal"

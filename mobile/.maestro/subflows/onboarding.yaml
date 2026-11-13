@@ -1,0 +1,58 @@
+# Completes onboarding with a fixed profile (1996, Erkek, 178 cm, 78,5 kg, Orta aktif, Kilomu koru)
+# and lands on the Today tab.
+# Chips and option cards are picked first: the decimal/number pad has no return key, hideKeyboard is
+# unreliable for it, and while it is open it covers the lower part of the form.
+appId: com.biteroutine.mobile
+---
+- extendedWaitUntil:
+    visible: "Seni tanıyalım"
+    timeout: 15000
+- tapOn: "Erkek"
+- scrollUntilVisible:
+    element: "Orta aktif.*"
+- tapOn: "Orta aktif.*"
+- scrollUntilVisible:
+    element: "Kilomu koru.*"
+- tapOn: "Kilomu koru.*"
+- scrollUntilVisible:
+    element:
+      id: onboarding-birth-year
+    direction: UP
+- tapOn:
+    id: onboarding-birth-year
+- inputText: "1996"
+- tapOn:
+    id: onboarding-height
+- inputText: "178"
+- tapOn:
+    id: onboarding-weight
+- inputText: "78,5"
+# The number pad covers the Başla button and hideKeyboard is unreliable for it: tap the (static) title
+# at the top of the form, which dismisses the keyboard.
+- scrollUntilVisible:
+    element: "Seni tanıyalım"
+    direction: UP
+- tapOn: "Seni tanıyalım"
+- waitForAnimationToEnd
+- scrollUntilVisible:
+    element: "Günlük hedefin \\(önizleme\\)"
+- assertNotVisible: "Bilgileri doldurunca.*"
+- scrollUntilVisible:
+    element: "Başla"
+- waitForAnimationToEnd
+- tapOn: "Başla"
+# The tap occasionally lands while the layout is still settling after the keyboard closes: retry once.
+- extendedWaitUntil:
+    visible: "Bugün, tab.*"
+    timeout: 4000
+    optional: true
+- runFlow:
+    when:
+      notVisible: "Bugün, tab.*"
+    commands:
+      - scrollUntilVisible:
+          element: "Başla"
+      - tapOn: "Başla"
+- extendedWaitUntil:
+    visible: "Bugün, tab.*"
+    timeout: 15000

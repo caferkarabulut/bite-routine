@@ -1,0 +1,75 @@
+appId: com.biteroutine.mobile
+---
+- launchApp:
+    clearState: true
+- runFlow: subflows/onboarding.yaml
+- tapOn: "Katalog, tab.*"
+- tapOn: "+ Kendi yemeğini oluştur"
+- tapOn:
+    id: custom-name
+- inputText: "Test Börek"
+- tapOn:
+    id: custom-kcal
+- inputText: "250,5"
+- tapOn:
+    id: custom-protein
+- inputText: "8"
+# Carbs and fat sit below the number pad's top edge: close the pad before tapping each of them.
+- runFlow:
+    file: subflows/dismiss-keyboard.yaml
+- tapOn:
+    id: custom-carbs
+- inputText: "30"
+- runFlow:
+    file: subflows/dismiss-keyboard.yaml
+- tapOn:
+    id: custom-fat
+- inputText: "10"
+- runFlow:
+    file: subflows/dismiss-keyboard.yaml
+- scrollUntilVisible:
+    element: "+ Porsiyon ekle"
+- tapOn: "+ Porsiyon ekle"
+- scrollUntilVisible:
+    element:
+      id: custom-portion-name-1
+    centerElement: true
+- tapOn:
+    id: custom-portion-name-1
+- inputText: "Dilim"
+- scrollUntilVisible:
+    element:
+      id: custom-portion-grams-1
+    centerElement: true
+- tapOn:
+    id: custom-portion-grams-1
+- inputText: "80"
+- runFlow:
+    file: subflows/dismiss-keyboard.yaml
+- scrollUntilVisible:
+    element: "Kaydet"
+- tapOn: "Kaydet"
+- extendedWaitUntil:
+    visible: "Yemeklerim"
+    timeout: 5000
+- tapOn: "Yemeklerim"
+- extendedWaitUntil:
+    visible: "Test Börek.*"
+    timeout: 5000
+- tapOn: "Test Börek.*"
+- extendedWaitUntil:
+    visible: "Kendi yemeğim"
+    timeout: 5000
+- scrollUntilVisible:
+    element: "Dilim.*"
+- tapOn: "Dilim.*"
+- scrollUntilVisible:
+    element:
+      id: add-to-diary
+- tapOn:
+    id: add-to-diary
+- extendedWaitUntil:
+    visible: "Test Börek.*"
+    timeout: 8000
+- assertVisible: "Kalori"
+- assertNotVisible: "0 / .* kcal"

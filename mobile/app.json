@@ -24,9 +24,17 @@
     },
     "plugins": [
       "expo-router",
-      "expo-secure-store",
       "expo-status-bar",
-      "expo-dev-client"
+      "expo-dev-client",
+      "expo-sqlite",
+      "expo-localization",
+      "expo-sharing",
+      [
+        "expo-notifications",
+        {
+          "color": "#173f34"
+        }
+      ]
     ],
     "scheme": "biteroutine",
     "experiments": {
