@@ -29,7 +29,7 @@
         },
         {
           "id": "p88376",
-          "nameTr": "İri boy",
+          "nameTr": "En büyük boy",
           "nameEn": "jumbo",
           "grams": 63
         },
@@ -1556,7 +1556,7 @@
         },
         {
           "id": "ons",
-          "nameTr": "1 parça (~28 g)",
+          "nameTr": "1 porsiyon (~28 g)",
           "nameEn": "1 oz",
           "grams": 28.4,
           "origin": "usda"
@@ -1596,7 +1596,7 @@
         },
         {
           "id": "ons",
-          "nameTr": "1 parça (~28 g)",
+          "nameTr": "1 porsiyon (~28 g)",
           "nameEn": "1 oz",
           "grams": 28.4,
           "origin": "usda"
@@ -1677,7 +1677,7 @@
         },
         {
           "id": "ons",
-          "nameTr": "1 parça (~28 g, yaklaşık 21 adet)",
+          "nameTr": "1 porsiyon (~28 g, yaklaşık 21 adet)",
           "nameEn": "1 oz",
           "grams": 28.4,
           "origin": "usda"
@@ -1724,7 +1724,7 @@
         },
         {
           "id": "ons",
-          "nameTr": "1 parça (~28 g, yaklaşık 49 adet)",
+          "nameTr": "1 porsiyon (~28 g, yaklaşık 49 adet)",
           "nameEn": "1 oz",
           "grams": 28.4,
           "origin": "usda"
@@ -1764,7 +1764,7 @@
       "portions": [
         {
           "id": "ons",
-          "nameTr": "1 parça (~28 g)",
+          "nameTr": "1 porsiyon (~28 g)",
           "nameEn": "1 oz",
           "grams": 28.4,
           "origin": "usda"
@@ -3244,7 +3244,7 @@
       "portions": [
         {
           "id": "ons",
-          "nameTr": "1 parça (~28 g)",
+          "nameTr": "1 porsiyon (~28 g)",
           "nameEn": "1 oz",
           "grams": 28.4,
           "origin": "usda"
