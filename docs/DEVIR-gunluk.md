@@ -2,6 +2,12 @@
 
 En yeni girdi en üstte. [`DEVIR.md`](DEVIR.md)'den taşınan ayrıntı buraya gelir. Her girdi şunları yazar: ne yapıldı (dosyalar, commit'ler), kim yaptı (model, hesap), kararlar, doğrulama (komut ve sonucu), açık kalanlar. Girdiler sonradan düzeltilmez; yanlış bir girdi yeni bir girdiyle düzeltilir.
 
+## 2026-11-13 22:47 — kaydedilmemiş form uyarısı (T5)
+
+- Kullanıcı kararı: kaydedilmemiş formdan çıkarken uyarı eklensin. `sonnet-worker` yazdı, yönetici iki platformda doğruladı.
+- PR #42 (#41'e bağlı): `useUnsavedChangesGuard` (expo-router `usePreventRemove`); özel yemek, profil düzenleme, kayıt düzenleme ve kilo formunda değer açılıştakinden farklıysa "Kaydedilmemiş değişiklikler — Düzenlemeye devam et / Çık". Kaydet/sil sonrası yönlendirme engellenmez; onboarding'e eklenmedi. Birim testleri 329/329.
+- Maestro: yeni `unsaved-changes.yaml`. İlk iOS koşusunda iki hata: işçinin iOS geri butonu tahmini yanlıştı (özel yemek iOS'ta modal, geri butonu yok; aşağı kaydırma ile düzeltildi) ve `settings.yaml` "Tüm verileri sil"e sekme çubuğunun altından dokunuyordu (`centerElement` ile düzeltildi). Son durum: Android 9/9 + android-back, iOS 9/9.
+
 ## 2026-11-13 22:05 — dal temizliği ve gece işleri (T1–T4)
 
 - Kim: Claude Opus 5.5 yönetici; işçiler `sonnet-worker` (T1, T2), Codex `gpt-6-luna` high (T3), `gpt-6.1-sol` medium (T4) ve review `gpt-6.1-sol` high/medium. Hepsi ajan-olcum'a kaydedildi (`olcum` proje `bite-routine`).
