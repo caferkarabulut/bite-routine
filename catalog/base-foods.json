@@ -1,0 +1,1736 @@
+{
+  "version": 1,
+  "source": "USDA FoodData Central (CC0)",
+  "foods": [
+    {
+      "id": "usda-174924",
+      "nameTr": "Beyaz ekmek (somun, ticari)",
+      "nameEn": "White bread",
+      "aliases": [
+        "somun ekmek",
+        "francala",
+        "ekmek"
+      ],
+      "fdcId": 174924,
+      "dataType": "SR Legacy",
+      "description": "Bread, white, commercially prepared (includes soft bread crumbs)",
+      "note": "Amerikan ticari beyaz ekmeği; Türk somun/francala ekmeğine yakın enerji ve makro, tuz ve nem farkı olabilir.",
+      "portions": [
+        {
+          "id": "dilim",
+          "nameTr": "1 dilim",
+          "nameEn": "1 slice",
+          "grams": 29,
+          "origin": "usda"
+        },
+        {
+          "id": "ince-dilim",
+          "nameTr": "1 ince dilim",
+          "nameEn": "1 thin slice",
+          "grams": 20,
+          "origin": "usda"
+        },
+        {
+          "id": "buyuk-dilim",
+          "nameTr": "1 büyük dilim",
+          "nameEn": "1 large slice",
+          "grams": 30,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-174915",
+      "nameTr": "Lavaş (pita ekmeği, beyaz)",
+      "nameEn": "Pita bread, white",
+      "aliases": [
+        "lavaş ekmeği",
+        "pide ekmeği"
+      ],
+      "fdcId": 174915,
+      "dataType": "SR Legacy",
+      "description": "Bread, pita, white, enriched",
+      "note": "USDA pita ekmeği; ince açılmış lavaşa yakın bileşim, gerçek lavaş daha kuru ve hafif olabilir.",
+      "portions": [
+        {
+          "id": "kucuk",
+          "nameTr": "1 küçük pita (10 cm)",
+          "nameEn": "1 small pita (4 in)",
+          "grams": 28,
+          "origin": "usda"
+        },
+        {
+          "id": "buyuk",
+          "nameTr": "1 büyük pita (16 cm)",
+          "nameEn": "1 large pita (6.5 in)",
+          "grams": 60,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-167535",
+      "nameTr": "Tortilla (buğday unu, hazır)",
+      "nameEn": "Flour tortilla",
+      "aliases": [
+        "dürüm lavaşı",
+        "tortilla lavaşı",
+        "wrap"
+      ],
+      "fdcId": 167535,
+      "dataType": "SR Legacy",
+      "description": "Tortillas, ready-to-bake or -fry, flour, shelf stable",
+      "note": "",
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 tortilla",
+          "grams": 49,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-173424",
+      "nameTr": "Haşlanmış yumurta",
+      "nameEn": "Egg, hard-boiled",
+      "aliases": [
+        "katı yumurta",
+        "rafadan olmayan yumurta"
+      ],
+      "fdcId": 173424,
+      "dataType": "SR Legacy",
+      "description": "Egg, whole, cooked, hard-boiled",
+      "note": "Büyük boy yumurta; kabuksuz yenilebilir kısım.",
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet (büyük)",
+          "nameEn": "1 large egg",
+          "grams": 50,
+          "origin": "usda"
+        },
+        {
+          "id": "yk",
+          "nameTr": "1 yemek kaşığı (doğranmış)",
+          "nameEn": "1 tbsp chopped",
+          "grams": 8.5,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-169094",
+      "nameTr": "Siyah zeytin (konserve)",
+      "nameEn": "Ripe olives, canned",
+      "aliases": [
+        "zeytin siyah",
+        "salamura siyah zeytin"
+      ],
+      "fdcId": 169094,
+      "dataType": "SR Legacy",
+      "description": "Olives, ripe, canned (small-extra large)",
+      "note": "Konserve olgun zeytin; Türk yağlı salamura siyah zeytininde (gemlik vb.) yağ oranı daha yüksek olabilir.",
+      "portions": [
+        {
+          "id": "buyuk",
+          "nameTr": "1 büyük tane",
+          "nameEn": "1 large olive",
+          "grams": 4.4,
+          "origin": "usda"
+        },
+        {
+          "id": "kucuk",
+          "nameTr": "1 küçük tane",
+          "nameEn": "1 small olive",
+          "grams": 3.2,
+          "origin": "usda"
+        },
+        {
+          "id": "yk",
+          "nameTr": "1 yemek kaşığı",
+          "nameEn": "1 tbsp",
+          "grams": 8.4,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-169096",
+      "nameTr": "Yeşil zeytin (salamura)",
+      "nameEn": "Green olives, pickled",
+      "aliases": [
+        "zeytin yeşil",
+        "salamura yeşil zeytin"
+      ],
+      "fdcId": 169096,
+      "dataType": "SR Legacy",
+      "description": "Olives, pickled, canned or bottled, green",
+      "note": "Salamura/konserve yeşil zeytin.",
+      "portions": [
+        {
+          "id": "tane",
+          "nameTr": "1 tane",
+          "nameEn": "1 olive",
+          "grams": 2.7,
+          "origin": "usda"
+        },
+        {
+          "id": "on-tane",
+          "nameTr": "10 tane",
+          "nameEn": "10 olives",
+          "grams": 27,
+          "origin": "estimate"
+        }
+      ]
+    },
+    {
+      "id": "usda-169640",
+      "nameTr": "Bal",
+      "nameEn": "Honey",
+      "aliases": [
+        "süzme bal",
+        "petek bal"
+      ],
+      "fdcId": 169640,
+      "dataType": "SR Legacy",
+      "description": "Honey",
+      "note": "",
+      "portions": [
+        {
+          "id": "yk",
+          "nameTr": "1 yemek kaşığı",
+          "nameEn": "1 tbsp",
+          "grams": 21,
+          "origin": "usda"
+        },
+        {
+          "id": "paket",
+          "nameTr": "1 küçük paket",
+          "nameEn": "1 packet",
+          "grams": 14,
+          "origin": "usda"
+        },
+        {
+          "id": "tk",
+          "nameTr": "1 tatlı kaşığı",
+          "nameEn": "1 dessert spoon",
+          "grams": 10,
+          "origin": "estimate"
+        }
+      ]
+    },
+    {
+      "id": "usda-169641",
+      "nameTr": "Reçel (meyve, genel)",
+      "nameEn": "Jams and preserves",
+      "aliases": [
+        "çilek reçeli",
+        "kayısı reçeli",
+        "reçel"
+      ],
+      "fdcId": 169641,
+      "dataType": "SR Legacy",
+      "description": "Jams and preserves",
+      "note": "USDA genel reçel kaydı (meyve türü belirtilmemiş); çilek, vişne vb. reçellerde şeker oranına göre sapma olur.",
+      "portions": [
+        {
+          "id": "yk",
+          "nameTr": "1 yemek kaşığı",
+          "nameEn": "1 tbsp",
+          "grams": 20,
+          "origin": "usda"
+        },
+        {
+          "id": "paket",
+          "nameTr": "1 küçük paket",
+          "nameEn": "1 packet",
+          "grams": 14,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-173410",
+      "nameTr": "Tereyağı (tuzlu)",
+      "nameEn": "Butter, salted",
+      "aliases": [
+        "tereyağ",
+        "tuzlu tereyağı"
+      ],
+      "fdcId": 173410,
+      "dataType": "SR Legacy",
+      "description": "Butter, salted",
+      "note": "",
+      "portions": [
+        {
+          "id": "parca",
+          "nameTr": "1 küçük parça (noktası)",
+          "nameEn": "1 pat",
+          "grams": 5,
+          "origin": "usda"
+        },
+        {
+          "id": "yk",
+          "nameTr": "1 yemek kaşığı",
+          "nameEn": "1 tbsp",
+          "grams": 14.2,
+          "origin": "usda"
+        },
+        {
+          "id": "su-bardagi",
+          "nameTr": "1 bardak (240 ml)",
+          "nameEn": "1 cup",
+          "grams": 227,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-170850",
+      "nameTr": "Kaşar peyniri (provolone ile yaklaşık)",
+      "nameEn": "Cheese, provolone",
+      "aliases": [
+        "kaşar",
+        "taze kaşar",
+        "eski kaşar",
+        "kaşar peyniri"
+      ],
+      "fdcId": 170850,
+      "dataType": "SR Legacy",
+      "description": "Cheese, provolone",
+      "note": "USDA'da kaşar yok; aynı pasta filata/yarı sert grubundaki provolone en yakın kayıt (kaşar biraz daha yağlı/nemli olabilir).",
+      "portions": [
+        {
+          "id": "dilim",
+          "nameTr": "1 dilim",
+          "nameEn": "1 slice",
+          "grams": 28,
+          "origin": "usda"
+        },
+        {
+          "id": "ons",
+          "nameTr": "1 ons",
+          "nameEn": "1 oz",
+          "grams": 28.35,
+          "origin": "usda"
+        },
+        {
+          "id": "kibrit",
+          "nameTr": "1 kibrit kutusu (yaklaşık)",
+          "nameEn": "1 matchbox piece",
+          "grams": 30,
+          "origin": "estimate"
+        }
+      ]
+    },
+    {
+      "id": "usda-172182",
+      "nameTr": "Lor peyniri (cottage, %2 yağlı ile yaklaşık)",
+      "nameEn": "Cottage cheese, lowfat 2%",
+      "aliases": [
+        "lor",
+        "çökelek",
+        "süzme peynir",
+        "cottage cheese"
+      ],
+      "fdcId": 172182,
+      "dataType": "SR Legacy",
+      "description": "Cheese, cottage, lowfat, 2% milkfat",
+      "note": "Lor/çökelek tam karşılığı yok; yağsız-az yağlı taze peynir olan cottage cheese en yakın kayıt, tuz ve nem farkı olabilir.",
+      "portions": [
+        {
+          "id": "kase",
+          "nameTr": "1 küçük kase (113 g)",
+          "nameEn": "4 oz",
+          "grams": 113,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak (240 ml)",
+          "nameEn": "1 cup",
+          "grams": 226,
+          "origin": "usda"
+        },
+        {
+          "id": "yk",
+          "nameTr": "1 yemek kaşığı (dolu)",
+          "nameEn": "1 heaped tbsp",
+          "grams": 20,
+          "origin": "estimate"
+        }
+      ]
+    },
+    {
+      "id": "usda-173418",
+      "nameTr": "Krem peynir",
+      "nameEn": "Cream cheese",
+      "aliases": [
+        "cream cheese",
+        "krem şanti peynir",
+        "süzme krem peynir"
+      ],
+      "fdcId": 173418,
+      "dataType": "SR Legacy",
+      "description": "Cheese, cream",
+      "note": "Labne ile aynı değildir: labne süzme yoğurttur ve genelde daha az yağlı/kalorilidir; krem peynir daha yüksek enerji verir.",
+      "portions": [
+        {
+          "id": "yk",
+          "nameTr": "1 yemek kaşığı",
+          "nameEn": "1 tbsp",
+          "grams": 14.5,
+          "origin": "usda"
+        },
+        {
+          "id": "kucuk-paket",
+          "nameTr": "1 küçük paket (85 g)",
+          "nameEn": "1 small package",
+          "grams": 85,
+          "origin": "usda"
+        },
+        {
+          "id": "ons",
+          "nameTr": "1 ons",
+          "nameEn": "1 oz",
+          "grams": 28.35,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-170189",
+      "nameTr": "Tahin",
+      "nameEn": "Tahini",
+      "aliases": [
+        "susam ezmesi",
+        "tahin"
+      ],
+      "fdcId": 170189,
+      "dataType": "SR Legacy",
+      "description": "Seeds, sesame butter, tahini, from roasted and toasted kernels (most common type)",
+      "note": "",
+      "portions": [
+        {
+          "id": "yk",
+          "nameTr": "1 yemek kaşığı",
+          "nameEn": "1 tbsp",
+          "grams": 15,
+          "origin": "usda"
+        },
+        {
+          "id": "ons",
+          "nameTr": "1 ons",
+          "nameEn": "1 oz",
+          "grams": 28.35,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-168820",
+      "nameTr": "Pekmez (melas ile yaklaşık)",
+      "nameEn": "Molasses",
+      "aliases": [
+        "üzüm pekmezi",
+        "dut pekmezi",
+        "harnup pekmezi",
+        "pekmez"
+      ],
+      "fdcId": 168820,
+      "dataType": "SR Legacy",
+      "description": "Molasses",
+      "note": "USDA melas (şeker kamışı) kaydı; üzüm/dut pekmezi benzer enerji ve şeker yoğunluğunda ama aynı ürün değil.",
+      "portions": [
+        {
+          "id": "yk",
+          "nameTr": "1 yemek kaşığı",
+          "nameEn": "1 tbsp",
+          "grams": 20,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak (240 ml)",
+          "nameEn": "1 cup",
+          "grams": 337,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-170581",
+      "nameTr": "Fındık (iç)",
+      "nameEn": "Hazelnuts or filberts",
+      "aliases": [
+        "fındık içi",
+        "çiğ fındık"
+      ],
+      "fdcId": 170581,
+      "dataType": "SR Legacy",
+      "description": "Nuts, hazelnuts or filberts",
+      "note": "",
+      "portions": [
+        {
+          "id": "on-adet",
+          "nameTr": "10 adet",
+          "nameEn": "10 nuts",
+          "grams": 14,
+          "origin": "usda"
+        },
+        {
+          "id": "ons",
+          "nameTr": "1 ons (yaklaşık 21 adet)",
+          "nameEn": "1 oz",
+          "grams": 28.35,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak, bütün (240 ml)",
+          "nameEn": "1 cup, whole",
+          "grams": 135,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-170185",
+      "nameTr": "Antep fıstığı (kavrulmuş, tuzsuz)",
+      "nameEn": "Pistachio nuts, dry roasted, without salt",
+      "aliases": [
+        "fıstık",
+        "antep fıstığı içi",
+        "şam fıstığı"
+      ],
+      "fdcId": 170185,
+      "dataType": "SR Legacy",
+      "description": "Nuts, pistachio nuts, dry roasted, without salt added",
+      "note": "Kabuksuz iç; kabuklu tartılırsa yenilebilir oran yaklaşık yarıdır.",
+      "portions": [
+        {
+          "id": "tane",
+          "nameTr": "1 tane",
+          "nameEn": "1 kernel",
+          "grams": 0.7,
+          "origin": "usda"
+        },
+        {
+          "id": "ons",
+          "nameTr": "1 ons (yaklaşık 49 adet)",
+          "nameEn": "1 oz",
+          "grams": 28.35,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak (240 ml)",
+          "nameEn": "1 cup",
+          "grams": 123,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-170563",
+      "nameTr": "Ay çekirdeği (iç, kavrulmuş, tuzsuz)",
+      "nameEn": "Sunflower seed kernels, dry roasted, without salt",
+      "aliases": [
+        "çekirdek",
+        "ay çekirdeği içi"
+      ],
+      "fdcId": 170563,
+      "dataType": "SR Legacy",
+      "description": "Seeds, sunflower seed kernels, dry roasted, without salt",
+      "note": "Kabuksuz iç; kabuklu çekirdekte yenilebilir oran düşüktür.",
+      "portions": [
+        {
+          "id": "ons",
+          "nameTr": "1 ons",
+          "nameEn": "1 oz",
+          "grams": 28.35,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak (240 ml)",
+          "nameEn": "1 cup",
+          "grams": 128,
+          "origin": "usda"
+        },
+        {
+          "id": "avuc",
+          "nameTr": "1 avuç (kabuksuz)",
+          "nameEn": "1 handful",
+          "grams": 25,
+          "origin": "estimate"
+        }
+      ]
+    },
+    {
+      "id": "usda-173756",
+      "nameTr": "Leblebi (kuru nohutla yaklaşık)",
+      "nameEn": "Chickpeas, mature seeds, raw",
+      "aliases": [
+        "kavrulmuş nohut",
+        "leblebi",
+        "sarı leblebi"
+      ],
+      "fdcId": 173756,
+      "dataType": "SR Legacy",
+      "description": "Chickpeas (garbanzo beans, bengal gram), mature seeds, raw",
+      "note": "USDA'da kavrulmuş leblebi yok; kuru nohut en yakın kayıt (kavurma suyu daha da azaltır, enerji yoğunluğu benzerdir).",
+      "portions": [
+        {
+          "id": "yk",
+          "nameTr": "1 yemek kaşığı",
+          "nameEn": "1 tbsp",
+          "grams": 12.5,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak (240 ml)",
+          "nameEn": "1 cup",
+          "grams": 200,
+          "origin": "usda"
+        },
+        {
+          "id": "avuc",
+          "nameTr": "1 avuç",
+          "nameEn": "1 handful",
+          "grams": 30,
+          "origin": "estimate"
+        }
+      ]
+    },
+    {
+      "id": "usda-173941",
+      "nameTr": "Kuru kayısı",
+      "nameEn": "Apricots, dried, sulfured",
+      "aliases": [
+        "kayısı kurusu",
+        "malatya kayısısı"
+      ],
+      "fdcId": 173941,
+      "dataType": "SR Legacy",
+      "description": "Apricots, dried, sulfured, uncooked",
+      "note": "Kükürtlü kuru kayısı; yarım kayısı = 1 adet yarım.",
+      "portions": [
+        {
+          "id": "yarim",
+          "nameTr": "1 yarım (kayısı)",
+          "nameEn": "1 half",
+          "grams": 3.5,
+          "origin": "usda"
+        },
+        {
+          "id": "adet",
+          "nameTr": "1 adet (2 yarım)",
+          "nameEn": "1 apricot (2 halves)",
+          "grams": 7,
+          "origin": "estimate"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak, yarım (240 ml)",
+          "nameEn": "1 cup, halves",
+          "grams": 130,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-168165",
+      "nameTr": "Kuru üzüm (çekirdeksiz)",
+      "nameEn": "Raisins, dark, seedless",
+      "aliases": [
+        "sultaniye",
+        "kuru üzüm",
+        "çekirdeksiz kuru üzüm"
+      ],
+      "fdcId": 168165,
+      "dataType": "SR Legacy",
+      "description": "Raisins, dark, seedless (Includes foods for USDA's Food Distribution Program)",
+      "note": "",
+      "portions": [
+        {
+          "id": "mini-kutu",
+          "nameTr": "1 mini kutu",
+          "nameEn": "1 miniature box",
+          "grams": 14,
+          "origin": "usda"
+        },
+        {
+          "id": "kucuk-kutu",
+          "nameTr": "1 küçük kutu",
+          "nameEn": "1 small box",
+          "grams": 43,
+          "origin": "usda"
+        },
+        {
+          "id": "elli-tane",
+          "nameTr": "50 tane",
+          "nameEn": "50 raisins",
+          "grams": 26,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak (240 ml)",
+          "nameEn": "1 cup",
+          "grams": 145,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-168191",
+      "nameTr": "Hurma (Medjool)",
+      "nameEn": "Dates, medjool",
+      "aliases": [
+        "hurma",
+        "kuru hurma"
+      ],
+      "fdcId": 168191,
+      "dataType": "SR Legacy",
+      "description": "Dates, medjool",
+      "note": "",
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet (çekirdeksiz)",
+          "nameEn": "1 date, pitted",
+          "grams": 24,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-167765",
+      "nameTr": "Karpuz",
+      "nameEn": "Watermelon, raw",
+      "aliases": [
+        "karpuz dilimi"
+      ],
+      "fdcId": 167765,
+      "dataType": "SR Legacy",
+      "description": "Watermelon, raw",
+      "note": "",
+      "portions": [
+        {
+          "id": "dilim",
+          "nameTr": "1 dilim (büyük)",
+          "nameEn": "1 wedge",
+          "grams": 286,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak, küp (240 ml)",
+          "nameEn": "1 cup diced",
+          "grams": 152,
+          "origin": "usda"
+        },
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon (NLEA)",
+          "nameEn": "1 NLEA serving",
+          "grams": 280,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-169092",
+      "nameTr": "Kavun (kantalup)",
+      "nameEn": "Melons, cantaloupe, raw",
+      "aliases": [
+        "kavun",
+        "kırkağaç kavunu"
+      ],
+      "fdcId": 169092,
+      "dataType": "SR Legacy",
+      "description": "Melons, cantaloupe, raw",
+      "note": "Kantalup kavun; Türk kavunları (kırkağaç, hasanbey) benzer şekerlilikte ama aynı tür değil.",
+      "portions": [
+        {
+          "id": "kucuk-dilim",
+          "nameTr": "1 küçük dilim",
+          "nameEn": "1 small wedge",
+          "grams": 55,
+          "origin": "usda"
+        },
+        {
+          "id": "orta-dilim",
+          "nameTr": "1 orta dilim",
+          "nameEn": "1 medium wedge",
+          "grams": 69,
+          "origin": "usda"
+        },
+        {
+          "id": "buyuk-dilim",
+          "nameTr": "1 büyük dilim",
+          "nameEn": "1 large wedge",
+          "grams": 102,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak, küp (240 ml)",
+          "nameEn": "1 cup cubes",
+          "grams": 160,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-174683",
+      "nameTr": "Üzüm (kırmızı veya yeşil)",
+      "nameEn": "Grapes, red or green, raw",
+      "aliases": [
+        "sofralık üzüm",
+        "çekirdeksiz üzüm"
+      ],
+      "fdcId": 174683,
+      "dataType": "SR Legacy",
+      "description": "Grapes, red or green (European type, such as Thompson seedless), raw",
+      "note": "",
+      "portions": [
+        {
+          "id": "on-tane",
+          "nameTr": "10 tane",
+          "nameEn": "10 grapes",
+          "grams": 49,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak (240 ml)",
+          "nameEn": "1 cup",
+          "grams": 151,
+          "origin": "usda"
+        },
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon (NLEA)",
+          "nameEn": "1 NLEA serving",
+          "grams": 126,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-169118",
+      "nameTr": "Armut",
+      "nameEn": "Pears, raw",
+      "aliases": [
+        "armut"
+      ],
+      "fdcId": 169118,
+      "dataType": "SR Legacy",
+      "description": "Pears, raw",
+      "note": "",
+      "portions": [
+        {
+          "id": "kucuk",
+          "nameTr": "1 küçük",
+          "nameEn": "1 small",
+          "grams": 148,
+          "origin": "usda"
+        },
+        {
+          "id": "orta",
+          "nameTr": "1 orta boy",
+          "nameEn": "1 medium",
+          "grams": 178,
+          "origin": "usda"
+        },
+        {
+          "id": "buyuk",
+          "nameTr": "1 büyük",
+          "nameEn": "1 large",
+          "grams": 230,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-169928",
+      "nameTr": "Şeftali",
+      "nameEn": "Peaches, yellow, raw",
+      "aliases": [
+        "şeftali"
+      ],
+      "fdcId": 169928,
+      "dataType": "SR Legacy",
+      "description": "Peaches, yellow, raw",
+      "note": "",
+      "portions": [
+        {
+          "id": "kucuk",
+          "nameTr": "1 küçük",
+          "nameEn": "1 small",
+          "grams": 130,
+          "origin": "usda"
+        },
+        {
+          "id": "orta",
+          "nameTr": "1 orta boy",
+          "nameEn": "1 medium",
+          "grams": 150,
+          "origin": "usda"
+        },
+        {
+          "id": "buyuk",
+          "nameTr": "1 büyük",
+          "nameEn": "1 large",
+          "grams": 175,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-171719",
+      "nameTr": "Kiraz (tatlı)",
+      "nameEn": "Cherries, sweet, raw",
+      "aliases": [
+        "kiraz"
+      ],
+      "fdcId": 171719,
+      "dataType": "SR Legacy",
+      "description": "Cherries, sweet, raw",
+      "note": "",
+      "portions": [
+        {
+          "id": "tane",
+          "nameTr": "1 tane (çekirdeksiz)",
+          "nameEn": "1 cherry",
+          "grams": 8.2,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak, çekirdeksiz (240 ml)",
+          "nameEn": "1 cup without pits",
+          "grams": 154,
+          "origin": "usda"
+        },
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon (NLEA)",
+          "nameEn": "1 NLEA serving",
+          "grams": 140,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-169105",
+      "nameTr": "Mandalina",
+      "nameEn": "Tangerines, mandarin oranges, raw",
+      "aliases": [
+        "mandalina",
+        "clementine"
+      ],
+      "fdcId": 169105,
+      "dataType": "SR Legacy",
+      "description": "Tangerines, (mandarin oranges), raw",
+      "note": "",
+      "portions": [
+        {
+          "id": "kucuk",
+          "nameTr": "1 küçük",
+          "nameEn": "1 small",
+          "grams": 76,
+          "origin": "usda"
+        },
+        {
+          "id": "orta",
+          "nameTr": "1 orta boy",
+          "nameEn": "1 medium",
+          "grams": 88,
+          "origin": "usda"
+        },
+        {
+          "id": "buyuk",
+          "nameTr": "1 büyük",
+          "nameEn": "1 large",
+          "grams": 120,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-169134",
+      "nameTr": "Nar",
+      "nameEn": "Pomegranates, raw",
+      "aliases": [
+        "nar",
+        "nar taneleri"
+      ],
+      "fdcId": 169134,
+      "dataType": "SR Legacy",
+      "description": "Pomegranates, raw",
+      "note": "Porsiyon yenilebilir iç (tane) ağırlığıdır; kabuklu tam nar için ayrı porsiyon verilmiştir.",
+      "portions": [
+        {
+          "id": "nar",
+          "nameTr": "1 adet (kabuklu, 10 cm)",
+          "nameEn": "1 pomegranate",
+          "grams": 282,
+          "origin": "usda"
+        },
+        {
+          "id": "yarim-bardak",
+          "nameTr": "1/2 bardak nar tanesi",
+          "nameEn": "1/2 cup arils",
+          "grams": 87,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-173021",
+      "nameTr": "İncir (taze)",
+      "nameEn": "Figs, raw",
+      "aliases": [
+        "taze incir",
+        "incir"
+      ],
+      "fdcId": 173021,
+      "dataType": "SR Legacy",
+      "description": "Figs, raw",
+      "note": "",
+      "portions": [
+        {
+          "id": "kucuk",
+          "nameTr": "1 küçük",
+          "nameEn": "1 small",
+          "grams": 40,
+          "origin": "usda"
+        },
+        {
+          "id": "orta",
+          "nameTr": "1 orta boy",
+          "nameEn": "1 medium",
+          "grams": 50,
+          "origin": "usda"
+        },
+        {
+          "id": "buyuk",
+          "nameTr": "1 büyük",
+          "nameEn": "1 large",
+          "grams": 64,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-171705",
+      "nameTr": "Avokado",
+      "nameEn": "Avocados, raw, all commercial varieties",
+      "aliases": [
+        "avokado"
+      ],
+      "fdcId": 171705,
+      "dataType": "SR Legacy",
+      "description": "Avocados, raw, all commercial varieties",
+      "note": "",
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet (ortalama)",
+          "nameEn": "1 avocado",
+          "grams": 201,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak-dilim",
+          "nameTr": "1 bardak dilimlenmiş (240 ml)",
+          "nameEn": "1 cup sliced",
+          "grams": 146,
+          "origin": "usda"
+        },
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon (NLEA)",
+          "nameEn": "1 NLEA serving",
+          "grams": 50,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-170440",
+      "nameTr": "Haşlanmış patates (kabuksuz, tuzsuz)",
+      "nameEn": "Potatoes, boiled, cooked without skin, flesh, without salt",
+      "aliases": [
+        "patates haşlama",
+        "haşlama patates"
+      ],
+      "fdcId": 170440,
+      "dataType": "SR Legacy",
+      "description": "Potatoes, boiled, cooked without skin, flesh, without salt",
+      "note": "",
+      "portions": [
+        {
+          "id": "kucuk",
+          "nameTr": "1 küçük",
+          "nameEn": "1 small",
+          "grams": 125,
+          "origin": "usda"
+        },
+        {
+          "id": "orta",
+          "nameTr": "1 orta boy",
+          "nameEn": "1 medium",
+          "grams": 167,
+          "origin": "usda"
+        },
+        {
+          "id": "buyuk",
+          "nameTr": "1 büyük",
+          "nameEn": "1 large",
+          "grams": 300,
+          "origin": "usda"
+        },
+        {
+          "id": "yarim-bardak",
+          "nameTr": "1/2 bardak",
+          "nameEn": "1/2 cup",
+          "grams": 78,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-169737",
+      "nameTr": "Makarna (haşlanmış, tuzsuz)",
+      "nameEn": "Pasta, cooked, enriched, without added salt",
+      "aliases": [
+        "haşlanmış makarna",
+        "spagetti",
+        "penne",
+        "makarna pişmiş"
+      ],
+      "fdcId": 169737,
+      "dataType": "SR Legacy",
+      "description": "Pasta, cooked, enriched, without added salt",
+      "note": "Pişmiş makarna; kuru makarna ayrı kayıttır (kuru gram ile karıştırmayın).",
+      "portions": [
+        {
+          "id": "spagetti-bardak",
+          "nameTr": "1 bardak spagetti (240 ml)",
+          "nameEn": "1 cup spaghetti",
+          "grams": 124,
+          "origin": "usda"
+        },
+        {
+          "id": "penne-bardak",
+          "nameTr": "1 bardak penne/kıvrık (240 ml)",
+          "nameEn": "1 cup penne",
+          "grams": 107,
+          "origin": "usda"
+        },
+        {
+          "id": "dirsek-bardak",
+          "nameTr": "1 bardak dirsek makarna (240 ml)",
+          "nameEn": "1 cup elbows",
+          "grams": 120,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-171267",
+      "nameTr": "Süt (yarım yağlı, %2)",
+      "nameEn": "Milk, reduced fat, 2% milkfat",
+      "aliases": [
+        "yarım yağlı süt",
+        "süt yarım yağlı"
+      ],
+      "fdcId": 171267,
+      "dataType": "SR Legacy",
+      "description": "Milk, reduced fat, fluid, 2% milkfat, with added vitamin A and vitamin D",
+      "note": "",
+      "portions": [
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak (240 ml)",
+          "nameEn": "1 cup",
+          "grams": 244,
+          "origin": "usda"
+        },
+        {
+          "id": "su-bardagi",
+          "nameTr": "1 su bardağı (200 ml)",
+          "nameEn": "1 Turkish water glass",
+          "grams": 206,
+          "origin": "estimate"
+        }
+      ]
+    },
+    {
+      "id": "usda-170904",
+      "nameTr": "Kefir (az yağlı, sade)",
+      "nameEn": "Kefir, lowfat, plain",
+      "aliases": [
+        "kefir",
+        "kefir sade"
+      ],
+      "fdcId": 170904,
+      "dataType": "SR Legacy",
+      "description": "Kefir, lowfat, plain, LIFEWAY",
+      "note": "USDA kaydı bir marka (LIFEWAY) içindir; sade az yağlı kefir için yaklaşık değerdir.",
+      "portions": [
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak (240 ml)",
+          "nameEn": "1 cup",
+          "grams": 243,
+          "origin": "usda"
+        },
+        {
+          "id": "su-bardagi",
+          "nameTr": "1 su bardağı (200 ml)",
+          "nameEn": "1 Turkish water glass",
+          "grams": 203,
+          "origin": "estimate"
+        },
+        {
+          "id": "sise",
+          "nameTr": "1 şişe (yaklaşık 1 litre)",
+          "nameEn": "1 bottle",
+          "grams": 971,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-174582",
+      "nameTr": "Sucuk (kuru salamla yaklaşık)",
+      "nameEn": "Salami, dry or hard, pork, beef",
+      "aliases": [
+        "sucuk",
+        "dana sucuk",
+        "kangal sucuk"
+      ],
+      "fdcId": 174582,
+      "dataType": "SR Legacy",
+      "description": "Salami, dry or hard, pork, beef",
+      "note": "USDA'da sucuk yok; kuru/sert dana-domuz salam en yakın kayıt. Gerçek sucuk genelde daha yağlı ve kalorili (~400-480 kcal/100 g), değer biraz düşük kalabilir.",
+      "portions": [
+        {
+          "id": "dilim",
+          "nameTr": "1 dilim",
+          "nameEn": "1 slice",
+          "grams": 9.8,
+          "origin": "usda"
+        },
+        {
+          "id": "uc-dilim",
+          "nameTr": "3 dilim",
+          "nameEn": "3 slices",
+          "grams": 27,
+          "origin": "usda"
+        },
+        {
+          "id": "ons",
+          "nameTr": "1 ons",
+          "nameEn": "1 oz",
+          "grams": 28,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-170604",
+      "nameTr": "Pastırma (kurutulmuş dana ile yaklaşık)",
+      "nameEn": "Beef, cured, dried",
+      "aliases": [
+        "pastırma",
+        "kayseri pastırması",
+        "çemensiz pastırma"
+      ],
+      "fdcId": 170604,
+      "dataType": "SR Legacy",
+      "description": "Beef, cured, dried",
+      "note": "USDA'da pastırma yok; kurutulmuş tuzlanmış dana (dried beef) en yakın kayıt. Çemenli pastırma çemen ve yağ nedeniyle daha kalorili olabilir; değer düşük kalabilir.",
+      "portions": [
+        {
+          "id": "on-dilim",
+          "nameTr": "10 dilim",
+          "nameEn": "10 slices",
+          "grams": 28,
+          "origin": "usda"
+        },
+        {
+          "id": "dilim",
+          "nameTr": "1 dilim",
+          "nameEn": "1 slice",
+          "grams": 3,
+          "origin": "estimate"
+        }
+      ]
+    },
+    {
+      "id": "usda-173709",
+      "nameTr": "Ton balığı (konserve, suda, süzülmüş)",
+      "nameEn": "Fish, tuna, light, canned in water, drained solids",
+      "aliases": [
+        "ton balığı suda",
+        "light ton",
+        "ton konserve"
+      ],
+      "fdcId": 173709,
+      "dataType": "SR Legacy",
+      "description": "Fish, tuna, light, canned in water, drained solids (Includes foods for USDA's Food Distribution Program)",
+      "note": "Süzülmüş katı kısım; suyla birlikte tartılırsa enerji daha düşüktür.",
+      "portions": [
+        {
+          "id": "ons-3",
+          "nameTr": "3 ons (yaklaşık 85 g)",
+          "nameEn": "3 oz",
+          "grams": 85,
+          "origin": "usda"
+        },
+        {
+          "id": "kutu",
+          "nameTr": "1 kutu (süzülmüş)",
+          "nameEn": "1 can",
+          "grams": 165,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak (240 ml)",
+          "nameEn": "1 cup",
+          "grams": 154,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-173708",
+      "nameTr": "Ton balığı (konserve, yağda, süzülmüş)",
+      "nameEn": "Fish, tuna, light, canned in oil, drained solids",
+      "aliases": [
+        "ton balığı yağda",
+        "yağlı ton"
+      ],
+      "fdcId": 173708,
+      "dataType": "SR Legacy",
+      "description": "Fish, tuna, light, canned in oil, drained solids",
+      "note": "Süzülmüş katı kısım; yağıyla birlikte tüketilirse enerji daha yüksektir.",
+      "portions": [
+        {
+          "id": "ons-3",
+          "nameTr": "3 ons (yaklaşık 85 g)",
+          "nameEn": "3 oz",
+          "grams": 85,
+          "origin": "usda"
+        },
+        {
+          "id": "kutu",
+          "nameTr": "1 kutu (süzülmüş)",
+          "nameEn": "1 can",
+          "grams": 171,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak (240 ml)",
+          "nameEn": "1 cup",
+          "grams": 146,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-172388",
+      "nameTr": "Tavuk but (derisiz yenen, fırında)",
+      "nameEn": "Chicken, thigh, meat only, cooked, roasted",
+      "aliases": [
+        "tavuk but",
+        "tavuk baget",
+        "pişmiş tavuk but"
+      ],
+      "fdcId": 172388,
+      "dataType": "SR Legacy",
+      "description": "Chicken, broilers or fryers, thigh, meat only, cooked, roasted",
+      "note": "Derisi ve kemiği ayıklanmış pişmiş et; derili yenirse enerji artar.",
+      "portions": [
+        {
+          "id": "derisiz",
+          "nameTr": "1 adet but (derisiz, kemiksiz)",
+          "nameEn": "1 thigh without skin",
+          "grams": 116,
+          "origin": "usda"
+        },
+        {
+          "id": "derili",
+          "nameTr": "1 adet but (derili, ayıklanmış)",
+          "nameEn": "1 thigh with skin",
+          "grams": 137,
+          "origin": "usda"
+        },
+        {
+          "id": "ons-3",
+          "nameTr": "3 ons (yaklaşık 85 g)",
+          "nameEn": "3 oz",
+          "grams": 85,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-168634",
+      "nameTr": "Dana biftek (sirloin, ızgara, yağsız)",
+      "nameEn": "Beef, top sirloin, steak, lean only, broiled",
+      "aliases": [
+        "biftek",
+        "dana bonfile",
+        "ızgara biftek",
+        "dana et ızgara"
+      ],
+      "fdcId": 168634,
+      "dataType": "SR Legacy",
+      "description": "Beef, top sirloin, steak, separable lean only, trimmed to 0\" fat, all grades, cooked, broiled",
+      "note": "Yağı ayıklanmış sirloin; bonfile/antrikot gibi kesimler ve yağı kalan etler farklı olabilir.",
+      "portions": [
+        {
+          "id": "ons-3",
+          "nameTr": "3 ons (yaklaşık 85 g)",
+          "nameEn": "3 oz",
+          "grams": 85,
+          "origin": "usda"
+        },
+        {
+          "id": "parca",
+          "nameTr": "1 parça (pişmiş)",
+          "nameEn": "1 piece, cooked",
+          "grams": 292,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-169247",
+      "nameTr": "Marul (cos/romaine)",
+      "nameEn": "Lettuce, cos or romaine, raw",
+      "aliases": [
+        "marul",
+        "göbek marul",
+        "kıvırcık marul"
+      ],
+      "fdcId": 169247,
+      "dataType": "SR Legacy",
+      "description": "Lettuce, cos or romaine, raw",
+      "note": "Göbek/romaine marul; kıvırcık veya iceberg benzer düşük enerjili.",
+      "portions": [
+        {
+          "id": "yaprak",
+          "nameTr": "1 yaprak (iç)",
+          "nameEn": "1 inner leaf",
+          "grams": 6,
+          "origin": "usda"
+        },
+        {
+          "id": "buyuk-yaprak",
+          "nameTr": "1 büyük yaprak (dış)",
+          "nameEn": "1 outer leaf",
+          "grams": 28,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak doğranmış (240 ml)",
+          "nameEn": "1 cup shredded",
+          "grams": 47,
+          "origin": "usda"
+        },
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon (NLEA)",
+          "nameEn": "1 NLEA serving",
+          "grams": 85,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-169387",
+      "nameTr": "Roka",
+      "nameEn": "Arugula, raw",
+      "aliases": [
+        "roka"
+      ],
+      "fdcId": 169387,
+      "dataType": "SR Legacy",
+      "description": "Arugula, raw",
+      "note": "",
+      "portions": [
+        {
+          "id": "yaprak",
+          "nameTr": "1 yaprak",
+          "nameEn": "1 leaf",
+          "grams": 2,
+          "origin": "usda"
+        },
+        {
+          "id": "yarim-bardak",
+          "nameTr": "1/2 bardak",
+          "nameEn": "1/2 cup",
+          "grams": 10,
+          "origin": "usda"
+        },
+        {
+          "id": "avuc",
+          "nameTr": "1 avuç",
+          "nameEn": "1 handful",
+          "grams": 20,
+          "origin": "estimate"
+        }
+      ]
+    },
+    {
+      "id": "usda-170427",
+      "nameTr": "Yeşil biber (tatlı)",
+      "nameEn": "Peppers, sweet, green, raw",
+      "aliases": [
+        "dolmalık biber",
+        "çarliston biber",
+        "yeşil biber",
+        "sivri biber"
+      ],
+      "fdcId": 170427,
+      "dataType": "SR Legacy",
+      "description": "Peppers, sweet, green, raw",
+      "note": "Tatlı yeşil dolmalık biber; acı veya ince sivri biber benzer düşük enerjili (acı biberde biraz daha fazla).",
+      "portions": [
+        {
+          "id": "kucuk",
+          "nameTr": "1 küçük",
+          "nameEn": "1 small",
+          "grams": 74,
+          "origin": "usda"
+        },
+        {
+          "id": "orta",
+          "nameTr": "1 orta boy",
+          "nameEn": "1 medium",
+          "grams": 119,
+          "origin": "usda"
+        },
+        {
+          "id": "buyuk",
+          "nameTr": "1 büyük",
+          "nameEn": "1 large",
+          "grams": 164,
+          "origin": "usda"
+        },
+        {
+          "id": "halka",
+          "nameTr": "1 halka",
+          "nameEn": "1 ring",
+          "grams": 10,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-167746",
+      "nameTr": "Limon (kabuksuz)",
+      "nameEn": "Lemons, raw, without peel",
+      "aliases": [
+        "limon"
+      ],
+      "fdcId": 167746,
+      "dataType": "SR Legacy",
+      "description": "Lemons, raw, without peel",
+      "note": "Kabuksuz tüm meyve; limon suyu için ayrı kayıt gerekir.",
+      "portions": [
+        {
+          "id": "kucuk",
+          "nameTr": "1 küçük",
+          "nameEn": "1 fruit, small",
+          "grams": 58,
+          "origin": "usda"
+        },
+        {
+          "id": "orta",
+          "nameTr": "1 adet",
+          "nameEn": "1 fruit",
+          "grams": 84,
+          "origin": "usda"
+        },
+        {
+          "id": "dilim",
+          "nameTr": "1 dilim",
+          "nameEn": "1 wedge",
+          "grams": 7,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-174852",
+      "nameTr": "Kola (normal)",
+      "nameEn": "Beverages, carbonated, cola, regular",
+      "aliases": [
+        "coca cola",
+        "pepsi",
+        "gazlı içecek",
+        "kola"
+      ],
+      "fdcId": 174852,
+      "dataType": "SR Legacy",
+      "description": "Beverages, carbonated, cola, regular",
+      "note": "Gram cinsinden 100 g; 100 ml yaklaşık 103 g gelir.",
+      "portions": [
+        {
+          "id": "kutu",
+          "nameTr": "1 kutu (355 ml)",
+          "nameEn": "1 can",
+          "grams": 370,
+          "origin": "usda"
+        },
+        {
+          "id": "kutu-330",
+          "nameTr": "1 kutu (330 ml)",
+          "nameEn": "1 330 ml can",
+          "grams": 340,
+          "origin": "estimate"
+        },
+        {
+          "id": "su-bardagi",
+          "nameTr": "1 su bardağı (200 ml)",
+          "nameEn": "1 Turkish water glass",
+          "grams": 205,
+          "origin": "estimate"
+        }
+      ]
+    },
+    {
+      "id": "usda-169098",
+      "nameTr": "Portakal suyu (taze sıkılmış)",
+      "nameEn": "Orange juice, raw",
+      "aliases": [
+        "taze portakal suyu",
+        "portakal suyu"
+      ],
+      "fdcId": 169098,
+      "dataType": "SR Legacy",
+      "description": "Orange juice, raw (Includes foods for USDA's Food Distribution Program)",
+      "note": "Taze sıkılmış; kutu meyve suyu (şekerli/konsantre) daha farklı olabilir.",
+      "portions": [
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak (240 ml)",
+          "nameEn": "1 cup",
+          "grams": 248,
+          "origin": "usda"
+        },
+        {
+          "id": "su-bardagi",
+          "nameTr": "1 su bardağı (200 ml)",
+          "nameEn": "1 Turkish water glass",
+          "grams": 208,
+          "origin": "estimate"
+        }
+      ]
+    },
+    {
+      "id": "usda-171890",
+      "nameTr": "Kahve (filtre, sade)",
+      "nameEn": "Beverages, coffee, brewed, prepared with tap water",
+      "aliases": [
+        "filtre kahve",
+        "americano",
+        "sade kahve"
+      ],
+      "fdcId": 171890,
+      "dataType": "SR Legacy",
+      "description": "Beverages, coffee, brewed, prepared with tap water",
+      "note": "Şekersiz, sütsüz demlenmiş kahve; Türk kahvesi ve latte gibi kahveler ayrı değerlendirilir.",
+      "portions": [
+        {
+          "id": "fincan",
+          "nameTr": "1 fincan (237 ml)",
+          "nameEn": "1 cup (8 fl oz)",
+          "grams": 237,
+          "origin": "usda"
+        },
+        {
+          "id": "kucuk",
+          "nameTr": "1 küçük fincan (178 ml)",
+          "nameEn": "6 fl oz",
+          "grams": 178,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-172430",
+      "nameTr": "Yer fıstığı (çiğ)",
+      "nameEn": "Peanuts, all types, raw",
+      "aliases": [
+        "fıstık",
+        "yerfıstığı",
+        "çiğ yer fıstığı"
+      ],
+      "fdcId": 172430,
+      "dataType": "SR Legacy",
+      "description": "Peanuts, all types, raw",
+      "note": "Kabuksuz iç; kavrulmuş tuzlu fıstık biraz farklıdır.",
+      "portions": [
+        {
+          "id": "ons",
+          "nameTr": "1 ons",
+          "nameEn": "1 oz",
+          "grams": 28.35,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak (240 ml)",
+          "nameEn": "1 cup",
+          "grams": 146,
+          "origin": "usda"
+        }
+      ]
+    },
+    {
+      "id": "usda-174665",
+      "nameTr": "Kuru incir",
+      "nameEn": "Figs, dried, uncooked",
+      "aliases": [
+        "incir kurusu",
+        "aydın inciri"
+      ],
+      "fdcId": 174665,
+      "dataType": "SR Legacy",
+      "description": "Figs, dried, uncooked",
+      "note": "",
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 fig",
+          "grams": 8.4,
+          "origin": "usda"
+        },
+        {
+          "id": "bardak",
+          "nameTr": "1 bardak (240 ml)",
+          "nameEn": "1 cup",
+          "grams": 149,
+          "origin": "usda"
+        }
+      ]
+    }
+  ]
+}

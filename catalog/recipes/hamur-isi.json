@@ -1,0 +1,830 @@
+{
+  "version": 1,
+  "category": "hamur-isi",
+  "recipes": [
+    {
+      "dishId": "simit",
+      "servings": 6,
+      "ingredients": [
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 500
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 290
+        },
+        {
+          "key": "maya-kuru",
+          "nameTr": "Kuru maya",
+          "grams": 5
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 8
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 5
+        },
+        {
+          "key": "pekmez",
+          "nameTr": "Üzüm pekmezi",
+          "grams": 40
+        },
+        {
+          "key": "susam",
+          "nameTr": "Susam",
+          "grams": 40
+        }
+      ],
+      "cookedWeightGrams": 750,
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 piece",
+          "grams": 125
+        }
+      ],
+      "assumptions": "Fırın simidi: 6 adet ~125 g pişmiş. Pekmezli suyun hamurda kalan kısmı ~40 g pekmez, susam ~40 g. Fırın kaybı ~%15.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "pogaca",
+      "servings": 12,
+      "ingredients": [
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 500
+        },
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Süt (tam yağlı)",
+          "grams": 100
+        },
+        {
+          "key": "yogurt-tam-yagli",
+          "nameTr": "Yoğurt (tam yağlı)",
+          "grams": 100
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 100
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 50
+        },
+        {
+          "key": "maya-kuru",
+          "nameTr": "Kuru maya",
+          "grams": 7
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 5
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        },
+        {
+          "key": "beyaz-peynir",
+          "nameTr": "Beyaz peynir",
+          "grams": 150
+        },
+        {
+          "key": "maydanoz",
+          "nameTr": "Maydanoz",
+          "grams": 15
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 20
+        },
+        {
+          "key": "susam",
+          "nameTr": "Susam",
+          "grams": 5
+        }
+      ],
+      "cookedWeightGrams": 900,
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 piece",
+          "grams": 75
+        }
+      ],
+      "assumptions": "Fırın poğaçası, peynirli iç (~12 g peynir/adet), ~100 g yağ; üstüne yumurta sarısı ve susam. Fırın kaybı ~%15.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "acma",
+      "servings": 10,
+      "ingredients": [
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 500
+        },
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Süt (tam yağlı)",
+          "grams": 150
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 100
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 60
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 60
+        },
+        {
+          "key": "seker",
+          "nameTr": "Toz şeker",
+          "grams": 20
+        },
+        {
+          "key": "maya-kuru",
+          "nameTr": "Kuru maya",
+          "grams": 10
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 8
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 50
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 20
+        }
+      ],
+      "cookedWeightGrams": 800,
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 piece",
+          "grams": 80
+        }
+      ],
+      "assumptions": "Fırın açması: yağlı yumuşak hamur (sıvı yağ + tereyağı), üstüne yumurta. Fırın kaybı ~%18.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "su-boregi",
+      "servings": 10,
+      "ingredients": [
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 400
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 100
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 250
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 5
+        },
+        {
+          "key": "beyaz-peynir",
+          "nameTr": "Beyaz peynir",
+          "grams": 300
+        },
+        {
+          "key": "maydanoz",
+          "nameTr": "Maydanoz",
+          "grams": 30
+        },
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Süt (tam yağlı)",
+          "grams": 150
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 50
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 100
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 60
+        }
+      ],
+      "cookedWeightGrams": 1250,
+      "portions": [
+        {
+          "id": "dilim",
+          "nameTr": "1 dilim",
+          "nameEn": "1 slice",
+          "grams": 125
+        }
+      ],
+      "assumptions": "Ev yapımı su böreği (el açması 4-5 kat). Su 250 g: hamur suyu + haşlama sırasında çekilen su. Peynirli, maydanozlu; üstüne süt-yumurta ve tereyağı-yağ. Fırın kaybı ~%13.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "sigara-boregi",
+      "servings": 20,
+      "ingredients": [
+        {
+          "key": "yufka",
+          "nameTr": "Yufka",
+          "grams": 360
+        },
+        {
+          "key": "beyaz-peynir",
+          "nameTr": "Beyaz peynir",
+          "grams": 250
+        },
+        {
+          "key": "maydanoz",
+          "nameTr": "Maydanoz",
+          "grams": 20
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 50
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 80
+        }
+      ],
+      "cookedWeightGrams": 700,
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 piece",
+          "grams": 35
+        }
+      ],
+      "assumptions": "3 üçgen yufka, 20 adet; kızartmada emilen yağ ~80 g (toplam yağın kalan kısmı atılır). Kızartma su kaybı ~%8.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "kiymali-borek",
+      "servings": 10,
+      "ingredients": [
+        {
+          "key": "yufka",
+          "nameTr": "Yufka",
+          "grams": 550
+        },
+        {
+          "key": "dana-kiyma-orta-yagli",
+          "nameTr": "Dana kıyma (orta yağlı)",
+          "grams": 300
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 150
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 20
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 5
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 2
+        },
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Süt (tam yağlı)",
+          "grams": 200
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 100
+        },
+        {
+          "key": "yogurt-tam-yagli",
+          "nameTr": "Yoğurt (tam yağlı)",
+          "grams": 100
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 100
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 50
+        }
+      ],
+      "cookedWeightGrams": 1350,
+      "portions": [
+        {
+          "id": "dilim",
+          "nameTr": "1 dilim",
+          "nameEn": "1 slice",
+          "grams": 135
+        }
+      ],
+      "assumptions": "Tepsi böreği, kıyma+soğan iç; üstüne süt-yumurta-yoğurt-yağ karışımı. Fırın ve kıyma su kaybı ~%14.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "lahmacun",
+      "servings": 8,
+      "ingredients": [
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 400
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 220
+        },
+        {
+          "key": "maya-kuru",
+          "nameTr": "Kuru maya",
+          "grams": 5
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 15
+        },
+        {
+          "key": "dana-kiyma-orta-yagli",
+          "nameTr": "Dana kıyma (orta yağlı)",
+          "grams": 250
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 100
+        },
+        {
+          "key": "domates",
+          "nameTr": "Domates",
+          "grams": 100
+        },
+        {
+          "key": "sivri-biber",
+          "nameTr": "Sivri biber",
+          "grams": 50
+        },
+        {
+          "key": "maydanoz",
+          "nameTr": "Maydanoz",
+          "grams": 30
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 30
+        },
+        {
+          "key": "biber-salcasi",
+          "nameTr": "Biber salçası",
+          "grams": 20
+        },
+        {
+          "key": "sarimsak",
+          "nameTr": "Sarımsak",
+          "grams": 10
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 30
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        },
+        {
+          "key": "pul-biber",
+          "nameTr": "Pul biber",
+          "grams": 3
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 1
+        }
+      ],
+      "cookedWeightGrams": 1000,
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 piece",
+          "grams": 125
+        }
+      ],
+      "assumptions": "İnce hamur ve yağlı kıymalı harç; 8 adet. Hamur+harç ~1276 g çiğ, yüksek ısıda ~%22 kayıp.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "kiymali-pide",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 400
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 240
+        },
+        {
+          "key": "maya-kuru",
+          "nameTr": "Kuru maya",
+          "grams": 5
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 10
+        },
+        {
+          "key": "dana-kiyma-orta-yagli",
+          "nameTr": "Dana kıyma (orta yağlı)",
+          "grams": 300
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 100
+        },
+        {
+          "key": "sivri-biber",
+          "nameTr": "Sivri biber",
+          "grams": 40
+        },
+        {
+          "key": "domates",
+          "nameTr": "Domates",
+          "grams": 50
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 15
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 20
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 20
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 4
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 1
+        },
+        {
+          "key": "maydanoz",
+          "nameTr": "Maydanoz",
+          "grams": 10
+        }
+      ],
+      "cookedWeightGrams": 1040,
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 piece",
+          "grams": 260
+        }
+      ],
+      "assumptions": "Tekne pide, 4 adet; pide başına ~75 g kıyma. Kenarlara tereyağı + yumurta. Fırın kaybı ~%15.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "kasarli-pide",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 400
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 240
+        },
+        {
+          "key": "maya-kuru",
+          "nameTr": "Kuru maya",
+          "grams": 5
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 10
+        },
+        {
+          "key": "kasar-peyniri",
+          "nameTr": "Kaşar peyniri",
+          "grams": 300
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 20
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 20
+        }
+      ],
+      "cookedWeightGrams": 880,
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 piece",
+          "grams": 220
+        }
+      ],
+      "assumptions": "Tekne pide, 4 adet; pide başına ~75 g kaşar. Kaşar az su kaybeder; fırın kaybı ~%12.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "gozleme",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 400
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 220
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 5
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 10
+        },
+        {
+          "key": "beyaz-peynir",
+          "nameTr": "Beyaz peynir",
+          "grams": 250
+        },
+        {
+          "key": "maydanoz",
+          "nameTr": "Maydanoz",
+          "grams": 30
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 30
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 20
+        }
+      ],
+      "cookedWeightGrams": 820,
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 piece",
+          "grams": 205
+        }
+      ],
+      "assumptions": "Sac gözleme, 4 adet; peynir-maydanozlu. Sacda yağ ~50 g. Su kaybı ~%15.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "tavuk-durum",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "lavas",
+          "nameTr": "Lavaş",
+          "grams": 280
+        },
+        {
+          "key": "tavuk-gogsu",
+          "nameTr": "Tavuk göğsü",
+          "grams": 400
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 40
+        },
+        {
+          "key": "yogurt-tam-yagli",
+          "nameTr": "Yoğurt (tam yağlı)",
+          "grams": 40
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 4
+        },
+        {
+          "key": "mayonez",
+          "nameTr": "Mayonez",
+          "grams": 40
+        },
+        {
+          "key": "marul",
+          "nameTr": "Marul",
+          "grams": 40
+        },
+        {
+          "key": "domates",
+          "nameTr": "Domates",
+          "grams": 80
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 40
+        },
+        {
+          "key": "salatalik",
+          "nameTr": "Salatalık",
+          "grams": 40
+        }
+      ],
+      "cookedWeightGrams": 900,
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 piece",
+          "grams": 225
+        }
+      ],
+      "assumptions": "Büfe tavuk dürüm: 70 g lavaş, 100 g çiğ tavuk, mayonez, sebze. Tavuk pişince ~%25 kaybeder.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "tantuni",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "lavas",
+          "nameTr": "Lavaş",
+          "grams": 280
+        },
+        {
+          "key": "dana-kusbasi",
+          "nameTr": "Dana kuşbaşı",
+          "grams": 320
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 30
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 15
+        },
+        {
+          "key": "domates",
+          "nameTr": "Domates",
+          "grams": 100
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 80
+        },
+        {
+          "key": "maydanoz",
+          "nameTr": "Maydanoz",
+          "grams": 30
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 15
+        },
+        {
+          "key": "pul-biber",
+          "nameTr": "Pul biber",
+          "grams": 2
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 4
+        },
+        {
+          "key": "kimyon",
+          "nameTr": "Kimyon",
+          "grams": 2
+        }
+      ],
+      "cookedWeightGrams": 780,
+      "portions": [
+        {
+          "id": "adet",
+          "nameTr": "1 adet",
+          "nameEn": "1 piece",
+          "grams": 195
+        }
+      ],
+      "assumptions": "Mersin usulü tantuni dürümü, 70 g lavaş + 80 g çiğ dana kuşbaşı/adet; yağda kavrulur. Et kaybı ~%30.",
+      "confidence": "medium"
+    }
+  ]
+}

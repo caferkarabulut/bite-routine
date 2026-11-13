@@ -1,0 +1,696 @@
+{
+  "version": 1,
+  "category": "corba",
+  "recipes": [
+    {
+      "dishId": "mercimek-corbasi",
+      "servings": 6,
+      "ingredients": [
+        {
+          "key": "kirmizi-mercimek-kuru",
+          "nameTr": "Kırmızı mercimek (kuru)",
+          "grams": 190
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 110
+        },
+        {
+          "key": "havuc",
+          "nameTr": "Havuç",
+          "grams": 100
+        },
+        {
+          "key": "patates",
+          "nameTr": "Patates",
+          "grams": 150
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 28
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 20
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 1500
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 8
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 1
+        }
+      ],
+      "cookedWeightGrams": 1800,
+      "portions": [
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 150
+        },
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 300
+        }
+      ],
+      "assumptions": "Ev usulü, tereyağlı, sebzeli, blenderdan geçmiş. Toplam ~2100 g girdiden ~%15 buharlaşma.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "ezogelin-corbasi",
+      "servings": 6,
+      "ingredients": [
+        {
+          "key": "kirmizi-mercimek-kuru",
+          "nameTr": "Kırmızı mercimek (kuru)",
+          "grams": 140
+        },
+        {
+          "key": "bulgur-kuru",
+          "nameTr": "Bulgur (kuru)",
+          "grams": 50
+        },
+        {
+          "key": "pirinc-kuru",
+          "nameTr": "Pirinç (kuru)",
+          "grams": 30
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 110
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 28
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 20
+        },
+        {
+          "key": "biber-salcasi",
+          "nameTr": "Biber salçası",
+          "grams": 20
+        },
+        {
+          "key": "nane-kuru",
+          "nameTr": "Kuru nane",
+          "grams": 3
+        },
+        {
+          "key": "pul-biber",
+          "nameTr": "Pul biber",
+          "grams": 2
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 1600
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 8
+        }
+      ],
+      "cookedWeightGrams": 1750,
+      "portions": [
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 150
+        },
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 292
+        }
+      ],
+      "assumptions": "Tereyağlı, nane ve pul biberli sos dahil. Yoğun kıvam; ~%13 buharlaşma.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "tarhana-corbasi",
+      "servings": 5,
+      "ingredients": [
+        {
+          "key": "tarhana-kuru",
+          "nameTr": "Tarhana (kuru)",
+          "grams": 120
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 28
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 20
+        },
+        {
+          "key": "nane-kuru",
+          "nameTr": "Kuru nane",
+          "grams": 2
+        },
+        {
+          "key": "pul-biber",
+          "nameTr": "Pul biber",
+          "grams": 2
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 1500
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 3
+        }
+      ],
+      "cookedWeightGrams": 1550,
+      "portions": [
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 150
+        },
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 310
+        }
+      ],
+      "assumptions": "Hazır/ev tarhanası kuru; tereyağlı. Tarhana tuzlu olduğu için az tuz. ~%8 buharlaşma, koyu kıvam.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "domates-corbasi",
+      "servings": 5,
+      "ingredients": [
+        {
+          "key": "domates",
+          "nameTr": "Domates",
+          "grams": 480
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 20
+        },
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 28
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 28
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 55
+        },
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Tam yağlı süt",
+          "grams": 200
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 1000
+        },
+        {
+          "key": "seker",
+          "nameTr": "Şeker",
+          "grams": 5
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        }
+      ],
+      "cookedWeightGrams": 1600,
+      "portions": [
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 150
+        },
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 320
+        }
+      ],
+      "assumptions": "Taze domates ve salçalı, sütlü, unla bağlanmış. ~%12 buharlaşma.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "yayla-corbasi",
+      "servings": 6,
+      "ingredients": [
+        {
+          "key": "pirinc-kuru",
+          "nameTr": "Pirinç (kuru)",
+          "grams": 80
+        },
+        {
+          "key": "yogurt-tam-yagli",
+          "nameTr": "Tam yağlı yoğurt",
+          "grams": 400
+        },
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 25
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 50
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 28
+        },
+        {
+          "key": "nane-kuru",
+          "nameTr": "Kuru nane",
+          "grams": 4
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 1500
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        }
+      ],
+      "cookedWeightGrams": 1850,
+      "portions": [
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 150
+        },
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 308
+        }
+      ],
+      "assumptions": "Yoğurt, yumurta ve un terbiyeli; tereyağlı nane sosu. Pirinç su çeker, ~%12 buharlaşma.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "iskembe-corbasi",
+      "servings": 6,
+      "ingredients": [
+        {
+          "key": "iskembe-haslanmis",
+          "nameTr": "Işkembe (haşlanmış)",
+          "grams": 400
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 1500
+        },
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 40
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 40
+        },
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Tam yağlı süt",
+          "grams": 200
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 18
+        },
+        {
+          "key": "sarimsak",
+          "nameTr": "Sarımsak",
+          "grams": 20
+        },
+        {
+          "key": "limon-suyu",
+          "nameTr": "Limon suyu",
+          "grams": 15
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 8
+        }
+      ],
+      "cookedWeightGrams": 2000,
+      "portions": [
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 150
+        },
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 333
+        }
+      ],
+      "assumptions": "Esnaf usulü: haşlanmış işkembe, sütlü, yumurta sarılı terbiye; sarımsak/sirke servis sırasında eklenir (sarımsak dahil). Işkembe hazır haşlanmış tartıldı.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "dugun-corbasi",
+      "servings": 7,
+      "ingredients": [
+        {
+          "key": "dana-kusbasi",
+          "nameTr": "Dana kuşbaşı",
+          "grams": 250
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 2000
+        },
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 40
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 56
+        },
+        {
+          "key": "yogurt-tam-yagli",
+          "nameTr": "Tam yağlı yoğurt",
+          "grams": 150
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 18
+        },
+        {
+          "key": "limon-suyu",
+          "nameTr": "Limon suyu",
+          "grams": 15
+        },
+        {
+          "key": "pul-biber",
+          "nameTr": "Pul biber",
+          "grams": 3
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 8
+        }
+      ],
+      "cookedWeightGrams": 2150,
+      "portions": [
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 150
+        },
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 307
+        }
+      ],
+      "assumptions": "Etli, yoğurtlu terbiyeli, tereyağlı pul biberli sos. Et suyu için su; et ~%25 küçülür, ~%15 buharlaşma.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "tavuk-suyu-corbasi",
+      "servings": 7,
+      "ingredients": [
+        {
+          "key": "tavuk-gogsu",
+          "nameTr": "Tavuk göğsü (kemiksiz)",
+          "grams": 250
+        },
+        {
+          "key": "sehriye-kuru",
+          "nameTr": "Tel şehriye (kuru)",
+          "grams": 60
+        },
+        {
+          "key": "havuc",
+          "nameTr": "Havuç",
+          "grams": 80
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 55
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 14
+        },
+        {
+          "key": "limon-suyu",
+          "nameTr": "Limon suyu",
+          "grams": 15
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 2000
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 8
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 1
+        }
+      ],
+      "cookedWeightGrams": 2180,
+      "portions": [
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 150
+        },
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 311
+        }
+      ],
+      "assumptions": "Kemiksiz tavuk göğsü haşlanıp didiklenmiş, şehriyeli. ~%15 buharlaşma.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "sebze-corbasi",
+      "servings": 6,
+      "ingredients": [
+        {
+          "key": "patates",
+          "nameTr": "Patates",
+          "grams": 150
+        },
+        {
+          "key": "havuc",
+          "nameTr": "Havuç",
+          "grams": 100
+        },
+        {
+          "key": "kabak",
+          "nameTr": "Kabak",
+          "grams": 150
+        },
+        {
+          "key": "taze-fasulye",
+          "nameTr": "Taze fasulye",
+          "grams": 100
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 110
+        },
+        {
+          "key": "domates",
+          "nameTr": "Domates",
+          "grams": 120
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 20
+        },
+        {
+          "key": "zeytinyagi",
+          "nameTr": "Zeytinyağı",
+          "grams": 26
+        },
+        {
+          "key": "maydanoz",
+          "nameTr": "Maydanoz",
+          "grams": 10
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 1500
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 7
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 1
+        }
+      ],
+      "cookedWeightGrams": 1950,
+      "portions": [
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 150
+        },
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 325
+        }
+      ],
+      "assumptions": "Doğranmış karışık sebze, zeytinyağlı, terbiyesiz. ~%12 buharlaşma.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "mantar-corbasi",
+      "servings": 6,
+      "ingredients": [
+        {
+          "key": "mantar-kultur",
+          "nameTr": "Kültür mantarı",
+          "grams": 400
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 110
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 42
+        },
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 45
+        },
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Tam yağlı süt",
+          "grams": 500
+        },
+        {
+          "key": "krema-sivi",
+          "nameTr": "Sıvı krema",
+          "grams": 100
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 700
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 1
+        }
+      ],
+      "cookedWeightGrams": 1700,
+      "portions": [
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 150
+        },
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 283
+        }
+      ],
+      "assumptions": "Kremalı, sütlü, unla bağlanmış, blenderdan geçmiş. Mantar su bıraktığı için ~%15 net kayıp.",
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,577 @@
+{
+  "version": 1,
+  "category": "pilav-makarna",
+  "recipes": [
+    {
+      "dishId": "pirinc-pilavi",
+      "servings": 6,
+      "ingredients": [
+        {
+          "key": "pirinc-kuru",
+          "nameTr": "Pirinç (kuru)",
+          "grams": 360
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 42
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 700
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        }
+      ],
+      "cookedWeightGrams": 1000,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 167
+        },
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 80
+        }
+      ],
+      "assumptions": "2 su bardağı pirinç, 3 yemek kaşığı tereyağı, ~700 g su; ~100 g buharlaşır, ~600 g su pirince çekilir (360+600+42 = ~1000 g, yaklaşık 2.8 kat). Tereyağlı sade pilav.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "sehriyeli-pilav",
+      "servings": 5,
+      "ingredients": [
+        {
+          "key": "pirinc-kuru",
+          "nameTr": "Pirinç (kuru)",
+          "grams": 270
+        },
+        {
+          "key": "sehriye-kuru",
+          "nameTr": "Şehriye (kuru)",
+          "grams": 60
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 28
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 13
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 600
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        }
+      ],
+      "cookedWeightGrams": 890,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 178
+        },
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 80
+        }
+      ],
+      "assumptions": "1.5 su bardağı pirinç, 60 g şehriye tereyağı-sıvı yağda kavrulur; ~100 g buharlaşma sonrası ~890 g (kuru malzemenin ~2.7 katı).",
+      "confidence": "high"
+    },
+    {
+      "dishId": "bulgur-pilavi",
+      "servings": 6,
+      "ingredients": [
+        {
+          "key": "bulgur-kuru",
+          "nameTr": "Bulgur (kuru)",
+          "grams": 340
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 80
+        },
+        {
+          "key": "domates",
+          "nameTr": "Domates",
+          "grams": 100
+        },
+        {
+          "key": "sivri-biber",
+          "nameTr": "Sivri biber",
+          "grams": 50
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 20
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 14
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 13
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 600
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        }
+      ],
+      "cookedWeightGrams": 950,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 158
+        },
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 80
+        }
+      ],
+      "assumptions": "2 su bardağı pilavlık bulgur, soğan-biber-domates-salçalı; 1:1.75 su oranı. ~270 g buharlaşma ile ~950 g (bulgurun ~2.8 katı).",
+      "confidence": "high"
+    },
+    {
+      "dishId": "nohutlu-pilav",
+      "servings": 6,
+      "ingredients": [
+        {
+          "key": "pirinc-kuru",
+          "nameTr": "Pirinç (kuru)",
+          "grams": 270
+        },
+        {
+          "key": "nohut-kuru",
+          "nameTr": "Nohut (kuru)",
+          "grams": 80
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 42
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 750
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        }
+      ],
+      "cookedWeightGrams": 970,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 162
+        },
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 80
+        }
+      ],
+      "assumptions": "Önceden ıslatılıp haşlanan 80 g kuru nohut (~200 g haşlanmış) pilava eklenir; haşlama suyu pilav suyunun parçası sayıldı (toplam su 750 g, ~180 g kayıp). ~970 g.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "ic-pilav",
+      "servings": 5,
+      "ingredients": [
+        {
+          "key": "pirinc-kuru",
+          "nameTr": "Pirinç (kuru)",
+          "grams": 270
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 80
+        },
+        {
+          "key": "tavuk-ciger",
+          "nameTr": "Tavuk ciğeri",
+          "grams": 80
+        },
+        {
+          "key": "cam-fistigi",
+          "nameTr": "Çam fıstığı",
+          "grams": 25
+        },
+        {
+          "key": "kus-uzumu",
+          "nameTr": "Kuş üzümü",
+          "grams": 25
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 28
+        },
+        {
+          "key": "zeytinyagi",
+          "nameTr": "Zeytinyağı",
+          "grams": 26
+        },
+        {
+          "key": "seker",
+          "nameTr": "Şeker",
+          "grams": 5
+        },
+        {
+          "key": "tarcin",
+          "nameTr": "Tarçın",
+          "grams": 1
+        },
+        {
+          "key": "yenibahar",
+          "nameTr": "Yenibahar",
+          "grams": 1.5
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 1
+        },
+        {
+          "key": "nane-kuru",
+          "nameTr": "Kuru nane",
+          "grams": 1
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 540
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        }
+      ],
+      "cookedWeightGrams": 970,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 194
+        },
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 80
+        }
+      ],
+      "assumptions": "Çam fıstıklı, kuş üzümlü, baharatlı iç pilav; geleneksel versiyondaki gibi tavuk ciğeri dahil (kıyma da kullanılır; ciğersiz tarifte bu kalem çıkar). ~110 g buharlaşma, ~970 g.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "makarna",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "makarna-kuru",
+          "nameTr": "Makarna (kuru)",
+          "grams": 350
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 455
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 42
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 3
+        }
+      ],
+      "cookedWeightGrams": 845,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 211
+        },
+        {
+          "id": "kepce",
+          "nameTr": "1 kepçe",
+          "nameEn": "1 ladle",
+          "grams": 100
+        }
+      ],
+      "assumptions": "Haşlanan makarna kuru ağırlığının ~2.4 katı olur; makarnada kalan su ~455 g (kaynama suyu süzülür, malzeme sayılmadı, tuzun çoğu süzülür). Tereyağlı sade versiyon; salçalı makarna biraz farklı olur.",
+      "confidence": "high"
+    },
+    {
+      "dishId": "firin-makarna",
+      "servings": 6,
+      "ingredients": [
+        {
+          "key": "makarna-kuru",
+          "nameTr": "Makarna (kuru)",
+          "grams": 300
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 490
+        },
+        {
+          "key": "dana-kiyma-orta-yagli",
+          "nameTr": "Dana kıyma (orta yağlı)",
+          "grams": 200
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 100
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 30
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 26
+        },
+        {
+          "key": "sut-tam-yagli",
+          "nameTr": "Tam yağlı süt",
+          "grams": 500
+        },
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 40
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 40
+        },
+        {
+          "key": "kasar-peyniri",
+          "nameTr": "Kaşar peyniri",
+          "grams": 150
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 50
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 8
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 2
+        }
+      ],
+      "cookedWeightGrams": 1680,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 280
+        },
+        {
+          "id": "dilim",
+          "nameTr": "1 kare dilim",
+          "nameEn": "1 square slice",
+          "grams": 200
+        }
+      ],
+      "assumptions": "Haşlanıp süzülmüş makarna (300 g kuru + ~390 g çeken su), kıymalı sos (+100 g su), beşamel (süt-un-tereyağı), kaşar ve yumurta; fırında ~%13 su kaybı (1934 g -> ~1680 g).",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "manti",
+      "servings": 4,
+      "ingredients": [
+        {
+          "key": "un-bugday",
+          "nameTr": "Buğday unu",
+          "grams": 300
+        },
+        {
+          "key": "yumurta",
+          "nameTr": "Yumurta",
+          "grams": 50
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 230
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 6
+        },
+        {
+          "key": "dana-kiyma-orta-yagli",
+          "nameTr": "Dana kıyma (orta yağlı)",
+          "grams": 120
+        },
+        {
+          "key": "sogan-kuru",
+          "nameTr": "Kuru soğan",
+          "grams": 60
+        },
+        {
+          "key": "karabiber",
+          "nameTr": "Karabiber",
+          "grams": 1
+        },
+        {
+          "key": "yogurt-tam-yagli",
+          "nameTr": "Tam yağlı yoğurt",
+          "grams": 400
+        },
+        {
+          "key": "sarimsak",
+          "nameTr": "Sarımsak",
+          "grams": 8
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 40
+        },
+        {
+          "key": "domates-salcasi",
+          "nameTr": "Domates salçası",
+          "grams": 10
+        },
+        {
+          "key": "pul-biber",
+          "nameTr": "Pul biber",
+          "grams": 3
+        },
+        {
+          "key": "nane-kuru",
+          "nameTr": "Kuru nane",
+          "grams": 2
+        }
+      ],
+      "cookedWeightGrams": 1230,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 307
+        },
+        {
+          "id": "kase",
+          "nameTr": "1 kase",
+          "nameEn": "1 bowl",
+          "grams": 250
+        }
+      ],
+      "assumptions": "El açması mantı hamuru (300 g un) kıymalı harçla; haşlamada hamur ~%20 su çeker (dahil edilen su 130 g hamur + 100 g haşlama). Sarımsaklı yoğurt ve tereyağlı salçalı-pul biberli sos eklendi. Mantı boyutuna göre ağırlıklar değişir.",
+      "confidence": "medium"
+    },
+    {
+      "dishId": "tavuklu-pilav",
+      "servings": 5,
+      "ingredients": [
+        {
+          "key": "pirinc-kuru",
+          "nameTr": "Pirinç (kuru)",
+          "grams": 400
+        },
+        {
+          "key": "su",
+          "nameTr": "Su",
+          "grams": 780
+        },
+        {
+          "key": "tereyagi",
+          "nameTr": "Tereyağı",
+          "grams": 42
+        },
+        {
+          "key": "tuz",
+          "nameTr": "Tuz",
+          "grams": 7
+        },
+        {
+          "key": "tavuk-gogsu",
+          "nameTr": "Tavuk göğsü",
+          "grams": 500
+        },
+        {
+          "key": "aycicek-yagi",
+          "nameTr": "Ayçiçek yağı",
+          "grams": 13
+        }
+      ],
+      "cookedWeightGrams": 1500,
+      "portions": [
+        {
+          "id": "porsiyon",
+          "nameTr": "1 porsiyon",
+          "nameEn": "1 serving",
+          "grams": 300
+        }
+      ],
+      "assumptions": "Pilav: 400 g pirinç, tereyağlı, ~110 g buharlaşma (~1110 g). Üstüne haşlanıp/soteleyip didiklenmiş tavuk göğsü (500 g çiğ -> ~375 g, %25 kayıp) + 13 g yağ. Porsiyon ≈ 220 g pilav + 80 g tavuk.",
+      "confidence": "medium"
+    }
+  ]
+}

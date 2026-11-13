@@ -1,0 +1,37 @@
+name: Bite Routine catalog CI
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'catalog/**'
+      - '.github/workflows/catalog-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'catalog/**'
+      - '.github/workflows/catalog-ci.yml'
+permissions:
+  contents: read
+jobs:
+  catalog:
+    name: Catalog tests and reproducible build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: catalog
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/cache@v4
+        with:
+          path: catalog/.cache/usda/*.zip
+          key: usda-${{ hashFiles('catalog/scripts/config.mjs') }}
+      - run: npm test
+      - run: npm run fetch:usda
+      - run: npm run index:usda
+      - run: npm run build:strict
+      # dist/catalog.json must match what the checked-in inputs produce.
+      - run: git diff --exit-code -- dist/catalog.json

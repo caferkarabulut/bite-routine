@@ -1,0 +1,1023 @@
+{
+  "version": 1,
+  "dishes": [
+    {
+      "id": "mercimek-corbasi",
+      "category": "corba",
+      "nameTr": "Mercimek çorbası",
+      "nameEn": "Red lentil soup",
+      "aliases": [
+        "süzme mercimek çorbası"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "ezogelin-corbasi",
+      "category": "corba",
+      "nameTr": "Ezogelin çorbası",
+      "nameEn": "Ezogelin soup",
+      "aliases": [
+        "ezo gelin çorbası"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "tarhana-corbasi",
+      "category": "corba",
+      "nameTr": "Tarhana çorbası",
+      "nameEn": "Tarhana soup",
+      "aliases": [
+        "tarhana"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "domates-corbasi",
+      "category": "corba",
+      "nameTr": "Domates çorbası",
+      "nameEn": "Tomato soup",
+      "aliases": [],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "yayla-corbasi",
+      "category": "corba",
+      "nameTr": "Yayla çorbası",
+      "nameEn": "Yogurt and rice soup",
+      "aliases": [
+        "yoğurtlu pirinç çorbası"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "iskembe-corbasi",
+      "category": "corba",
+      "nameTr": "Işkembe çorbası",
+      "nameEn": "Tripe soup",
+      "aliases": [
+        "iskembe çorbası"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "dugun-corbasi",
+      "category": "corba",
+      "nameTr": "Düğün çorbası",
+      "nameEn": "Wedding soup",
+      "aliases": [
+        "etli düğün çorbası"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "tavuk-suyu-corbasi",
+      "category": "corba",
+      "nameTr": "Tavuk suyu çorbası",
+      "nameEn": "Chicken noodle soup",
+      "aliases": [
+        "tavuk çorbası",
+        "tel şehriye çorbası"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "sebze-corbasi",
+      "category": "corba",
+      "nameTr": "Sebze çorbası",
+      "nameEn": "Vegetable soup",
+      "aliases": [
+        "terbiyeli sebze çorbası"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "mantar-corbasi",
+      "category": "corba",
+      "nameTr": "Mantar çorbası",
+      "nameEn": "Cream of mushroom soup",
+      "aliases": [
+        "kremalı mantar çorbası"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "kuru-fasulye",
+      "category": "baklagil",
+      "nameTr": "Kuru fasulye",
+      "nameEn": "White bean stew",
+      "aliases": [
+        "etli kuru fasulye",
+        "kuru fasulye yemeği"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "etli-nohut",
+      "category": "baklagil",
+      "nameTr": "Etli nohut",
+      "nameEn": "Chickpea stew with meat",
+      "aliases": [
+        "etli nohut yemeği"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "nohut-yemegi",
+      "category": "baklagil",
+      "nameTr": "Nohut yemeği",
+      "nameEn": "Chickpea stew",
+      "aliases": [
+        "etsiz nohut"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "barbunya-pilaki",
+      "category": "baklagil",
+      "nameTr": "Barbunya pilaki",
+      "nameEn": "Borlotti beans in olive oil",
+      "aliases": [
+        "zeytinyağlı barbunya",
+        "barbunya"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "yesil-mercimek-yemegi",
+      "category": "baklagil",
+      "nameTr": "Yeşil mercimek yemeği",
+      "nameEn": "Green lentil stew",
+      "aliases": [
+        "yeşil mercimek"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "mercimek-koftesi",
+      "category": "baklagil",
+      "nameTr": "Mercimek köftesi",
+      "nameEn": "Red lentil balls",
+      "aliases": [
+        "kırmızı mercimek köftesi"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "zeytinyagli-kuru-fasulye",
+      "category": "baklagil",
+      "nameTr": "Zeytinyağlı kuru fasulye",
+      "nameEn": "White beans in olive oil",
+      "aliases": [
+        "fasulye pilaki"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "menemen",
+      "category": "kahvalti",
+      "nameTr": "Menemen",
+      "nameEn": "Menemen (Turkish scrambled eggs)",
+      "aliases": [
+        "soğanlı menemen"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "sahanda-yumurta",
+      "category": "kahvalti",
+      "nameTr": "Sahanda yumurta",
+      "nameEn": "Fried eggs",
+      "aliases": [
+        "tereyağlı yumurta",
+        "yumurta sahanda"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "sucuklu-yumurta",
+      "category": "kahvalti",
+      "nameTr": "Sucuklu yumurta",
+      "nameEn": "Eggs with sujuk",
+      "aliases": [
+        "sahanda sucuklu yumurta"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "omlet",
+      "category": "kahvalti",
+      "nameTr": "Omlet",
+      "nameEn": "Omelette",
+      "aliases": [
+        "peynirli omlet"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "kasarli-tost",
+      "category": "kahvalti",
+      "nameTr": "Kaşarlı tost",
+      "nameEn": "Cheese toast",
+      "aliases": [
+        "tost"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "karisik-tost",
+      "category": "kahvalti",
+      "nameTr": "Karışık tost",
+      "nameEn": "Mixed toast (cheese and sujuk)",
+      "aliases": [
+        "sucuklu kaşarlı tost",
+        "ayvalık tostu"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "cilbir",
+      "category": "kahvalti",
+      "nameTr": "Çılbır",
+      "nameEn": "Poached eggs with yogurt",
+      "aliases": [
+        "yoğurtlu yumurta"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "mihlama",
+      "category": "kahvalti",
+      "nameTr": "Mıhlama",
+      "nameEn": "Cheese fondue with cornmeal",
+      "aliases": [
+        "kuymak",
+        "muhlama"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "yumurtali-ekmek",
+      "category": "kahvalti",
+      "nameTr": "Yumurtalı ekmek",
+      "nameEn": "Egg-soaked fried bread",
+      "aliases": [
+        "yumurtalı ekmek kızartması"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "pisi",
+      "category": "kahvalti",
+      "nameTr": "Pişi",
+      "nameEn": "Fried dough puffs",
+      "aliases": [
+        "pisi"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "izgara-kofte",
+      "category": "et-tavuk",
+      "nameTr": "Izgara köfte",
+      "nameEn": "Grilled meatballs",
+      "aliases": [
+        "kasap köfte",
+        "köfte"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "adana-kebap",
+      "category": "et-tavuk",
+      "nameTr": "Adana kebap",
+      "nameEn": "Adana kebab",
+      "aliases": [
+        "adana kebabı"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "tavuk-sis",
+      "category": "et-tavuk",
+      "nameTr": "Tavuk şiş",
+      "nameEn": "Chicken skewers",
+      "aliases": [
+        "tavuk şiş kebap"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "et-doner",
+      "category": "et-tavuk",
+      "nameTr": "Et döner",
+      "nameEn": "Beef/lamb doner",
+      "aliases": [
+        "döner",
+        "döner porsiyon"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "tavuk-doner",
+      "category": "et-tavuk",
+      "nameTr": "Tavuk döner",
+      "nameEn": "Chicken doner",
+      "aliases": [
+        "tavuk döner porsiyon"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "iskender-kebap",
+      "category": "et-tavuk",
+      "nameTr": "İskender kebap",
+      "nameEn": "Iskender kebab",
+      "aliases": [
+        "iskender"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "tas-kebabi",
+      "category": "et-tavuk",
+      "nameTr": "Tas kebabı",
+      "nameEn": "Tas kebab (meat stew)",
+      "aliases": [
+        "tas kebap"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "tavuk-sote",
+      "category": "et-tavuk",
+      "nameTr": "Tavuk sote",
+      "nameEn": "Chicken sauté",
+      "aliases": [
+        "sebzeli tavuk sote"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "firin-tavuk",
+      "category": "et-tavuk",
+      "nameTr": "Fırın tavuk",
+      "nameEn": "Oven-roasted chicken",
+      "aliases": [
+        "fırında tavuk but",
+        "tavuk but"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "kuzu-tandir",
+      "category": "et-tavuk",
+      "nameTr": "Kuzu tandır",
+      "nameEn": "Slow-roasted lamb",
+      "aliases": [
+        "tandır"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "hunkar-begendi",
+      "category": "et-tavuk",
+      "nameTr": "Hünkar beğendi",
+      "nameEn": "Lamb stew on eggplant purée",
+      "aliases": [
+        "hünkarbeğendi"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "hamsi-tava",
+      "category": "et-tavuk",
+      "nameTr": "Hamsi tava",
+      "nameEn": "Fried anchovies",
+      "aliases": [
+        "tava hamsi"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "icli-kofte",
+      "category": "et-tavuk",
+      "nameTr": "İçli köfte",
+      "nameEn": "Stuffed bulgur meatballs",
+      "aliases": [
+        "icli köfte"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "pirinc-pilavi",
+      "category": "pilav-makarna",
+      "nameTr": "Pirinç pilavı",
+      "nameEn": "Rice pilaf",
+      "aliases": [
+        "tereyağlı pilav",
+        "sade pilav"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "sehriyeli-pilav",
+      "category": "pilav-makarna",
+      "nameTr": "Şehriyeli pilav",
+      "nameEn": "Rice pilaf with vermicelli",
+      "aliases": [
+        "arpa şehriyeli pilav"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "bulgur-pilavi",
+      "category": "pilav-makarna",
+      "nameTr": "Bulgur pilavı",
+      "nameEn": "Bulgur pilaf",
+      "aliases": [
+        "bulgur pilav"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "nohutlu-pilav",
+      "category": "pilav-makarna",
+      "nameTr": "Nohutlu pilav",
+      "nameEn": "Rice pilaf with chickpeas",
+      "aliases": [
+        "nohutlu pirinç pilavı"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "ic-pilav",
+      "category": "pilav-makarna",
+      "nameTr": "İç pilav",
+      "nameEn": "Spiced rice with currants and pine nuts",
+      "aliases": [
+        "iç pilavı"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "makarna",
+      "category": "pilav-makarna",
+      "nameTr": "Makarna",
+      "nameEn": "Buttered pasta",
+      "aliases": [
+        "tereyağlı makarna",
+        "salçalı makarna"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "firin-makarna",
+      "category": "pilav-makarna",
+      "nameTr": "Fırın makarna",
+      "nameEn": "Baked pasta",
+      "aliases": [
+        "fırında makarna"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "manti",
+      "category": "pilav-makarna",
+      "nameTr": "Mantı",
+      "nameEn": "Turkish dumplings with yogurt",
+      "aliases": [
+        "yoğurtlu mantı",
+        "kayseri mantısı"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "tavuklu-pilav",
+      "category": "pilav-makarna",
+      "nameTr": "Tavuklu pilav",
+      "nameEn": "Chicken over rice",
+      "aliases": [
+        "pilav üstü tavuk"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "karniyarik",
+      "category": "sebze-zeytinyagli",
+      "nameTr": "Karnıyarık",
+      "nameEn": "Stuffed eggplant with mince",
+      "aliases": [
+        "karniyarik"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "imam-bayildi",
+      "category": "sebze-zeytinyagli",
+      "nameTr": "İmam bayıldı",
+      "nameEn": "Eggplant stuffed with onions in olive oil",
+      "aliases": [
+        "imambayıldı"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "musakka",
+      "category": "sebze-zeytinyagli",
+      "nameTr": "Musakka",
+      "nameEn": "Moussaka (Turkish style)",
+      "aliases": [
+        "patlıcan musakka"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "taze-fasulye",
+      "category": "sebze-zeytinyagli",
+      "nameTr": "Taze fasulye",
+      "nameEn": "Green beans in olive oil",
+      "aliases": [
+        "zeytinyağlı taze fasulye"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "yaprak-sarma",
+      "category": "sebze-zeytinyagli",
+      "nameTr": "Yaprak sarma",
+      "nameEn": "Stuffed grape leaves",
+      "aliases": [
+        "zeytinyağlı yaprak sarma",
+        "sarma"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "biber-dolmasi",
+      "category": "sebze-zeytinyagli",
+      "nameTr": "Biber dolması",
+      "nameEn": "Stuffed peppers",
+      "aliases": [
+        "etli biber dolması",
+        "dolma"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "etli-turlu",
+      "category": "sebze-zeytinyagli",
+      "nameTr": "Etli türlü",
+      "nameEn": "Mixed vegetable stew with meat",
+      "aliases": [
+        "türlü"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "ispanak-yemegi",
+      "category": "sebze-zeytinyagli",
+      "nameTr": "Ispanak yemeği",
+      "nameEn": "Spinach stew",
+      "aliases": [
+        "ıspanak yemeği"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "bamya-yemegi",
+      "category": "sebze-zeytinyagli",
+      "nameTr": "Bamya yemeği",
+      "nameEn": "Okra stew",
+      "aliases": [
+        "etli bamya",
+        "bamya"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "zeytinyagli-pirasa",
+      "category": "sebze-zeytinyagli",
+      "nameTr": "Zeytinyağlı pırasa",
+      "nameEn": "Leeks in olive oil",
+      "aliases": [
+        "pırasa yemeği"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "patates-yemegi",
+      "category": "sebze-zeytinyagli",
+      "nameTr": "Patates yemeği",
+      "nameEn": "Potato stew",
+      "aliases": [
+        "etli patates",
+        "patates yahni"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "patates-kizartmasi",
+      "category": "sebze-zeytinyagli",
+      "nameTr": "Patates kızartması",
+      "nameEn": "French fries",
+      "aliases": [
+        "kızartma patates",
+        "patates cipsi"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "coban-salatasi",
+      "category": "salata-meze",
+      "nameTr": "Çoban salatası",
+      "nameEn": "Shepherd's salad",
+      "aliases": [
+        "coban salata",
+        "çoban salata"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "mevsim-salata",
+      "category": "salata-meze",
+      "nameTr": "Mevsim salata",
+      "nameEn": "Mixed green salad",
+      "aliases": [
+        "yeşil salata",
+        "marul salata"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "gavurdagi-salatasi",
+      "category": "salata-meze",
+      "nameTr": "Gavurdağı salatası",
+      "nameEn": "Gavurdagi salad",
+      "aliases": [
+        "gavurdağı"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "piyaz",
+      "category": "salata-meze",
+      "nameTr": "Piyaz",
+      "nameEn": "White bean salad",
+      "aliases": [
+        "fasulye piyazı"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "cacik",
+      "category": "salata-meze",
+      "nameTr": "Cacık",
+      "nameEn": "Yogurt and cucumber dip",
+      "aliases": [
+        "cacik"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "haydari",
+      "category": "salata-meze",
+      "nameTr": "Haydari",
+      "nameEn": "Thick yogurt and herb dip",
+      "aliases": [
+        "haydari meze"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "acili-ezme",
+      "category": "salata-meze",
+      "nameTr": "Acılı ezme",
+      "nameEn": "Spicy tomato and pepper relish",
+      "aliases": [
+        "ezme",
+        "acı ezme"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "humus",
+      "category": "salata-meze",
+      "nameTr": "Humus",
+      "nameEn": "Hummus",
+      "aliases": [
+        "hummus"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "patlican-salatasi",
+      "category": "salata-meze",
+      "nameTr": "Patlıcan salatası",
+      "nameEn": "Roasted eggplant salad",
+      "aliases": [
+        "közlenmiş patlıcan salatası"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "kabak-mucver",
+      "category": "salata-meze",
+      "nameTr": "Kabak mücver",
+      "nameEn": "Zucchini fritters",
+      "aliases": [
+        "mücver"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "kisir",
+      "category": "salata-meze",
+      "nameTr": "Kısır",
+      "nameEn": "Bulgur salad (kısır)",
+      "aliases": [
+        "bulgur salatası"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "simit",
+      "category": "hamur-isi",
+      "nameTr": "Simit",
+      "nameEn": "Sesame bread ring",
+      "aliases": [
+        "gevrek"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "pogaca",
+      "category": "hamur-isi",
+      "nameTr": "Poğaça",
+      "nameEn": "Savory pastry",
+      "aliases": [
+        "peynirli poğaça",
+        "pogaca"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "acma",
+      "category": "hamur-isi",
+      "nameTr": "Açma",
+      "nameEn": "Soft pastry roll",
+      "aliases": [
+        "acma"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "su-boregi",
+      "category": "hamur-isi",
+      "nameTr": "Su böreği",
+      "nameEn": "Layered water börek",
+      "aliases": [
+        "su boregi"
+      ],
+      "servingKind": "slice"
+    },
+    {
+      "id": "sigara-boregi",
+      "category": "hamur-isi",
+      "nameTr": "Sigara böreği",
+      "nameEn": "Cheese cigar rolls",
+      "aliases": [
+        "sigara boregi"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "kiymali-borek",
+      "category": "hamur-isi",
+      "nameTr": "Kıymalı börek",
+      "nameEn": "Börek with minced meat",
+      "aliases": [
+        "kıymalı börek dilimi"
+      ],
+      "servingKind": "slice"
+    },
+    {
+      "id": "lahmacun",
+      "category": "hamur-isi",
+      "nameTr": "Lahmacun",
+      "nameEn": "Lahmacun",
+      "aliases": [
+        "lahmaçun"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "kiymali-pide",
+      "category": "hamur-isi",
+      "nameTr": "Kıymalı pide",
+      "nameEn": "Pide with minced meat",
+      "aliases": [
+        "kıymalı pide"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "kasarli-pide",
+      "category": "hamur-isi",
+      "nameTr": "Kaşarlı pide",
+      "nameEn": "Pide with cheese",
+      "aliases": [
+        "peynirli pide"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "gozleme",
+      "category": "hamur-isi",
+      "nameTr": "Gözleme",
+      "nameEn": "Savory flatbread",
+      "aliases": [
+        "peynirli gözleme",
+        "gozleme"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "tavuk-durum",
+      "category": "hamur-isi",
+      "nameTr": "Tavuk dürüm",
+      "nameEn": "Chicken wrap",
+      "aliases": [
+        "tavuk döner dürüm"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "tantuni",
+      "category": "hamur-isi",
+      "nameTr": "Tantuni",
+      "nameEn": "Tantuni wrap",
+      "aliases": [
+        "et tantuni"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "sutlac",
+      "category": "tatli",
+      "nameTr": "Sütlaç",
+      "nameEn": "Rice pudding",
+      "aliases": [
+        "sutlac",
+        "fırın sütlaç"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "baklava",
+      "category": "tatli",
+      "nameTr": "Baklava",
+      "nameEn": "Baklava",
+      "aliases": [
+        "fıstıklı baklava",
+        "cevizli baklava"
+      ],
+      "servingKind": "slice"
+    },
+    {
+      "id": "kazandibi",
+      "category": "tatli",
+      "nameTr": "Kazandibi",
+      "nameEn": "Caramelized milk pudding",
+      "aliases": [
+        "kazandibi tatlısı"
+      ],
+      "servingKind": "slice"
+    },
+    {
+      "id": "kunefe",
+      "category": "tatli",
+      "nameTr": "Künefe",
+      "nameEn": "Künefe",
+      "aliases": [
+        "kunefe"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "revani",
+      "category": "tatli",
+      "nameTr": "Revani",
+      "nameEn": "Semolina syrup cake",
+      "aliases": [
+        "revani tatlısı"
+      ],
+      "servingKind": "slice"
+    },
+    {
+      "id": "asure",
+      "category": "tatli",
+      "nameTr": "Aşure",
+      "nameEn": "Ashure (noah's pudding)",
+      "aliases": [
+        "asure"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "irmik-helvasi",
+      "category": "tatli",
+      "nameTr": "İrmik helvası",
+      "nameEn": "Semolina halva",
+      "aliases": [
+        "irmik helvasi"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "tulumba-tatlisi",
+      "category": "tatli",
+      "nameTr": "Tulumba tatlısı",
+      "nameEn": "Tulumba (fried syrup dough)",
+      "aliases": [
+        "tulumba"
+      ],
+      "servingKind": "piece"
+    },
+    {
+      "id": "muhallebi",
+      "category": "tatli",
+      "nameTr": "Muhallebi",
+      "nameEn": "Milk pudding",
+      "aliases": [
+        "sade muhallebi"
+      ],
+      "servingKind": "bowl"
+    },
+    {
+      "id": "kabak-tatlisi",
+      "category": "tatli",
+      "nameTr": "Kabak tatlısı",
+      "nameEn": "Candied pumpkin dessert",
+      "aliases": [
+        "balkabağı tatlısı"
+      ],
+      "servingKind": "plate"
+    },
+    {
+      "id": "ayran",
+      "category": "icecek",
+      "nameTr": "Ayran",
+      "nameEn": "Ayran (yogurt drink)",
+      "aliases": [],
+      "servingKind": "glass"
+    },
+    {
+      "id": "cay-sekersiz",
+      "category": "icecek",
+      "nameTr": "Çay (şekersiz)",
+      "nameEn": "Turkish tea, unsweetened",
+      "aliases": [
+        "sade çay"
+      ],
+      "servingKind": "glass"
+    },
+    {
+      "id": "cay-sekerli",
+      "category": "icecek",
+      "nameTr": "Çay (şekerli)",
+      "nameEn": "Turkish tea with sugar",
+      "aliases": [
+        "şekerli çay"
+      ],
+      "servingKind": "glass"
+    },
+    {
+      "id": "turk-kahvesi",
+      "category": "icecek",
+      "nameTr": "Türk kahvesi",
+      "nameEn": "Turkish coffee",
+      "aliases": [
+        "orta şekerli türk kahvesi"
+      ],
+      "servingKind": "glass"
+    },
+    {
+      "id": "salgam-suyu",
+      "category": "icecek",
+      "nameTr": "Şalgam suyu",
+      "nameEn": "Turnip juice",
+      "aliases": [
+        "şalgam"
+      ],
+      "servingKind": "glass"
+    },
+    {
+      "id": "salep",
+      "category": "icecek",
+      "nameTr": "Salep",
+      "nameEn": "Salep (hot orchid drink)",
+      "aliases": [],
+      "servingKind": "glass"
+    }
+  ]
+}

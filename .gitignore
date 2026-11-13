@@ -26,3 +26,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Catalog pipeline downloads
+catalog/.cache/

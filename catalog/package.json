@@ -1,0 +1,14 @@
+{
+  "name": "bite-routine-catalog",
+  "private": true,
+  "type": "module",
+  "description": "Bite Routine katalog veri hatti (bagimliliksiz, Node 24)",
+  "scripts": {
+    "test": "node --test \"scripts/*.test.mjs\"",
+    "fetch:usda": "node scripts/fetch-usda.mjs",
+    "index:usda": "node scripts/usda-index.mjs",
+    "search": "node scripts/search-usda.mjs",
+    "build": "node scripts/build-catalog.mjs",
+    "build:strict": "node scripts/build-catalog.mjs --strict"
+  }
+}
