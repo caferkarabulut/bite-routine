@@ -4,11 +4,13 @@ on:
     branches: [main]
     paths:
       - 'mobile/**'
+      - 'catalog/dist/**'
       - '.github/workflows/mobile-ci.yml'
   push:
     branches: [main]
     paths:
       - 'mobile/**'
+      - 'catalog/dist/**'
       - '.github/workflows/mobile-ci.yml'
 permissions:
   contents: read
@@ -33,6 +35,7 @@ jobs:
           cache: npm
           cache-dependency-path: mobile/package-lock.json
       - run: npm ci
+      - run: node scripts/sync-catalog.mjs --check
       - run: npm run check:deps
       - run: npm run typecheck
       - run: npm run lint
