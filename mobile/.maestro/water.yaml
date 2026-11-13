@@ -10,5 +10,8 @@ appId: com.biteroutine.mobile
 - assertVisible: "200 / 2.000 ml"
 - tapOn: "500 ml ekle"
 - assertVisible: "700 / 2.000 ml"
+# The undo link sits below the buttons, partly under the tab bar on Android.
+- scrollUntilVisible:
+    element: "Son eklemeyi geri al"
 - tapOn: "Son eklemeyi geri al"
 - assertVisible: "200 / 2.000 ml"

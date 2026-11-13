@@ -3,7 +3,7 @@ appId: com.biteroutine.mobile
 - launchApp:
     clearState: true
 - runFlow: subflows/onboarding.yaml
-- tapOn: "Katalog, tab.*"
+- tapOn: "Katalog(, tab.*)?"
 - tapOn: "+ Kendi yemeğini oluştur"
 - tapOn:
     id: custom-name

@@ -4,12 +4,13 @@ appId: com.biteroutine.mobile
     clearState: true
 - runFlow: subflows/onboarding.yaml
 - runFlow: subflows/add-lentil-soup.yaml
-- extendedWaitUntil:
-    visible: "Mercimek çorbası.*"
-    timeout: 8000
+# Scroll to the top first: Android only exposes on-screen rows, so the entry must be in view to be matched.
 - scrollUntilVisible:
     element: "Kalori"
     direction: UP
+- extendedWaitUntil:
+    visible: "Mercimek çorbası.*"
+    timeout: 8000
 - scrollUntilVisible:
     element: ".*1,5 kepçe.*"
 - tapOn: ".*1,5 kepçe.*"
