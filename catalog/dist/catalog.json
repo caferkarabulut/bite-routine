@@ -17,31 +17,31 @@
       "portions": [
         {
           "id": "p88374",
-          "nameTr": "Büyük adet",
+          "nameTr": "Büyük boy",
           "nameEn": "large",
           "grams": 50
         },
         {
           "id": "p88375",
-          "nameTr": "Çok büyük adet (extra large)",
+          "nameTr": "Çok büyük boy",
           "nameEn": "extra large",
           "grams": 56
         },
         {
           "id": "p88376",
-          "nameTr": "Jumbo adet",
+          "nameTr": "İri boy",
           "nameEn": "jumbo",
           "grams": 63
         },
         {
           "id": "p88378",
-          "nameTr": "Orta adet",
+          "nameTr": "Orta boy",
           "nameEn": "medium",
           "grams": 44
         },
         {
           "id": "p88379",
-          "nameTr": "Küçük adet",
+          "nameTr": "Küçük boy",
           "nameEn": "small",
           "grams": 38
         }
@@ -69,13 +69,13 @@
       "portions": [
         {
           "id": "p90596",
-          "nameTr": "cup (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak (240 ml)",
           "nameEn": "cup",
           "grams": 198
         },
         {
           "id": "p90597",
-          "nameTr": "Yemek kaşığı (USDA tbsp)",
+          "nameTr": "1 yemek kaşığı",
           "nameEn": "tbsp",
           "grams": 12.3
         }
@@ -103,7 +103,7 @@
       "portions": [
         {
           "id": "p93226",
-          "nameTr": "cup (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak (240 ml)",
           "nameEn": "cup",
           "grams": 164
         }
@@ -173,7 +173,7 @@
       "portions": [
         {
           "id": "p302892",
-          "nameTr": "cup, pişmiş (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak, pişmiş (240 ml)",
           "nameEn": "10043",
           "grams": 158
         }
@@ -201,7 +201,7 @@
       "portions": [
         {
           "id": "p88817",
-          "nameTr": "cup, doğranmış veya küp (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak, doğranmış veya küp (240 ml)",
           "nameEn": "cup, chopped or diced",
           "grams": 140
         },
@@ -235,31 +235,31 @@
       "portions": [
         {
           "id": "p86682",
-          "nameTr": "cup, doğranmış veya dilimli (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak, doğranmış veya dilimli (240 ml)",
           "nameEn": "cup, chopped or sliced",
           "grams": 180
         },
         {
           "id": "p86685",
-          "nameTr": "Büyük adet (3 inç çap)",
+          "nameTr": "Büyük boy",
           "nameEn": "large whole (3\" dia)",
           "grams": 182
         },
         {
           "id": "p86686",
-          "nameTr": "Orta adet (2-3/5 inç çap)",
+          "nameTr": "Orta boy",
           "nameEn": "medium whole (2-3/5\" dia)",
           "grams": 123
         },
         {
           "id": "p86687",
-          "nameTr": "Orta dilim (1/4 inç kalınlık)",
+          "nameTr": "Orta dilim",
           "nameEn": "slice, medium (1/4\" thick)",
           "grams": 20
         },
         {
           "id": "p86689",
-          "nameTr": "Küçük adet (2-2/5 inç çap)",
+          "nameTr": "Küçük boy",
           "nameEn": "small whole (2-2/5\" dia)",
           "grams": 91
         }
@@ -287,13 +287,13 @@
       "portions": [
         {
           "id": "p88314",
-          "nameTr": "cup (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak (240 ml)",
           "nameEn": "cup",
           "grams": 244
         },
         {
           "id": "p88316",
-          "nameTr": "Yemek kaşığı (USDA tbsp)",
+          "nameTr": "1 yemek kaşığı",
           "nameEn": "tbsp",
           "grams": 15
         }
@@ -321,7 +321,7 @@
       "portions": [
         {
           "id": "p92489",
-          "nameTr": "cup, ufalanmış (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak, ufalanmış (240 ml)",
           "nameEn": "cup, crumbled",
           "grams": 150
         }
@@ -349,7 +349,7 @@
       "portions": [
         {
           "id": "p85379",
-          "nameTr": "cup (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak (240 ml)",
           "nameEn": "cup",
           "grams": 156
         }
@@ -377,13 +377,13 @@
       "portions": [
         {
           "id": "p86370",
-          "nameTr": "cup (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak (240 ml)",
           "nameEn": "cup",
           "grams": 182
         },
         {
           "id": "p86371",
-          "nameTr": "Yemek kaşığı (USDA tbsp)",
+          "nameTr": "1 yemek kaşığı",
           "nameEn": "tbsp",
           "grams": 8.4
         }
@@ -439,13 +439,13 @@
       "portions": [
         {
           "id": "p84000",
-          "nameTr": "cup, spagetti (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak, spagetti (240 ml)",
           "nameEn": "cup spaghetti",
           "grams": 91
         },
         {
           "id": "p84003",
-          "nameTr": "cup, penne (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak, penne (240 ml)",
           "nameEn": "cup penne",
           "grams": 95
         }
@@ -529,25 +529,25 @@
       "portions": [
         {
           "id": "p85917",
-          "nameTr": "cup, küp doğranmış (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak, küp doğranmış (240 ml)",
           "nameEn": "cup, diced",
           "grams": 150
         },
         {
           "id": "p85918",
-          "nameTr": "Büyük adet (3–4-1/4 inç çap)",
+          "nameTr": "Büyük boy",
           "nameEn": "Potato large (3\" to 4-1/4\" dia)",
           "grams": 369
         },
         {
           "id": "p85919",
-          "nameTr": "Orta adet (2-1/4–3-1/4 inç çap)",
+          "nameTr": "Orta boy",
           "nameEn": "Potato medium (2-1/4\" to 3-1/4\" dia)",
           "grams": 213
         },
         {
           "id": "p85920",
-          "nameTr": "Küçük adet (1-3/4–2-1/2 inç çap)",
+          "nameTr": "Küçük boy",
           "nameEn": "Potato small (1-3/4\" to 2-1/2\" dia)",
           "grams": 170
         }
@@ -575,13 +575,13 @@
       "portions": [
         {
           "id": "p86559",
-          "nameTr": "Orta adet",
+          "nameTr": "Orta boy",
           "nameEn": "medium",
           "grams": 61
         },
         {
           "id": "p86560",
-          "nameTr": "Küçük adet (5-1/2 inç uzunluk)",
+          "nameTr": "Küçük boy",
           "nameEn": "small (5-1/2\" long)",
           "grams": 50
         }
@@ -609,13 +609,13 @@
       "portions": [
         {
           "id": "p83049",
-          "nameTr": "cup, dilimli (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak, dilimli (240 ml)",
           "nameEn": "cup slices",
           "grams": 104
         },
         {
           "id": "p83050",
-          "nameTr": "Adet (8-1/4 inç uzunluk)",
+          "nameTr": "1 adet",
           "nameEn": "cucumber (8-1/4\")",
           "grams": 301
         }
@@ -643,19 +643,19 @@
       "portions": [
         {
           "id": "p85858",
-          "nameTr": "Büyük adet",
+          "nameTr": "Büyük boy",
           "nameEn": "large",
           "grams": 150
         },
         {
           "id": "p85860",
-          "nameTr": "Orta adet (2-1/2 inç çap)",
+          "nameTr": "Orta boy",
           "nameEn": "medium (2-1/2\" dia)",
           "grams": 110
         },
         {
           "id": "p85862",
-          "nameTr": "Küçük adet",
+          "nameTr": "Küçük boy",
           "nameEn": "small",
           "grams": 70
         },
@@ -689,7 +689,7 @@
       "portions": [
         {
           "id": "p86528",
-          "nameTr": "cup, doğranmış (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak, doğranmış (240 ml)",
           "nameEn": "cup chopped",
           "grams": 91
         }
@@ -717,7 +717,7 @@
       "portions": [
         {
           "id": "p83132",
-          "nameTr": "cup (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak (240 ml)",
           "nameEn": "cup",
           "grams": 30
         },
@@ -751,31 +751,31 @@
       "portions": [
         {
           "id": "p93513",
-          "nameTr": "Çok küçük adet (6 inçten kısa)",
+          "nameTr": "Çok küçük boy",
           "nameEn": "extra small (less than 6\" long)",
           "grams": 81
         },
         {
           "id": "p93514",
-          "nameTr": "Küçük adet (6–6-7/8 inç uzunluk)",
+          "nameTr": "Küçük boy",
           "nameEn": "small (6\" to 6-7/8\" long)",
           "grams": 101
         },
         {
           "id": "p93515",
-          "nameTr": "Orta adet (7–7-7/8 inç uzunluk)",
+          "nameTr": "Orta boy",
           "nameEn": "medium (7\" to 7-7/8\" long)",
           "grams": 118
         },
         {
           "id": "p93516",
-          "nameTr": "Büyük adet (8–8-7/8 inç uzunluk)",
+          "nameTr": "Büyük boy",
           "nameEn": "large (8\" to 8-7/8\" long)",
           "grams": 136
         },
         {
           "id": "p93517",
-          "nameTr": "Çok büyük adet (en az 9 inç uzunluk)",
+          "nameTr": "Çok büyük boy",
           "nameEn": "extra large (9\" or longer)",
           "grams": 152
         }
@@ -803,19 +803,19 @@
       "portions": [
         {
           "id": "p84228",
-          "nameTr": "Büyük adet (3-1/16 inç çap)",
+          "nameTr": "Büyük boy",
           "nameEn": "large (3-1/16\" dia)",
           "grams": 184
         },
         {
           "id": "p84229",
-          "nameTr": "Küçük adet (2-3/8 inç çap)",
+          "nameTr": "Küçük boy",
           "nameEn": "small (2-3/8\" dia)",
           "grams": 96
         },
         {
           "id": "p84230",
-          "nameTr": "Adet (2-5/8 inç çap)",
+          "nameTr": "1 adet",
           "nameEn": "fruit (2-5/8\" dia)",
           "grams": 131
         }
@@ -843,25 +843,25 @@
       "portions": [
         {
           "id": "p81923",
-          "nameTr": "Çok büyük adet (1-5/8 inç çap)",
+          "nameTr": "Çok büyük boy",
           "nameEn": "extra large (1-5/8\" dia)",
           "grams": 27
         },
         {
           "id": "p81924",
-          "nameTr": "Büyük adet (1-3/8 inç çap)",
+          "nameTr": "Büyük boy",
           "nameEn": "large (1-3/8\" dia)",
           "grams": 18
         },
         {
           "id": "p81925",
-          "nameTr": "Orta adet (1-1/4 inç çap)",
+          "nameTr": "Orta boy",
           "nameEn": "medium (1-1/4\" dia)",
           "grams": 12
         },
         {
           "id": "p81927",
-          "nameTr": "Küçük adet (1 inç çap)",
+          "nameTr": "Küçük boy",
           "nameEn": "small (1\" dia)",
           "grams": 7
         }
@@ -889,19 +889,19 @@
       "portions": [
         {
           "id": "p88667",
-          "nameTr": "Yemek kaşığı (USDA tablespoon)",
+          "nameTr": "1 yemek kaşığı",
           "nameEn": "tablespoon",
           "grams": 13.5
         },
         {
           "id": "p88668",
-          "nameTr": "cup (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak (240 ml)",
           "nameEn": "cup",
           "grams": 216
         },
         {
           "id": "p88669",
-          "nameTr": "Çay kaşığı (USDA tsp)",
+          "nameTr": "1 tatlı kaşığı",
           "nameEn": "tsp",
           "grams": 4.5
         }
@@ -957,13 +957,13 @@
       "portions": [
         {
           "id": "p86201",
-          "nameTr": "cup, doğranmış (USDA ölçüsü)",
+          "nameTr": "1 büyük bardak, doğranmış (240 ml)",
           "nameEn": "cup, chopped",
           "grams": 117
         },
         {
           "id": "p86204",
-          "nameTr": "cup, kabuksuz (50 yarım; USDA ölçüsü)",
+          "nameTr": "1 büyük bardak, kabuksuz (240 ml)",
           "nameEn": "cup shelled (50 halves)",
           "grams": 100
         }
@@ -991,13 +991,13 @@
       "portions": [
         {
           "id": "p90594",
-          "nameTr": "cup (USDA ölçüsü; kuru)",
+          "nameTr": "1 büyük bardak, kuru (240 ml)",
           "nameEn": "cup",
           "grams": 192
         },
         {
           "id": "p90595",
-          "nameTr": "Yemek kaşığı (USDA tablespoon; kuru)",
+          "nameTr": "1 yemek kaşığı, kuru",
           "nameEn": "tablespoon",
           "grams": 12
         }
@@ -1025,13 +1025,13 @@
       "portions": [
         {
           "id": "p95836",
-          "nameTr": "cup (USDA ölçüsü; kuru)",
+          "nameTr": "1 büyük bardak, kuru (240 ml)",
           "nameEn": "cup",
           "grams": 202
         },
         {
           "id": "p95837",
-          "nameTr": "Yemek kaşığı (USDA tbsp; kuru)",
+          "nameTr": "1 yemek kaşığı, kuru",
           "nameEn": "tbsp",
           "grams": 12.6
         }
@@ -1452,7 +1452,7 @@
         },
         {
           "id": "ons",
-          "nameTr": "1 ons",
+          "nameTr": "1 parça (~28 g)",
           "nameEn": "1 oz",
           "grams": 28.4,
           "origin": "usda"
@@ -1556,7 +1556,7 @@
         },
         {
           "id": "ons",
-          "nameTr": "1 ons",
+          "nameTr": "1 parça (~28 g)",
           "nameEn": "1 oz",
           "grams": 28.4,
           "origin": "usda"
@@ -1596,7 +1596,7 @@
         },
         {
           "id": "ons",
-          "nameTr": "1 ons",
+          "nameTr": "1 parça (~28 g)",
           "nameEn": "1 oz",
           "grams": 28.4,
           "origin": "usda"
@@ -1677,7 +1677,7 @@
         },
         {
           "id": "ons",
-          "nameTr": "1 ons (yaklaşık 21 adet)",
+          "nameTr": "1 parça (~28 g, yaklaşık 21 adet)",
           "nameEn": "1 oz",
           "grams": 28.4,
           "origin": "usda"
@@ -1724,7 +1724,7 @@
         },
         {
           "id": "ons",
-          "nameTr": "1 ons (yaklaşık 49 adet)",
+          "nameTr": "1 parça (~28 g, yaklaşık 49 adet)",
           "nameEn": "1 oz",
           "grams": 28.4,
           "origin": "usda"
@@ -1764,7 +1764,7 @@
       "portions": [
         {
           "id": "ons",
-          "nameTr": "1 ons",
+          "nameTr": "1 parça (~28 g)",
           "nameEn": "1 oz",
           "grams": 28.4,
           "origin": "usda"
@@ -2652,7 +2652,7 @@
         },
         {
           "id": "ons",
-          "nameTr": "1 ons",
+          "nameTr": "1 parça (~28 g)",
           "nameEn": "1 oz",
           "grams": 28,
           "origin": "usda"
@@ -2727,7 +2727,7 @@
       "portions": [
         {
           "id": "ons-3",
-          "nameTr": "3 ons (yaklaşık 85 g)",
+          "nameTr": "1 porsiyon (~85 g)",
           "nameEn": "3 oz",
           "grams": 85,
           "origin": "usda"
@@ -2774,7 +2774,7 @@
       "portions": [
         {
           "id": "ons-3",
-          "nameTr": "3 ons (yaklaşık 85 g)",
+          "nameTr": "1 porsiyon (~85 g)",
           "nameEn": "3 oz",
           "grams": 85,
           "origin": "usda"
@@ -2836,7 +2836,7 @@
         },
         {
           "id": "ons-3",
-          "nameTr": "3 ons (yaklaşık 85 g)",
+          "nameTr": "1 porsiyon (~85 g)",
           "nameEn": "3 oz",
           "grams": 85,
           "origin": "usda"
@@ -2871,7 +2871,7 @@
       "portions": [
         {
           "id": "ons-3",
-          "nameTr": "3 ons (yaklaşık 85 g)",
+          "nameTr": "1 porsiyon (~85 g)",
           "nameEn": "3 oz",
           "grams": 85,
           "origin": "usda"
@@ -3244,7 +3244,7 @@
       "portions": [
         {
           "id": "ons",
-          "nameTr": "1 ons",
+          "nameTr": "1 parça (~28 g)",
           "nameEn": "1 oz",
           "grams": 28.4,
           "origin": "usda"

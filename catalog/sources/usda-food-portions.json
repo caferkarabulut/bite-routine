@@ -22,7 +22,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Büyük adet",
+          "measureName": "Büyük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "50"
@@ -39,7 +39,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Çok büyük adet (extra large)",
+          "measureName": "Çok büyük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "56"
@@ -56,7 +56,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Jumbo adet",
+          "measureName": "İri boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "63"
@@ -87,7 +87,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Orta adet",
+          "measureName": "Orta boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "44"
@@ -104,7 +104,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Küçük adet",
+          "measureName": "Küçük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "38"
@@ -130,7 +130,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup (USDA ölçüsü)",
+          "measureName": "1 büyük bardak (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "198"
@@ -147,7 +147,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Yemek kaşığı (USDA tbsp)",
+          "measureName": "1 yemek kaşığı",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "12.3"
@@ -173,7 +173,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup (USDA ölçüsü)",
+          "measureName": "1 büyük bardak (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "164"
@@ -245,7 +245,7 @@
           "portionDescription": "1 cup, cooked",
           "sequenceNumber": 1,
           "accepted": true,
-          "measureName": "cup, pişmiş (USDA ölçüsü)",
+          "measureName": "1 büyük bardak, pişmiş (240 ml)",
           "amountUsed": "1",
           "amountOrigin": "portionDescription: explicit 1 cup, cooked",
           "gramsPerUnit": "158"
@@ -285,7 +285,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup, doğranmış veya küp (USDA ölçüsü)",
+          "measureName": "1 büyük bardak, doğranmış veya küp (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "140"
@@ -356,7 +356,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup, doğranmış veya dilimli (USDA ölçüsü)",
+          "measureName": "1 büyük bardak, doğranmış veya dilimli (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "180"
@@ -401,7 +401,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Büyük adet (3 inç çap)",
+          "measureName": "Büyük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "182"
@@ -418,7 +418,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Orta adet (2-3/5 inç çap)",
+          "measureName": "Orta boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "123"
@@ -435,7 +435,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Orta dilim (1/4 inç kalınlık)",
+          "measureName": "Orta dilim",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "20"
@@ -466,7 +466,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Küçük adet (2-2/5 inç çap)",
+          "measureName": "Küçük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "91"
@@ -548,7 +548,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup (USDA ölçüsü)",
+          "measureName": "1 büyük bardak (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "244"
@@ -579,7 +579,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Yemek kaşığı (USDA tbsp)",
+          "measureName": "1 yemek kaşığı",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "15"
@@ -619,7 +619,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup, ufalanmış (USDA ölçüsü)",
+          "measureName": "1 büyük bardak, ufalanmış (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "150"
@@ -687,7 +687,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup (USDA ölçüsü)",
+          "measureName": "1 büyük bardak (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "156"
@@ -713,7 +713,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup (USDA ölçüsü)",
+          "measureName": "1 büyük bardak (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "182"
@@ -730,7 +730,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Yemek kaşığı (USDA tbsp)",
+          "measureName": "1 yemek kaşığı",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "8.4"
@@ -798,7 +798,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup, spagetti (USDA ölçüsü)",
+          "measureName": "1 büyük bardak, spagetti (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "91"
@@ -845,7 +845,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup, penne (USDA ölçüsü)",
+          "measureName": "1 büyük bardak, penne (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "95"
@@ -1013,7 +1013,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup, küp doğranmış (USDA ölçüsü)",
+          "measureName": "1 büyük bardak, küp doğranmış (240 ml)",
           "amountUsed": "0.5",
           "amountOrigin": "amount",
           "gramsPerUnit": "150"
@@ -1030,7 +1030,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Büyük adet (3–4-1/4 inç çap)",
+          "measureName": "Büyük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "369"
@@ -1047,7 +1047,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Orta adet (2-1/4–3-1/4 inç çap)",
+          "measureName": "Orta boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "213"
@@ -1064,7 +1064,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Küçük adet (1-3/4–2-1/2 inç çap)",
+          "measureName": "Küçük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "170"
@@ -1146,7 +1146,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Orta adet",
+          "measureName": "Orta boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "61"
@@ -1163,7 +1163,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Küçük adet (5-1/2 inç uzunluk)",
+          "measureName": "Küçük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "50"
@@ -1231,7 +1231,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup, dilimli (USDA ölçüsü)",
+          "measureName": "1 büyük bardak, dilimli (240 ml)",
           "amountUsed": "0.5",
           "amountOrigin": "amount",
           "gramsPerUnit": "104"
@@ -1248,7 +1248,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Adet (8-1/4 inç uzunluk)",
+          "measureName": "1 adet",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "301"
@@ -1316,7 +1316,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Büyük adet",
+          "measureName": "Büyük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "150"
@@ -1347,7 +1347,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Orta adet (2-1/2 inç çap)",
+          "measureName": "Orta boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "110"
@@ -1378,7 +1378,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Küçük adet",
+          "measureName": "Küçük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "70"
@@ -1436,7 +1436,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup, doğranmış (USDA ölçüsü)",
+          "measureName": "1 büyük bardak, doğranmış (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "91"
@@ -1532,7 +1532,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup (USDA ölçüsü)",
+          "measureName": "1 büyük bardak (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "30"
@@ -1631,7 +1631,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Çok küçük adet (6 inçten kısa)",
+          "measureName": "Çok küçük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "81"
@@ -1648,7 +1648,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Küçük adet (6–6-7/8 inç uzunluk)",
+          "measureName": "Küçük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "101"
@@ -1665,7 +1665,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Orta adet (7–7-7/8 inç uzunluk)",
+          "measureName": "Orta boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "118"
@@ -1682,7 +1682,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Büyük adet (8–8-7/8 inç uzunluk)",
+          "measureName": "Büyük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "136"
@@ -1699,7 +1699,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Çok büyük adet (en az 9 inç uzunluk)",
+          "measureName": "Çok büyük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "152"
@@ -1753,7 +1753,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Büyük adet (3-1/16 inç çap)",
+          "measureName": "Büyük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "184"
@@ -1770,7 +1770,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Küçük adet (2-3/8 inç çap)",
+          "measureName": "Küçük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "96"
@@ -1787,7 +1787,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Adet (2-5/8 inç çap)",
+          "measureName": "1 adet",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "131"
@@ -1869,7 +1869,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Çok büyük adet (1-5/8 inç çap)",
+          "measureName": "Çok büyük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "27"
@@ -1886,7 +1886,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Büyük adet (1-3/8 inç çap)",
+          "measureName": "Büyük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "18"
@@ -1903,7 +1903,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Orta adet (1-1/4 inç çap)",
+          "measureName": "Orta boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "12"
@@ -1934,7 +1934,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Küçük adet (1 inç çap)",
+          "measureName": "Küçük boy",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "7"
@@ -1974,7 +1974,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Yemek kaşığı (USDA tablespoon)",
+          "measureName": "1 yemek kaşığı",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "13.5"
@@ -1991,7 +1991,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup (USDA ölçüsü)",
+          "measureName": "1 büyük bardak (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "216"
@@ -2008,7 +2008,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Çay kaşığı (USDA tsp)",
+          "measureName": "1 tatlı kaşığı",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "4.5"
@@ -2133,7 +2133,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup, doğranmış (USDA ölçüsü)",
+          "measureName": "1 büyük bardak, doğranmış (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "117"
@@ -2178,7 +2178,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup, kabuksuz (50 yarım; USDA ölçüsü)",
+          "measureName": "1 büyük bardak, kabuksuz (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "100"
@@ -2232,7 +2232,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup (USDA ölçüsü; kuru)",
+          "measureName": "1 büyük bardak, kuru (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "192"
@@ -2249,7 +2249,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Yemek kaşığı (USDA tablespoon; kuru)",
+          "measureName": "1 yemek kaşığı, kuru",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "12"
@@ -2275,7 +2275,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "cup (USDA ölçüsü; kuru)",
+          "measureName": "1 büyük bardak, kuru (240 ml)",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "202"
@@ -2292,7 +2292,7 @@
             "abbreviation": "undetermined"
           },
           "accepted": true,
-          "measureName": "Yemek kaşığı (USDA tbsp; kuru)",
+          "measureName": "1 yemek kaşığı, kuru",
           "amountUsed": "1.0",
           "amountOrigin": "amount",
           "gramsPerUnit": "12.6"
