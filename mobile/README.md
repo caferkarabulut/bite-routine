@@ -2,23 +2,22 @@
 
 Expo SDK 58, React Native 0.88, React 19.3, TypeScript ve Expo Router. Node 24 LTS kullanılır.
 
-> Geçiş aşaması: mevcut ekranlar (katalog, giriş/kayıt, günlük ekleme/düzenleme) hâlâ kaldırılmış .NET API'sine bağlıdır. Faz 2'de yerel SQLite veritabanına ve uygulamaya gömülü kataloğa geçirilecek; kapsam için [proje durumu](../docs/PROJECT_STATUS.md).
+Uygulama tamamen cihazda çalışır: veriler SQLite'ta, katalog `assets/catalog.json` içinde gömülüdür. Katman ve ekran yapısı: [mimari](docs/ARCHITECTURE.md). Katalog güncellenince `npm run sync:catalog`.
 
 ## Çalıştırma
 
 ```sh
 cd mobile
 npm ci
-npm run ios       # Expo Go ile iOS Simulator
-npm run android   # Expo Go ile Android
+npx expo run:ios      # geliştirme derlemesi (SQLite ve bildirim yerel modül ister)
+npx expo run:android
 ```
 
-Native modül eklendiğinde Expo Go yetmez; geliştirme derlemesi gerekir:
+Sonraki açılışlarda yalnız Metro yeterlidir:
 
 ```sh
-npx expo run:ios          # Simulator
-npm run build:ios:device  # bağlı iPhone
 npm run start:dev
+npm run build:ios:device  # bağlı iPhone
 ```
 
 `ios/` ve `android/` klasörleri Expo tarafından üretilir, git dışındadır ve elle düzenlenmez. Yerel Expo adresi açılmazsa `NODE_OPTIONS=--dns-result-order=ipv4first` ile başlatın.
@@ -26,6 +25,7 @@ npm run start:dev
 ## Kontroller
 
 ```sh
+npm run check:catalog
 npm run check:deps
 npm run typecheck
 npm run lint
