@@ -148,6 +148,7 @@ export function WeightScreen() {
       <Card>
         <SectionTitle>{t("features.history.weightToday")}</SectionTitle>
         <TextField
+          testID="weight-input"
           label={t("features.history.weightInput")}
           value={text}
           onChangeText={(v) => {

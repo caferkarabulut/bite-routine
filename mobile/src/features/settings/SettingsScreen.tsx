@@ -157,6 +157,7 @@ export function SettingsScreen() {
       <SectionTitle>{t("features.settings.sectionWater")}</SectionTitle>
       <Card>
         <TextField
+          testID="water-goal-input"
           label={t("settings.waterGoal")}
           value={waterText}
           onChangeText={setWaterText}

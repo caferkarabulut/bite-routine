@@ -166,10 +166,11 @@ function CustomFoodForm({ food }: { food: CustomFood | null }) {
   return (
     <Screen>
       <Stack.Screen options={{ title: food ? t("customFood.edit") : t("customFood.new") }} />
-      <TextField label={t("customFood.name")} value={name} onChangeText={setName} error={errors.name} maxLength={80} />
+      <TextField testID="custom-name" label={t("customFood.name")} value={name} onChangeText={setName} error={errors.name} maxLength={80} />
       <SectionTitle>{t("customFood.per100g")}</SectionTitle>
       <Text style={typography.muted}>{t("customFood.optionalHint")}</Text>
       <TextField
+        testID="custom-kcal"
         label={t("features.catalog.customForm.kcal")}
         value={kcal}
         onChangeText={setKcal}
@@ -178,6 +179,7 @@ function CustomFoodForm({ food }: { food: CustomFood | null }) {
         error={errors.kcal}
       />
       <TextField
+        testID="custom-protein"
         label={t("features.catalog.customForm.protein")}
         value={protein}
         onChangeText={setProtein}
@@ -186,6 +188,7 @@ function CustomFoodForm({ food }: { food: CustomFood | null }) {
         error={errors.protein}
       />
       <TextField
+        testID="custom-carbs"
         label={t("features.catalog.customForm.carbs")}
         value={carbs}
         onChangeText={setCarbs}
@@ -194,6 +197,7 @@ function CustomFoodForm({ food }: { food: CustomFood | null }) {
         error={errors.carbs}
       />
       <TextField
+        testID="custom-fat"
         label={t("features.catalog.customForm.fat")}
         value={fat}
         onChangeText={setFat}
@@ -206,12 +210,14 @@ function CustomFoodForm({ food }: { food: CustomFood | null }) {
       {portions.map((p, i) => (
         <Card key={p.key}>
           <TextField
+            testID={`custom-portion-name-${i + 1}`}
             label={`${t("customFood.portionName")} ${i + 1}`}
             value={p.name}
             onChangeText={(v) => updatePortion(p.key, { name: v })}
             error={errors.portions[p.key]?.name}
           />
           <TextField
+            testID={`custom-portion-grams-${i + 1}`}
             label={`${t("customFood.portionGrams")} ${i + 1}`}
             value={p.grams}
             onChangeText={(v) => updatePortion(p.key, { grams: v })}

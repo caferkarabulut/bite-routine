@@ -1,0 +1,31 @@
+appId: com.biteroutine.mobile
+---
+- launchApp:
+    clearState: true
+- runFlow: subflows/onboarding.yaml
+- runFlow: subflows/add-lentil-soup.yaml
+- extendedWaitUntil:
+    visible: "Mercimek çorbası.*"
+    timeout: 8000
+- tapOn: "Geçmiş, tab.*"
+- extendedWaitUntil:
+    visible: "Hafta özeti"
+    timeout: 5000
+- assertVisible: "Günlük ortalama: 137 kcal"
+- assertVisible: "1 / 7 gün kayıtlı"
+- scrollUntilVisible:
+    element: ".*: 137 / .* kcal"
+- scrollUntilVisible:
+    element: "Kilo"
+- tapOn: "Kilo"
+- extendedWaitUntil:
+    visible: "Bugünün kilosu"
+    timeout: 5000
+- tapOn:
+    id: weight-input
+- inputText: "78,0"
+- tapOn: "Kaydet"
+- assertVisible: "Kilo kaydedildi."
+# The entry is listed under "Kayıtlar", below the chart.
+- scrollUntilVisible:
+    element: "78,0 kg"

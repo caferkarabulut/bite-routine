@@ -1,0 +1,26 @@
+# From Today: add 1,5 kepçe Mercimek çorbası to breakfast.
+appId: com.biteroutine.mobile
+---
+# The meal cards start under the tab bar on small screens: scroll first, otherwise the tap hits a tab.
+- scroll
+- tapOn:
+    id: add-breakfast
+- tapOn:
+    id: catalog-search
+- inputText: "mercimek"
+- tapOn:
+    text: "Mercimek çorbası.*"
+- scrollUntilVisible:
+    element: "1 kepçe.*"
+- tapOn: "1 kepçe.*"
+- tapOn:
+    id: amount-input
+- eraseText: 5
+- inputText: "1,5"
+- runFlow:
+    file: dismiss-keyboard.yaml
+- scrollUntilVisible:
+    element:
+      id: add-to-diary
+- tapOn:
+    id: add-to-diary

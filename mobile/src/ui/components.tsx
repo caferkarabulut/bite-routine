@@ -54,9 +54,11 @@ export function Button({
   disabled = false,
   loading = false,
   accessibilityHint,
+  testID,
 }: {
   label: string;
   onPress: () => void;
+  testID?: string;
   variant?: ButtonVariant;
   disabled?: boolean;
   loading?: boolean;
@@ -66,6 +68,7 @@ export function Button({
   const v = buttonVariants[variant];
   return (
     <Pressable
+      testID={testID}
       accessibilityRole="button"
       accessibilityLabel={label}
       accessibilityHint={accessibilityHint}

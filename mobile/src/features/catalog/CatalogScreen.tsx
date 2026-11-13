@@ -169,6 +169,7 @@ export function CatalogScreen() {
         </Card>
       ) : null}
       <TextField
+        testID="catalog-search"
         label={t("features.catalog.searchLabel")}
         placeholder={t("catalog.searchPlaceholder")}
         value={query}

@@ -87,6 +87,7 @@ export function ProfileFields({ form, currentYear }: { form: FormApi; currentYea
   return (
     <View style={{ gap: spacing.lg }}>
       <TextField
+        testID="onboarding-birth-year"
         label={t("profile.birthYear")}
         value={values.birthYear}
         onChangeText={(v) => setValue("birthYear", v.replace(/[^0-9]/g, "").slice(0, 4))}
@@ -112,6 +113,7 @@ export function ProfileFields({ form, currentYear }: { form: FormApi; currentYea
         )}
       </View>
       <TextField
+        testID="onboarding-height"
         label={t("profile.height")}
         value={values.heightCm}
         onChangeText={(v) => setValue("heightCm", v)}
@@ -122,6 +124,7 @@ export function ProfileFields({ form, currentYear }: { form: FormApi; currentYea
         error={errorText(t, "heightCm", e.heightCm, currentYear)}
       />
       <TextField
+        testID="onboarding-weight"
         label={t("profile.weight")}
         value={values.weightKg}
         onChangeText={(v) => setValue("weightKg", v)}

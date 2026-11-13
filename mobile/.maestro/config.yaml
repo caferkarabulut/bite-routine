@@ -1,0 +1,3 @@
+# Maestro workspace config: run every top-level flow in this folder (subflows/ is not run on its own).
+flows:
+  - "*.yaml"

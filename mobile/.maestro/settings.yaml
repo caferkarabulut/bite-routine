@@ -1,0 +1,44 @@
+appId: com.biteroutine.mobile
+---
+- launchApp:
+    clearState: true
+- runFlow: subflows/onboarding.yaml
+- tapOn: "Ayarlar, tab.*"
+- tapOn: "English"
+- assertVisible: "Settings, tab.*"
+- assertVisible: "Today, tab.*"
+- tapOn: "Türkçe"
+- assertVisible: "Ayarlar, tab.*"
+- assertVisible: "Bugün, tab.*"
+# Center the field: at the screen edge it ends up under the number pad and taps land on its keys.
+- scrollUntilVisible:
+    element:
+      id: water-goal-input
+    centerElement: true
+- tapOn:
+    id: water-goal-input
+- eraseText: 6
+- inputText: "2500"
+- runFlow:
+    file: subflows/dismiss-keyboard.yaml
+- tapOn: "Kaydet"
+# UX: the confirmation is rendered below the Data card, far from the Kaydet button (off-screen).
+- takeScreenshot: settings-water-saved
+- scrollUntilVisible:
+    element: "Su hedefi kaydedildi."
+- tapOn: "Bugün, tab.*"
+- scrollUntilVisible:
+    element: "200 ml ekle"
+- assertVisible: "0 / 2.500 ml"
+- tapOn: "Ayarlar, tab.*"
+- scrollUntilVisible:
+    element: "Tüm verileri sil"
+- tapOn: "Tüm verileri sil"
+- assertVisible: "Tüm veriler silinsin mi?"
+- tapOn:
+    id: delete-all-input
+- inputText: "SİL"
+- tapOn: "Hepsini sil"
+- extendedWaitUntil:
+    visible: "Seni tanıyalım"
+    timeout: 10000

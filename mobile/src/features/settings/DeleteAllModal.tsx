@@ -38,6 +38,7 @@ export function DeleteAllModal({
           </Text>
           <Text style={typography.body}>{t("settings.deleteAllConfirm", { word })}</Text>
           <TextField
+            testID="delete-all-input"
             label={t("features.settings.deleteAllInputLabel")}
             value={text}
             onChangeText={setText}

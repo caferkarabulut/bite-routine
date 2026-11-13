@@ -220,7 +220,7 @@ function FoodDetail({
           {t("features.catalog.addFailed")}
         </Text>
       ) : null}
-      <Button label={t("catalog.addToDiary")} onPress={submit} loading={saving} />
+      <Button testID="add-to-diary" label={t("catalog.addToDiary")} onPress={submit} loading={saving} />
       <Text style={typography.small}>{t("disclaimer")}</Text>
     </Screen>
   );

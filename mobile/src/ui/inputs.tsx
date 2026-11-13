@@ -64,6 +64,7 @@ export function AmountInput({
         />
       ) : null}
       <TextField
+        testID="amount-input"
         label={value.unit === "grams" ? t("catalog.grams") : t("catalog.quantity")}
         value={value.text}
         onChangeText={(text) => onChange({ ...value, text })}

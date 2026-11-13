@@ -1,0 +1,29 @@
+appId: com.biteroutine.mobile
+---
+- launchApp:
+    clearState: true
+- runFlow: subflows/onboarding.yaml
+- tapOn: "Katalog, tab.*"
+- tapOn:
+    id: catalog-search
+- inputText: "kisir"
+- extendedWaitUntil:
+    visible: "Kısır.*"
+    timeout: 5000
+- eraseText: 10
+- inputText: "cay"
+- extendedWaitUntil:
+    visible: "Çay \\(şekersiz\\).*"
+    timeout: 5000
+- assertVisible: "Çay \\(şekerli\\).*"
+- eraseText: 10
+- inputText: "içim"
+- extendedWaitUntil:
+    visible: "İçim.*Paketli ürün.*"
+    timeout: 5000
+- eraseText: 10
+- inputText: "eti"
+- extendedWaitUntil:
+    visible: ".*Paketli ürün · Eti.*"
+    timeout: 5000
+- takeScreenshot: search-packaged

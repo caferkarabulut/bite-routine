@@ -1,0 +1,21 @@
+appId: com.biteroutine.mobile
+---
+- launchApp:
+    clearState: true
+- runFlow: subflows/onboarding.yaml
+- assertVisible: "0 / .* kcal"
+- runFlow: subflows/add-lentil-soup.yaml
+# Totals card (Today keeps its scroll offset after returning, so scroll to the top first).
+- scrollUntilVisible:
+    element: "Kalori"
+    direction: UP
+- extendedWaitUntil:
+    visible: "137 / .* kcal"
+    timeout: 8000
+- assertNotVisible: "0 / .* kcal"
+# The entry sits in the Kahvaltı card, together with its 137 kcal meal total.
+- scrollUntilVisible:
+    element: ".*1,5 1 kepçe.*"
+- assertVisible: "Kahvaltı"
+- assertVisible: "137 kcal"
+- takeScreenshot: add-food-today

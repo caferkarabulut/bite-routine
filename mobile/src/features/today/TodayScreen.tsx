@@ -231,6 +231,7 @@ export function TodayScreen() {
               );
             })}
             <Button
+              testID={`add-${slot}`}
               label={`+ ${t("common.add")}`}
               variant="ghost"
               accessibilityHint={t("features.today.addToMeal", { meal: mealName })}
