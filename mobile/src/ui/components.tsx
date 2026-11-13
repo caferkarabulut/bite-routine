@@ -1,5 +1,5 @@
 // Shared UI building blocks. Owned by the coordinator; feature agents use but do not edit these.
-import { useState, type ReactNode } from "react";
+import { useContext, useState, type ReactNode } from "react";
 import {
   ActivityIndicator,
   Keyboard,
@@ -12,29 +12,38 @@ import {
   type TextInputProps,
   type ViewStyle,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaInsetsContext, SafeAreaView } from "react-native-safe-area-context";
 
 import { useOptionalI18n } from "../i18n";
 import { colors, radius, spacing, typography, TOUCH } from "./theme";
 
 type ScreenProps = { children: ReactNode; scroll?: boolean; padded?: boolean; edges?: ("top" | "bottom")[] };
 
-/** Full-screen container with safe areas. Tabs and stack headers already handle the top edge. */
-export function Screen({ children, scroll = true, padded = true, edges = [] }: ScreenProps) {
+/**
+ * Full-screen container with safe areas. Stack headers already handle the top edge and the tab bar the
+ * bottom one, so tab screens pass `edges={[]}`. The bottom inset is applied as padding inside the scroll
+ * content (not as a SafeAreaView edge) so the last button can scroll clear of the Android gesture bar and
+ * the iOS home indicator, and is never counted twice.
+ */
+export function Screen({ children, scroll = true, padded = true, edges = ["bottom"] }: ScreenProps) {
+  // Context read (not useSafeAreaInsets) so a missing provider means 0 instead of throwing.
+  const insets = useContext(SafeAreaInsetsContext);
+  const bottomInset = edges.includes("bottom") ? (insets?.bottom ?? 0) : 0;
   const content = padded ? <View style={styles.padded}>{children}</View> : children;
   return (
-    <SafeAreaView style={styles.screen} edges={edges}>
+    <SafeAreaView style={styles.screen} edges={edges.filter((e) => e === "top")}>
       {scroll ? (
         <ScrollView
+          testID="screen-scroll"
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="interactive"
           automaticallyAdjustKeyboardInsets
-          contentContainerStyle={styles.scrollContent}
+          contentContainerStyle={[styles.scrollContent, { paddingBottom: bottomInset }]}
         >
           {content}
         </ScrollView>
       ) : (
-        content
+        <View style={[styles.screen, { paddingBottom: bottomInset }]}>{content}</View>
       )}
     </SafeAreaView>
   );

@@ -38,6 +38,7 @@ Aynı cihaza aynı anda iki Maestro çalıştırma; akışlar birbirinin durumun
 | --- | --- |
 | `onboarding.yaml` | Profil formu (1996, Erkek, 178, 78,5), canlı hedef önizlemesi, Başla, Bugün sekmesi |
 | `add-food.yaml` | Kahvaltıya 1,5 kepçe Mercimek çorbası ekler; kcal toplamı ve öğün satırı |
+| `android-back.yaml` | Yalnız Android geri tuşu: onboarding, Bugün kökü, katalog/detay/özel yemek, silme penceresi. iOS'ta adımlar atlanır; `run.sh` varsayılan listesinde yok (`.maestro/run.sh <UDID> android-back`) |
 | `search-turkish.yaml` | `kisir` → Kısır, `cay` → iki çay, `içim` / `eti` → paketli ürün |
 | `edit-delete-entry.yaml` | Kaydın miktarını değiştirir, doğrular, onayla siler |
 | `custom-food.yaml` | Kendi yemeğini (makro + porsiyon) oluşturur, "Yemeklerim"de bulup günlüğe ekler |

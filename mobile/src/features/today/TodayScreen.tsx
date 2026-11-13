@@ -114,7 +114,7 @@ export function TodayScreen() {
 
   if (error) {
     return (
-      <Screen>
+      <Screen edges={[]}>
         <DayNavigator date={date} onChange={changeDate} />
         <ErrorState
           message={t("errors.loadFailed")}
@@ -126,7 +126,7 @@ export function TodayScreen() {
   }
   if (!data) {
     return (
-      <Screen>
+      <Screen edges={[]}>
         <DayNavigator date={date} onChange={changeDate} />
         <Loading label={t("common.loading")} />
       </Screen>
@@ -147,7 +147,7 @@ export function TodayScreen() {
   const waterGoal = settings.waterGoalMl;
 
   return (
-    <Screen>
+    <Screen edges={[]}>
       <DayNavigator date={date} onChange={changeDate} />
 
       <Card>
