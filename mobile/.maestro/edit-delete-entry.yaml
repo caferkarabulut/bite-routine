@@ -11,8 +11,8 @@ appId: com.biteroutine.mobile
     element: "Kalori"
     direction: UP
 - scrollUntilVisible:
-    element: ".*1,5 1 kepçe.*"
-- tapOn: ".*1,5 1 kepçe.*"
+    element: ".*1,5 kepçe.*"
+- tapOn: ".*1,5 kepçe.*"
 - extendedWaitUntil:
     visible:
       id: amount-input
@@ -30,9 +30,9 @@ appId: com.biteroutine.mobile
     element: "Kalori"
     direction: UP
 - scrollUntilVisible:
-    element: ".*, 2 1 kepçe"
+    element: ".*, 2 kepçe, .*"
 - assertVisible: "183 kcal"
-- tapOn: ".*, 2 1 kepçe"
+- tapOn: ".*, 2 kepçe, .*"
 - extendedWaitUntil:
     visible:
       id: amount-input
