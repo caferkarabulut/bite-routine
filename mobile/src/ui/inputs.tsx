@@ -51,7 +51,7 @@ export function AmountInput({
   const resolved = resolveAmount(value, portions, lang);
   const options = [
     { value: "grams", label: t("catalog.grams") },
-    ...portions.map((p) => ({ value: p.id, label: `${portionName(p, lang)} (${formatGrams(p.grams, lang)} g)` })),
+    ...portions.map((p) => ({ value: p.id, label: `${portionName(p, lang)} (${formatGrams(p.grams, lang)})` })),
   ];
   return (
     <View style={{ gap: spacing.md }}>
@@ -71,7 +71,7 @@ export function AmountInput({
         inputMode="decimal"
         suffix={value.unit === "grams" ? "g" : undefined}
         error={showError && !resolved ? t("catalog.invalidAmount") : null}
-        hint={resolved && value.unit !== "grams" ? `≈ ${formatGrams(resolved.grams, lang)} g` : undefined}
+        hint={resolved && value.unit !== "grams" ? `≈ ${formatGrams(resolved.grams, lang)}` : undefined}
       />
     </View>
   );
