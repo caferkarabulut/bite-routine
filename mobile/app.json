@@ -26,7 +26,10 @@
       "expo-router",
       "expo-secure-store",
       "expo-status-bar",
-      "expo-dev-client"
+      "expo-dev-client",
+      "expo-sqlite",
+      "expo-localization",
+      "expo-sharing"
     ],
     "scheme": "biteroutine",
     "experiments": {
