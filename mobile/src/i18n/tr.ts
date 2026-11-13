@@ -1,3 +1,9 @@
+import { catalogTr } from "./features/catalog";
+import { historyTr } from "./features/history";
+import { profileTr } from "./features/profile";
+import { settingsTr } from "./features/settings";
+import { todayTr } from "./features/today";
+
 /** Source dictionary. English (en.ts) must mirror this key tree. */
 export const tr = {
   app: { name: "Bite Routine" },
@@ -90,7 +96,7 @@ export const tr = {
     categories: "Kategoriler",
     favorites: "Favoriler",
     noFavorites: "Henüz favorin yok. Kalp simgesine dokunarak ekleyebilirsin.",
-    addToDiary: "Güncele ekle",
+    addToDiary: "Günlüğe ekle",
     addFavorite: "Favorilere ekle",
     removeFavorite: "Favorilerden çıkar",
     noResults: "Sonuç bulunamadı.",
@@ -221,6 +227,7 @@ export const tr = {
     loadFailed: "Yüklenemedi.",
     fileRead: "Dosya okunamadı.",
   },
+  features: { profile: profileTr, today: todayTr, catalog: catalogTr, history: historyTr, settings: settingsTr },
 } as const;
 
 export type Dictionary = typeof tr;

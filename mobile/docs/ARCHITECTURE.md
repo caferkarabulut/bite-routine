@@ -8,10 +8,12 @@ Uygulama tamamen cihazda çalışır: sunucu, hesap ve ağ isteği yoktur. Kapsa
 | --- | --- | --- |
 | `src/db/` | expo-sqlite veritabanı, şema/migration, repository fonksiyonları, yedekleme/geri yükleme/silme, `DatabaseProvider` | `types.ts` |
 | `src/domain/` | Saf fonksiyonlar: hedef hesabı, besin/porsiyon hesabı, toplamlar, İstanbul günü, sayı ayrıştırma | `types.ts` |
-| `src/i18n/` | TR/EN sözlükleri, `I18nProvider`, `useI18n()` | `types.ts`, expo-localization |
+| `src/i18n/` | TR/EN sözlükleri, `I18nProvider`, `useI18n()`, biçimlendirme | `types.ts`, `domain/dates`, expo-localization |
 | `src/catalog/` | Gömülü katalog (`assets/catalog.json`), Türkçe arama, kategori adları | `types.ts` |
-| `src/app/` | Expo Router ekranları (Dalga B) | hepsi |
-| `src/components/` | Ortak arayüz bileşenleri (Dalga B) | hepsi |
+| `src/ui/` | Tasarım değerleri ve ortak bileşenler (`Screen`, `Card`, `Button`, `TextField`, `ChoiceChips`, `ListRow`, `ProgressBar`, durum ekranları, `AmountInput`, `MealSlotPicker`, `DayNavigator`) | `domain`, `i18n` |
+| `src/state/` | `AppStateProvider` / `useAppState()`: ayarlar, profil, hedefler, `dataVersion` | `db`, `domain` |
+| `src/app/` | Expo Router yolları; her dosya bir `features/` ekranını dışa aktaran tek satırdır | `features` |
+| `src/features/<alan>/` | Ekranlar ve o alana özel bileşenler (Dalga B) | hepsi |
 
 Katmanlar birbirini doğrudan çağırmaz; ekranlar birleştirir. `domain`, `catalog` ve `i18n` React Native API'si dışında saf TypeScript'tir ve Node'da test edilir.
 
@@ -60,3 +62,34 @@ Katmanlar birbirini doğrudan çağırmaz; ekranlar birleştirir. `domain`, `cat
 - Ağ isteği yapılmaz. Analitik, reklam veya izleme kütüphanesi eklenmez.
 - Paket listesi (`package.json`) yalnız koordinatör tarafından değiştirilir.
 - Her ajan yalnız kendisine atanan klasörde ve kendi test dosyalarında (`__tests__/<alan>-*.test.ts`) çalışır.
+
+## Dalga B: ekranlar
+
+### Yollar ve sahiplik
+
+| Yol | Ekran | Alan (sahip) |
+| --- | --- | --- |
+| `/onboarding` | `OnboardingScreen`: ilk açılışta profil + hesaplanan hedef | `features/profile` |
+| `/profile` | `ProfileScreen`: profili ve hedef override'larını düzenleme | `features/profile` |
+| `/` (sekme) | `TodayScreen`: gün seçimi, kalan kcal, makrolar, öğün grupları, su | `features/today` |
+| `/entry/[id]` | `EntryEditScreen`: kaydın miktarını/öğününü/gününü değiştirme, silme | `features/today` |
+| `/catalog` (sekme) | `CatalogScreen`: arama, kategoriler, favoriler, yemeklerim | `features/catalog` |
+| `/food/[id]?date=&meal=` | `FoodDetailScreen`: 100 g değerleri, porsiyon, günlüğe ekleme, favori; `id` katalog kimliği veya `custom-…` | `features/catalog` |
+| `/custom-food?id=` | `CustomFoodScreen`: kendi yemeğini oluşturma/düzenleme/silme | `features/catalog` |
+| `/history` (sekme) | `HistoryScreen`: 7 günlük özet, güne dokununca o günü açar | `features/history` |
+| `/weight` | `WeightScreen`: kilo kaydı ve basit grafik | `features/history` |
+| `/settings` (sekme) | `SettingsScreen`: profil bağlantısı, dil, su hedefi, hatırlatıcılar, yedekle/geri yükle, tüm verileri sil, bağlantılar | `features/settings` |
+| `/sources` | `SourcesScreen`: USDA ve Open Food Facts atıfları, yaklaşık değer açıklaması | `features/settings` |
+| `/privacy` | `PrivacyScreen`: verinin yalnız cihazda kaldığını anlatan gizlilik metni | `features/settings` |
+
+`src/app/**`, `src/ui/**`, `src/state/**`, `types.ts` ve paket listesi koordinatöre aittir. Her ekran ajanı yalnız kendi `src/features/<alan>/` klasörünü, kendi metin dosyasını `src/i18n/features/<alan>.ts` ve kendi testlerini `__tests__/<alan>-*.test.tsx` değiştirir. Başka alanın bileşenine ihtiyaç olursa kopyalamak yerine `src/ui` için koordinatöre öneri yazılır.
+
+### Ortak kurallar
+
+- Metinler `t()` ile: genel anahtarlar `src/i18n/tr.ts` içinde hazırdır (salt okunur); alana özel yeni metinler `features.<alan>.*` altına, Türkçe ve İngilizce birlikte eklenir.
+- Veri: `useDb()` ile repository fonksiyonları; yazdıktan sonra `notifyDataChanged()`; okuyan ekranlar `dataVersion` değişince yeniden okur. Profil/ayar yalnız `useAppState()` üzerinden kaydedilir.
+- Gün: `todayInIstanbul()`; tarih göstermek için `formatDate`; sayılar `formatKcal`/`formatGrams`/`formatNumber`. null değer "Veri yok" (`common.noData`) olur.
+- Katalog ve kendi yemekleri: `getCatalogItem(id)` veya `getCustomFood(db, id)`; günlüğe eklerken ad ve 100 g değerleri anlık kopya olarak yazılır.
+- Erişilebilirlik: her dokunulabilir öğenin etiketi var, en az 48 pt; renk tek bilgi kaynağı değil.
+- Yükleniyor/boş/hata durumları `Loading`/`EmptyState`/`ErrorState` ile.
+- Gezinme: `router.push("/food/" + id)` gibi; parametreler `useLocalSearchParams`.

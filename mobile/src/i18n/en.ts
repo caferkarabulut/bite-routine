@@ -1,3 +1,8 @@
+import { catalogEn } from "./features/catalog";
+import { historyEn } from "./features/history";
+import { profileEn } from "./features/profile";
+import { settingsEn } from "./features/settings";
+import { todayEn } from "./features/today";
 import type { Dictionary } from "./tr";
 
 /** Recursive shape of the source dictionary with plain string leaves. */
@@ -223,4 +228,5 @@ export const en: Translations<Dictionary> = {
     loadFailed: "Could not load.",
     fileRead: "Could not read the file.",
   },
+  features: { profile: profileEn, today: todayEn, catalog: catalogEn, history: historyEn, settings: settingsEn },
 };

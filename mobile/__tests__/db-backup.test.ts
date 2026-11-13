@@ -1,3 +1,4 @@
+import { isTimestamp } from "../src/db/validation";
 /**
  * @jest-environment node
  */
@@ -295,4 +296,9 @@ describe("backup", () => {
       expect((await exportBackup(db)).waterLogs).toEqual([{ date: "2026-03-10", ml: 100 }]);
     });
   });
+});
+
+test("isTimestamp rejects an impossible calendar date", () => {
+  expect(isTimestamp("2026-02-28T12:00:00Z")).toBe(true);
+  expect(isTimestamp("2026-02-30T12:00:00Z")).toBe(false);
 });

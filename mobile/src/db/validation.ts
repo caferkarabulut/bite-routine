@@ -55,7 +55,13 @@ export function isLocalDate(v: unknown): v is string {
 }
 
 export function isTimestamp(v: unknown): v is string {
-  return typeof v === "string" && /^\d{4}-\d{2}-\d{2}T/.test(v) && !Number.isNaN(Date.parse(v));
+  // Date.parse rolls impossible days over (e.g. Feb 30), so check the calendar part separately.
+  return (
+    typeof v === "string" &&
+    /^\d{4}-\d{2}-\d{2}T/.test(v) &&
+    isLocalDate(v.slice(0, 10)) &&
+    !Number.isNaN(Date.parse(v))
+  );
 }
 
 export function isGrams(v: unknown): v is number {
