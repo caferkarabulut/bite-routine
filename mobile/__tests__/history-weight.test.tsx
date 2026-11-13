@@ -53,23 +53,23 @@ describe("WeightScreen", () => {
     expect(rows[0].kg).toBe(71.5);
   });
 
-  it.each(["", "abc", "19,9", "400,1", "0", "-70"])("rejects invalid input %p", async (value) => {
+  it.each(["", "abc", "29,9", "300,1", "0", "-70"])("rejects invalid input %p", async (value) => {
     const db = await freshDb();
     await renderWithApp(<WeightScreen />, db);
     await screen.findByText("Henüz kilo kaydı yok.");
     await enter(value);
-    expect(await screen.findByText("Kilo 20 ile 400 kg arasında olmalı.")).toBeTruthy();
+    expect(await screen.findByText("Kilo 30 ile 300 kg arasında olmalı.")).toBeTruthy();
     expect(await listWeights(db)).toHaveLength(0);
   });
 
-  it("accepts the 20 and 400 kg bounds", async () => {
+  it("accepts the 30 and 300 kg bounds", async () => {
     const db = await freshDb();
     await renderWithApp(<WeightScreen />, db);
     await screen.findByText("Henüz kilo kaydı yok.");
-    await enter("20");
+    await enter("30");
     await screen.findByText("Kilo kaydedildi.");
-    await enter("400");
-    await waitFor(() => expect(screen.getByText("400,0 kg")).toBeTruthy());
+    await enter("300");
+    await waitFor(() => expect(screen.getByText("300,0 kg")).toBeTruthy());
   });
 
   it("lists newest first and shows the chart summary with min/max", async () => {

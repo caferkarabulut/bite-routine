@@ -90,8 +90,8 @@ describe("TodayScreen meals", () => {
     await screen.findByText("Yumurta");
     const headers = screen.getAllByRole("header").map((h) => h.props.children);
     expect(headers).toEqual(["Kahvaltı", "Öğle yemeği", "Akşam yemeği", "Atıştırmalık", "Su"]);
-    expect(screen.getByRole("button", { name: "Yumurta, 1,5 Orta adet" })).toBeTruthy();
-    expect(screen.getByRole("button", { name: "Elma, 100 g" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: /^Yumurta, 1,5 × Orta adet, \d+ kcal$/ })).toBeTruthy();
+    expect(screen.getByRole("button", { name: /^Elma, 100 g, \d+ kcal$/ })).toBeTruthy();
     expect(screen.getAllByText("66 kcal").length).toBeGreaterThanOrEqual(2); // meal total + row
     expect(screen.getAllByText("Henüz yemek yok")).toHaveLength(2);
   });

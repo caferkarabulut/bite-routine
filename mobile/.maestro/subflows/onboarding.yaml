@@ -43,16 +43,16 @@ appId: com.biteroutine.mobile
 - tapOn: "Başla"
 # The tap occasionally lands while the layout is still settling after the keyboard closes: retry once.
 - extendedWaitUntil:
-    visible: "Bugün, tab.*"
+    visible: "Bugün(, tab.*)?"
     timeout: 4000
     optional: true
 - runFlow:
     when:
-      notVisible: "Bugün, tab.*"
+      notVisible: "Bugün(, tab.*)?"
     commands:
       - scrollUntilVisible:
           element: "Başla"
       - tapOn: "Başla"
 - extendedWaitUntil:
-    visible: "Bugün, tab.*"
+    visible: "Bugün(, tab.*)?"
     timeout: 15000
