@@ -4,6 +4,8 @@ Mimari ve ürün kararları, en yeni karar en üstte. Eski karar silinmez: karar
 
 | Tarih | Karar | Neden | Ayrıntı |
 |---|---|---|---|
+| 2026-11-13 | v1'de iPad desteği kapalı (`ios.supportsTablet: false`) | iPad ekran görüntüsü ve iPad düzen incelemesi gerekmesin | PR #38 |
+| 2026-11-13 | USDA "cup" porsiyonu "1 büyük bardak (240 ml)", "tsp" "1 çay kaşığı" adını alır | Türk su bardağı ~200 ml; gramlar USDA'dan değişmeden gelir | PR #40 |
 | 2026-11-13 | Profil: standart (`proje-kur`, uyarla modu) | — | Kapsam: `docs/PROJECT_STATUS.md` (SPEC açılmadı); devir: `docs/DEVIR.md` + `docs/DEVIR-gunluk.md` |
 | 2026-11-13 | Orkestrasyon: `opus-orchestration`; Opus yönetici, kodu ağırlıklı olarak Sonnet yazar, Codex de kullanılır | Kullanıcı tercihi | AGENTS.md "Yürütme düzeni" |
 | 2026-11-13 | Risk seviyeleri: varsayılan R0–R3, projeye eşlemesi AGENTS.md'de | — | AGENTS.md "Yürütme düzeni" |
@@ -19,4 +21,4 @@ Bu soruların cevabı varsayılmaz; kullanıcıya sorulur. Cevaplanan soru burad
 
 | Açıldığı tarih | Soru | Neyi etkiler | Kime |
 |---|---|---|---|
-| — | (henüz yok) | — | — |
+| 2026-11-13 | Kaydedilmemiş formdan (özel yemek, profil, kayıt düzenleme, kilo) geri çıkınca uyarı gösterilsin mi? Şu an veri sessizce atılıyor. | Form ekranları UX'i | Kullanıcı |
