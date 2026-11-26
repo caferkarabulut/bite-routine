@@ -65,7 +65,7 @@ export function HistoryScreen() {
 
   if (failed) {
     return (
-      <Screen>
+      <Screen edges={[]}>
         <ErrorState
           message={t("features.history.loadFailed")}
           retryLabel={t("errors.retry")}
@@ -76,14 +76,14 @@ export function HistoryScreen() {
   }
   if (!data || !week) {
     return (
-      <Screen>
+      <Screen edges={[]}>
         <Loading label={t("features.history.loading")} />
       </Screen>
     );
   }
 
   return (
-    <Screen>
+    <Screen edges={[]}>
       {nav}
       <Card>
         <SectionTitle>{t("features.history.weekSummary")}</SectionTitle>

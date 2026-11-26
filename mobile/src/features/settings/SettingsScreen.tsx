@@ -131,7 +131,7 @@ export function SettingsScreen() {
   const version = Constants.expoConfig?.version ?? "";
 
   return (
-    <Screen>
+    <Screen edges={[]}>
       <SectionTitle>{t("features.settings.sectionProfile")}</SectionTitle>
       <Card>
         <ListRow

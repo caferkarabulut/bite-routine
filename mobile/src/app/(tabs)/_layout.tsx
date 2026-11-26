@@ -13,6 +13,7 @@ export default function TabsLayout() {
   if (!profile) return <Redirect href="/onboarding" />;
   return (
     <Tabs
+      backBehavior="history"
       screenOptions={({ route }) => ({
         headerStyle: { backgroundColor: colors.background },
         headerTintColor: colors.text,

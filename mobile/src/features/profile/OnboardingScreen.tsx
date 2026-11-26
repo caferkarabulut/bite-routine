@@ -33,7 +33,7 @@ export function OnboardingScreen() {
   };
 
   return (
-    <FormScreen>
+    <FormScreen top>
       <Text accessibilityRole="header" style={typography.title}>
         {t("app.name")}
       </Text>

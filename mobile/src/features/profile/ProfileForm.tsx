@@ -229,10 +229,11 @@ export function TargetsCard({ title, targets, empty }: { title: string; targets:
 }
 
 /** Screen scaffold with keyboard avoidance. */
-export function FormScreen({ children }: { children: ReactNode }) {
+/** `top` is for screens without a navigation header (onboarding). */
+export function FormScreen({ children, top = false }: { children: ReactNode; top?: boolean }) {
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
-      <Screen edges={["top", "bottom"]}>{children}</Screen>
+      <Screen edges={top ? ["top", "bottom"] : ["bottom"]}>{children}</Screen>
     </KeyboardAvoidingView>
   );
 }
