@@ -139,13 +139,252 @@ export function dedupe(items) {
   return { products: [...byName.values()], drops };
 }
 
+// ---- Görünen ad / marka yazımı (yalnız nameTr ve brand; besin değeri, barkod, porsiyon değişmez) ----
+
+const TR_FOLD = { ç: 'c', ğ: 'g', ı: 'i', ö: 'o', ş: 's', ü: 'u', â: 'a', î: 'i', û: 'u', ê: 'e', ô: 'o' };
+const WORD_RE = /[\p{L}\p{N}\p{M}]+(?:['’][\p{L}\p{M}]+)*/gu;
+const CONNECTIVES = new Set(['ve', 'ile', 'veya']);
+const FOREIGN_I_WORDS = new Set(['ice', 'iced', 'indomie', 'instant']);
+const UNIT_RE = /(\d(?:[\d.,]*\d)?)(\s*)(kg|gr|gram|mg|g|ml|cl|lt|l[iİ]tre|l)(?![\p{L}\p{N}])/giu;
+
+/**
+ * Küçük alias tabloları (anahtar: foldKey). Veriden/sözlükten çözülemeyen bilinen durumlar için; kısa tutulur.
+ * - BRAND_ALIASES: gerçek yazımı kısaltma ya da aksanlı olan ve gruptaki yazımlarla çakışan markalar.
+ *   BİM/ŞOK/A101 perakendecileri: veride "Bim" gibi karışık yazım da var, "<= 3 harf büyük kalır" kuralı yetmez.
+ *   "Anadolu Çiftliği": veride yalnız ASCII yazımı ("ANADOLU CIFTLIGI") var; sözlük de çözer, alias güvence.
+ * - WORD_ALIASES: tamamen büyük kaynakta, sözlükte yeri olmayan ama yazımı bilinen kelimeler (foldKey -> küçük harfli yazım).
+ */
+export const BRAND_ALIASES = new Map([
+  ['bim', 'BİM'],
+  ['sok', 'ŞOK'],
+  ['a101', 'A101'],
+  ['anadolu ciftligi', 'Anadolu Çiftliği'],
+]);
+export const WORD_ALIASES = new Map([]);
+
+const nfc = (s) => (typeof s === 'string' ? s.normalize('NFC') : s);
+
+/** Marka gruplama anahtarı: NFC, Türkçe küçük harf, aksan katlama (ç->c, ı->i ...), harf/rakam dışı -> boşluk. */
+export const foldKey = (s) =>
+  nfc(s)
+    .toLocaleLowerCase('tr-TR')
+    .replace(/[çğıöşüâîûêô]/g, (c) => TR_FOLD[c])
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim();
+
+const hasLetter = (s) => /\p{L}/u.test(s);
+export const isAllUpper = (s) => hasLetter(s) && s === s.toLocaleUpperCase('tr-TR');
+export const isAllLower = (s) => hasLetter(s) && s === s.toLocaleLowerCase('tr-TR');
+const isMixed = (s) => hasLetter(s) && !isAllUpper(s) && !isAllLower(s);
+const letterCount = (s) => (s.match(/\p{L}/gu) ?? []).length;
+const diacritics = (s) => (s.match(/[çğıöşüÇĞİÖŞÜ]/g) ?? []).length;
+const byCountThenAccent = (a, b) => b[1] - a[1] || diacritics(b[0]) - diacritics(a[0]) || (a[0] < b[0] ? -1 : 1);
+const byAccentThenCount = (a, b) => diacritics(b[0]) - diacritics(a[0]) || b[1] - a[1] || (a[0] < b[0] ? -1 : 1);
+
+/**
+ * Kelime sözlüğü: veri kümesindeki (ürün ad/markaları, istenirse katalogdaki yemek/gıda adları) doğru yazılmış
+ * kelimeler, foldKey anahtarıyla. Yalnız yazımı belirsiz olmayan kelimeler girer: büyük ASCII "I" içeren
+ * kelimeler (tamamen büyük metinlerdeki "FISTIK" ya da karışık harfli "Ice"/"Irmak") atlanır; harfsiz, tek harfli,
+ * rakamlı ve apostroflu kelimeler de. Aynı anahtarda en sık yazım kazanır (tek bir hatalı "Heınz" 20 "Heinz"i bastırmasın); eşitlikte en çok aksanlı, sonra alfabetik
+ * (ASCII'ye indirgenmiş "cikolata" yerine "çikolata"). Dönüş: foldKey -> küçük harfli doğru yazım.
+ */
+export function buildWordDict(texts) {
+  const counts = new Map();
+  for (const raw of texts) {
+    if (typeof raw !== 'string') continue;
+    for (const [token] of raw.normalize('NFC').matchAll(WORD_RE)) {
+      if (!/^\p{L}{2,}$/u.test(token) || token.includes('I')) continue;
+      const word = token.toLocaleLowerCase('tr-TR');
+      const key = foldKey(word);
+      const g = counts.get(key) ?? new Map();
+      g.set(word, (g.get(word) ?? 0) + 1);
+      counts.set(key, g);
+    }
+  }
+  const dict = new Map();
+  for (const [key, g] of counts) dict.set(key, [...g.entries()].sort(byCountThenAccent)[0][0]);
+  return dict;
+}
+
+/** Sözlük/alias yazımı kaynak kelimeyle uyumlu mu: kaynaktaki açık Türkçe harfler (Ç Ğ İ Ö Ş Ü) aynen korunmalı. */
+function compatible(word, spelling) {
+  if (word.length !== spelling.length) return false;
+  for (let i = 0; i < word.length; i++) {
+    if (/[ÇĞİÖŞÜ]/.test(word[i]) && word[i].toLocaleLowerCase('tr-TR') !== spelling[i]) return false;
+  }
+  return true;
+}
+
+/**
+ * Tamamen büyük harfli bir kelimeyi küçültür; ASCII "I" Türkçede "ı" ya da "i" olabilir. Sıra:
+ *  1. Kelimede hiç ASCII "I" yoksa belirsizlik yok: tr-TR kuralı. Açık "İ" her zaman "i" olarak korunur; kelimedeki
+ *     ASCII "I"lar (VİTAMIN, HİNDISTAN) aşağıdaki adımlarla ayrıca çözülür.
+ *  2. Alias tablosu, sonra veri sözlüğü (foldKey eşleşmesi; kaynaktaki Ç Ğ İ Ö Ş Ü ile çelişmemeli).
+ *  3. Çok güçlü kanıt: kelimede Türkçeye özgü harf (ç ğ ö ş ü) var ve hiç ön ünlü (e i ö ü) yok: "I" -> "ı"
+ *     (IŞIK -> ışık, FISTIĞI -> fıstığı).
+ *  4. Varsayılan "I" -> "i" (LIGHT -> light, VITAMIN -> vitamin); fallback: true döner ve ctx.onFallback çağrılır.
+ */
+function lowerUpperWord(word, ctx) {
+  const tr = word.toLocaleLowerCase('tr-TR');
+  if (!word.includes('I')) return { text: tr, fallback: false };
+  if (!/['’]/.test(word)) {
+    const key = foldKey(word);
+    for (const candidate of [WORD_ALIASES.get(key), ctx.dict?.get(key)]) {
+      if (candidate && compatible(word, candidate)) return { text: candidate, fallback: false };
+    }
+  }
+  if (/[ÇĞÖŞÜ]/.test(word) && !/[eiöü]/.test(tr)) return { text: tr, fallback: false };
+  ctx.onFallback?.(word);
+  return { text: word.replace(/I/g, 'i').toLocaleLowerCase('tr-TR'), fallback: true };
+}
+
+/**
+ * Türkçe başlık biçimi: her kelimenin ilk harfi büyük (i -> İ, ı -> I), gerisi küçük. İlk kelime
+ * dışında "ve", "ile", "veya" küçük kalır. Girdi tamamen büyükse kelimeler lowerUpperWord ile küçültülür;
+ * tamamen küçükse yalnız ilk harf büyütülür. ctx: { dict, onFallback } (isteğe bağlı).
+ */
+export function titleTr(input, ctx = {}) {
+  const s = nfc(input);
+  const upperSource = isAllUpper(s);
+  let index = 0;
+  return s.replace(WORD_RE, (word, offset) => {
+    const first = index++ === 0;
+    const lowered = upperSource ? lowerUpperWord(word, ctx) : { text: word, fallback: false };
+    const rest = lowered.text;
+    if (!first && CONNECTIVES.has(rest.toLocaleLowerCase('tr-TR'))) return rest.toLocaleLowerCase('tr-TR');
+    // "lezzet-i efsane" gibi tireden sonraki tek harf (ek) küçük kalır.
+    if (word.length === 1 && s[offset - 1] === '-') return rest;
+    let head = rest[0].toLocaleUpperCase('tr-TR');
+    // Yabancı sözcüklerde ve sözlüksüz ASCII "I" ile başlayan kelimelerde baş harf "I" kalır (ICE -> Ice, IRMAK -> Irmak).
+    if (FOREIGN_I_WORDS.has(rest) || (lowered.fallback && word[0] === 'I')) head = 'I';
+    return head + rest.slice(1);
+  });
+}
+
+/** Sayıdan sonra gelen birimlerin yazımı: g, gr, gram, kg, mg, ml, cl, lt, litre küçük; litre simgesi büyük "L". */
+export function normalizeUnits(input) {
+  return nfc(input).replace(UNIT_RE, (_, num, space, unit) => {
+    const u = unit.toLocaleLowerCase('tr-TR').replace('ı', 'i');
+    return `${num}${space}${u === 'l' ? 'L' : u}`;
+  });
+}
+
+/**
+ * Markaları Türkçe duyarlı anahtarla (foldKey) gruplar ve her grup için tek görünen biçim seçer.
+ *  0. BRAND_ALIASES'ta varsa o yazım.
+ *  1. Grupta karışık harfli (ne tamamen büyük ne tamamen küçük) yazım varsa en sık olanı (eşitlikte
+ *     aksanı çok olan, sonra az büyük harfli, sonra alfabetik).
+ *  2. Yoksa ve grubun tüm yazımları tamamen büyük ve en çok 3 harfliyse kısaltma sayılır, büyük kalır
+ *     (örn. "7UP", "MNS").
+ *  3. Yoksa en çok aksanlı (sonra en sık) yazım seçilip Türkçe başlık biçimine çevrilir
+ *     ("ETİ" -> "Eti", "ÇİFTÇİ" -> "Çiftçi", "tat" -> "Tat").
+ * Dönüş: foldKey -> görünen marka. Girdi: { brand, nameTr } ürünleri; ctx: { dict, onFallback }.
+ */
+export function canonicalBrands(products, ctx = {}) {
+  const groups = new Map();
+  const add = (key, text) => {
+    const g = groups.get(key) ?? new Map();
+    g.set(text, (g.get(text) ?? 0) + 1);
+    groups.set(key, g);
+  };
+  for (const p of products) {
+    const brand = nfc(p.brand);
+    const nameTr = nfc(p.nameTr);
+    if (!brand) continue;
+    const key = foldKey(brand);
+    if (!key) continue;
+    add(key, brand);
+    // Kanıt: adın başında marka yazılmışsa o yazım da aday olur (LAVI + "Lavi Meyve ..." -> Lavi; DUDOMI + "DUDOMİ ..." -> Dudomi).
+    const span = nameTr ? findBrandSpan(nameTr, key, false) : null;
+    if (span) add(key, nameTr.slice(span.start, span.end));
+  }
+  const capitals = (s) => (s.match(/\p{Lu}/gu) ?? []).length;
+  const rank = (a, b) => b[1] - a[1] || diacritics(b[0]) - diacritics(a[0]) || capitals(a[0]) - capitals(b[0]) || (a[0] < b[0] ? -1 : 1);
+  const out = new Map();
+  for (const [key, g] of groups) {
+    if (BRAND_ALIASES.has(key)) { out.set(key, BRAND_ALIASES.get(key)); continue; }
+    const variants = [...g.entries()];
+    const mixed = variants.filter(([v]) => isMixed(v)).sort(rank);
+    let display;
+    if (mixed.length) display = mixed[0][0];
+    else {
+      const best = [...variants].sort(byAccentThenCount)[0][0];
+      const abbreviation = variants.every(([v]) => isAllUpper(v) && letterCount(v) <= 3);
+      display = abbreviation ? best : titleTr(best, ctx);
+    }
+    out.set(key, normalizeUnits(display));
+  }
+  return out;
+}
+
+/** Adda marka kelimelerinin (tam kelime sınırında, foldKey eşitliğiyle) geçtiği ilk aralık: {start,end} | null. */
+function findBrandSpan(name, brandKey, anywhere) {
+  const brandWords = brandKey.split(' ').filter(Boolean);
+  if (!brandWords.length) return null;
+  const tokens = [...name.matchAll(WORD_RE)].map((m) => ({ start: m.index, end: m.index + m[0].length, key: foldKey(m[0]) }));
+  // "Hellmann's" gibi apostroflu kelime foldKey ile birden çok parçaya ayrılır; parçalara açıp karşılaştır.
+  const parts = [];
+  tokens.forEach((t, ti) => t.key.split(' ').forEach((k) => k && parts.push({ k, ti })));
+  const last = anywhere ? parts.length - brandWords.length : 0;
+  for (let i = 0; i <= last; i++) {
+    if (!brandWords.every((w, j) => parts[i + j]?.k === w)) continue;
+    const endPart = i + brandWords.length - 1;
+    // Marka kelimenin tamamını kaplamalı ("Eti" kelimesi "Etik" içinde eşleşmesin).
+    if (parts[i].ti === parts[i - 1]?.ti || parts[endPart].ti === parts[endPart + 1]?.ti) continue;
+    return { start: tokens[parts[i].ti].start, end: tokens[parts[endPart].ti].end };
+  }
+  return null;
+}
+
+/** Markayı addaki eşleşmenin yerine yazar; markanın baş/son noktalaması eşleşmenin hemen yanındaysa o da değiştirilir. */
+function replaceBrandInName(name, brand, { anywhere }) {
+  const span = findBrandSpan(name, foldKey(brand), anywhere);
+  if (!span) return name;
+  const lead = brand.match(/^[^\p{L}\p{N}]*/u)[0];
+  const trail = brand.match(/[^\p{L}\p{N}]*$/u)[0];
+  let { start, end } = span;
+  if (lead && name.slice(start - lead.length, start) === lead) start -= lead.length;
+  if (trail && name.slice(end, end + trail.length) === trail) end += trail.length;
+  return name.slice(0, start) + brand + name.slice(end);
+}
+
+/**
+ * Görünen ad: tamamen büyük ya da tamamen küçük ad Türkçe başlık biçimine çevrilir (karışık harfli
+ * ad sahibinin yazımıyla kalır); marka adın başında (başlık biçimine çevrilen adlarda her yerinde)
+ * kanonik yazımla değiştirilir; birimler normalizeUnits ile düzeltilir. ctx: { dict, onFallback }.
+ */
+export function displayName(input, brandInput, ctx = {}) {
+  const name = nfc(input);
+  const brand = nfc(brandInput);
+  const retitle = !isMixed(name);
+  let out = retitle ? titleTr(name, ctx) : name;
+  if (brand) out = replaceBrandInName(out, brand, { anywhere: retitle });
+  return normalizeUnits(out);
+}
+
+/**
+ * Yalnız nameTr ve brand alanlarını normalleştirir (NFC dahil); yeni liste döner.
+ * options.extraTexts: sözlüğe eklenecek ek Türkçe metinler (katalogdaki yemek/gıda adları); options.onFallback(word):
+ * sözlükte/kanıtta bulunmayıp "i" varsayımına düşen ASCII-"I" kelimelerini bildirir.
+ */
+export function normalizeDisplay(products, { extraTexts = [], onFallback } = {}) {
+  const nfcProducts = products.map((p) => ({ ...p, brand: nfc(p.brand), nameTr: nfc(p.nameTr) }));
+  const dict = buildWordDict([...nfcProducts.flatMap((p) => [p.nameTr, p.brand]), ...extraTexts]);
+  const ctx = { dict, onFallback };
+  const canon = canonicalBrands(nfcProducts, ctx);
+  return nfcProducts.map((p) => {
+    const brand = p.brand ? (canon.get(foldKey(p.brand)) ?? p.brand) : p.brand;
+    return { ...p, brand, nameTr: displayName(p.nameTr, brand, ctx) };
+  });
+}
+
 export function sortProducts(list) {
   return list.sort(
     (a, b) => a.brand.localeCompare(b.brand, 'tr') || a.nameTr.localeCompare(b.nameTr, 'tr') || a.code.localeCompare(b.code),
   );
 }
 
-export function filterAll(rawProducts) {
+export function filterAll(rawProducts, displayOptions = {}) {
   const dropCounts = {};
   const kept = [];
   let fromKj = 0;
@@ -157,8 +396,10 @@ export function filterAll(rawProducts) {
     if (r.meta.fromKj) fromKj++;
     if (r.meta.liquid) liquids++;
   }
-  const { products, drops } = dedupe(kept);
-  for (const [k, v] of Object.entries(drops)) if (v) dropCounts[k] = v;
+  const deduped = dedupe(kept);
+  for (const [k, v] of Object.entries(deduped.drops)) if (v) dropCounts[k] = v;
+  // Yazım normalleştirmesi tekilleştirmeden sonra: tutulan/elenen kayıt değişmez, yalnız görünen metin.
+  const products = normalizeDisplay(deduped.products, displayOptions);
   sortProducts(products);
   return { products, dropCounts, fromKj, liquids };
 }
@@ -205,6 +446,12 @@ ${rows}
 - Atwater: |kcal - (4p + 4c + 9f)| <= max(25, kcal x %20). Alkol varsa 7 kcal/g eklenir, polyol varsa alt sınır 1,6 kcal/g gevşetilir.
 - İçecekler: Open Food Facts 100 ml ve 100 g değerlerini aynı alanda tutar. Su bazlı içeceklerde 100 ml ~ 100 g kabul edilir; ayrıca yoğunluk düzeltmesi yapılmaz (yağ, bal, şurup gibi yoğun sıvılarda küçük sapma olabilir). Ambalajı ml olan ürünler \`quantity\` alanından ayırt edilir.
 - \`servingGrams\`: \`serving_quantity\` gram biriminde ve 1-1000 arasındaysa, değilse \`null\`.
+- Görünen marka ve ad yazımı (yalnız \`nameTr\` ve \`brand\`; besin değeri, barkod, porsiyon, ambalaj miktarı değişmez; tekilleştirmeden sonra uygulanır):
+  - Metinler NFC'ye çevrilir. Marka: Türkçe duyarlı anahtarla (büyük/küçük harf, I/İ/ı/i, ç ğ ö ş ü aksanı, noktalama ve boşluk katlanır) aynı markalar gruplanır (ETİ, ETI, Eti, eti -> tek marka). Grupta karışık harfli yazım varsa en sık olan, yoksa Türkçe başlık biçimi (ETİ -> Eti, ÇİFTÇİ -> Çiftçi). Grubun tüm yazımları tamamen büyük ve en çok 3 harfliyse (A101, 7UP) kısaltma sayılıp büyük bırakılır. Küçük alias tablosu (\`BRAND_ALIASES\`: BİM, ŞOK, A101, Anadolu Çiftliği) bu kuralların önüne geçer.
+  - Ad: tamamen büyük ya da tamamen küçükse Türkçe başlık biçimine çevrilir (i -> İ, ı -> I; "ve", "ile", "veya" küçük kalır). Karışık harfli ad sahibinin yazımıyla kalır.
+  - Tamamen büyük kelimedeki belirsiz ASCII "I" sırasıyla şöyle çözülür: kelimede ASCII "I" yoksa Türkçe kural (açık "İ" her zaman "i" kalır, aynı kelimedeki ASCII "I" aşağıdaki adımlarla çözülür); kelime alias tablosunda ya da veri sözlüğünde varsa oradaki yazım (sözlük: ürün ad/markalarındaki ve katalogdaki yemek/gıda adlarındaki doğru yazılmış kelimeler, foldKey anahtarıyla; en sık yazım, eşitlikte aksanlı; ASCII'ye indirgenmiş "CIFTLIGI" de "çiftliği" olur); kelimede ç ğ ö ş ü varsa ve ön ünlü (e i ö ü) yoksa "ı"; aksi hâlde varsayılan "i" (LIGHT -> Light). Sözlükte bulunmayıp "i" varsayımına düşen kelime sayısı filter-off çıktısında yazılır (\`--list-fallback\` ile liste).
+  - Adda marka geçiyorsa marka kanonik yazımla (baş/son noktalamasıyla birlikte) yazılır: başlık biçimine çevrilen adlarda her yerde, diğerlerinde yalnız adın başında.
+  - Sayıdan sonraki birimler: g, gr, gram, kg, mg, ml, cl, lt, litre küçük harf; litre simgesi büyük "L" (45 G -> 45 g, 750 Ml -> 750 ml, 1 l -> 1 L).
 - Aynı barkod tek kayıt; aynı marka+ad farklı barkodla geliyorsa en dolu kayıt tutulur. Marka -> ad sırasıyla (tr) sıralanır.
 
 ## Lisans ve atıf
@@ -240,7 +487,17 @@ async function main() {
     if (!prev || score(p) > score(prev)) byCode.set(p.code, p);
   }
   const rawCodes = new Set(byCode.keys());
-  const { products, dropCounts, fromKj, liquids } = filterAll([...byCode.values()]);
+  // Yazım sözlüğüne katalogdaki Türkçe yemek/gıda adları da girer (Zeytinyağı, Kırmızı ... kanıtı).
+  const extraTexts = [];
+  for (const [file, key] of [['dishes.json', 'dishes'], ['base-foods.json', 'foods']]) {
+    try {
+      const j = JSON.parse(await readFile(join(here, '..', file), 'utf8'));
+      for (const x of j[key] ?? []) extraTexts.push(x.nameTr, ...(x.aliases ?? []));
+    } catch { /* dosya yoksa yalnız ürün adları kullanılır */ }
+  }
+  const fallbackWords = new Map();
+  const onFallback = (w) => fallbackWords.set(w, (fallbackWords.get(w) ?? 0) + 1);
+  const { products, dropCounts, fromKj, liquids } = filterAll([...byCode.values()], { extraTexts, onFallback });
   const retrievedAt = (latest || new Date().toISOString()).slice(0, 10);
   const out = {
     version: 1,
@@ -264,6 +521,8 @@ async function main() {
   );
   console.log(`indirilen ${all.length} kayıt (${rawCodes.size} benzersiz kod), tutulan ${products.length}`);
   console.log(dropCounts);
+  console.log(`sözlükte/kanıtta olmayıp "i" varsayımına düşen ASCII-I kelime: ${fallbackWords.size}`);
+  if (process.argv.includes('--list-fallback')) console.log([...fallbackWords.keys()].sort().join('\n'));
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

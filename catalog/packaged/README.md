@@ -29,6 +29,12 @@
 - Atwater: |kcal - (4p + 4c + 9f)| <= max(25, kcal x %20). Alkol varsa 7 kcal/g eklenir, polyol varsa alt sınır 1,6 kcal/g gevşetilir.
 - İçecekler: Open Food Facts 100 ml ve 100 g değerlerini aynı alanda tutar. Su bazlı içeceklerde 100 ml ~ 100 g kabul edilir; ayrıca yoğunluk düzeltmesi yapılmaz (yağ, bal, şurup gibi yoğun sıvılarda küçük sapma olabilir). Ambalajı ml olan ürünler `quantity` alanından ayırt edilir.
 - `servingGrams`: `serving_quantity` gram biriminde ve 1-1000 arasındaysa, değilse `null`.
+- Görünen marka ve ad yazımı (yalnız `nameTr` ve `brand`; besin değeri, barkod, porsiyon, ambalaj miktarı değişmez; tekilleştirmeden sonra uygulanır):
+  - Metinler NFC'ye çevrilir. Marka: Türkçe duyarlı anahtarla (büyük/küçük harf, I/İ/ı/i, ç ğ ö ş ü aksanı, noktalama ve boşluk katlanır) aynı markalar gruplanır (ETİ, ETI, Eti, eti -> tek marka). Grupta karışık harfli yazım varsa en sık olan, yoksa Türkçe başlık biçimi (ETİ -> Eti, ÇİFTÇİ -> Çiftçi). Grubun tüm yazımları tamamen büyük ve en çok 3 harfliyse (A101, 7UP) kısaltma sayılıp büyük bırakılır. Küçük alias tablosu (`BRAND_ALIASES`: BİM, ŞOK, A101, Anadolu Çiftliği) bu kuralların önüne geçer.
+  - Ad: tamamen büyük ya da tamamen küçükse Türkçe başlık biçimine çevrilir (i -> İ, ı -> I; "ve", "ile", "veya" küçük kalır). Karışık harfli ad sahibinin yazımıyla kalır.
+  - Tamamen büyük kelimedeki belirsiz ASCII "I" sırasıyla şöyle çözülür: kelimede ASCII "I" yoksa Türkçe kural (açık "İ" her zaman "i" kalır, aynı kelimedeki ASCII "I" aşağıdaki adımlarla çözülür); kelime alias tablosunda ya da veri sözlüğünde varsa oradaki yazım (sözlük: ürün ad/markalarındaki ve katalogdaki yemek/gıda adlarındaki doğru yazılmış kelimeler, foldKey anahtarıyla; en sık yazım, eşitlikte aksanlı; ASCII'ye indirgenmiş "CIFTLIGI" de "çiftliği" olur); kelimede ç ğ ö ş ü varsa ve ön ünlü (e i ö ü) yoksa "ı"; aksi hâlde varsayılan "i" (LIGHT -> Light). Sözlükte bulunmayıp "i" varsayımına düşen kelime sayısı filter-off çıktısında yazılır (`--list-fallback` ile liste).
+  - Adda marka geçiyorsa marka kanonik yazımla (baş/son noktalamasıyla birlikte) yazılır: başlık biçimine çevrilen adlarda her yerde, diğerlerinde yalnız adın başında.
+  - Sayıdan sonraki birimler: g, gr, gram, kg, mg, ml, cl, lt, litre küçük harf; litre simgesi büyük "L" (45 G -> 45 g, 750 Ml -> 750 ml, 1 l -> 1 L).
 - Aynı barkod tek kayıt; aynı marka+ad farklı barkodla geliyorsa en dolu kayıt tutulur. Marka -> ad sırasıyla (tr) sıralanır.
 
 ## Lisans ve atıf
