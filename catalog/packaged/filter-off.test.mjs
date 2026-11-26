@@ -1,6 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluate, filterAll, atwaterOk, looksLikeCode } from './filter-off.mjs';
+import {
+  evaluate, filterAll, atwaterOk, looksLikeCode, titleTr, normalizeUnits, canonicalBrands, displayName, normalizeDisplay, foldKey,
+} from './filter-off.mjs';
 
 const base = (over = {}) => ({
   code: '8690000000001',
@@ -100,4 +102,101 @@ test('yinelenenler, sıralama ve sayımlar', () => {
   assert.equal(dropCounts.duplicate_barcode, 1);
   assert.equal(dropCounts.duplicate_brand_name, 1);
   assert.equal(dropCounts.missing_nutrients, 1);
+});
+
+test('titleTr: Türkçe başlık biçimi', () => {
+  assert.equal(titleTr('ETİ'), 'Eti');
+  assert.equal(titleTr('ÇİFTÇİ'), 'Çiftçi');
+  assert.equal(titleTr('IŞIK İÇİN'), 'Işık İçin');
+  assert.equal(titleTr('içim süt'), 'İçim Süt');
+  assert.equal(titleTr('ısırgan ve ıhlamur'), 'Isırgan ve Ihlamur');
+  assert.equal(titleTr('ayran ile yoğurt'), 'Ayran ile Yoğurt');
+  assert.equal(titleTr("LAY'S ÇİPS"), "Lay's Çips");
+  // Ünlü uyumuna aykırı "I" yabancı sözcüktür
+  assert.equal(titleTr('PINAR SÜT'), 'Pınar Süt');
+  assert.equal(titleTr('MAYONNAISE'), 'Mayonnaise');
+  assert.equal(titleTr('DEREN ICE TEA IÇECEK'), 'Deren Ice Tea İçecek');
+  assert.equal(titleTr('MARS POLSKA OGRANICZONĄ'), 'Mars Polska Ograniczoną');
+  assert.equal(titleTr('indomie noodle'), 'Indomie Noodle');
+  assert.equal(titleTr('lezzet-i efsane'), 'Lezzet-i Efsane');
+});
+
+test('normalizeUnits: sayıdan sonra birim yazımı', () => {
+  assert.equal(normalizeUnits('Eti Canga 45 G'), 'Eti Canga 45 g');
+  assert.equal(normalizeUnits('Amoy Soya Sosu 750 Ml'), 'Amoy Soya Sosu 750 ml');
+  assert.equal(normalizeUnits('Süt 1 Lt'), 'Süt 1 lt');
+  assert.equal(normalizeUnits('Süt 1 l'), 'Süt 1 L');
+  assert.equal(normalizeUnits('Su 1,5 L.'), 'Su 1,5 L.');
+  assert.equal(normalizeUnits('Un 2 KG'), 'Un 2 kg');
+  assert.equal(normalizeUnits('Su 2.5 LİTRE'), 'Su 2.5 litre');
+  assert.equal(normalizeUnits('Yoğurt 280G'), 'Yoğurt 280g');
+  // sayı olmadan ya da kelimenin parçası olarak değişmez
+  assert.equal(normalizeUnits('Gazoz G Vitamini'), 'Gazoz G Vitamini');
+  assert.equal(normalizeUnits('3 Gri Kutu'), '3 Gri Kutu');
+  assert.equal(normalizeUnits('Pro-L 3 Lezzet'), 'Pro-L 3 Lezzet');
+});
+
+test('canonicalBrands: aynı marka tek yazım', () => {
+  const mk = (...brands) => brands.map((brand) => ({ brand, nameTr: '' }));
+  const c = canonicalBrands(mk('ETİ', 'ETI', 'Eti', 'eti', 'Eti', 'ÇİFTÇİ', 'ULKER', 'Ülker', 'ülker', 'ZUBER', 'tat', 'TAT'));
+  assert.equal(c.get(foldKey('ETI')), 'Eti'); // karışık harfli en sık
+  assert.equal(c.get(foldKey('ÇİFTÇİ')), 'Çiftçi'); // yalnız büyük -> başlık biçimi
+  assert.equal(c.get(foldKey('ULKER')), 'Ülker'); // aksan katlanır, karışık yazım seçilir
+  assert.equal(c.get(foldKey('ZUBER')), 'Zuber'); // aksanlı yazım yoksa başlık biçimi
+  assert.equal(c.get(foldKey('tat')), 'Tat'); // büyük + küçük karışık grup -> başlık biçimi
+  // kısaltma: tüm yazımlar büyük ve en çok 3 harf
+  const ab = canonicalBrands(mk('BİM', 'BİM', 'A101', '7UP', 'LC', 'Lc2'));
+  assert.equal(ab.get(foldKey('BİM')), 'BİM');
+  assert.equal(ab.get(foldKey('A101')), 'A101');
+  assert.equal(ab.get(foldKey('7UP')), '7UP');
+  assert.equal(ab.get(foldKey('LC')), 'LC');
+  // 4 harf ve üstü büyük marka kısaltma sayılmaz
+  assert.equal(canonicalBrands(mk('ETİK')).get('etik'), 'Etik');
+  // addaki yazım kanıt olur: LAVI + "Lavi Meyve" -> Lavi (Lavı değil)
+  const ev = canonicalBrands([{ brand: 'LAVI', nameTr: 'Lavi Meyve Nektarı' }, { brand: 'LAVI', nameTr: 'Lavi Su' }]);
+  assert.equal(ev.get('lavi'), 'Lavi');
+  // eşitlikte daha az büyük harfli yazım
+  assert.equal(canonicalBrands(mk('Mr. NO DARDANEL', 'Mr. No Dardanel')).get('mr no dardanel'), 'Mr. No Dardanel');
+});
+
+test('displayName: ad biçimi ve marka', () => {
+  assert.equal(displayName('eti lif', 'Eti'), 'Eti Lif');
+  assert.equal(displayName('ETİ LİF', 'Eti'), 'Eti Lif');
+  assert.equal(displayName('Eti Canga 45 G', 'Eti'), 'Eti Canga 45 g');
+  // karışık harfli ad sahibinin yazımıyla kalır
+  assert.equal(displayName('PİNAR Süt tam yağlı', 'Pınar'), 'Pınar Süt tam yağlı');
+  assert.equal(displayName('iPhone Kılıfı', ''), 'iPhone Kılıfı');
+  assert.equal(displayName('Sütaş Kaymaklı yoğurt', 'Sütaş'), 'Sütaş Kaymaklı yoğurt');
+  // başlık biçimine çevrilen adda marka her yerde; kısaltma markası korunur
+  assert.equal(displayName('yumurta bim', 'BİM'), 'Yumurta BİM');
+  assert.equal(displayName('Ekmek bim', 'BİM'), 'Ekmek bim');
+  // marka kelimenin parçası olarak eşleşmez
+  assert.equal(displayName('ETİK ÜRÜN', 'Eti'), 'Etik Ürün');
+  assert.equal(displayName('amoy soya sosu 750 ml', 'Amoy'), 'Amoy Soya Sosu 750 ml');
+  assert.equal(displayName('SU 0.5 L.', ''), 'Su 0.5 L.');
+});
+
+test('normalizeDisplay: yalnız nameTr ve brand değişir', () => {
+  const mk = (code, brand, nameTr) => ({ code, brand, nameTr, quantity: '45 G', servingGrams: 20, per100g: { kcal: 1, protein: 2, carbs: 3, fat: 4 } });
+  const input = [mk('1', 'ETİ', 'eti lif'), mk('2', 'Eti', 'Eti Canga 45 G'), mk('3', '', 'SÜT')];
+  const out = normalizeDisplay(input);
+  assert.deepEqual(out.map((p) => [p.brand, p.nameTr]), [['Eti', 'Eti Lif'], ['Eti', 'Eti Canga 45 g'], ['', 'Süt']]);
+  for (const [i, p] of out.entries()) {
+    const { brand, nameTr, ...rest } = p;
+    const { brand: b0, nameTr: n0, ...rest0 } = input[i];
+    assert.deepEqual(rest, rest0);
+  }
+  assert.equal(input[0].brand, 'ETİ'); // girdi değişmez
+});
+
+test('filterAll: normalleştirme tekilleştirmeyi değiştirmez', () => {
+  const list = [
+    base({ code: '8690000000011', product_name_tr: 'eti lif', brands: 'ETİ' }),
+    base({ code: '8690000000012', product_name_tr: 'Eti Lif', brands: 'Eti' }), // aynı marka+ad (normKey)
+    base({ code: '8690000000013', product_name_tr: 'Eti Lif 45 G', brands: 'ETI' }), // farklı ad
+  ];
+  const { products, dropCounts } = filterAll(list);
+  assert.equal(products.length, 2);
+  assert.equal(dropCounts.duplicate_brand_name, 1);
+  assert.deepEqual(products.map((p) => `${p.brand}/${p.nameTr}`), ['Eti/Eti Lif', 'Eti/Eti Lif 45 g']);
 });

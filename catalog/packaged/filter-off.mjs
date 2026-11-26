@@ -139,6 +139,167 @@ export function dedupe(items) {
   return { products: [...byName.values()], drops };
 }
 
+// ---- Görünen ad / marka yazımı (yalnız nameTr ve brand; besin değeri, barkod, porsiyon değişmez) ----
+
+const TR_FOLD = { ç: 'c', ğ: 'g', ı: 'i', ö: 'o', ş: 's', ü: 'u', â: 'a', î: 'i', û: 'u', ê: 'e', ô: 'o' };
+const WORD_RE = /[\p{L}\p{N}]+(?:['’][\p{L}]+)*/gu;
+const CONNECTIVES = new Set(['ve', 'ile', 'veya']);
+const FOREIGN_LETTER = /[^\P{L}A-Za-zçğıöşüÇĞİÖŞÜ]/u;
+const FOREIGN_I_WORDS = new Set(['ice', 'iced', 'indomie', 'instant']);
+const UNIT_RE = /(\d(?:[\d.,]*\d)?)(\s*)(kg|gr|gram|mg|g|ml|cl|lt|l[iİ]tre|l)(?![\p{L}\p{N}])/giu;
+
+/** Marka gruplama anahtarı: Türkçe küçük harf, aksan katlama (ç->c, ı->i ...), harf/rakam dışı -> boşluk. */
+export const foldKey = (s) =>
+  s
+    .toLocaleLowerCase('tr-TR')
+    .replace(/[çğıöşüâîûêô]/g, (c) => TR_FOLD[c])
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim();
+
+const hasLetter = (s) => /\p{L}/u.test(s);
+export const isAllUpper = (s) => hasLetter(s) && s === s.toLocaleUpperCase('tr-TR');
+export const isAllLower = (s) => hasLetter(s) && s === s.toLocaleLowerCase('tr-TR');
+const isMixed = (s) => hasLetter(s) && !isAllUpper(s) && !isAllLower(s);
+const letterCount = (s) => (s.match(/\p{L}/gu) ?? []).length;
+const diacritics = (s) => (s.match(/[çğıöşüÇĞİÖŞÜ]/g) ?? []).length;
+
+/**
+ * Tamamen büyük harfli bir kelimeyi küçültür. "I" Türkçede "ı" olur (PINAR -> pınar); ancak
+ * "ı" ile ön ünlü (e, ö, ü) bir arada ünlü uyumuna aykırıdır, yabancı sözcük sayılır ve "I" -> "i"
+ * olur (ICE -> ice, MAYONNAISE -> mayonnaise, IÇECEK -> içecek); metinde Türkçe dışı Latin harf (Ą, Ó ...)
+ * varsa da "I" -> "i" olur. Kelimede "İ" varsa yazar Türkçeyi
+ * bilerek yazmıştır; olduğu gibi tr-TR kuralıyla küçültülür.
+ */
+function lowerUpperWord(word, foreign) {
+  const tr = word.toLocaleLowerCase('tr-TR');
+  if (word.includes('İ') || !word.includes('I')) return tr;
+  if (foreign || /[eöü]/.test(tr)) return word.replace(/I/g, 'i').toLocaleLowerCase('tr-TR');
+  return tr;
+}
+
+/**
+ * Türkçe başlık biçimi: her kelimenin ilk harfi büyük (i -> İ, ı -> I), gerisi küçük. İlk kelime
+ * dışında "ve", "ile", "veya" küçük kalır. Girdi tamamen büyükse kelimeler lowerUpperWord ile küçültülür;
+ * tamamen küçükse yalnız ilk harf büyütülür.
+ */
+export function titleTr(s) {
+  const upperSource = isAllUpper(s);
+  const foreign = FOREIGN_LETTER.test(s);
+  let index = 0;
+  return s.replace(WORD_RE, (word, offset) => {
+    const first = index++ === 0;
+    const rest = upperSource ? lowerUpperWord(word, foreign) : word;
+    if (!first && CONNECTIVES.has(rest.toLocaleLowerCase('tr-TR'))) return rest.toLocaleLowerCase('tr-TR');
+    // "lezzet-i efsane" gibi tireden sonraki tek harf (ek) küçük kalır.
+    if (word.length === 1 && s[offset - 1] === '-') return rest;
+    // Yabancı sözcüklerde baş harf "i" -> "I" olur, "İ" değil.
+    if (!upperSource && FOREIGN_I_WORDS.has(word)) return 'I' + word.slice(1);
+    // Büyük kaynaktaki ASCII "I" ile başlayan kelime: "ı" olduysa "I" (PINAR -> Pınar); "i" olduysa Türkçe
+    // harf içeriyorsa "İ" (IÇECEK -> İçecek), içermiyorsa yabancı sözcüktür, "I" kalır (ICE -> Ice).
+    let head = rest[0].toLocaleUpperCase('tr-TR');
+    if (upperSource && word[0] === 'I' && rest[0] === 'i') head = /[çğöşü]/.test(rest) ? 'İ' : 'I';
+    return head + rest.slice(1);
+  });
+}
+
+/** Sayıdan sonra gelen birimlerin yazımı: g, gr, gram, kg, mg, ml, cl, lt, litre küçük; litre simgesi büyük "L". */
+export function normalizeUnits(s) {
+  return s.replace(UNIT_RE, (_, num, space, unit) => {
+    const u = unit.toLocaleLowerCase('tr-TR').replace('ı', 'i');
+    return `${num}${space}${u === 'l' ? 'L' : u}`;
+  });
+}
+
+/**
+ * Markaları Türkçe duyarlı anahtarla (foldKey) gruplar ve her grup için tek görünen biçim seçer.
+ *  1. Grupta karışık harfli (ne tamamen büyük ne tamamen küçük) yazım varsa en sık olanı (eşitlikte
+ *     aksanı çok olan, sonra alfabetik).
+ *  2. Yoksa ve grubun tüm yazımları tamamen büyük ve en çok 3 harfliyse kısaltma sayılır, büyük kalır
+ *     (örn. "BİM", "A101", "7UP").
+ *  3. Yoksa en çok aksanlı (sonra en sık) yazım seçilip Türkçe başlık biçimine çevrilir
+ *     ("ETİ" -> "Eti", "ÇİFTÇİ" -> "Çiftçi", "tat" -> "Tat").
+ * Dönüş: foldKey -> görünen marka. Girdi: { brand, nameTr } ürünleri.
+ */
+export function canonicalBrands(products) {
+  const groups = new Map();
+  const add = (key, text) => {
+    const g = groups.get(key) ?? new Map();
+    g.set(text, (g.get(text) ?? 0) + 1);
+    groups.set(key, g);
+  };
+  for (const { brand, nameTr } of products) {
+    if (!brand) continue;
+    const key = foldKey(brand);
+    if (!key) continue;
+    add(key, brand);
+    // Kanıt: adın başında marka yazılmışsa o yazım da aday olur (LAVI + "Lavi Meyve ..." -> Lavi; DUDOMI + "DUDOMİ ..." -> Dudomi).
+    const span = nameTr ? findBrandSpan(nameTr, key, false) : null;
+    if (span) add(key, nameTr.slice(span.start, span.end));
+  }
+  const capitals = (s) => (s.match(/\p{Lu}/gu) ?? []).length;
+  const rank = (a, b) => b[1] - a[1] || diacritics(b[0]) - diacritics(a[0]) || capitals(a[0]) - capitals(b[0]) || (a[0] < b[0] ? -1 : 1);
+  const byAccent = (a, b) => diacritics(b[0]) - diacritics(a[0]) || b[1] - a[1] || (a[0] < b[0] ? -1 : 1);
+  const out = new Map();
+  for (const [key, g] of groups) {
+    const variants = [...g.entries()];
+    const mixed = variants.filter(([v]) => isMixed(v)).sort(rank);
+    let display;
+    if (mixed.length) display = mixed[0][0];
+    else {
+      const best = [...variants].sort(byAccent)[0][0];
+      const abbreviation = variants.every(([v]) => isAllUpper(v) && letterCount(v) <= 3);
+      display = abbreviation ? best : titleTr(best);
+    }
+    out.set(key, normalizeUnits(display));
+  }
+  return out;
+}
+
+/** Adda marka kelimelerinin (tam kelime sınırında, foldKey eşitliğiyle) geçtiği ilk aralık: {start,end} | null. */
+function findBrandSpan(name, brandKey, anywhere) {
+  const brandWords = brandKey.split(' ').filter(Boolean);
+  if (!brandWords.length) return null;
+  const tokens = [...name.matchAll(WORD_RE)].map((m) => ({ start: m.index, end: m.index + m[0].length, key: foldKey(m[0]) }));
+  // "Hellmann's" gibi apostroflu kelime foldKey ile birden çok parçaya ayrılır; parçalara açıp karşılaştır.
+  const parts = [];
+  tokens.forEach((t, ti) => t.key.split(' ').forEach((k) => k && parts.push({ k, ti })));
+  const last = anywhere ? parts.length - brandWords.length : 0;
+  for (let i = 0; i <= last; i++) {
+    if (!brandWords.every((w, j) => parts[i + j]?.k === w)) continue;
+    const endPart = i + brandWords.length - 1;
+    // Marka kelimenin tamamını kaplamalı ("Eti" kelimesi "Etik" içinde eşleşmesin).
+    if (parts[i].ti === parts[i - 1]?.ti || parts[endPart].ti === parts[endPart + 1]?.ti) continue;
+    return { start: tokens[parts[i].ti].start, end: tokens[parts[endPart].ti].end };
+  }
+  return null;
+}
+
+function replaceBrandInName(name, brand, { anywhere }) {
+  const span = findBrandSpan(name, foldKey(brand), anywhere);
+  return span ? name.slice(0, span.start) + brand + name.slice(span.end) : name;
+}
+
+/**
+ * Görünen ad: tamamen büyük ya da tamamen küçük ad Türkçe başlık biçimine çevrilir (karışık harfli
+ * ad sahibinin yazımıyla kalır); marka adın başında (başlık biçimine çevrilen adlarda her yerinde)
+ * kanonik yazımla değiştirilir; birimler normalizeUnits ile düzeltilir.
+ */
+export function displayName(name, brand) {
+  const retitle = !isMixed(name);
+  let out = retitle ? titleTr(name) : name;
+  if (brand) out = replaceBrandInName(out, brand, { anywhere: retitle });
+  return normalizeUnits(out);
+}
+
+/** Yalnız nameTr ve brand alanlarını normalleştirir; yeni liste döner. */
+export function normalizeDisplay(products) {
+  const canon = canonicalBrands(products);
+  return products.map((p) => {
+    const brand = p.brand ? (canon.get(foldKey(p.brand)) ?? p.brand) : p.brand;
+    return { ...p, brand, nameTr: displayName(p.nameTr, brand) };
+  });
+}
+
 export function sortProducts(list) {
   return list.sort(
     (a, b) => a.brand.localeCompare(b.brand, 'tr') || a.nameTr.localeCompare(b.nameTr, 'tr') || a.code.localeCompare(b.code),
@@ -157,8 +318,10 @@ export function filterAll(rawProducts) {
     if (r.meta.fromKj) fromKj++;
     if (r.meta.liquid) liquids++;
   }
-  const { products, drops } = dedupe(kept);
-  for (const [k, v] of Object.entries(drops)) if (v) dropCounts[k] = v;
+  const deduped = dedupe(kept);
+  for (const [k, v] of Object.entries(deduped.drops)) if (v) dropCounts[k] = v;
+  // Yazım normalleştirmesi tekilleştirmeden sonra: tutulan/elenen kayıt değişmez, yalnız görünen metin.
+  const products = normalizeDisplay(deduped.products);
   sortProducts(products);
   return { products, dropCounts, fromKj, liquids };
 }
@@ -205,6 +368,11 @@ ${rows}
 - Atwater: |kcal - (4p + 4c + 9f)| <= max(25, kcal x %20). Alkol varsa 7 kcal/g eklenir, polyol varsa alt sınır 1,6 kcal/g gevşetilir.
 - İçecekler: Open Food Facts 100 ml ve 100 g değerlerini aynı alanda tutar. Su bazlı içeceklerde 100 ml ~ 100 g kabul edilir; ayrıca yoğunluk düzeltmesi yapılmaz (yağ, bal, şurup gibi yoğun sıvılarda küçük sapma olabilir). Ambalajı ml olan ürünler \`quantity\` alanından ayırt edilir.
 - \`servingGrams\`: \`serving_quantity\` gram biriminde ve 1-1000 arasındaysa, değilse \`null\`.
+- Görünen marka ve ad yazımı (yalnız \`nameTr\` ve \`brand\`; besin değeri, barkod, porsiyon, ambalaj miktarı değişmez; tekilleştirmeden sonra uygulanır):
+  - Marka: Türkçe duyarlı anahtarla (büyük/küçük harf, I/İ/ı/i, ç ğ ö ş ü aksanı, noktalama ve boşluk katlanır) aynı markalar gruplanır (ETİ, ETI, Eti, eti -> tek marka). Grupta karışık harfli yazım varsa en sık olan, yoksa Türkçe başlık biçimi (ETİ -> Eti, ÇİFTÇİ -> Çiftçi). Grubun tüm yazımları tamamen büyük ve en çok 3 harfliyse (BİM, A101, 7UP) kısaltma sayılıp büyük bırakılır.
+  - Ad: tamamen büyük ya da tamamen küçükse Türkçe başlık biçimine çevrilir (i -> İ, ı -> I; "ve", "ile", "veya" küçük kalır; tamamen büyük adlarda ünlü uyumuna aykırı "I" yabancı sözcük sayılıp "i" olur: ICE -> Ice). Karışık harfli ad sahibinin yazımıyla kalır.
+  - Adda marka geçiyorsa marka kanonik yazımla yazılır (başlık biçimine çevrilen adlarda her yerde, diğerlerinde yalnız adın başında).
+  - Sayıdan sonraki birimler: g, gr, gram, kg, mg, ml, cl, lt, litre küçük harf; litre simgesi büyük "L" (45 G -> 45 g, 750 Ml -> 750 ml, 1 l -> 1 L).
 - Aynı barkod tek kayıt; aynı marka+ad farklı barkodla geliyorsa en dolu kayıt tutulur. Marka -> ad sırasıyla (tr) sıralanır.
 
 ## Lisans ve atıf
