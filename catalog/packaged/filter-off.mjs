@@ -178,13 +178,14 @@ export const isAllLower = (s) => hasLetter(s) && s === s.toLocaleLowerCase('tr-T
 const isMixed = (s) => hasLetter(s) && !isAllUpper(s) && !isAllLower(s);
 const letterCount = (s) => (s.match(/\p{L}/gu) ?? []).length;
 const diacritics = (s) => (s.match(/[çğıöşüÇĞİÖŞÜ]/g) ?? []).length;
+const byCountThenAccent = (a, b) => b[1] - a[1] || diacritics(b[0]) - diacritics(a[0]) || (a[0] < b[0] ? -1 : 1);
 const byAccentThenCount = (a, b) => diacritics(b[0]) - diacritics(a[0]) || b[1] - a[1] || (a[0] < b[0] ? -1 : 1);
 
 /**
  * Kelime sözlüğü: veri kümesindeki (ürün ad/markaları, istenirse katalogdaki yemek/gıda adları) doğru yazılmış
  * kelimeler, foldKey anahtarıyla. Yalnız yazımı belirsiz olmayan kelimeler girer: büyük ASCII "I" içeren
  * kelimeler (tamamen büyük metinlerdeki "FISTIK" ya da karışık harfli "Ice"/"Irmak") atlanır; harfsiz, tek harfli,
- * rakamlı ve apostroflu kelimeler de. Aynı anahtarda en çok aksanlı, sonra en sık yazım kazanır
+ * rakamlı ve apostroflu kelimeler de. Aynı anahtarda en sık yazım kazanır (tek bir hatalı "Heınz" 20 "Heinz"i bastırmasın); eşitlikte en çok aksanlı, sonra alfabetik
  * (ASCII'ye indirgenmiş "cikolata" yerine "çikolata"). Dönüş: foldKey -> küçük harfli doğru yazım.
  */
 export function buildWordDict(texts) {
@@ -201,7 +202,7 @@ export function buildWordDict(texts) {
     }
   }
   const dict = new Map();
-  for (const [key, g] of counts) dict.set(key, [...g.entries()].sort(byAccentThenCount)[0][0]);
+  for (const [key, g] of counts) dict.set(key, [...g.entries()].sort(byCountThenAccent)[0][0]);
   return dict;
 }
 
@@ -216,7 +217,8 @@ function compatible(word, spelling) {
 
 /**
  * Tamamen büyük harfli bir kelimeyi küçültür; ASCII "I" Türkçede "ı" ya da "i" olabilir. Sıra:
- *  1. Kelimede "İ" ya da hiç "I" yoksa belirsizlik yok: tr-TR kuralı.
+ *  1. Kelimede hiç ASCII "I" yoksa belirsizlik yok: tr-TR kuralı. Açık "İ" her zaman "i" olarak korunur; kelimedeki
+ *     ASCII "I"lar (VİTAMIN, HİNDISTAN) aşağıdaki adımlarla ayrıca çözülür.
  *  2. Alias tablosu, sonra veri sözlüğü (foldKey eşleşmesi; kaynaktaki Ç Ğ İ Ö Ş Ü ile çelişmemeli).
  *  3. Çok güçlü kanıt: kelimede Türkçeye özgü harf (ç ğ ö ş ü) var ve hiç ön ünlü (e i ö ü) yok: "I" -> "ı"
  *     (IŞIK -> ışık, FISTIĞI -> fıstığı).
@@ -224,7 +226,7 @@ function compatible(word, spelling) {
  */
 function lowerUpperWord(word, ctx) {
   const tr = word.toLocaleLowerCase('tr-TR');
-  if (word.includes('İ') || !word.includes('I')) return { text: tr, fallback: false };
+  if (!word.includes('I')) return { text: tr, fallback: false };
   if (!/['’]/.test(word)) {
     const key = foldKey(word);
     for (const candidate of [WORD_ALIASES.get(key), ctx.dict?.get(key)]) {
@@ -447,7 +449,7 @@ ${rows}
 - Görünen marka ve ad yazımı (yalnız \`nameTr\` ve \`brand\`; besin değeri, barkod, porsiyon, ambalaj miktarı değişmez; tekilleştirmeden sonra uygulanır):
   - Metinler NFC'ye çevrilir. Marka: Türkçe duyarlı anahtarla (büyük/küçük harf, I/İ/ı/i, ç ğ ö ş ü aksanı, noktalama ve boşluk katlanır) aynı markalar gruplanır (ETİ, ETI, Eti, eti -> tek marka). Grupta karışık harfli yazım varsa en sık olan, yoksa Türkçe başlık biçimi (ETİ -> Eti, ÇİFTÇİ -> Çiftçi). Grubun tüm yazımları tamamen büyük ve en çok 3 harfliyse (A101, 7UP) kısaltma sayılıp büyük bırakılır. Küçük alias tablosu (\`BRAND_ALIASES\`: BİM, ŞOK, A101, Anadolu Çiftliği) bu kuralların önüne geçer.
   - Ad: tamamen büyük ya da tamamen küçükse Türkçe başlık biçimine çevrilir (i -> İ, ı -> I; "ve", "ile", "veya" küçük kalır). Karışık harfli ad sahibinin yazımıyla kalır.
-  - Tamamen büyük kelimedeki belirsiz ASCII "I" sırasıyla şöyle çözülür: kelimede "İ" varsa Türkçe kural; kelime alias tablosunda ya da veri sözlüğünde varsa oradaki yazım (sözlük: ürün ad/markalarındaki ve katalogdaki yemek/gıda adlarındaki doğru yazılmış kelimeler, foldKey anahtarıyla; aksanlı yazım önce, sonra sık olan; ASCII'ye indirgenmiş "CIFTLIGI" de "çiftliği" olur); kelimede ç ğ ö ş ü varsa ve ön ünlü (e i ö ü) yoksa "ı"; aksi hâlde varsayılan "i" (LIGHT -> Light). Sözlükte bulunmayıp "i" varsayımına düşen kelime sayısı filter-off çıktısında yazılır (\`--list-fallback\` ile liste).
+  - Tamamen büyük kelimedeki belirsiz ASCII "I" sırasıyla şöyle çözülür: kelimede ASCII "I" yoksa Türkçe kural (açık "İ" her zaman "i" kalır, aynı kelimedeki ASCII "I" aşağıdaki adımlarla çözülür); kelime alias tablosunda ya da veri sözlüğünde varsa oradaki yazım (sözlük: ürün ad/markalarındaki ve katalogdaki yemek/gıda adlarındaki doğru yazılmış kelimeler, foldKey anahtarıyla; en sık yazım, eşitlikte aksanlı; ASCII'ye indirgenmiş "CIFTLIGI" de "çiftliği" olur); kelimede ç ğ ö ş ü varsa ve ön ünlü (e i ö ü) yoksa "ı"; aksi hâlde varsayılan "i" (LIGHT -> Light). Sözlükte bulunmayıp "i" varsayımına düşen kelime sayısı filter-off çıktısında yazılır (\`--list-fallback\` ile liste).
   - Adda marka geçiyorsa marka kanonik yazımla (baş/son noktalamasıyla birlikte) yazılır: başlık biçimine çevrilen adlarda her yerde, diğerlerinde yalnız adın başında.
   - Sayıdan sonraki birimler: g, gr, gram, kg, mg, ml, cl, lt, litre küçük harf; litre simgesi büyük "L" (45 G -> 45 g, 750 Ml -> 750 ml, 1 l -> 1 L).
 - Aynı barkod tek kayıt; aynı marka+ad farklı barkodla geliyorsa en dolu kayıt tutulur. Marka -> ad sırasıyla (tr) sıralanır.

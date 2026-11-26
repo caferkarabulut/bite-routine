@@ -269,3 +269,42 @@ test('filterAll: sözlük ek metinleri ve onFallback', () => {
   assert.equal(products[0].nameTr, 'Zeytinyağı Light');
   assert.deepEqual(seen, ['LIGHT']);
 });
+
+test('açık İ korunur, kalan ASCII I ayrıca çözülür', () => {
+  // sözlük yok: İ -> i, kalan I varsayılan i
+  assert.equal(titleTr('VİTAMIN'), 'Vitamin');
+  assert.equal(titleTr('HİNDISTAN'), 'Hindistan');
+  assert.equal(titleTr('KİTKAT'), 'Kitkat');
+  // sözlük kanıtı kaynaktaki açık harflerle çelişmemeli
+  const dict = buildWordDict(['Hindistan cevizi', 'Işık', 'ışık lambası', 'sıcak']);
+  assert.equal(titleTr('HİNDISTAN CEVİZİ', { dict }), 'Hindistan Cevizi');
+  assert.equal(titleTr('SICAK', { dict }), 'Sıcak');
+  // sözlük "ışık" diyor ama kaynaktaki İ ("i") ile çelişir -> sözlük reddedilir, varsayılan "i"
+  assert.equal(titleTr('IŞİK', { dict }), 'Işik');
+  const seen = [];
+  titleTr('VİTAMIN HİNDISTAN', { dict, onFallback: (w) => seen.push(w) });
+  assert.deepEqual(seen, ['VİTAMIN']);
+});
+
+test('sözlük: sıklık önce, eşitlikte aksan', () => {
+  const heinz = Array.from({ length: 20 }, () => 'Heinz Ketçap').concat(['Heınz Mayonez']);
+  const dict = buildWordDict(heinz);
+  assert.equal(dict.get('heinz'), 'heinz');
+  assert.equal(titleTr('HEINZ KETÇAP', { dict }), 'Heinz Ketçap');
+  // eşitlikte aksanlı yazım kazanır (ASCII'ye indirgenmiş ile aksanlı bir kez)
+  assert.equal(buildWordDict(['Çiftliği', 'ciftligi']).get('ciftligi'), 'çiftliği');
+  assert.equal(buildWordDict(['ciftligi', 'Çiftliği']).get('ciftligi'), 'çiftliği');
+  // çoğunluk aksanlıysa ASCII tek yazım bastırılır
+  const d2 = buildWordDict(['Atatürk Orman Çiftliği', 'Trakya Çiftliği', 'ciftligi']);
+  assert.equal(titleTr('ANADOLU CIFTLIGI', { dict: d2 }), 'Anadolu Çiftliği');
+  // filterAll: 20 doğru + 1 hatalı yazım
+  const list = [
+    ...Array.from({ length: 20 }, (_, i) => base({ code: `86900000010${String(i).padStart(2, '0')}`, product_name_tr: `Heinz Ketçap ${i + 1}`, brands: 'Heinz' })),
+    base({ code: '8690000001100', product_name_tr: 'Heınz Sos', brands: 'Heinz' }),
+    base({ code: '8690000001101', product_name_tr: 'HEINZ KETÇAP', brands: 'Marka' }),
+  ];
+  const seen = [];
+  const { products } = filterAll(list, { onFallback: (w) => seen.push(w) });
+  assert.equal(products.find((p) => p.code === '8690000001101').nameTr, 'Heinz Ketçap');
+  assert.deepEqual(seen, []);
+});
