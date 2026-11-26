@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Commit mesajında yapay zekâ yazar/ortak yazar eki varsa commit'i reddeder.
+# Kural: AGENTS.md "Git" bölümü (kullanıcı kararı).
+# Kurulum (tek sefer, bütün worktree'lerde geçerli): git config core.hooksPath .githooks
+set -euo pipefail
+msg_file="$1"
+# Yorum satırları (git'in şablonu) denetlenmez.
+body="$(grep -v '^#' "$msg_file" || true)"
+pattern='^[[:space:]]*co-authored-by:.*(claude|anthropic|openai|codex|chatgpt|gpt-|copilot|gemini|noreply@anthropic)|generated (with|by) .*(claude|codex|chatgpt|copilot|gemini|ai)|🤖'
+if printf '%s\n' "$body" | grep -Eiq "$pattern"; then
+  echo "HATA: commit mesajında yapay zekâ yazar eki var; bu depoda yalnız kullanıcı görünür (AGENTS.md, Git)." >&2
+  printf '%s\n' "$body" | grep -Ein "$pattern" >&2 || true
+  echo "Eki silip yeniden commit atın." >&2
+  exit 1
+fi
