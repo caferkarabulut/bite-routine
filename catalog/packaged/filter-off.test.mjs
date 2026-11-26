@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  evaluate, filterAll, atwaterOk, looksLikeCode, titleTr, normalizeUnits, canonicalBrands, displayName, normalizeDisplay, foldKey,
+  evaluate, filterAll, atwaterOk, looksLikeCode, titleTr, normalizeUnits, canonicalBrands, displayName, normalizeDisplay, foldKey, buildWordDict,
 } from './filter-off.mjs';
 
 const base = (over = {}) => ({
@@ -113,10 +113,33 @@ test('titleTr: Türkçe başlık biçimi', () => {
   assert.equal(titleTr('ayran ile yoğurt'), 'Ayran ile Yoğurt');
   assert.equal(titleTr("LAY'S ÇİPS"), "Lay's Çips");
   // Ünlü uyumuna aykırı "I" yabancı sözcüktür
-  assert.equal(titleTr('PINAR SÜT'), 'Pınar Süt');
   assert.equal(titleTr('MAYONNAISE'), 'Mayonnaise');
-  assert.equal(titleTr('DEREN ICE TEA IÇECEK'), 'Deren Ice Tea İçecek');
   assert.equal(titleTr('MARS POLSKA OGRANICZONĄ'), 'Mars Polska Ograniczoną');
+  // sözlük kanıtı: belirsiz ASCII "I" veri kümesindeki yazıma uyar
+  const dict = buildWordDict(['Pınar Süt', 'ice tea', 'Çok İçecek', 'Zeytinyağı', 'Kırmızı biber', 'Atatürk Orman Çiftliği']);
+  assert.equal(titleTr('PINAR SÜT', { dict }), 'Pınar Süt');
+  assert.equal(titleTr('DEREN ICE TEA IÇECEK', { dict }), 'Deren Ice Tea İçecek');
+  assert.equal(titleTr('ZEYTINYAĞI', { dict }), 'Zeytinyağı');
+  assert.equal(titleTr('KIRMIZI BIBER', { dict }), 'Kırmızı Biber'); // BIBER sözlükte yok -> "i" varsayımı
+  assert.equal(titleTr('ANADOLU CIFTLIGI', { dict }), 'Anadolu Çiftliği'); // aksanlar da sözlükten gelir
+  // sözlükle çelişen açık harf kullanılmaz: kaynaktaki Ö, sözlükteki "o" ile uyuşmuyor
+  assert.equal(titleTr('KÖRIK', { dict: buildWordDict(['korik']) }), 'Körik');
+  // sözlük yoksa varsayılan nokta "i" (ünlü uyumu sezgisi yok)
+  assert.equal(titleTr('LIGHT'), 'Light');
+  assert.equal(titleTr('VITAMIN C'), 'Vitamin C');
+  assert.equal(titleTr('ZEYTINYAĞI'), 'Zeytinyaği');
+  assert.equal(titleTr('ICE TEA'), 'Ice Tea');
+  assert.equal(titleTr('IRMAK'), 'Irmak');
+  // çok güçlü kanıt: Türkçeye özgü harf + yalnız art ünlü
+  assert.equal(titleTr('IŞIK'), 'Işık');
+  assert.equal(titleTr('FISTIĞI'), 'Fıstığı');
+  // yabancı harf denetimi kelime bazlı: komşu kelime etkilemez
+  assert.equal(titleTr('IŞIK Ó'), 'Işık Ó');
+  assert.equal(titleTr('IŞIK ŚĄ'), 'Işık Śą');
+  // sözlükte olmayan ASCII-I kelimeler bildirilir
+  const seen = [];
+  titleTr('LIGHT PINAR IŞIK ETİ', { dict: buildWordDict(['Pınar']), onFallback: (w) => seen.push(w) });
+  assert.deepEqual(seen, ['LIGHT']);
   assert.equal(titleTr('indomie noodle'), 'Indomie Noodle');
   assert.equal(titleTr('lezzet-i efsane'), 'Lezzet-i Efsane');
 });
@@ -148,6 +171,15 @@ test('canonicalBrands: aynı marka tek yazım', () => {
   const ab = canonicalBrands(mk('BİM', 'BİM', 'A101', '7UP', 'LC', 'Lc2'));
   assert.equal(ab.get(foldKey('BİM')), 'BİM');
   assert.equal(ab.get(foldKey('A101')), 'A101');
+  // perakendeci alias: karışık yazım ("Bim") çoğunlukta olsa da BİM; Uno/Sek gibi alias olmayanlar karışık yazımda kalır
+  const retail = canonicalBrands(mk('Bim', 'Bim', 'BİM', 'ŞOK', 'Sok', 'A101', 'a101', 'Uno', 'UNO', 'Sek', 'SEK'));
+  assert.equal(retail.get('bim'), 'BİM');
+  assert.equal(retail.get('sok'), 'ŞOK');
+  assert.equal(retail.get('a101'), 'A101');
+  assert.equal(retail.get('uno'), 'Uno');
+  assert.equal(retail.get('sek'), 'Sek');
+  // alias tablosu: yalnız ASCII yazımı olan Anadolu Çiftliği, sözlük olmadan da düzelir
+  assert.equal(canonicalBrands(mk('ANADOLU CIFTLIGI')).get('anadolu ciftligi'), 'Anadolu Çiftliği');
   assert.equal(ab.get(foldKey('7UP')), '7UP');
   assert.equal(ab.get(foldKey('LC')), 'LC');
   // 4 harf ve üstü büyük marka kısaltma sayılmaz
@@ -199,4 +231,41 @@ test('filterAll: normalleştirme tekilleştirmeyi değiştirmez', () => {
   assert.equal(products.length, 2);
   assert.equal(dropCounts.duplicate_brand_name, 1);
   assert.deepEqual(products.map((p) => `${p.brand}/${p.nameTr}`), ['Eti/Eti Lif', 'Eti/Eti Lif 45 g']);
+});
+
+test('Unicode: NFD girdi NFC gibi işlenir', () => {
+  assert.equal(foldKey('İçim'.normalize('NFD')), 'icim');
+  assert.equal(foldKey('İçim'.normalize('NFD')), foldKey('İçim'));
+  assert.equal(displayName('süt'.normalize('NFD'), ''), 'Süt');
+  assert.equal(displayName('ÇİFTÇİ SÜT'.normalize('NFD'), ''), 'Çiftçi Süt');
+  assert.equal(titleTr('içim süt'.normalize('NFD')), 'İçim Süt');
+  assert.equal(normalizeUnits('Süt 1 Lt'.normalize('NFD')), 'Süt 1 lt');
+  const out = normalizeDisplay([{ code: '1', brand: 'İÇİM'.normalize('NFD'), nameTr: 'içim süt'.normalize('NFD'), quantity: '', servingGrams: null, per100g: {} }]);
+  assert.equal(out[0].brand, 'İçim');
+  assert.equal(out[0].nameTr, 'İçim Süt');
+  assert.equal(out[0].brand, out[0].brand.normalize('NFC'));
+});
+
+test('marka yerleştirme: baş/son noktalama çiftlenmez', () => {
+  assert.equal(displayName('TA!DA! TAVUK', 'Ta!Da!'), 'Ta!Da! Tavuk');
+  assert.equal(displayName('DR. SÜT', 'Dr.'), 'Dr. Süt');
+  assert.equal(displayName('(MARKA) SÜT', '(Marka)'), '(Marka) Süt');
+  assert.equal(displayName('Ta!Da! tavuk', 'Ta!Da!'), 'Ta!Da! tavuk');
+  assert.equal(displayName('TAVUK TA!DA!', 'Ta!Da!'), 'Tavuk Ta!Da!');
+  // addaki marka noktalamasız yazılmışsa marka kendi noktalamasıyla yazılır
+  assert.equal(displayName('Dr Oetker Do Whipped Cream', 'Dr. Oetker'), 'Dr. Oetker Do Whipped Cream');
+});
+
+test('kısaltma: BİM alias; normalizeDisplay ürünleri BİM yapar', () => {
+  const mk = (code, brand, nameTr) => ({ code, brand, nameTr, quantity: '', servingGrams: null, per100g: {} });
+  const out = normalizeDisplay([mk('1', 'BİM', 'Ekmek'), mk('2', 'Bim', 'Tam Buğday Ekmek'), mk('3', 'Bim', 'Süt')]);
+  assert.deepEqual(out.map((p) => p.brand), ['BİM', 'BİM', 'BİM']);
+});
+
+test('filterAll: sözlük ek metinleri ve onFallback', () => {
+  const list = [base({ code: '8690000000021', product_name_tr: 'ZEYTINYAĞI LIGHT', brands: 'Marka' })];
+  const seen = [];
+  const { products } = filterAll(list, { extraTexts: ['Zeytinyağı'], onFallback: (w) => seen.push(w) });
+  assert.equal(products[0].nameTr, 'Zeytinyağı Light');
+  assert.deepEqual(seen, ['LIGHT']);
 });
