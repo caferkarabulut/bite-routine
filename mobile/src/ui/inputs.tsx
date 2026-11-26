@@ -5,6 +5,7 @@ import { addDays, gramsForPortion, parseAmount, todayInIstanbul } from "../domai
 import { formatDate, formatGrams, formatNumber, useI18n } from "../i18n";
 import { MEAL_SLOTS, type LocalDate, type MealSlot, type Portion, type PortionSnapshot } from "../types";
 import { ChoiceChips, TextField } from "./components";
+import { Icon, type IconName } from "./Icon";
 import { colors, spacing, typography, TOUCH } from "./theme";
 
 /** What the user typed: grams directly, or a quantity of one portion. */
@@ -120,7 +121,7 @@ export function DayNavigator({ date, onChange }: { date: LocalDate; onChange: (d
   const canGoForward = date < addDays(today, 7);
   return (
     <View style={styles.dayRow}>
-      <ArrowButton label={t("today.previousDay")} symbol="‹" onPress={() => onChange(addDays(date, -1))} />
+      <ArrowButton label={t("today.previousDay")} icon="chevronLeft" onPress={() => onChange(addDays(date, -1))} />
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={date === today ? t("common.today") : t("today.goToToday")}
@@ -133,7 +134,7 @@ export function DayNavigator({ date, onChange }: { date: LocalDate; onChange: (d
       </Pressable>
       <ArrowButton
         label={t("today.nextDay")}
-        symbol="›"
+        icon="chevronRight"
         disabled={!canGoForward}
         onPress={() => onChange(addDays(date, 1))}
       />
@@ -141,7 +142,7 @@ export function DayNavigator({ date, onChange }: { date: LocalDate; onChange: (d
   );
 }
 
-function ArrowButton({ label, symbol, onPress, disabled }: { label: string; symbol: string; onPress: () => void; disabled?: boolean }) {
+function ArrowButton({ label, icon, onPress, disabled }: { label: string; icon: IconName; onPress: () => void; disabled?: boolean }) {
   return (
     <Pressable
       accessibilityRole="button"
@@ -149,9 +150,9 @@ function ArrowButton({ label, symbol, onPress, disabled }: { label: string; symb
       accessibilityState={{ disabled: !!disabled }}
       disabled={disabled}
       onPress={onPress}
-      style={[styles.arrow, disabled ? { opacity: 0.3 } : null]}
+      style={styles.arrow}
     >
-      <Text style={styles.arrowText}>{symbol}</Text>
+      <Icon name={icon} size={22} color={disabled ? colors.disabled : colors.primary} />
     </Pressable>
   );
 }
@@ -160,5 +161,4 @@ const styles = StyleSheet.create({
   dayRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
   dayLabel: { flex: 1, alignItems: "center", minHeight: TOUCH, justifyContent: "center" },
   arrow: { width: TOUCH, height: TOUCH, alignItems: "center", justifyContent: "center" },
-  arrowText: { fontSize: 28, color: colors.primary },
 });
