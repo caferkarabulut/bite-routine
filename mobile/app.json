@@ -41,7 +41,9 @@
         {
           "color": "#173f34"
         }
-      ]
+      ],
+      "@react-native-community/datetimepicker",
+      "expo-font"
     ],
     "scheme": "biteroutine",
     "experiments": {
