@@ -2,6 +2,15 @@
 
 En yeni girdi en üstte. [`DEVIR.md`](DEVIR.md)'den taşınan ayrıntı buraya gelir. Her girdi şunları yazar: ne yapıldı (dosyalar, commit'ler), kim yaptı (model, hesap), kararlar, doğrulama (komut ve sonucu), açık kalanlar. Girdiler sonradan düzeltilmez; yanlış bir girdi yeni bir girdiyle düzeltilir.
 
+## 2026-11-26 23:30 — Faz 3.0 hazırlık ve 3.1 maketleri
+
+- Kullanıcı 13 Kasım PR'larının hepsini merge etti, GitHub Pages'i açtı (`/privacy/`, `/support/` 200). Elle cihaz testi şimdilik ertelendi.
+- Yönetici (Claude Opus 5.5) "çift başlık hatası"nı inceledi: hata değil; ikinci satır Bugün ekranının tarih seçicisi, iOS'ta › oku Duo'nun adası altında kalıyordu.
+- `sonnet-worker` → PR #43: `mobile/.maestro/design-tour.yaml` (35 numaralı görüntü), `subflows/back-from-push.yaml`, README satırı. `run.sh` varsayılan listesine eklenmedi. iOS (Duo, main release derlemesi) 3 koşu PASS; Android (Pixel 8 API 35, main release) soğuk yeniden başlatmadan sonra PASS — önceki iki koşu host yükünden çıkan sistem ANR penceresinde kaldı.
+- Codex `gpt-6-luna` high (araştırma, salt okunur): SDK 58 paket önerileri (DEVIR.md'de özet).
+- `opus-worker`: iki tasarım yönü (A "Sofra", B "Net") × üç ekran (Bugün, Katalog, Yemek detayı) maketi; tüm kcal değerleri `mobile/assets/catalog.json`'dan. İşçinin notları: kalan kcal 2.415 (çorba + bisküvi), Eti Form kaydında porsiyon yok (gram ile), RN'de Türkçe büyük harf için `toLocaleUpperCase('tr-TR')`, Android gölgeleri, sekme çubuğundaki "Ekle" eylemi.
+- Açık: yön seçimi, standart iPhone runtime kararı, katalog marka normalleştirmesi, Duo ada çakışması.
+
 ## 2026-11-13 22:47 — kaydedilmemiş form uyarısı (T5)
 
 - Kullanıcı kararı: kaydedilmemiş formdan çıkarken uyarı eklensin. `sonnet-worker` yazdı, yönetici iki platformda doğruladı.
