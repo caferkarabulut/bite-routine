@@ -195,6 +195,8 @@ export const en: Translations<Dictionary> = {
       "Packaged product information comes from Open Food Facts contributors and is licensed under the Open Database License (ODbL). © Open Food Facts contributors.",
     recipes: "Values for Turkish dishes are calculated from ingredient-based recipes in grams and kcal.",
     openUrl: "Open source",
+    fontTitle: "Typeface",
+    font: "Nunito typeface © The Nunito Project Authors. Licensed under the SIL Open Font License 1.1.",
   },
   disclaimer: "Values are approximate and not medical advice.",
   common: {
@@ -222,6 +224,13 @@ export const en: Translations<Dictionary> = {
     optional: "optional",
     approx: "approx.",
     confirmDelete: "Are you sure you want to delete this?",
+  },
+  ui: {
+    decrease: "Decrease",
+    increase: "Increase",
+    clearSearch: "Clear search",
+    cancelSearch: "Cancel",
+    time: "Time",
   },
   errors: {
     generic: "Something went wrong. Please try again.",

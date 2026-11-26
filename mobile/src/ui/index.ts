@@ -1,4 +1,10 @@
 export * from "./components";
+export * from "./contrast";
+export * from "./controls";
+export * as haptics from "./haptics";
+export * from "./Icon";
 export * from "./inputs";
+export * from "./ProgressRing";
 export * from "./theme";
+export * from "./TimeField";
 export * from "./useUnsavedChangesGuard";
