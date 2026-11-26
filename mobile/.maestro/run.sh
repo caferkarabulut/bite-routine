@@ -4,7 +4,7 @@
 set -u
 cd "$(dirname "$0")/.."
 UDID="${1:?usage: .maestro/run.sh <simulator-udid> [flow ...]}"; shift
-FLOWS=("$@"); [ ${#FLOWS[@]} -eq 0 ] && FLOWS=(onboarding add-food search-turkish edit-delete-entry custom-food water history-weight settings)
+FLOWS=("$@"); [ ${#FLOWS[@]} -eq 0 ] && FLOWS=(onboarding add-food search-turkish edit-delete-entry custom-food unsaved-changes water history-weight settings)
 OUT=".maestro/screenshots/$(date +%Y%m%d-%H%M%S)"; mkdir -p "$OUT"
 fail=0
 for f in $FLOWS; do

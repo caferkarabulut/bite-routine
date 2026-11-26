@@ -5,6 +5,7 @@ import { addEntry, getCustomFood, listCustomFoods, listEntriesByDate, saveCustom
 import { CustomFoodScreen } from "../src/features/catalog/CustomFoodScreen";
 import { createDb, renderWithApp } from "./helpers/catalogscreen-harness";
 import { params, router } from "./helpers/catalogscreen-router";
+import { attemptLeave, guard, resetGuard } from "./helpers/prevent-remove";
 
 jest.mock("expo-router", () => require("./helpers/catalogscreen-router"));
 
@@ -133,5 +134,56 @@ describe("CustomFoodScreen", () => {
     params.current = { id: "custom-missing" };
     await renderWithApp(<CustomFoodScreen />, db);
     expect(await screen.findByText(/bulunamadı/)).toBeTruthy();
+  });
+
+  describe("unsaved changes guard", () => {
+    beforeEach(() => resetGuard());
+
+    it("is clean until something changes, and clean again when the edit is reverted", async () => {
+      await renderWithApp(<CustomFoodScreen />, db);
+      await screen.findByLabelText("Yemek adı");
+      expect(guard.active).toBe(false);
+      await fill("Yemek adı", "Börek");
+      expect(guard.active).toBe(true);
+      await fill("Yemek adı", "");
+      expect(guard.active).toBe(false);
+      expect(attemptLeave()).toBe(true);
+    });
+
+    it("counts a portion row as a change", async () => {
+      await renderWithApp(<CustomFoodScreen />, db);
+      await screen.findByLabelText("Yemek adı");
+      await fireEvent.press(screen.getByRole("button", { name: "+ Porsiyon ekle" }));
+      expect(guard.active).toBe(false); // an empty row has no text yet
+      await fill("Porsiyon gramı 1", "50");
+      expect(guard.active).toBe(true);
+    });
+
+    it("compares an existing food against its stored values", async () => {
+      const food = await saveCustomFood(db, {
+        nameTr: "Börek",
+        per100g: { kcal: 250, protein: 8, carbs: null, fat: null },
+        portions: [{ id: "p1", nameTr: "Dilim", nameEn: null, grams: 80 }],
+      });
+      params.current = { id: food.id };
+      await renderWithApp(<CustomFoodScreen />, db);
+      await screen.findByDisplayValue("Börek");
+      expect(guard.active).toBe(false);
+      await fill("Kalori (kcal)", "260");
+      expect(guard.active).toBe(true);
+      await fill("Kalori (kcal)", "250");
+      expect(guard.active).toBe(false);
+    });
+
+    it("lets the redirect after a successful save through", async () => {
+      await renderWithApp(<CustomFoodScreen />, db);
+      await fill("Yemek adı", "Çorba");
+      await fill("Kalori (kcal)", "50");
+      expect(guard.active).toBe(true);
+      await save();
+      await waitFor(() => expect(router.back).toHaveBeenCalled());
+      expect(guard.disable).toHaveBeenCalled();
+      expect(guard.disable.mock.invocationCallOrder[0]).toBeLessThan((router.back as jest.Mock).mock.invocationCallOrder[0]);
+    });
   });
 });

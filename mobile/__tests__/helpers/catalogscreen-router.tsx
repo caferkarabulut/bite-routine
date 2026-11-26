@@ -7,6 +7,8 @@ export const router = {
   dismissTo: jest.fn(),
 };
 
+export { usePreventRemove } from "./prevent-remove";
+
 export const params: { current: Record<string, string> } = { current: {} };
 
 export function useLocalSearchParams() {

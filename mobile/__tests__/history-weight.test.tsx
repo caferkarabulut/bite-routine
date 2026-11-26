@@ -4,8 +4,10 @@ import { Alert } from "react-native";
 import { addWeight, getProfile, listWeights, saveProfile } from "../src/db";
 import { WeightScreen } from "../src/features/history/WeightScreen";
 import { freezeDate, freshDb, renderWithApp, TODAY } from "./helpers/history-harness";
+import { guard, resetGuard } from "./helpers/prevent-remove";
 
 jest.mock("expo-localization", () => ({ useLocales: () => [{ languageCode: "tr" }] }));
+jest.mock("expo-router", () => ({ usePreventRemove: require("./helpers/prevent-remove").usePreventRemove }));
 
 const profile = {
   birthYear: 1990,
@@ -155,5 +157,29 @@ describe("WeightScreen", () => {
     await enter("70");
     await screen.findByText("Kilo kaydedildi.");
     expect(screen.queryByRole("button", { name: "Profildeki kiloyu da güncelle" })).toBeNull();
+  });
+
+  describe("unsaved changes guard", () => {
+    beforeEach(() => resetGuard());
+
+    it("is dirty only while the weight field holds text", async () => {
+      const db = await freshDb();
+      await renderWithApp(<WeightScreen />, db);
+      await screen.findByText("Henüz kilo kaydı yok.");
+      expect(guard.active).toBe(false);
+      await fireEvent.changeText(screen.getByLabelText("Kilo (kg)"), "72");
+      expect(guard.active).toBe(true);
+      await fireEvent.changeText(screen.getByLabelText("Kilo (kg)"), "");
+      expect(guard.active).toBe(false);
+    });
+
+    it("is clean again after the weight is saved", async () => {
+      const db = await freshDb();
+      await renderWithApp(<WeightScreen />, db);
+      await screen.findByText("Henüz kilo kaydı yok.");
+      await enter("72,4");
+      expect(await screen.findByText("Kilo kaydedildi.")).toBeTruthy();
+      expect(guard.active).toBe(false);
+    });
   });
 });

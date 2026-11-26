@@ -6,11 +6,13 @@ import { getEntry, updateEntry } from "../src/db";
 import { addDays, todayInIstanbul } from "../src/domain";
 import { EntryEditScreen } from "../src/features/today/EntryEditScreen";
 import { makeDb, renderWithApp, seedEntry } from "./helpers/today-harness";
+import { guard, resetGuard } from "./helpers/prevent-remove";
 
 jest.mock("expo-localization", () => ({ useLocales: () => [{ languageCode: "tr", languageTag: "tr-TR" }] }));
 jest.mock("expo-router", () => ({
   router: { push: jest.fn(), back: jest.fn() },
   useLocalSearchParams: jest.fn(),
+  usePreventRemove: require("./helpers/prevent-remove").usePreventRemove,
 }));
 jest.mock("../src/db", () => {
   const actual = jest.requireActual("../src/db");
@@ -153,5 +155,38 @@ describe("EntryEditScreen", () => {
     mockParams.mockReturnValue({ id: "entry-missing" });
     await renderWithApp(<EntryEditScreen />, db);
     expect(await screen.findByText("Kayıt bulunamadı.")).toBeTruthy();
+  });
+
+  describe("unsaved changes guard", () => {
+    beforeEach(() => resetGuard());
+
+    it("is dirty only while the amount, meal or day differ from the stored entry", async () => {
+      const db = await makeDb();
+      const entry = await seedEntry(db, today, portionEntry);
+      mockParams.mockReturnValue({ id: entry.id });
+      await renderWithApp(<EntryEditScreen />, db);
+      const input = await screen.findByDisplayValue("1,5");
+      expect(guard.active).toBe(false);
+
+      await fireEvent.changeText(input, "2");
+      expect(guard.active).toBe(true);
+      await fireEvent.changeText(input, "1,5");
+      expect(guard.active).toBe(false);
+
+      await fireEvent.press(screen.getByRole("radio", { name: "Akşam yemeği" }));
+      expect(guard.active).toBe(true);
+    });
+
+    it("lets the redirect after a save through", async () => {
+      const db = await makeDb();
+      const entry = await seedEntry(db, today, portionEntry);
+      mockParams.mockReturnValue({ id: entry.id });
+      await renderWithApp(<EntryEditScreen />, db);
+      const input = await screen.findByDisplayValue("1,5");
+      await fireEvent.changeText(input, "2");
+      await fireEvent.press(screen.getByRole("button", { name: "Kaydet" }));
+      await waitFor(() => expect(router.back).toHaveBeenCalled());
+      expect(guard.disable).toHaveBeenCalledTimes(1);
+    });
   });
 });

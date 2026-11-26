@@ -42,6 +42,7 @@ Aynı cihaza aynı anda iki Maestro çalıştırma; akışlar birbirinin durumun
 | `search-turkish.yaml` | `kisir` → Kısır, `cay` → iki çay, `içim` / `eti` → paketli ürün |
 | `edit-delete-entry.yaml` | Kaydın miktarını değiştirir, doğrular, onayla siler |
 | `custom-food.yaml` | Kendi yemeğini (makro + porsiyon) oluşturur, "Yemeklerim"de bulup günlüğe ekler |
+| `unsaved-changes.yaml` | Kendi yemeği formunda yazılmış metinle geri: "Kaydedilmemiş değişiklikler" sorusu; "Düzenlemeye devam et" formda bırakır, "Çık" kataloğa döner; boş formdan sorusuz çıkış. Android'de `pressKey: back`, iOS'ta başlıktaki geri düğmesi (`subflows/go-back.yaml`) |
 | `water.yaml` | +200 ml, +500 ml, toplam, son eklemeyi geri alma |
 | `history-weight.yaml` | Geçmiş'te günün kcal'i, Kilo ekranında 78,0 kaydı |
 | `settings.yaml` | Dil TR/EN/TR, su hedefi, "SİL" ile tüm verileri silip onboarding'e dönüş |

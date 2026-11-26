@@ -5,7 +5,7 @@ import { Text } from "react-native";
 import { todayInIstanbul } from "../../domain";
 import { useI18n } from "../../i18n";
 import { useAppState } from "../../state/AppState";
-import { Button, colors, typography } from "../../ui";
+import { Button, colors, typography, useUnsavedChangesGuard } from "../../ui";
 import { FormScreen, OverrideFields, ProfileFields, TargetsCard } from "./ProfileForm";
 import { EMPTY_VALUES, useProfileForm, valuesFromProfile } from "./useProfileForm";
 
@@ -17,6 +17,7 @@ export function ProfileScreen() {
   const form = useProfileForm(profile ? valuesFromProfile(profile) : EMPTY_VALUES, currentYear, today);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState(false);
+  const allowLeave = useUnsavedChangesGuard(form.isDirty);
 
   const submit = async () => {
     form.markAttempted();
@@ -25,6 +26,7 @@ export function ProfileScreen() {
     setSaveError(false);
     try {
       await saveProfile(form.input);
+      allowLeave();
       router.back();
     } catch {
       setSaveError(true);

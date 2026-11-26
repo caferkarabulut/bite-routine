@@ -1,0 +1,19 @@
+# Leaves a modal form the way a user does on each platform.
+# Android: close the keyboard first (the first back press would only close it), then the hardware/gesture back key.
+# iOS: modal forms (custom food) have no header back button; swipe the sheet down from its header.
+appId: com.biteroutine.mobile
+---
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - runFlow: dismiss-keyboard.yaml
+      - pressKey: back
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - swipe:
+          start: 50%, 8%
+          end: 50%, 90%
+          duration: 500
