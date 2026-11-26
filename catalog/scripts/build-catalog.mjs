@@ -12,6 +12,9 @@ const FORBIDDEN_KEYS = new Set(['kcal', 'calories', 'calorie', 'protein', 'carbs
 const YIELD_MIN = 0.3;
 const YIELD_MAX = 2.5;
 
+/** Temel gida porsiyon adinda bulunmamasi gereken yabanci/USDA olcu kalintilari. */
+export const FOREIGN_PORTION_RE = /USDA|\bcup\b|\btbsp\b|\btsp\b|inç|\bons\b|\boz\b|extra large/i;
+
 export const round1 = (x) => Math.round((x + Number.EPSILON) * 10) / 10;
 
 const num = (v) => (v === null || v === undefined || v === '' ? null : Number.isFinite(Number(v)) ? Number(v) : null);
@@ -181,6 +184,18 @@ export function buildCatalog(inputs, opts = {}) {
       portions: f.portions.map((p) => ({ id: p.id, nameTr: p.nameTr, nameEn: p.nameEn ?? null, grams: round1(Number(p.grams)), origin: p.origin })),
       source: { type: 'usda', fdcId: f.fdcId, dataType: rec.dataType ?? f.dataType ?? null, description: f.description, ...(f.note ? { note: f.note } : {}) },
     });
+  }
+
+  // Temel gida porsiyon adlari Turkce olmali: USDA/Amerikan olcu kalintisi yok (strict: hata, degilse uyari)
+  for (const it of items) {
+    const seen = new Set();
+    for (const p of it.portions) {
+      if (FOREIGN_PORTION_RE.test(p.nameTr ?? '')) {
+        (strict ? errors : warnings).push(`${it.id}/${p.id}: porsiyon adi yabanci olcu iceriyor ("${p.nameTr}")`);
+      }
+      if (seen.has(p.nameTr)) errors.push(`${it.id}/${p.id}: yinelenen porsiyon adi ("${p.nameTr}")`);
+      seen.add(p.nameTr);
+    }
   }
 
   // --- Yemekler ---

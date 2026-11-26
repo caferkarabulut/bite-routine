@@ -360,3 +360,36 @@ test('gercek base-foods.json: indeks varsa tum kayitlar gecerli (smoke)', () => 
   assert.deepEqual(res.errors, []);
   assert.equal(res.catalog.items.length, base.foods.length);
 });
+
+test('temel gida porsiyon adinda yabanci olcu: strict hata, normal uyari', () => {
+  const mk = (measureName) => ({
+    dishes: null, recipeFiles: [], ingredients: null, lookup,
+    starter: { foods: [{ fdcId: 7777, description: 'Yogurt', dataType: 'Foundation', turkishName: 'Yoğurt', nutrients: [{ id: 2047, amount: '77.9524' }, { id: 1003, amount: '3.8' }, { id: 1005, amount: '5.5' }, { id: 1004, amount: '4.4' }] }] },
+    portions: { foods: [{ fdcId: 7777, reviewedPortions: [{ id: 1, accepted: true, measureName, gramsPerUnit: '240' }] }] },
+    packaged: null,
+  });
+  for (const bad of ['cup (USDA ölçüsü)', 'Yemek kaşığı (USDA tbsp)', 'Büyük adet (3 inç çap)', '1 ons', '3 oz', 'Çok büyük adet (extra large)', '1 tsp']) {
+    const strict = buildCatalog(mk(bad), { strict: true });
+    assert.ok(strict.errors.some((e) => /yabanci olcu/.test(e)), bad);
+    const loose = buildCatalog(mk(bad));
+    assert.deepEqual(loose.errors, [], bad);
+    assert.ok(loose.warnings.some((w) => /yabanci olcu/.test(w)), bad);
+  }
+  for (const ok of ['1 büyük bardak (240 ml)', '1 yemek kaşığı', 'Büyük boy', '1 parça (~28 g)', 'Orta dilim']) {
+    const res = buildCatalog(mk(ok), { strict: true });
+    assert.ok(!res.errors.some((e) => /yabanci olcu/.test(e)), ok);
+  }
+});
+
+test('temel gida: ayni besinde yinelenen porsiyon adi hata', () => {
+  const res = buildCatalog({
+    dishes: null, recipeFiles: [], ingredients: null, lookup,
+    starter: { foods: [{ fdcId: 7777, description: 'Y', dataType: 'Foundation', turkishName: 'Y', nutrients: [{ id: 2047, amount: '77' }, { id: 1003, amount: '3' }, { id: 1005, amount: '5' }, { id: 1004, amount: '4' }] }] },
+    portions: { foods: [{ fdcId: 7777, reviewedPortions: [
+      { id: 1, accepted: true, measureName: 'Orta boy', gramsPerUnit: '100' },
+      { id: 2, accepted: true, measureName: 'Orta boy', gramsPerUnit: '120' },
+    ] }] },
+    packaged: null,
+  });
+  assert.ok(res.errors.some((e) => /yinelenen porsiyon adi/.test(e)));
+});
