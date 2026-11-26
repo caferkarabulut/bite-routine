@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import { StyleSheet, Text } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { Screen } from "../src/ui";
+import { Screen, useSideInsets } from "../src/ui";
 
 const metrics = {
   frame: { x: 0, y: 0, width: 360, height: 800 },
@@ -66,6 +66,21 @@ describe("Screen side insets and large title", () => {
     expect(style.paddingRight).toBe(56);
     expect(style.paddingLeft).toBe(0);
     expect(style.paddingBottom).toBe(0);
+  });
+
+  it("useSideInsets adds the insets to a base padding (and works without a provider)", async () => {
+    function Probe() {
+      const s = useSideInsets(16);
+      return <Text>{`${s.paddingLeft},${s.paddingRight}`}</Text>;
+    }
+    await render(
+      <SafeAreaProvider initialMetrics={cover}>
+        <Probe />
+      </SafeAreaProvider>,
+    );
+    expect(screen.getByText("16,72")).toBeTruthy();
+    await render(<Probe />);
+    expect(screen.getByText("16,16")).toBeTruthy();
   });
 
   it("pads non-scrolling screens too", async () => {

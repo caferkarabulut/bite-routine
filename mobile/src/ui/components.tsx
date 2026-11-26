@@ -110,6 +110,15 @@ function LargeTitleHeader({ title, subtitle, headerRight }: { title: string; sub
   );
 }
 
+/**
+ * Left/right safe-area padding for screens that render their own list instead of <Screen>.
+ * `base` is the content padding to add the insets to.
+ */
+export function useSideInsets(base = 0): { paddingLeft: number; paddingRight: number } {
+  const insets = useContext(SafeAreaInsetsContext);
+  return { paddingLeft: base + (insets?.left ?? 0), paddingRight: base + (insets?.right ?? 0) };
+}
+
 /** Borderless surface with a soft shadow. `padded={false}` for list cards whose rows bring their own padding. */
 export function Card({ children, style, padded = true }: { children: ReactNode; style?: StyleProp<ViewStyle>; padded?: boolean }) {
   return <View style={[styles.card, padded ? styles.cardPadded : null, style]}>{children}</View>;
