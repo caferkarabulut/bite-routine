@@ -8,21 +8,21 @@
 
 > Yalnız şu anki durum yazılır; en çok ~25 satır, her seferinde üstüne yazılır. Biten iş günlüğe taşınır.
 
-- **Şu an:** Faz 3 (görsel tasarım) başladı. 3.0 hazırlık bitti; 3.1'de iki tasarım yönü maketlendi, kullanıcı seçimini bekliyor.
-- **Git:** `main` = `58f96e4` (13 Kasım PR'larının hepsi merge edildi). Açık PR: #43 (`chore/design-baseline`, Maestro tasarım turu + bu not).
-- **"Önce" görüntüleri:** `.design-baseline/2026-11-26/{ios,android}/` (35+35 PNG, git dışında). Yeniden çekmek: `mobile/` içinde `.maestro/run.sh <cihaz> design-tour`.
-- **Tasarım maketleri:** claude.ai Design tuvali "Bite Routine — tasarım yönleri" (Yön A "Sofra": sıcak, koyu yeşil + kalori halkası; Yön B "Net": beyaz, mavi vurgu, yoğun liste). Dosyalar yalnız oturumun geçici klasöründe; tuval kalıcı kopya.
-- **Paket araştırması (Codex Luna, SDK 58):** ekle `expo-symbols`, `react-native-svg`, `expo-haptics`; saat seçici için `@react-native-community/datetimepicker` ya da `@expo/ui` (yalnız biri); `@expo/vector-icons` artık önerilmiyor; porsiyon seçimi için Expo Router `formSheet` yeterli.
-- **Sıradaki adım:** Kullanıcı yön seçer → 3.2 temel (tasarım değerleri, ikonlar, ortak bileşenler; tek işçi, önce merge) → 3.3 Bugün pilotu → onaydan sonra ekranlar paralel.
-- **Çalışan işçiler:** yok. Android emülatörü (`bite-routine-pixel`) ve iOS Simulator (iPhone Duo, kapalı/dış ekran) açık.
-- **Kullanıcıdan beklenen:** tasarım yönü seçimi; standart iPhone simülatörü için ek iOS runtime indirme kararı; Google Play destek e-postası (ayrı Gmail önerildi); eski stash'i silmek.
-- **Dikkat:** Bu Mac'teki iOS 27.1 runtime yalnız iPhone Duo'yu destekliyor. Duo'nun dış ekranında sağ üstteki saat/kamera adası içeriğin üstüne biniyor (güvenli alan yalnız üst/alt kenarda uygulanıyor) — tasarım fazında ele alınacak. "Bugün" başlığı ile tarih seçicinin "‹ Bugün ›" yazısı tekrar ediyor; bu yönlendirme hatası değil, tasarım sorunu.
+- **Şu an (2026-11-27 02:13):** Faz 3.2 (tasarım temeli) kodu bitti, doğrulaması yarım. Seçilen tasarım: Yön A düzeni + "Kömür ve adaçayı" paleti + Nunito (KARARLAR'da).
+- **Açık PR'lar:** #43 `chore/design-baseline` (Maestro tasarım turu + bu not), #44 `fix/packaged-name-case` (927 paketli ürün adı/markası normalleştirildi, değerler aynı; Sol iki tur review), #45 `docs/support-email` (biteroutine0@gmail.com), #46 `feat/design-foundation` (taslak; tasarım temeli). #43–#45'te CI yalnız `check:deps` (Expo yama kayması) yüzünden kırmızı; #46 bunu düzeltir.
+- **#46 durumu:** check:deps, typecheck, lint, npm test (463) geçti. iOS Maestro iPhone Duo'da koşuldu, son tam geçiş kesin doğrulanmadı. Android release derlemesi ~2 saat sonra 0 CPU'da takıldı (worktree `.claude/worktrees/agent-abcfeedd175bd895d`, gradlew pid 53035); Android doğrulanmadı.
+- **Sıradaki adım:** (1) takılı Gradle'ı durdur (`cd .claude/worktrees/agent-abcfeedd175bd895d/mobile/android && ./gradlew --stop`), (2) standart iPhone simülatörü kur (iOS 27.2 runtime indiriliyor; bitince `xcrun simctl create "iPhone 17 Pro" ...`, dili tr-TR), (3) #46'yı iOS + Android release + Maestro + design-tour ekran görüntüleriyle doğrula, taslaktan çıkar, (4) 3.3 Bugün ekranı pilotu → kullanıcı onayı → diğer ekranlar paralel (katalog+detay, geçmiş+kilo, ayarlar+profil, onboarding).
+- **Tasarım tuvali:** https://claude.ai/artifact/Qw7AjeWyQT9SW7QadBahM5 (sayfa "komur" = onaylı maketler: Bugün, Katalog, Yemek detayı).
+- **Palet:** bg #f4f1ea, yüzey #fbf9f4, birincil/metin #1f1f1c, kum #e8e2d3, adaçayı #9db39a (yalnız süs, 2.1:1), yeşil metin #4a6647, soluk metin #5c584f, su #5a7f99.
+- **Çalışan işçiler:** yok (tasarım temeli işçisi bitti). Arka planda yalnız iOS 27.2 runtime indirmesi (%69, `xcodebuild -downloadPlatform iOS`).
+- **Kullanıcıdan beklenen:** #43, #44, #45'i merge etmek (sıra önemsiz; CI kırmızısı yalnız Expo yaması). #46 doğrulanınca merge. Eski stash'i silmek (`git stash list` → `git stash drop stash@{N}`).
+- **Dikkat:** iOS 27.1 runtime yalnız iPhone Duo destekler. RN `textTransform: uppercase` Türkçe değil; `toLocaleUpperCase('tr-TR')`. Paralel iOS derlemesi + emülatör Android'de ANR penceresi açabilir.
 
 ## Sıradaki işler (öncelik sırasıyla)
 
-1. Faz 3.1: tasarım yönü seçimi (kullanıcı), ardından 3.2 temel bileşenler ve 3.3 ekranlar.
+1. #46 doğrulaması ve merge; 3.3 Bugün pilotu; ardından diğer ekranlar.
 2. Faz 3.4: uygulama ikonu ve açılış ekranı (şu an Expo'nun şablon ikonu; mağazaya gönderilemez).
-3. Katalog: paketli ürün ad/marka yazımı tutarsız ("ETİ", "ETI", "eti lif"); katalog hattında normalleştirme (R2).
+3. Faz 3.5: erişilebilirlik/kontrast/büyük metin kontrolleri; design-tour ile "sonra" görüntüleri.
 4. Fiziksel cihaz testi (Faz 4) — kullanıcı şimdilik erteledi.
 5. Hesap işleri: `eas login` / `eas init`, App Store Connect ve Play Console kayıtları, 12 kişilik kapalı test (`mobile/docs/RELEASE.md`, `docs/store/`).
 
@@ -31,6 +31,9 @@
 - Opus yönetici; kodu ağırlıklı olarak Sonnet yazar, Codex de kullanılır; görev dağılımı yöneticide (2026-11-13). Ayrıntı: AGENTS.md "Yürütme düzeni".
 - Commit, PR ve dosyalarda yapay zekâ imzası yok (2026-11-13).
 - Ajan düzeni dosyaları (CLAUDE.md, DEVIR, KARARLAR) repoya commit edilir (2026-11-13).
+- İşler en yüksek verimle, paralel ajanlarla yürütülür (2026-11-26).
+- Tasarım doğrulaması Duo değil standart iPhone simülatöründe (2026-11-27).
+- Destek e-postası biteroutine0@gmail.com (2026-11-27).
 
 ## Geçici (kaybolabilir)
 

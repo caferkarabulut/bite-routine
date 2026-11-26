@@ -2,6 +2,15 @@
 
 En yeni girdi en üstte. [`DEVIR.md`](DEVIR.md)'den taşınan ayrıntı buraya gelir. Her girdi şunları yazar: ne yapıldı (dosyalar, commit'ler), kim yaptı (model, hesap), kararlar, doğrulama (komut ve sonucu), açık kalanlar. Girdiler sonradan düzeltilmez; yanlış bir girdi yeni bir girdiyle düzeltilir.
 
+## 2026-11-27 02:13 — Faz 3.1 seçim, katalog ad normalleştirme, destek e-postası, 3.2 temel
+
+- Kullanıcı Yön A düzenini seçti, paleti beğenmedi; başka uygulamanın "Kömür ve adaçayı" paleti + Nunito + büyük köşeler istendi. Yönetici (Claude Opus 5.5) tuvalde palet karşılaştırması ve "komur" sayfasını yaptı; kullanıcı onayladı. Kontrast: adaçayı 2.1:1 → yalnız süs, yeşil metin #4a6647.
+- `sonnet-worker-high` → PR #44: `catalog/packaged/filter-off.mjs` (foldKey, titleTr, normalizeDisplay, veri sözlüğüyle ASCII I çözümü, marka takma adları BİM/ŞOK/A101/Anadolu Çiftliği), 57 test, `off-tr.json`, `catalog/dist/catalog.json`, `mobile/assets/catalog.json` yeniden üretildi. 927 kayıtta yalnız ad/marka değişti, besin değerleri aynı. Codex Sol (high) iki tur review: tur 1 ve tur 2 bulguları (İ'li kelimede ASCII I, tek yanlış yazımın çoğunluğu bastırması) düzeltildi; yönetici doğruladı.
+- Yönetici → PR #45: destek/gizlilik sayfalarına biteroutine0@gmail.com, `docs/store/google-play.md`, `docs/store/app-store.md`, KARARLAR'a 3 satır.
+- `opus-worker` → PR #46 (taslak, `feat/design-foundation`, 8 commit eb18866..af105e9): paketler (expo-symbols, react-native-svg, expo-haptics, datetimepicker, Nunito), Expo yama güncellemesi, `theme.ts` paleti/yazı ölçeği/gölgeler, `Icon` + sekme ikonları, ortak bileşenler, yan güvenli alanlar, lisans satırı, Maestro düzeltmesi. Yönetici doğrulaması: check:deps, typecheck, lint, npm test (28 suite, 463 test) geçti. iOS Maestro (Duo) koşuldu, son tam geçiş kesin doğrulanmadı; Android release derlemesi takıldı, doğrulanmadı.
+- iOS 27.2 simülatör runtime indirmesi kullanıcı onayıyla başladı (yavaş, ~0,4–1 MB/s).
+- Açık: #46 doğrulaması, standart iPhone simülatörü, 3.3 pilot.
+
 ## 2026-11-26 23:30 — Faz 3.0 hazırlık ve 3.1 maketleri
 
 - Kullanıcı 13 Kasım PR'larının hepsini merge etti, GitHub Pages'i açtı (`/privacy/`, `/support/` 200). Elle cihaz testi şimdilik ertelendi.
