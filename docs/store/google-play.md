@@ -61,7 +61,7 @@ Nutrition values are approximate and are not medical advice. This app is not a m
 ## Kategori ve iletişim
 
 - **Category:** Health & Fitness. Kalori/öğün takibi ve kilo günlüğü ana işlevlerdir.
-- **Support email:** `sahibi doldurur` — Google Play'de yayınlamak veya güncellemek için gerçek bir e-posta adresi zorunludur; adres uydurulmamıştır.
+- **Support email:** `biteroutine0@gmail.com` (mağaza sayfasında herkese açık görünür).
 - **Website:** `https://caferkarabulut.github.io/bite-routine/support/`
 - **Phone:** İsteğe bağlı; sahibi doldurur.
 - **Privacy policy:** `https://caferkarabulut.github.io/bite-routine/privacy/`

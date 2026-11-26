@@ -4,6 +4,9 @@ Mimari ve ürün kararları, en yeni karar en üstte. Eski karar silinmez: karar
 
 | Tarih | Karar | Neden | Ayrıntı |
 |---|---|---|---|
+| 2026-11-26 | Destek e-postası `biteroutine0@gmail.com`; destek ve gizlilik sayfalarında, Google Play iletişim alanında | Kullanıcı kararı; mağazalar gerçek iletişim bilgisi ister | `docs/support/`, `docs/privacy/`, `docs/store/` |
+| 2026-11-26 | Görsel tasarım: Yön A "Sofra" yerleşimi + "Kömür ve adaçayı" paleti (#F4F1EA zemin, #1F1F1C kömür, #9DB39A adaçayı, #E8E2D3 kum), Nunito yazı tipi, büyük köşeler | Kullanıcı kararı (maketler onaylandı) | Design tuvali "Bite Routine — tasarım yönleri"; `mobile/src/ui/theme.ts` |
+| 2026-11-26 | Adaçayı (#9DB39A) yalnız dolgu (halka, çubuk); değer her zaman metinle de gösterilir; yeşil metin için #4A6647 | Adaçayı açık zeminde 2,1:1; metin kontrastı ≥4,5:1 kalsın | `theme.ts` kontrast testi |
 | 2026-11-13 | Kaydedilmemiş formdan çıkarken onay sorulur (özel yemek, profil, kayıt düzenleme, kilo; onboarding hariç) | Kullanıcı kararı | PR #42 |
 | 2026-11-13 | v1'de iPad desteği kapalı (`ios.supportsTablet: false`) | iPad ekran görüntüsü ve iPad düzen incelemesi gerekmesin | PR #38 |
 | 2026-11-13 | USDA "cup" porsiyonu "1 büyük bardak (240 ml)", "tsp" "1 çay kaşığı" adını alır | Türk su bardağı ~200 ml; gramlar USDA'dan değişmeden gelir | PR #40 |

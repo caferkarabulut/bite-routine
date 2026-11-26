@@ -45,6 +45,7 @@ Aynı cihaza aynı anda iki Maestro çalıştırma; akışlar birbirinin durumun
 | `unsaved-changes.yaml` | Kendi yemeği formunda yazılmış metinle geri: "Kaydedilmemiş değişiklikler" sorusu; "Düzenlemeye devam et" formda bırakır, "Çık" kataloğa döner; boş formdan sorusuz çıkış. Android'de `pressKey: back`, iOS'ta başlıktaki geri düğmesi (`subflows/go-back.yaml`) |
 | `water.yaml` | +200 ml, +500 ml, toplam, son eklemeyi geri alma |
 | `history-weight.yaml` | Geçmiş'te günün kcal'i, Kilo ekranında 78,0 kaydı |
+| `design-tour.yaml` | Tasarım "önce" görüntüleri: bütün ekranları gezer, `tour-NN-<ad>` adlı ~37 görüntü alır (onboarding, Bugün boş/dolu, katalog, yemek/paketli detay, kayıt düzenleme, özel yemek formu, Geçmiş, Kilo, Ayarlar, Kaynaklar, Gizlilik, Profil, silme penceresi). Hiçbir şeyi silmez. `run.sh` varsayılan listesinde yok: `.maestro/run.sh <UDID> design-tour`; görüntüler `.maestro/screenshots/<zaman>/.../design-tour/takeScreenshot/` altında |
 | `settings.yaml` | Dil TR/EN/TR, su hedefi, "SİL" ile tüm verileri silip onboarding'e dönüş |
 
 Yedekle/Geri yükle (paylaşım ve dosya seçici) ve bildirim izni akışları kapsam dışıdır; sistem diyaloglarına bağlıdırlar.

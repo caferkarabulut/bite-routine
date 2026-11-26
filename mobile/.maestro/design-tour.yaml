@@ -1,0 +1,339 @@
+# Design baseline tour: visits every screen and takes numbered screenshots (tour-NN-<name>).
+# Not part of the default run.sh list. Run: .maestro/run.sh <UDID> design-tour
+# Images land in .maestro/screenshots/<time>/.../design-tour/takeScreenshot/
+appId: com.biteroutine.mobile
+---
+- launchApp:
+    clearState: true
+
+# --- 1. Onboarding ---
+- extendedWaitUntil:
+    visible: "Seni tanıyalım"
+    timeout: 15000
+- takeScreenshot: tour-01-onboarding-top
+- tapOn: "Erkek"
+- scrollUntilVisible:
+    element: "Orta aktif.*"
+- tapOn: "Orta aktif.*"
+- scrollUntilVisible:
+    element: "Kilomu koru.*"
+- tapOn: "Kilomu koru.*"
+- scrollUntilVisible:
+    element:
+      id: onboarding-birth-year
+    direction: UP
+- tapOn:
+    id: onboarding-birth-year
+- inputText: "1996"
+- tapOn:
+    id: onboarding-height
+- inputText: "178"
+- tapOn:
+    id: onboarding-weight
+- inputText: "78,5"
+- scrollUntilVisible:
+    element: "Seni tanıyalım"
+    direction: UP
+- tapOn: "Seni tanıyalım"
+- waitForAnimationToEnd
+- takeScreenshot: tour-02-onboarding-filled-top
+- scrollUntilVisible:
+    element: "Günlük hedefin \\(önizleme\\)"
+- scrollUntilVisible:
+    element: "Başla"
+- waitForAnimationToEnd
+- takeScreenshot: tour-03-onboarding-target-start
+- tapOn: "Başla"
+- extendedWaitUntil:
+    visible: "Bugün(, tab.*)?"
+    timeout: 4000
+    optional: true
+- runFlow:
+    when:
+      notVisible: "Bugün(, tab.*)?"
+    commands:
+      - scrollUntilVisible:
+          element: "Başla"
+      - tapOn: "Başla"
+- extendedWaitUntil:
+    visible: "Bugün(, tab.*)?"
+    timeout: 15000
+
+# --- 2. Today, empty ---
+- scrollUntilVisible:
+    element: "Kalori"
+    direction: UP
+- waitForAnimationToEnd
+- takeScreenshot: tour-04-today-empty-top
+- scrollUntilVisible:
+    element: "200 ml ekle"
+- waitForAnimationToEnd
+- takeScreenshot: tour-05-today-empty-bottom
+
+# --- 3. Catalog ---
+- tapOn: "Katalog(, tab.*)?"
+- extendedWaitUntil:
+    visible:
+      id: catalog-search
+    timeout: 5000
+- waitForAnimationToEnd
+- takeScreenshot: tour-06-catalog-empty-search
+- scroll
+- waitForAnimationToEnd
+- takeScreenshot: tour-07-catalog-scrolled
+- scrollUntilVisible:
+    element:
+      id: catalog-search
+    direction: UP
+- tapOn: "Yemeklerim"
+- waitForAnimationToEnd
+- takeScreenshot: tour-08-catalog-my-foods-chip
+- tapOn: "Favoriler"
+- waitForAnimationToEnd
+- takeScreenshot: tour-09-catalog-favorites-chip
+- tapOn: "Tümü"
+- tapOn:
+    id: catalog-search
+- inputText: "mercimek"
+- extendedWaitUntil:
+    visible: "Mercimek çorbası.*"
+    timeout: 5000
+- runFlow: subflows/dismiss-keyboard.yaml
+- waitForAnimationToEnd
+- takeScreenshot: tour-10-catalog-search-mercimek
+
+# --- 4. Dish detail ---
+- tapOn: "Mercimek çorbası.*"
+- extendedWaitUntil:
+    visible: "1 kepçe.*"
+    timeout: 5000
+- waitForAnimationToEnd
+- takeScreenshot: tour-11-dish-detail-top
+- scrollUntilVisible:
+    element: "1 kepçe.*"
+    centerElement: true
+- waitForAnimationToEnd
+- takeScreenshot: tour-12-dish-detail-portions
+- tapOn: "1 kepçe.*"
+- runFlow: subflows/dismiss-keyboard.yaml
+- scrollUntilVisible:
+    element:
+      id: add-to-diary
+- waitForAnimationToEnd
+- takeScreenshot: tour-13-dish-detail-bottom
+- tapOn:
+    id: add-to-diary
+# A lingering keyboard can swallow the tap: retry once from the detail screen.
+- extendedWaitUntil:
+    visible: "Bugün(, tab.*)?"
+    timeout: 5000
+    optional: true
+- runFlow:
+    when:
+      notVisible: "Bugün(, tab.*)?"
+    commands:
+      - runFlow: subflows/dismiss-keyboard.yaml
+      - scrollUntilVisible:
+          element:
+            id: add-to-diary
+      - tapOn:
+          id: add-to-diary
+- extendedWaitUntil:
+    visible: "Bugün(, tab.*)?"
+    timeout: 8000
+
+# --- 5. Packaged product detail (lunch) ---
+- scrollUntilVisible:
+    element:
+      id: add-lunch
+- tapOn:
+    id: add-lunch
+- tapOn:
+    id: catalog-search
+# The catalog keeps the earlier query ("mercimek"): clear it first.
+- eraseText: 30
+- inputText: "eti"
+- extendedWaitUntil:
+    visible: ".*Paketli ürün · Eti.*"
+    timeout: 8000
+- runFlow: subflows/dismiss-keyboard.yaml
+- waitForAnimationToEnd
+- takeScreenshot: tour-14-catalog-search-eti
+- tapOn: ".*Paketli ürün · Eti.*"
+- extendedWaitUntil:
+    visible: "Besin değerleri.*"
+    timeout: 5000
+- waitForAnimationToEnd
+- takeScreenshot: tour-15-packaged-detail-top
+- scrollUntilVisible:
+    element:
+      id: add-to-diary
+- waitForAnimationToEnd
+- takeScreenshot: tour-16-packaged-detail-bottom
+- tapOn:
+    id: add-to-diary
+# A lingering keyboard can swallow the tap: retry once from the detail screen.
+- extendedWaitUntil:
+    visible: "Bugün(, tab.*)?"
+    timeout: 5000
+    optional: true
+- runFlow:
+    when:
+      notVisible: "Bugün(, tab.*)?"
+    commands:
+      - runFlow: subflows/dismiss-keyboard.yaml
+      - scrollUntilVisible:
+          element:
+            id: add-to-diary
+      - tapOn:
+          id: add-to-diary
+- extendedWaitUntil:
+    visible: "Bugün(, tab.*)?"
+    timeout: 8000
+
+# --- 6. Today, filled ---
+- scrollUntilVisible:
+    element: "200 ml ekle"
+- tapOn: "200 ml ekle"
+- tapOn: "500 ml ekle"
+- assertVisible: "700 / 2.000 ml"
+- waitForAnimationToEnd
+- takeScreenshot: tour-17-today-water
+- scrollUntilVisible:
+    element: "Kalori"
+    direction: UP
+- waitForAnimationToEnd
+- takeScreenshot: tour-18-today-filled-top
+- scroll
+- waitForAnimationToEnd
+- takeScreenshot: tour-19-today-meal-cards
+
+# --- 7. Entry edit ---
+- scrollUntilVisible:
+    element: "Kalori"
+    direction: UP
+- scrollUntilVisible:
+    element: ".*1 kepçe.*"
+    centerElement: true
+- tapOn: ".*1 kepçe.*"
+- extendedWaitUntil:
+    visible:
+      id: amount-input
+    timeout: 5000
+- waitForAnimationToEnd
+- takeScreenshot: tour-20-entry-edit-top
+- scrollUntilVisible:
+    element: "Kaydı sil"
+- waitForAnimationToEnd
+- takeScreenshot: tour-21-entry-edit-bottom
+- runFlow: subflows/back-from-push.yaml
+
+# --- 8. Custom food form (modal), closed without saving ---
+- tapOn: "Katalog(, tab.*)?"
+- scrollUntilVisible:
+    element: "+ Kendi yemeğini oluştur"
+- tapOn: "+ Kendi yemeğini oluştur"
+- extendedWaitUntil:
+    visible:
+      id: custom-name
+    timeout: 5000
+- waitForAnimationToEnd
+- takeScreenshot: tour-22-custom-food-top
+- scrollUntilVisible:
+    element: "Kaydet"
+- waitForAnimationToEnd
+- takeScreenshot: tour-23-custom-food-bottom
+- runFlow: subflows/go-back.yaml
+- extendedWaitUntil:
+    visible:
+      id: catalog-search
+    timeout: 5000
+
+# --- 9. History and weight ---
+- tapOn: "Geçmiş(, tab.*)?"
+- extendedWaitUntil:
+    visible: "Hafta özeti"
+    timeout: 5000
+- waitForAnimationToEnd
+- takeScreenshot: tour-24-history
+- scrollUntilVisible:
+    element: "Kilo"
+- tapOn: "Kilo"
+- extendedWaitUntil:
+    visible: "Bugünün kilosu"
+    timeout: 5000
+- tapOn:
+    id: weight-input
+- inputText: "78,0"
+- runFlow: subflows/dismiss-keyboard.yaml
+- tapOn: "Kaydet"
+- assertVisible: "Kilo kaydedildi."
+- waitForAnimationToEnd
+- takeScreenshot: tour-25-weight-top
+- scrollUntilVisible:
+    element: "78,0 kg"
+- waitForAnimationToEnd
+- takeScreenshot: tour-26-weight-records
+- runFlow: subflows/back-from-push.yaml
+
+# --- 10. Settings ---
+- tapOn: "Ayarlar(, tab.*)?"
+- scrollUntilVisible:
+    element: "Profil ve hedef.*"
+    direction: UP
+- waitForAnimationToEnd
+- takeScreenshot: tour-27-settings-top
+- scrollUntilVisible:
+    element: "Hatırlatıcılar"
+    centerElement: true
+- waitForAnimationToEnd
+- takeScreenshot: tour-28-settings-reminders
+- scrollUntilVisible:
+    element: "Tüm verileri sil"
+    centerElement: true
+- waitForAnimationToEnd
+- takeScreenshot: tour-29-settings-bottom
+- tapOn: "Tüm verileri sil"
+- assertVisible: "Tüm veriler silinsin mi?"
+- waitForAnimationToEnd
+- takeScreenshot: tour-30-delete-all-dialog
+- tapOn: "Vazgeç"
+- assertNotVisible: "Tüm veriler silinsin mi?"
+
+# Sub-screens reachable from Settings.
+- scrollUntilVisible:
+    element: "Kaynaklar ve lisanslar.*"
+    centerElement: true
+- tapOn: "Kaynaklar ve lisanslar.*"
+- extendedWaitUntil:
+    visible: "USDA FoodData Central"
+    timeout: 5000
+- waitForAnimationToEnd
+- takeScreenshot: tour-31-sources-top
+- scroll
+- waitForAnimationToEnd
+- takeScreenshot: tour-31b-sources-bottom
+- runFlow: subflows/back-from-push.yaml
+- scrollUntilVisible:
+    element: "Gizlilik.*"
+    centerElement: true
+- tapOn: "Gizlilik.*"
+- extendedWaitUntil:
+    visible: "Verilerin sende kalır"
+    timeout: 5000
+- waitForAnimationToEnd
+- takeScreenshot: tour-32-privacy
+- runFlow: subflows/back-from-push.yaml
+- scrollUntilVisible:
+    element: "Profil ve hedef.*"
+    direction: UP
+- tapOn: "Profil ve hedef.*"
+- extendedWaitUntil:
+    visible: "Profilin"
+    timeout: 5000
+- waitForAnimationToEnd
+- takeScreenshot: tour-33-profile-top
+- scrollUntilVisible:
+    element: "Kaydet"
+- waitForAnimationToEnd
+- takeScreenshot: tour-34-profile-bottom
