@@ -29,6 +29,11 @@
 - Atwater: |kcal - (4p + 4c + 9f)| <= max(25, kcal x %20). Alkol varsa 7 kcal/g eklenir, polyol varsa alt sınır 1,6 kcal/g gevşetilir.
 - İçecekler: Open Food Facts 100 ml ve 100 g değerlerini aynı alanda tutar. Su bazlı içeceklerde 100 ml ~ 100 g kabul edilir; ayrıca yoğunluk düzeltmesi yapılmaz (yağ, bal, şurup gibi yoğun sıvılarda küçük sapma olabilir). Ambalajı ml olan ürünler `quantity` alanından ayırt edilir.
 - `servingGrams`: `serving_quantity` gram biriminde ve 1-1000 arasındaysa, değilse `null`.
+- Görünen marka ve ad yazımı (yalnız `nameTr` ve `brand`; besin değeri, barkod, porsiyon, ambalaj miktarı değişmez; tekilleştirmeden sonra uygulanır):
+  - Marka: Türkçe duyarlı anahtarla (büyük/küçük harf, I/İ/ı/i, ç ğ ö ş ü aksanı, noktalama ve boşluk katlanır) aynı markalar gruplanır (ETİ, ETI, Eti, eti -> tek marka). Grupta karışık harfli yazım varsa en sık olan, yoksa Türkçe başlık biçimi (ETİ -> Eti, ÇİFTÇİ -> Çiftçi). Grubun tüm yazımları tamamen büyük ve en çok 3 harfliyse (BİM, A101, 7UP) kısaltma sayılıp büyük bırakılır.
+  - Ad: tamamen büyük ya da tamamen küçükse Türkçe başlık biçimine çevrilir (i -> İ, ı -> I; "ve", "ile", "veya" küçük kalır; tamamen büyük adlarda ünlü uyumuna aykırı "I" yabancı sözcük sayılıp "i" olur: ICE -> Ice). Karışık harfli ad sahibinin yazımıyla kalır.
+  - Adda marka geçiyorsa marka kanonik yazımla yazılır (başlık biçimine çevrilen adlarda her yerde, diğerlerinde yalnız adın başında).
+  - Sayıdan sonraki birimler: g, gr, gram, kg, mg, ml, cl, lt, litre küçük harf; litre simgesi büyük "L" (45 G -> 45 g, 750 Ml -> 750 ml, 1 l -> 1 L).
 - Aynı barkod tek kayıt; aynı marka+ad farklı barkodla geliyorsa en dolu kayıt tutulur. Marka -> ad sırasıyla (tr) sıralanır.
 
 ## Lisans ve atıf
