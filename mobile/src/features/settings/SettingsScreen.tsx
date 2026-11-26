@@ -1,7 +1,7 @@
 import Constants from "expo-constants";
 import { useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { Alert, Text } from "react-native";
+import { Alert, Keyboard, Text } from "react-native";
 
 import { importBackup, useDb, wipeAllData } from "../../db";
 import { parseAmount } from "../../domain";
@@ -28,6 +28,7 @@ export function SettingsScreen() {
 
   const [waterText, setWaterText] = useState(String(settings.waterGoalMl));
   const [waterError, setWaterError] = useState<string | null>(null);
+  const [waterStatus, setWaterStatus] = useState<Status>(null);
   const [status, setStatus] = useState<Status>(null);
   const [busy, setBusy] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -44,13 +45,14 @@ export function SettingsScreen() {
     const n = parseAmount(waterText);
     if (n === null || !Number.isInteger(n) || n < WATER_MIN || n > WATER_MAX) {
       setWaterError(t("features.settings.waterGoalError"));
-      setStatus(null);
+      setWaterStatus(null);
       return;
     }
     setWaterError(null);
+    Keyboard.dismiss();
     saveSettings({ ...settings, waterGoalMl: n }).then(
-      () => setStatus({ kind: "ok", text: t("features.settings.waterGoalSaved") }),
-      () => setStatus({ kind: "error", text: t("errors.saveFailed") }),
+      () => setWaterStatus({ kind: "ok", text: t("features.settings.waterGoalSaved") }),
+      () => setWaterStatus({ kind: "error", text: t("errors.saveFailed") }),
     );
   }
 
@@ -160,13 +162,17 @@ export function SettingsScreen() {
           testID="water-goal-input"
           label={t("settings.waterGoal")}
           value={waterText}
-          onChangeText={setWaterText}
+          onChangeText={(v) => {
+            setWaterText(v);
+            setWaterStatus(null);
+          }}
           keyboardType="number-pad"
           inputMode="numeric"
           suffix="ml"
           error={waterError}
         />
         <Button label={t("common.save")} variant="secondary" onPress={saveWater} />
+        <StatusText status={waterStatus} />
       </Card>
 
       <SectionTitle>{t("features.settings.sectionReminders")}</SectionTitle>
@@ -184,14 +190,7 @@ export function SettingsScreen() {
         <Text style={typography.muted}>{t("settings.deleteAllHint")}</Text>
         <Button label={t("settings.deleteAll")} variant="danger" disabled={busy} onPress={() => setDeleteOpen(true)} />
       </Card>
-      {status ? (
-        <Text
-          accessibilityRole={status.kind === "error" ? "alert" : undefined}
-          style={[typography.body, { color: status.kind === "error" ? colors.danger : colors.primary }]}
-        >
-          {status.text}
-        </Text>
-      ) : null}
+      <StatusText status={status} />
 
       <SectionTitle>{t("features.settings.sectionAbout")}</SectionTitle>
       <Card>
@@ -208,5 +207,18 @@ export function SettingsScreen() {
         onConfirm={() => void deleteAll()}
       />
     </Screen>
+  );
+}
+
+function StatusText({ status }: { status: Status }) {
+  if (!status) return null;
+  return (
+    <Text
+      accessibilityRole={status.kind === "error" ? "alert" : undefined}
+      accessibilityLiveRegion="polite"
+      style={[typography.body, { color: status.kind === "error" ? colors.danger : colors.primary }]}
+    >
+      {status.text}
+    </Text>
   );
 }

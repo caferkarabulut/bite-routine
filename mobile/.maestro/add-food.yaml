@@ -15,7 +15,7 @@ appId: com.biteroutine.mobile
 - assertNotVisible: "0 / .* kcal"
 # The entry sits in the Kahvaltı card, together with its 137 kcal meal total.
 - scrollUntilVisible:
-    element: ".*1,5 1 kepçe.*"
+    element: ".*1,5 kepçe.*"
 - assertVisible: "Kahvaltı"
 - assertVisible: "137 kcal"
 - takeScreenshot: add-food-today

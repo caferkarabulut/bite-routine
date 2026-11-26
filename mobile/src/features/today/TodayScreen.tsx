@@ -22,6 +22,7 @@ import {
   SectionTitle,
   spacing,
   typography,
+  portionAmountText,
 } from "../../ui";
 
 type DayData = { entries: DiaryEntry[]; waterMl: number };
@@ -37,8 +38,7 @@ function paramDate(value: string | string[] | undefined): LocalDate | null {
 
 function amountText(e: DiaryEntry, lang: Language): string {
   if (e.portion) {
-    const q = e.portion.quantity;
-    return `${formatNumber(q, lang, Number.isInteger(q) ? 0 : 1)} ${e.portion.name}`;
+    return portionAmountText(e.portion.quantity, e.portion.name, lang);
   }
   return `${formatNumber(e.grams, lang, Number.isInteger(e.grams) ? 0 : 1)} g`;
 }

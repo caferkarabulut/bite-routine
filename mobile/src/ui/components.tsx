@@ -1,7 +1,8 @@
 // Shared UI building blocks. Owned by the coordinator; feature agents use but do not edit these.
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import {
   ActivityIndicator,
+  Keyboard,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -13,6 +14,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { useOptionalI18n } from "../i18n";
 import { colors, radius, spacing, typography, TOUCH } from "./theme";
 
 type ScreenProps = { children: ReactNode; scroll?: boolean; padded?: boolean; edges?: ("top" | "bottom")[] };
@@ -23,7 +25,12 @@ export function Screen({ children, scroll = true, padded = true, edges = [] }: S
   return (
     <SafeAreaView style={styles.screen} edges={edges}>
       {scroll ? (
-        <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.scrollContent}>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="interactive"
+          automaticallyAdjustKeyboardInsets
+          contentContainerStyle={styles.scrollContent}
+        >
           {content}
         </ScrollView>
       ) : (
@@ -94,7 +101,14 @@ const buttonVariants: Record<ButtonVariant, { container: ViewStyle; text: { colo
 
 type FieldProps = Omit<TextInputProps, "style"> & { label: string; error?: string | null; hint?: string; suffix?: string };
 
+const NUMERIC_KEYBOARDS = new Set(["number-pad", "decimal-pad", "numeric", "phone-pad"]);
+
 export function TextField({ label, error, hint, suffix, ...input }: FieldProps) {
+  const i18n = useOptionalI18n();
+  const [focused, setFocused] = useState(false);
+  // Number pads have no return key on iOS, so numeric fields show a "Done" button while focused.
+  const showDone = focused && NUMERIC_KEYBOARDS.has(input.keyboardType ?? "");
+  const doneLabel = i18n?.t("common.done") ?? "Done";
   return (
     <View style={styles.field}>
       <Text style={typography.label}>{label}</Text>
@@ -104,8 +118,27 @@ export function TextField({ label, error, hint, suffix, ...input }: FieldProps) 
           placeholderTextColor={colors.textMuted}
           style={styles.input}
           {...input}
+          onFocus={(e) => {
+            setFocused(true);
+            input.onFocus?.(e);
+          }}
+          onBlur={(e) => {
+            setFocused(false);
+            input.onBlur?.(e);
+          }}
         />
         {suffix ? <Text style={typography.muted}>{suffix}</Text> : null}
+        {showDone ? (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={doneLabel}
+            onPress={() => Keyboard.dismiss()}
+            hitSlop={8}
+            style={styles.doneButton}
+          >
+            <Text style={[typography.label, { color: colors.primary }]}>{doneLabel}</Text>
+          </Pressable>
+        ) : null}
       </View>
       {error ? (
         <Text accessibilityRole="alert" style={[typography.small, { color: colors.danger }]}>
@@ -182,7 +215,9 @@ export function ListRow({
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={subtitle ? `${title}, ${subtitle}` : title}
+      accessibilityLabel={[title, subtitle, typeof right === "string" && /[\p{L}\p{N}]/u.test(right) ? right.replace(/\n/g, " ") : null]
+        .filter(Boolean)
+        .join(", ")}
       accessibilityHint={accessibilityHint}
       onPress={onPress}
       style={({ pressed }) => [styles.row, pressed ? { backgroundColor: colors.primarySoft } : null]}
@@ -241,6 +276,7 @@ export function ProgressBar({ value, color = colors.primary, label }: { value: n
 }
 
 const styles = StyleSheet.create({
+  doneButton: { minHeight: 40, minWidth: TOUCH, alignItems: "center", justifyContent: "center", paddingHorizontal: spacing.sm },
   screen: { flex: 1, backgroundColor: colors.background },
   scrollContent: { flexGrow: 1 },
   padded: { padding: spacing.lg, gap: spacing.md },

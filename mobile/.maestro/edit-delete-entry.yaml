@@ -4,15 +4,16 @@ appId: com.biteroutine.mobile
     clearState: true
 - runFlow: subflows/onboarding.yaml
 - runFlow: subflows/add-lentil-soup.yaml
+# Scroll to the top first: Android only exposes on-screen rows, so the entry must be in view to be matched.
+- scrollUntilVisible:
+    element: "Kalori"
+    direction: UP
 - extendedWaitUntil:
     visible: "Mercimek çorbası.*"
     timeout: 8000
 - scrollUntilVisible:
-    element: "Kalori"
-    direction: UP
-- scrollUntilVisible:
-    element: ".*1,5 1 kepçe.*"
-- tapOn: ".*1,5 1 kepçe.*"
+    element: ".*1,5 kepçe.*"
+- tapOn: ".*1,5 kepçe.*"
 - extendedWaitUntil:
     visible:
       id: amount-input
@@ -30,9 +31,9 @@ appId: com.biteroutine.mobile
     element: "Kalori"
     direction: UP
 - scrollUntilVisible:
-    element: ".*, 2 1 kepçe"
+    element: ".*, 2 kepçe, .*"
 - assertVisible: "183 kcal"
-- tapOn: ".*, 2 1 kepçe"
+- tapOn: ".*, 2 kepçe, .*"
 - extendedWaitUntil:
     visible:
       id: amount-input

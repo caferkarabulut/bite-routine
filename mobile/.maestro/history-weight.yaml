@@ -4,10 +4,14 @@ appId: com.biteroutine.mobile
     clearState: true
 - runFlow: subflows/onboarding.yaml
 - runFlow: subflows/add-lentil-soup.yaml
+# Android only exposes on-screen rows: scroll to the top so the entry is in view.
+- scrollUntilVisible:
+    element: "Kalori"
+    direction: UP
 - extendedWaitUntil:
     visible: "Mercimek çorbası.*"
     timeout: 8000
-- tapOn: "Geçmiş, tab.*"
+- tapOn: "Geçmiş(, tab.*)?"
 - extendedWaitUntil:
     visible: "Hafta özeti"
     timeout: 5000
