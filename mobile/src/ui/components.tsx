@@ -442,7 +442,17 @@ const styles = StyleSheet.create({
     borderColor: colors.inputBorder,
     borderRadius: radius.md,
   },
-  input: { flex: 1, fontFamily: fonts.regular, fontSize: 16, color: colors.text, paddingVertical: spacing.sm },
+  // Fills the row height: Nunito has tall ascent/descent, and an Android EditText whose text is taller than the
+  // view becomes vertically scrollable and swallows the drag that should scroll the screen.
+  input: {
+    flex: 1,
+    alignSelf: "stretch",
+    fontFamily: fonts.regular,
+    fontSize: 16,
+    color: colors.text,
+    paddingVertical: 0,
+    textAlignVertical: "center",
+  },
   chips: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
   chip: {
     minHeight: TOUCH,
