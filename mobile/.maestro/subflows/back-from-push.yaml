@@ -1,0 +1,18 @@
+# Leaves a pushed (non-modal) screen: Android back key, iOS edge-swipe back gesture
+# (the header back button is icon-only; go-back.yaml is for modal sheets).
+appId: com.biteroutine.mobile
+---
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - pressKey: back
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - swipe:
+          start: 1%, 50%
+          end: 85%, 50%
+          duration: 400
+- waitForAnimationToEnd
