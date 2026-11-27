@@ -66,11 +66,11 @@ Nutrition values are approximate and are not medical advice. Actual values vary 
 
 ## URL alanları
 
-- **Support URL:** `https://caferkarabulut.github.io/bite-routine/support/`
-- **Privacy Policy URL:** `https://caferkarabulut.github.io/bite-routine/privacy/`
-- **Marketing URL (optional):** `https://github.com/caferkarabulut/bite-routine`
+- **Support URL:** `https://caferkarabulut.github.io/bite-routine-site/support/`
+- **Privacy Policy URL:** `https://caferkarabulut.github.io/bite-routine-site/privacy/`
+- **Marketing URL (optional):** boş bırakılır (kod reposu private).
 
-Apple destek URL'sinin gerçek iletişim bilgisine götürmesini bekler. Destek sayfasında e-posta adresi (`biteroutine0@gmail.com`) ve GitHub Issues bağlantısı var.
+Apple destek URL'sinin gerçek iletişim bilgisine götürmesini bekler. Destek sayfasında e-posta adresi (`biteroutine0@gmail.com`) var.
 
 ## App Privacy
 

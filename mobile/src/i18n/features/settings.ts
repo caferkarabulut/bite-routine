@@ -37,8 +37,8 @@ export const settingsTr = {
   deleteAllInputLabel: "Onay sözcüğü",
   deleteAllAction: "Hepsini sil",
   deleteAllFailed: "Veriler silinemedi.",
-  github: "GitHub sayfası",
-  githubUrl: "https://github.com/caferkarabulut/bite-routine",
+  privacyPolicyLink: "Gizlilik politikasının tamamı",
+  privacyPolicyUrl: "https://caferkarabulut.github.io/bite-routine-site/privacy/",
   disclaimerTitle: "Önemli",
   sourcesUsdaTitle: "USDA FoodData Central",
   sourcesUsdaLink: "FoodData Central sitesini aç",
@@ -60,7 +60,7 @@ export const settingsTr = {
   privacyBackup: "Yedekler, senin paylaştığın dosyalardır. Dosyayı nereye göndereceğine sen karar verirsin.",
   privacyDelete:
     "Uygulamayı silmek veya Ayarlar'daki \"Tüm verileri sil\" seçeneğini kullanmak verilerini cihazdan kaldırır. Aldığın yedek dosyaları ayrıca senin sorumluluğundadır.",
-  privacyContact: "Sorular için uygulamanın GitHub sayfasından ulaşabilirsin.",
+  privacyContact: "Sorular için biteroutine0@gmail.com adresine yazabilirsin.",
 } as const;
 
 export const settingsEn: Translations<typeof settingsTr> = {
@@ -100,8 +100,8 @@ export const settingsEn: Translations<typeof settingsTr> = {
   deleteAllInputLabel: "Confirmation word",
   deleteAllAction: "Delete everything",
   deleteAllFailed: "Could not delete the data.",
-  github: "GitHub page",
-  githubUrl: "https://github.com/caferkarabulut/bite-routine",
+  privacyPolicyLink: "Full privacy policy",
+  privacyPolicyUrl: "https://caferkarabulut.github.io/bite-routine-site/privacy/",
   disclaimerTitle: "Important",
   sourcesUsdaTitle: "USDA FoodData Central",
   sourcesUsdaLink: "Open FoodData Central",
@@ -123,5 +123,5 @@ export const settingsEn: Translations<typeof settingsTr> = {
   privacyBackup: "Backups are files you share yourself. You decide where the file goes.",
   privacyDelete:
     "Deleting the app or using \"Delete all data\" in Settings removes your data from the device. Backup files you saved are your own responsibility.",
-  privacyContact: "For questions, reach out through the app's GitHub page.",
+  privacyContact: "For questions, email biteroutine0@gmail.com.",
 };

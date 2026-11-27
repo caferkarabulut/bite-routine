@@ -33,9 +33,9 @@ export function PrivacyScreen() {
       <Card>
         <Text style={typography.body}>{t("features.settings.privacyContact")}</Text>
         <Button
-          label={t("features.settings.github")}
+          label={t("features.settings.privacyPolicyLink")}
           variant="secondary"
-          onPress={() => void Linking.openURL(t("features.settings.githubUrl")).catch(() => {})}
+          onPress={() => void Linking.openURL(t("features.settings.privacyPolicyUrl")).catch(() => {})}
         />
       </Card>
     </Screen>

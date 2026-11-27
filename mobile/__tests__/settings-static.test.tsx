@@ -37,12 +37,12 @@ describe("SourcesScreen", () => {
 
 describe("PrivacyScreen", () => {
   it.each([
-    ["tr", "Hesap yok.", "GitHub sayfası"],
-    ["en", "No account.", "GitHub page"],
+    ["tr", "Hesap yok.", "Gizlilik politikasının tamamı"],
+    ["en", "No account.", "Full privacy policy"],
   ] as const)("explains local-only data in %s", async (lang, text, button) => {
     await renderIn(lang, <PrivacyScreen />);
     expect(screen.getByText(new RegExp(text))).toBeTruthy();
     await fireEvent.press(screen.getByLabelText(button));
-    expect(openURL).toHaveBeenCalledWith("https://github.com/caferkarabulut/bite-routine");
+    expect(openURL).toHaveBeenCalledWith("https://caferkarabulut.github.io/bite-routine-site/privacy/");
   });
 });
