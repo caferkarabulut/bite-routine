@@ -20,7 +20,7 @@ appId: com.biteroutine.mobile
 
       # 2. After onboarding: back on the Today tab leaves the app and never returns to onboarding.
       - runFlow: subflows/onboarding.yaml
-      - assertVisible: "0 / .* kcal"
+      - assertVisible: "0 kcal"
       - pressKey: back
       - assertNotVisible: "Seni tanıyalım"
       - assertNotVisible: "Bugün(, tab.*)?"

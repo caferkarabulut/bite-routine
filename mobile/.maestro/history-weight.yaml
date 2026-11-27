@@ -6,7 +6,7 @@ appId: com.biteroutine.mobile
 - runFlow: subflows/add-lentil-soup.yaml
 # Android only exposes on-screen rows: scroll to the top so the entry is in view.
 - scrollUntilVisible:
-    element: "Kalori"
+    element: "Yenen"
     direction: UP
 - extendedWaitUntil:
     visible: "Mercimek çorbası.*"

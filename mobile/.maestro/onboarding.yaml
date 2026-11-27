@@ -61,7 +61,7 @@ appId: com.biteroutine.mobile
     visible: "Bugün(, tab.*)?"
     timeout: 15000
 - scrollUntilVisible:
-    element: "Kalori"
+    element: "Yenen"
     direction: UP
 - assertVisible: "Kahvaltı"
-- assertVisible: "0 / .* kcal"
+- assertVisible: "0 kcal"

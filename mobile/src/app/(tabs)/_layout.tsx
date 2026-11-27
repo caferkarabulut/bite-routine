@@ -26,7 +26,8 @@ export default function TabsLayout() {
         ),
       })}
     >
-      <Tabs.Screen name="index" options={{ title: t("tabs.today") }} />
+      {/* Today draws its own large title and day arrows. */}
+      <Tabs.Screen name="index" options={{ title: t("tabs.today"), headerShown: false }} />
       <Tabs.Screen name="catalog" options={{ title: t("tabs.catalog") }} />
       <Tabs.Screen name="history" options={{ title: t("tabs.history") }} />
       <Tabs.Screen name="settings" options={{ title: t("tabs.settings") }} />

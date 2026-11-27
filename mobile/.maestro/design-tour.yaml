@@ -61,7 +61,7 @@ appId: com.biteroutine.mobile
 
 # --- 2. Today, empty ---
 - scrollUntilVisible:
-    element: "Kalori"
+    element: "Yenen"
     direction: UP
 - waitForAnimationToEnd
 - takeScreenshot: tour-04-today-empty-top
@@ -200,7 +200,7 @@ appId: com.biteroutine.mobile
 - waitForAnimationToEnd
 - takeScreenshot: tour-17-today-water
 - scrollUntilVisible:
-    element: "Kalori"
+    element: "Yenen"
     direction: UP
 - waitForAnimationToEnd
 - takeScreenshot: tour-18-today-filled-top
@@ -210,7 +210,7 @@ appId: com.biteroutine.mobile
 
 # --- 7. Entry edit ---
 - scrollUntilVisible:
-    element: "Kalori"
+    element: "Yenen"
     direction: UP
 - scrollUntilVisible:
     element: ".*1 kepçe.*"

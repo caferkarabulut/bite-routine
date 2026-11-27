@@ -69,9 +69,9 @@ appId: com.biteroutine.mobile
 - tapOn:
     id: add-to-diary
 - extendedWaitUntil:
-    visible: "Kalori"
+    visible: "Yenen"
     timeout: 8000
-- assertNotVisible: "0 / .* kcal"
+- assertNotVisible: "0 kcal"
 # The meal slot follows the time of day; in the evening the entry sits below the fold.
 - scrollUntilVisible:
     element: "Test Börek.*"
