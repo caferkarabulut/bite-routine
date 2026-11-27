@@ -7,8 +7,11 @@ appId: com.biteroutine.mobile
 - runFlow: subflows/onboarding.yaml
 - tapOn: "Katalog(, tab.*)?"
 - scrollUntilVisible:
-    element: "+ Kendi yemeğini oluştur"
-- tapOn: "+ Kendi yemeğini oluştur"
+    element:
+      id: catalog-add-custom
+    direction: UP
+- tapOn:
+    id: catalog-add-custom
 
 # Untouched form: back leaves straight away.
 - assertVisible:
@@ -22,8 +25,11 @@ appId: com.biteroutine.mobile
 
 # Typed text: back asks first.
 - scrollUntilVisible:
-    element: "+ Kendi yemeğini oluştur"
-- tapOn: "+ Kendi yemeğini oluştur"
+    element:
+      id: catalog-add-custom
+    direction: UP
+- tapOn:
+    id: catalog-add-custom
 - tapOn:
     id: custom-name
 - inputText: "Taslak Yemek"

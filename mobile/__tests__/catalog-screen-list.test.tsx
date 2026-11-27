@@ -24,7 +24,7 @@ describe("CatalogScreen", () => {
     expect(await screen.findByText("Çorbalar")).toBeTruthy();
     await fireEvent.press(screen.getByText("Çorbalar"));
     expect(await screen.findByText("Mercimek çorbası")).toBeTruthy();
-    await fireEvent.press(screen.getByText("‹ Tüm kategoriler"));
+    await fireEvent.press(screen.getByLabelText("Tüm kategoriler"));
     expect(await screen.findByText("Çorbalar")).toBeTruthy();
   });
 
@@ -44,6 +44,21 @@ describe("CatalogScreen", () => {
     const soupAt = labels.findIndex((l) => l.startsWith("Mercimek çorbası"));
     expect(mineAt).toBeGreaterThan(-1);
     expect(soupAt).toBeGreaterThan(mineAt);
+  });
+
+  it("shows the default serving and its kcal on each row", async () => {
+    await renderWithApp(<CatalogScreen />, db);
+    await fireEvent.press(await screen.findByText("Çorbalar"));
+    expect(await screen.findByLabelText("Mercimek çorbası, Yemek · 1 kepçe, 92 kcal")).toBeTruthy();
+  });
+
+  it("clears the search with İptal", async () => {
+    await renderWithApp(<CatalogScreen />, db);
+    await screen.findByText("Çorbalar");
+    await type("mercimek");
+    await fireEvent.press(screen.getByRole("button", { name: "İptal" }));
+    expect(screen.getByLabelText("Katalogda ara").props.value).toBe("");
+    expect(await screen.findByText("Çorbalar")).toBeTruthy();
   });
 
   it("shows a no-results state", async () => {
@@ -101,7 +116,7 @@ describe("CatalogScreen", () => {
     await fireEvent.press(await screen.findByLabelText("Yemeklerim"));
     await fireEvent.press(await screen.findByText("Evde granola"));
     expect(router.push).toHaveBeenCalledWith({ pathname: "/food/[id]", params: { id: mine.id } });
-    await fireEvent.press(screen.getByLabelText("+ Kendi yemeğini oluştur"));
+    await fireEvent.press(screen.getByLabelText("Kendi yemeğini oluştur"));
     expect(router.push).toHaveBeenCalledWith("/custom-food");
   });
 });

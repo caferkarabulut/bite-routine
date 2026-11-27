@@ -15,8 +15,9 @@ appId: com.biteroutine.mobile
 - tapOn:
     text: "Mercimek çorbası.*"
 - scrollUntilVisible:
-    element: "1 kepçe.*"
-- tapOn: "1 kepçe.*"
+    element: "1 kepçe \\(150 g\\)"
+    centerElement: true
+- tapOn: "1 kepçe \\(150 g\\)"
 - tapOn:
     id: amount-input
 - eraseText: 5

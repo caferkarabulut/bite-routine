@@ -48,6 +48,28 @@ describe("Screen bottom inset", () => {
   });
 });
 
+describe("Screen footer", () => {
+  it("moves the bottom inset from the scroll content to the sticky footer", async () => {
+    await renderScreen(
+      <Screen edges={["top", "bottom"]} footer={<Text>Ekle</Text>}>
+        <Text>x</Text>
+      </Screen>,
+    );
+    expect(scrollPaddingBottom()).toBe(0);
+    expect(StyleSheet.flatten(screen.getByTestId("screen-footer").props.style).paddingBottom).toBe(34);
+    expect(screen.getByText("Ekle")).toBeTruthy();
+  });
+
+  it("keeps a minimum footer padding without a bottom inset", async () => {
+    await renderScreen(
+      <Screen edges={[]} footer={<Text>Ekle</Text>}>
+        <Text>x</Text>
+      </Screen>,
+    );
+    expect(StyleSheet.flatten(screen.getByTestId("screen-footer").props.style).paddingBottom).toBe(12);
+  });
+});
+
 describe("Screen side insets and large title", () => {
   const cover = {
     frame: { x: 0, y: 0, width: 390, height: 600 },
