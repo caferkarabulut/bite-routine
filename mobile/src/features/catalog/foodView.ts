@@ -1,7 +1,8 @@
 // Shared view model for catalog items and custom foods.
 import type { CatalogItem, CustomFood, FoodRef, LocalDate, MealSlot, Nutrients, Portion } from "../../types";
 import { MEAL_SLOTS } from "../../types";
-import { isValidLocalDate } from "../../domain";
+import { isValidLocalDate, nutrientsForGrams } from "../../domain";
+import { formatGrams } from "../../i18n";
 
 export type FoodView = {
   ref: FoodRef;
@@ -11,6 +12,8 @@ export type FoodView = {
   per100g: Nutrients;
   portions: Portion[];
   brand: string | null;
+  /** Catalog category key; null for custom foods. */
+  category: string | null;
   isCustom: boolean;
 };
 
@@ -22,6 +25,7 @@ export function viewOfCatalogItem(item: CatalogItem, lang: "tr" | "en"): FoodVie
     per100g: item.per100g,
     portions: item.portions,
     brand: item.brand ?? null,
+    category: item.category,
     isCustom: false,
   };
 }
@@ -34,6 +38,7 @@ export function viewOfCustomFood(food: CustomFood): FoodView {
     per100g: food.per100g,
     portions: food.portions,
     brand: null,
+    category: null,
     isCustom: true,
   };
 }
@@ -51,4 +56,15 @@ export function asMealSlot(value: unknown): MealSlot | undefined {
 export function asString(value: unknown): string | undefined {
   const v = Array.isArray(value) ? value[0] : value;
   return typeof v === "string" && v ? v : undefined;
+}
+
+/**
+ * What a list row shows: the amount the detail screen opens with (first portion x 1, or 100 g when the food has
+ * no portion) and its kcal. Same rule as `defaultAmount`; kcal stays null when the data is missing.
+ */
+export function defaultServing(food: FoodView, lang: "tr" | "en"): { label: string; kcal: number | null } {
+  const portion = food.portions[0];
+  const grams = portion ? portion.grams : 100;
+  const label = portion ? (lang === "en" && portion.nameEn ? portion.nameEn : portion.nameTr) : formatGrams(100, lang);
+  return { label, kcal: nutrientsForGrams(food.per100g, grams).kcal };
 }
