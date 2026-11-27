@@ -19,6 +19,8 @@ import { listCustomFoods } from "./repositories/customFoods";
 import { listFavorites } from "./repositories/favorites";
 import { listWeights } from "./repositories/weight";
 import {
+  isCustomFoodBrand,
+  isCustomFoodKind,
   isFoodRef,
   isGrams,
   isKg,
@@ -108,6 +110,8 @@ function entryIssue(v: unknown, path: string): string | null {
 
 function customFoodIssue(v: unknown, path: string): string | null {
   if (!isObject(v)) return `${path}: must be an object`;
+  if (!isCustomFoodBrand(v.brand)) return `${path}.brand: must be at most 60 characters`;
+  if (!isCustomFoodKind(v.kind)) return `${path}.kind: must be food or drink`;
   if (!isNonEmptyString(v.id)) return `${path}.id: required string`;
   if (!isNonEmptyString(v.nameTr)) return `${path}.nameTr: required string`;
   if (!isNutrients(v.per100g)) return `${path}.per100g: invalid nutrients`;
@@ -273,8 +277,8 @@ export async function importBackup(db: Db, backup: BackupFile): Promise<void> {
     }
     for (const f of data.customFoods) {
       await db.runAsync(
-        `INSERT INTO custom_foods (id, name_tr, kcal, protein, carbs, fat, portions, created_at, updated_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO custom_foods (id, name_tr, kcal, protein, carbs, fat, portions, created_at, updated_at, brand, kind)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           f.id,
           f.nameTr,
@@ -285,6 +289,8 @@ export async function importBackup(db: Db, backup: BackupFile): Promise<void> {
           JSON.stringify(f.portions),
           f.createdAt,
           f.updatedAt,
+          f.brand ?? null,
+          f.kind ?? "food",
         ],
       );
     }

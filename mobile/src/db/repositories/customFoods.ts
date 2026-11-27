@@ -1,7 +1,9 @@
-import type { CustomFood, Nutrients, Portion } from "../../types";
+import type { CustomFood, CustomFoodKind, Nutrients, Portion } from "../../types";
 import type { Db } from "../types";
 import {
   assertValue,
+  isCustomFoodBrand,
+  isCustomFoodKind,
   isNonEmptyString,
   isNutrients,
   isPortion,
@@ -12,6 +14,8 @@ import {
 type CustomFoodRow = {
   id: string;
   name_tr: string;
+  brand: string | null;
+  kind: CustomFoodKind | null;
   kcal: number | null;
   protein: number | null;
   carbs: number | null;
@@ -25,6 +29,8 @@ type CustomFoodRow = {
 export type CustomFoodInput = {
   id?: string;
   nameTr: string;
+  brand?: string | null;
+  kind?: CustomFoodKind | null;
   per100g: Nutrients;
   portions: Portion[];
 };
@@ -42,6 +48,8 @@ export function rowToCustomFood(r: CustomFoodRow): CustomFood {
   return {
     id: r.id,
     nameTr: r.name_tr,
+    brand: r.brand ?? null,
+    kind: r.kind ?? "food",
     per100g: { kcal: r.kcal, protein: r.protein, carbs: r.carbs, fat: r.fat },
     portions: parsePortions(r.portions),
     createdAt: r.created_at,
@@ -64,6 +72,8 @@ export async function getCustomFood(db: Db, id: string): Promise<CustomFood | nu
 }
 
 export async function saveCustomFood(db: Db, input: CustomFoodInput): Promise<CustomFood> {
+  assertValue(isCustomFoodBrand(input.brand), "brand must be at most 60 characters");
+  assertValue(isCustomFoodKind(input.kind), "kind must be food or drink");
   assertValue(isNonEmptyString(input.nameTr), "nameTr is required");
   assertValue(isNutrients(input.per100g), "per100g must have 4 fields, each null or >= 0");
   assertValue(Array.isArray(input.portions) && input.portions.every(isPortion), "invalid portions");
@@ -77,12 +87,12 @@ export async function saveCustomFood(db: Db, input: CustomFoodInput): Promise<Cu
     grams: p.grams,
   }));
   await db.runAsync(
-    `INSERT INTO custom_foods (id, name_tr, kcal, protein, carbs, fat, portions, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `INSERT INTO custom_foods (id, name_tr, kcal, protein, carbs, fat, portions, created_at, updated_at, brand, kind)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
      ON CONFLICT(id) DO UPDATE SET
        name_tr = excluded.name_tr, kcal = excluded.kcal, protein = excluded.protein,
        carbs = excluded.carbs, fat = excluded.fat, portions = excluded.portions,
-       updated_at = excluded.updated_at`,
+       updated_at = excluded.updated_at, brand = excluded.brand, kind = excluded.kind`,
     [
       id,
       input.nameTr,
@@ -93,6 +103,8 @@ export async function saveCustomFood(db: Db, input: CustomFoodInput): Promise<Cu
       JSON.stringify(portions),
       now,
       now,
+      input.brand?.trim() || null,
+      input.kind ?? "food",
     ],
   );
   return (await getCustomFood(db, id)) as CustomFood;

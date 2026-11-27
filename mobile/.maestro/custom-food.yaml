@@ -4,6 +4,10 @@ appId: com.biteroutine.mobile
     clearState: true
 - runFlow: subflows/onboarding.yaml
 - tapOn: "Katalog(, tab.*)?"
+- scrollUntilVisible:
+    element:
+      id: catalog-add-custom
+    centerElement: true
 - tapOn:
     id: catalog-add-custom
 - tapOn:

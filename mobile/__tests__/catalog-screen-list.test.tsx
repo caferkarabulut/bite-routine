@@ -1,6 +1,6 @@
 import { fireEvent, screen, waitFor } from "@testing-library/react-native";
 
-import { addFavorite, saveCustomFood, type Db } from "../src/db";
+import { addEntry, addFavorite, saveCustomFood, type Db } from "../src/db";
 import { CatalogScreen } from "../src/features/catalog/CatalogScreen";
 import { createDb, renderWithApp } from "./helpers/catalogscreen-harness";
 import { params, router } from "./helpers/catalogscreen-router";
@@ -26,6 +26,32 @@ describe("CatalogScreen", () => {
     expect(await screen.findByText("Mercimek çorbası")).toBeTruthy();
     await fireEvent.press(screen.getByLabelText("Tüm kategoriler"));
     expect(await screen.findByText("Çorbalar")).toBeTruthy();
+  });
+
+  it("shows categories, the add card, then recents and forwards the add context", async () => {
+    const custom = await saveCustomFood(db, { nameTr: "Ayranım", brand: "Markam", kind: "drink", per100g: { kcal: 40, protein: 2, carbs: 4, fat: 1 }, portions: [] });
+    for (const ref of [{ kind: "dish" as const, id: "mercimek-corbasi" }, { kind: "custom" as const, id: custom.id }, { kind: "dish" as const, id: "removed" }]) {
+      await addEntry(db, { date: "2026-11-27", mealSlot: "lunch", food: ref, foodName: "Snapshot", grams: 100, portion: null, per100g: custom.per100g });
+    }
+    params.current = { date: "2026-11-27", meal: "dinner" };
+    await renderWithApp(<CatalogScreen />, db);
+    expect(await screen.findByText("Ayranım")).toBeTruthy();
+    expect(screen.getByText("Markam · 100 ml")).toBeTruthy();
+    expect(screen.getByText("Son eklenenler")).toBeTruthy();
+    expect(screen.queryByText("Snapshot")).toBeNull();
+    const buttons = screen.getAllByRole("button").map((b) => String(b.props.accessibilityLabel));
+    expect(buttons.indexOf("Kendi ürününü ekle")).toBeLessThan(buttons.findIndex((label) => label.startsWith("Ayranım,")));
+    await fireEvent.press(screen.getByText("Ayranım"));
+    expect(router.push).toHaveBeenCalledWith({ pathname: "/food/[id]", params: { id: custom.id, date: "2026-11-27", meal: "dinner" } });
+    await fireEvent.press(screen.getByRole("radio", { name: "Favoriler" }));
+    expect(screen.queryByText("Son eklenenler")).toBeNull();
+  });
+
+  it("hides recents when nothing has been logged", async () => {
+    await renderWithApp(<CatalogScreen />, db);
+    await screen.findByText("Çorbalar");
+    expect(screen.queryByText("Son eklenenler")).toBeNull();
+    expect(screen.getByTestId("catalog-add-custom")).toBeTruthy();
   });
 
   it("searches the catalog (debounced) and lists my foods first under a header", async () => {

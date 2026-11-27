@@ -3,7 +3,7 @@ import { memo, useEffect, useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { CATEGORY_ORDER, categoryLabel, foldTr, getCatalogItem, searchCatalog } from "../../catalog";
-import { listCustomFoods, listFavorites, useDb } from "../../db";
+import { listCustomFoods, listFavorites, listRecentFoodRefs, useDb } from "../../db";
 import { todayInIstanbul } from "../../domain";
 import { formatDate, formatKcal, useI18n } from "../../i18n";
 import { useAppState } from "../../state/AppState";
@@ -14,7 +14,6 @@ import {
   Divider,
   EmptyState,
   Icon,
-  IconButton,
   Screen,
   SearchBar,
   SegmentedControl,
@@ -25,7 +24,7 @@ import {
   typography,
 } from "../../ui";
 import { AddedByYouPill } from "./AddedByYouPill";
-import { asLocalDate, asMealSlot, defaultServing, viewOfCatalogItem, viewOfCustomFood, type FoodView } from "./foodView";
+import { asLocalDate, asMealSlot, defaultServing, recentFoodViews, viewOfCatalogItem, viewOfCustomFood, type FoodView } from "./foodView";
 
 type Segment = "all" | "favorites" | "mine";
 
@@ -49,6 +48,7 @@ export function CatalogScreen() {
   const [segment, setSegment] = useState<Segment>("all");
   const [category, setCategory] = useState<string | null>(null);
   const [customFoods, setCustomFoods] = useState<CustomFood[]>([]);
+  const [recentRefs, setRecentRefs] = useState<FoodRef[]>([]);
   const [favorites, setFavorites] = useState<FoodRef[]>([]);
 
   useEffect(() => {
@@ -58,11 +58,12 @@ export function CatalogScreen() {
 
   useEffect(() => {
     let active = true;
-    Promise.all([listCustomFoods(db), listFavorites(db)])
-      .then(([foods, favs]) => {
+    Promise.all([listCustomFoods(db), listFavorites(db), listRecentFoodRefs(db)])
+      .then(([foods, favs, recents]) => {
         if (!active) return;
         setCustomFoods(foods);
         setFavorites(favs);
+        setRecentRefs(recents);
       })
       .catch(() => {
         // Lists stay empty; the catalog itself still works.
@@ -73,6 +74,7 @@ export function CatalogScreen() {
   }, [db, dataVersion]);
 
   const q = foldTr(debounced);
+  const recentFoods = useMemo(() => recentFoodViews(recentRefs, customFoods, lang, getCatalogItem), [recentRefs, customFoods, lang]);
 
   const sections = useMemo<Section[]>(() => {
     const matchingCustom = customFoods.filter((f) => !q || foldTr(f.nameTr).includes(q)).map(viewOfCustomFood);
@@ -134,15 +136,8 @@ export function CatalogScreen() {
     <Screen
       edges={["top"]}
       largeTitle={t("catalog.title")}
-      headerRight={
-        <IconButton
-          testID="catalog-add-custom"
-          icon="plus"
-          variant="tinted"
-          accessibilityLabel={t("features.catalog.createCustom")}
-          onPress={() => router.push("/custom-food")}
-        />
-      }
+      centerHeader
+      headerRight={<View style={{ width: 44, height: 44 }} />}
     >
       {adding ? (
         <Card style={{ backgroundColor: colors.primarySoft }}>
@@ -180,6 +175,31 @@ export function CatalogScreen() {
               <Chip key={c} label={categoryLabel(c, lang)} onPress={() => setCategory(c)} />
             ))}
           </View>
+        </View>
+      ) : null}
+
+      {showCategories || segment === "mine" ? (
+        <Card padded={false}>
+          <Pressable
+            testID="catalog-add-custom"
+            accessibilityRole="button"
+            accessibilityLabel={t("features.catalog.createCustom")}
+            onPress={() => router.push("/custom-food")}
+            style={styles.customCard}
+          >
+            <View style={styles.plusCircle}><Icon name="plus" size={22} color={colors.onPrimary} /></View>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.customTitle}>{t("features.catalog.createCustom")}</Text>
+              <Text style={typography.footnote}>{t("features.catalog.createCustomHint")}</Text>
+            </View>
+            <Icon name="chevronRight" size={20} color={colors.text} />
+          </Pressable>
+        </Card>
+      ) : null}
+      {showCategories && recentFoods.length > 0 ? (
+        <View style={styles.section}>
+          <Heading>{t("features.catalog.recentlyAdded")}</Heading>
+          <FoodCard foods={recentFoods} onOpen={openFood} />
         </View>
       ) : null}
 
@@ -252,7 +272,7 @@ const FoodRow = memo(function FoodRow({ food, onOpen }: { food: FoodView; onOpen
         {food.isCustom ? (
           <View style={styles.rowSubtitle}>
             <AddedByYouPill />
-            <Text style={typography.footnote}>{serving.label}</Text>
+            <Text style={typography.footnote}>{[food.brand, serving.label].filter(Boolean).join(" · ")}</Text>
           </View>
         ) : (
           <Text style={typography.footnote}>{subtitle}</Text>
@@ -264,6 +284,9 @@ const FoodRow = memo(function FoodRow({ food, onOpen }: { food: FoodView; onOpen
 });
 
 const styles = StyleSheet.create({
+  customCard: { flexDirection: "row", alignItems: "center", gap: 14, padding: spacing.md, minHeight: 72 },
+  plusCircle: { width: 44, height: 44, borderRadius: 22, backgroundColor: colors.primary, alignItems: "center", justifyContent: "center" },
+  customTitle: { fontFamily: fonts.bold, fontSize: 17, lineHeight: 22, color: colors.text },
   section: { gap: spacing.sm, marginTop: spacing.xs },
   heading: { fontFamily: fonts.bold, fontSize: 20, lineHeight: 25, color: colors.text, marginLeft: spacing.xs },
   pills: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },

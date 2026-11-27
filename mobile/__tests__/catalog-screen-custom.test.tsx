@@ -33,7 +33,7 @@ describe("CustomFoodScreen", () => {
     await screen.findByLabelText("Yemek adı");
     await save();
     expect(await screen.findByText("Bir ad gir.")).toBeTruthy();
-    expect(screen.getByText("Bu alan gerekli.")).toBeTruthy();
+    expect(screen.getAllByText("Bu alan gerekli.")).toHaveLength(4);
 
     await fill("Yemek adı", "Test");
     await fill("Kalori (kcal)", "901");
@@ -57,10 +57,12 @@ describe("CustomFoodScreen", () => {
     expect(router.back).not.toHaveBeenCalled();
   });
 
-  it("creates a food with null macros and a portion", async () => {
+  it("creates a food with all required macros and a portion", async () => {
     await renderWithApp(<CustomFoodScreen />, db);
     await fill("Yemek adı", "  Evde granola ");
     await fill("Kalori (kcal)", "412,5");
+    await fill("Karbonhidrat (g)", "0");
+    await fill("Yağ (g)", "0");
     await fill("Protein (g)", "0");
     await fireEvent.press(screen.getByRole("button", { name: "+ Porsiyon ekle" }));
     await fill("Porsiyon adı (isteğe bağlı) 1", "1 kase");
@@ -70,7 +72,7 @@ describe("CustomFoodScreen", () => {
     await waitFor(() => expect(router.back).toHaveBeenCalled());
     const [food] = await listCustomFoods(db);
     expect(food.nameTr).toBe("Evde granola");
-    expect(food.per100g).toEqual({ kcal: 412.5, protein: 0, carbs: null, fat: null });
+    expect(food.per100g).toEqual({ kcal: 412.5, protein: 0, carbs: 0, fat: 0 });
     expect(food.portions).toHaveLength(1);
     expect(food.portions[0]).toMatchObject({ nameTr: "1 kase", nameEn: null, grams: 45 });
   });
@@ -79,6 +81,9 @@ describe("CustomFoodScreen", () => {
     await renderWithApp(<CustomFoodScreen />, db);
     await fill("Yemek adı", "Test");
     await fill("Kalori (kcal)", "100");
+    await fill("Protein (g)", "0");
+    await fill("Karbonhidrat (g)", "0");
+    await fill("Yağ (g)", "0");
     await fireEvent.press(screen.getByRole("button", { name: "+ Porsiyon ekle" }));
     await fill("Porsiyon adı (isteğe bağlı) 1", "Dilim");
     await save();
@@ -101,11 +106,69 @@ describe("CustomFoodScreen", () => {
     expect(screen.getByDisplayValue("250")).toBeTruthy();
     expect(screen.getByDisplayValue("80")).toBeTruthy();
     await fill("Kalori (kcal)", "260");
+    await fill("Karbonhidrat (g)", "0");
+    await fill("Yağ (g)", "0");
     await save();
     await waitFor(() => expect(router.back).toHaveBeenCalled());
     const saved = await getCustomFood(db, food.id);
-    expect(saved?.per100g).toEqual({ kcal: 260, protein: 8, carbs: null, fat: null });
+    expect(saved?.per100g).toEqual({ kcal: 260, protein: 8, carbs: 0, fat: 0 });
     expect(saved?.portions[0].id).toBe("p1");
+  });
+
+  it("stores a branded drink from portion values and makes its entered portion first", async () => {
+    await renderWithApp(<CustomFoodScreen />, db);
+    await fill("Yemek adı", " Granola içeceği ");
+    await fireEvent.changeText(screen.getByTestId("custom-brand"), " Marka ");
+    await fireEvent.press(screen.getByRole("radio", { name: "İçecek" }));
+    expect(screen.getByRole("radio", { name: "100 ml" })).toBeTruthy();
+    expect(screen.getByText(/İçecekte değerleri 100 ml/)).toBeTruthy();
+    await fireEvent.press(screen.getByRole("radio", { name: "Porsiyon" }));
+    await fireEvent.changeText(screen.getByTestId("custom-basis-name"), "1 kutu");
+    await fireEvent.changeText(screen.getByTestId("custom-basis-grams"), "40");
+    await fill("Kalori (kcal)", "190");
+    await fill("Protein (g)", "4,4");
+    await fill("Karbonhidrat (g)", "23,2");
+    await fill("Yağ (g)", "8");
+    await fireEvent.press(screen.getByRole("button", { name: "+ Porsiyon ekle" }));
+    await fill("Porsiyon adı (isteğe bağlı) 1", "Bardak");
+    await fireEvent.changeText(screen.getByTestId("custom-portion-grams-1"), "200");
+    await save();
+    await waitFor(() => expect(router.back).toHaveBeenCalled());
+    const [food] = await listCustomFoods(db);
+    expect(food).toMatchObject({ brand: "Marka", kind: "drink", per100g: { kcal: 475, protein: 11, carbs: 58, fat: 20 } });
+    expect(food.portions.map((p) => [p.nameTr, p.grams])).toEqual([["1 kutu", 40], ["Bardak", 200]]);
+  });
+
+  it("requires the basis portion and validates ranges after converting to per 100 g", async () => {
+    await renderWithApp(<CustomFoodScreen />, db);
+    await fill("Yemek adı", "Test");
+    await fireEvent.press(screen.getByRole("radio", { name: "Porsiyon" }));
+    await fill("Kalori (kcal)", "190");
+    await fill("Protein (g)", "10");
+    await fill("Karbonhidrat (g)", "20");
+    await fill("Yağ (g)", "10");
+    await save();
+    expect(screen.getByText("Porsiyon için bir ad gir.")).toBeTruthy();
+    expect(screen.getByText(/Gram 0'dan büyük/)).toBeTruthy();
+    await fireEvent.changeText(screen.getByTestId("custom-basis-name"), "Dilim");
+    await fireEvent.changeText(screen.getByTestId("custom-basis-grams"), "10");
+    await save();
+    expect(screen.getByText("100 g/ml karşılığı enerji 0 ile 900 kcal arasında olmalı.")).toBeTruthy();
+    expect(screen.getByText("100 g/ml karşılığı makro değeri 0 ile 100 g arasında olmalı.")).toBeTruthy();
+    expect(await listCustomFoods(db)).toHaveLength(0);
+  });
+
+  it("preserves brand, kind and the first portion while editing stored per-100 values", async () => {
+    const food = await saveCustomFood(db, { nameTr: "Ayran", brand: "Marka", kind: "drink", per100g: { kcal: 40, protein: 2, carbs: 4, fat: 1 }, portions: [{ id: "glass", nameTr: "Bardak", nameEn: null, grams: 200 }] });
+    params.current = { id: food.id };
+    await renderWithApp(<CustomFoodScreen />, db);
+    await screen.findByDisplayValue("Ayran");
+    expect(screen.getByRole("radio", { name: "100 ml" }).props.accessibilityState.checked).toBe(true);
+    expect(screen.getByTestId("custom-brand").props.value).toBe("Marka");
+    await fill("Kalori (kcal)", "42");
+    await save();
+    await waitFor(() => expect(router.back).toHaveBeenCalled());
+    expect(await getCustomFood(db, food.id)).toMatchObject({ brand: "Marka", kind: "drink", per100g: { kcal: 42 }, portions: food.portions });
   });
 
   it("deletes after confirmation and keeps past diary entries", async () => {
@@ -158,6 +221,19 @@ describe("CustomFoodScreen", () => {
       expect(attemptLeave()).toBe(true);
     });
 
+    it.each(["brand", "kind", "basis", "basisName", "basisGrams"])("guards changes to %s", async (field) => {
+      await renderWithApp(<CustomFoodScreen />, db);
+      await screen.findByTestId("custom-name");
+      if (field === "brand") await fireEvent.changeText(screen.getByTestId("custom-brand"), "Marka");
+      else if (field === "kind") await fireEvent.press(screen.getByRole("radio", { name: "İçecek" }));
+      else {
+        await fireEvent.press(screen.getByRole("radio", { name: "Porsiyon" }));
+        if (field === "basisName") await fireEvent.changeText(screen.getByTestId("custom-basis-name"), "Kase");
+        if (field === "basisGrams") await fireEvent.changeText(screen.getByTestId("custom-basis-grams"), "40");
+      }
+      expect(guard.active).toBe(true);
+    });
+
     it("counts a portion row as a change", async () => {
       await renderWithApp(<CustomFoodScreen />, db);
       await screen.findByLabelText("Yemek adı");
@@ -187,6 +263,9 @@ describe("CustomFoodScreen", () => {
       await renderWithApp(<CustomFoodScreen />, db);
       await fill("Yemek adı", "Çorba");
       await fill("Kalori (kcal)", "50");
+      await fill("Protein (g)", "0");
+      await fill("Karbonhidrat (g)", "0");
+      await fill("Yağ (g)", "0");
       expect(guard.active).toBe(true);
       await save();
       await waitFor(() => expect(router.back).toHaveBeenCalled());

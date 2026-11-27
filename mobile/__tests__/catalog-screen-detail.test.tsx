@@ -156,6 +156,28 @@ describe("FoodDetailScreen", () => {
     expect(screen.getByText(note)).toBeTruthy();
   });
 
+  it.each([
+    ["tr", "Mililitre", "Bardak (200 ml)", "Bardak · 200 ml", "100 ml için 40 kcal.", "Protein: 4 g"],
+    ["en", "Millilitres", "Glass (200 ml)", "Glass · 200 ml", "40 kcal per 100 ml.", "Protein: 4 g"],
+  ] as const)("shows brand and ml for drinks while keeping nutrient macros in grams in %s", async (lang, unit, portion, amount, per100, protein) => {
+    const food = await saveCustomFood(db, { nameTr: "Ayran", brand: "Markam", kind: "drink", per100g: { kcal: 40, protein: 2, carbs: 4, fat: 1 }, portions: [{ id: "glass", nameTr: "Bardak", nameEn: "Glass", grams: 200 }] });
+    params.current = { id: food.id, date: "2026-11-12", meal: "lunch" };
+    await renderWithApp(<FoodDetailScreen />, db, lang);
+    expect(await screen.findByText(/Markam · 200 ml/)).toBeTruthy();
+    expect(screen.getByRole("radio", { name: portion })).toBeTruthy();
+    expect(screen.getByText(amount)).toBeTruthy();
+    expect(screen.getByText(per100)).toBeTruthy();
+    expect(screen.getByLabelText(protein)).toBeTruthy();
+    await fireEvent.press(screen.getByRole("radio", { name: unit }));
+    await fireEvent.changeText(screen.getByTestId("amount-input"), "250");
+    expect(screen.getByText("250 ml")).toBeTruthy();
+    await fireEvent.press(screen.getByTestId("add-to-diary"));
+    await waitFor(() => expect(router.dismissTo).toHaveBeenCalled());
+    const [entry] = await listEntriesByDate(db, "2026-11-12");
+    expect(entry.grams).toBe(250);
+    expect(entry.per100g).toEqual(food.per100g);
+  });
+
   it("toggles the favorite", async () => {
     params.current = { id: "mercimek-corbasi" };
     await renderWithApp(<FoodDetailScreen />, db);

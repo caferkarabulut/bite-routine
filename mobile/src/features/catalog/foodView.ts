@@ -15,6 +15,7 @@ export type FoodView = {
   /** Catalog category key; null for custom foods. */
   category: string | null;
   isCustom: boolean;
+  isDrink?: boolean;
 };
 
 export function viewOfCatalogItem(item: CatalogItem, lang: "tr" | "en"): FoodView {
@@ -37,9 +38,10 @@ export function viewOfCustomFood(food: CustomFood): FoodView {
     nameTr: food.nameTr,
     per100g: food.per100g,
     portions: food.portions,
-    brand: null,
+    brand: food.brand ?? null,
     category: null,
     isCustom: true,
+    isDrink: food.kind === "drink",
   };
 }
 
@@ -65,6 +67,28 @@ export function asString(value: unknown): string | undefined {
 export function defaultServing(food: FoodView, lang: "tr" | "en"): { label: string; kcal: number | null } {
   const portion = food.portions[0];
   const grams = portion ? portion.grams : 100;
-  const label = portion ? (lang === "en" && portion.nameEn ? portion.nameEn : portion.nameTr) : formatGrams(100, lang);
+  const label = food.isCustom ? formatFoodAmount(food, grams, lang) : portion ? (lang === "en" && portion.nameEn ? portion.nameEn : portion.nameTr) : formatFoodAmount(food, 100, lang);
   return { label, kcal: nutrientsForGrams(food.per100g, grams).kcal };
+}
+
+/** Only the food amount changes unit; nutrient macros always remain in grams. */
+export function formatFoodAmount(food: FoodView, grams: number, lang: "tr" | "en"): string {
+  const text = formatGrams(grams, lang);
+  return food.isDrink ? text.replace(/ g$/, " ml") : text;
+}
+
+/** Resolve before limiting so missing foods do not hide older valid recent choices. */
+export function recentFoodViews(refs: FoodRef[], customFoods: CustomFood[], lang: "tr" | "en", lookup: (id: string) => CatalogItem | undefined): FoodView[] {
+  const foods: FoodView[] = [];
+  for (const ref of refs) {
+    if (ref.kind === "custom") {
+      const food = customFoods.find((f) => f.id === ref.id);
+      if (food) foods.push(viewOfCustomFood(food));
+    } else {
+      const item = lookup(ref.id);
+      if (item && item.kind === ref.kind) foods.push(viewOfCatalogItem(item, lang));
+    }
+    if (foods.length === 8) break;
+  }
+  return foods;
 }

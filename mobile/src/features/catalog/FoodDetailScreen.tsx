@@ -35,7 +35,7 @@ import {
 } from "../../ui";
 import { AddedByYouPill } from "./AddedByYouPill";
 import { amountStepRange } from "./amountStep";
-import { asLocalDate, asMealSlot, asString, viewOfCatalogItem, viewOfCustomFood, type FoodView } from "./foodView";
+import { asLocalDate, asMealSlot, asString, formatFoodAmount, viewOfCatalogItem, viewOfCustomFood, type FoodView } from "./foodView";
 
 export function FoodDetailScreen() {
   const { t, lang } = useI18n();
@@ -188,11 +188,12 @@ function FoodDetail({
   const kindLine = [
     kindLabel,
     food.brand || (food.ref.kind === "packaged" || !food.category ? null : categoryLabel(food.category, lang)),
+    food.isCustom ? formatFoodAmount(food, food.portions[0]?.grams ?? 100, lang) : null,
   ]
     .filter(Boolean)
     .join(" · ");
   const amountText = resolved
-    ? [resolved.portion ? portionAmountText(resolved.portion.quantity, resolved.portion.name, lang) : null, formatGrams(resolved.grams, lang)]
+    ? [resolved.portion ? portionAmountText(resolved.portion.quantity, resolved.portion.name, lang) : null, formatFoodAmount(food, resolved.grams, lang)]
         .filter(Boolean)
         .join(" · ")
     : "—";
@@ -271,7 +272,7 @@ function FoodDetail({
         </View>
         <View>
           <Text style={typography.footnote}>
-            {t("features.catalog.per100Line", { kcal: food.per100g.kcal === null ? t("common.noData") : formatKcal(food.per100g.kcal, lang) })}
+            {t(food.isDrink ? "features.catalog.per100mlLine" : "features.catalog.per100Line", { kcal: food.per100g.kcal === null ? t("common.noData") : formatKcal(food.per100g.kcal, lang) })}
           </Text>
           <Text style={typography.footnote}>{sourceFor(food, t)}</Text>
         </View>
@@ -299,7 +300,7 @@ function FoodDetail({
           <Text style={styles.groupLabel}>{t("catalog.portion")}</Text>
           <View style={styles.pills} accessibilityRole="radiogroup" accessibilityLabel={t("catalog.portion")}>
             <Chip
-              label={t("catalog.grams")}
+              label={t(food.isDrink ? "features.catalog.millilitres" : "catalog.grams")}
               accessibilityRole="radio"
               selected={isGrams}
               onPress={() => setAmount({ unit: "grams", text: "100" })}
@@ -307,7 +308,7 @@ function FoodDetail({
             {food.portions.map((p) => (
               <Chip
                 key={p.id}
-                label={`${portionName(p, lang)} (${formatGrams(p.grams, lang)})`}
+                label={`${portionName(p, lang)} (${formatFoodAmount(food, p.grams, lang)})`}
                 accessibilityRole="radio"
                 selected={amount.unit === p.id}
                 onPress={() => setAmount({ unit: p.id, text: "1" })}
@@ -320,11 +321,11 @@ function FoodDetail({
       <View style={styles.amountRow}>
         <View style={{ flexShrink: 1 }}>
           <Text style={styles.groupLabel}>{t("catalog.quantity")}</Text>
-          <Text style={typography.footnote}>{isGrams ? t("catalog.grams") : resolved ? `≈ ${formatGrams(resolved.grams, lang)}` : " "}</Text>
+          <Text style={typography.footnote}>{isGrams ? t(food.isDrink ? "features.catalog.millilitres" : "catalog.grams") : resolved ? `≈ ${formatFoodAmount(food, resolved.grams, lang)}` : " "}</Text>
         </View>
         <Stepper
           testID="amount-input"
-          label={isGrams ? t("catalog.grams") : t("catalog.quantity")}
+          label={isGrams ? t(food.isDrink ? "features.catalog.millilitres" : "catalog.grams") : t("catalog.quantity")}
           value={amount.text}
           onChangeText={(text) => setAmount({ ...amount, text })}
           min={range.min}
