@@ -252,6 +252,7 @@ function CustomFoodForm({ food }: { food: CustomFood | null }) {
       ) : null}
       <Button label={t("common.save")} onPress={save} loading={saving} />
       {food ? <Button label={t("common.delete")} variant="danger" onPress={confirmDelete} /> : null}
+      <Text style={typography.muted}>{t("features.catalog.customForm.infoNote")}</Text>
     </Screen>
   );
 }

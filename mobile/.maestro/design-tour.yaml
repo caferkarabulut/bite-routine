@@ -105,16 +105,16 @@ appId: com.biteroutine.mobile
 # --- 4. Dish detail ---
 - tapOn: "Mercimek çorbası.*"
 - extendedWaitUntil:
-    visible: "1 kepçe.*"
+    visible: "1 kepçe \\(150 g\\)"
     timeout: 5000
 - waitForAnimationToEnd
 - takeScreenshot: tour-11-dish-detail-top
 - scrollUntilVisible:
-    element: "1 kepçe.*"
+    element: "1 kepçe \\(150 g\\)"
     centerElement: true
 - waitForAnimationToEnd
 - takeScreenshot: tour-12-dish-detail-portions
-- tapOn: "1 kepçe.*"
+- tapOn: "1 kepçe \\(150 g\\)"
 - runFlow: subflows/dismiss-keyboard.yaml
 - scrollUntilVisible:
     element:
@@ -161,7 +161,7 @@ appId: com.biteroutine.mobile
 - takeScreenshot: tour-14-catalog-search-eti
 - tapOn: ".*Paketli ürün · Eti.*"
 - extendedWaitUntil:
-    visible: "Besin değerleri.*"
+    visible: "Kaynaklar ve lisanslar"
     timeout: 5000
 - waitForAnimationToEnd
 - takeScreenshot: tour-15-packaged-detail-top
@@ -231,8 +231,11 @@ appId: com.biteroutine.mobile
 # --- 8. Custom food form (modal), closed without saving ---
 - tapOn: "Katalog(, tab.*)?"
 - scrollUntilVisible:
-    element: "+ Kendi yemeğini oluştur"
-- tapOn: "+ Kendi yemeğini oluştur"
+    element:
+      id: catalog-add-custom
+    direction: UP
+- tapOn:
+    id: catalog-add-custom
 - extendedWaitUntil:
     visible:
       id: custom-name

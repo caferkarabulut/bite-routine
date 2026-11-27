@@ -70,11 +70,17 @@ Yedekle/Geri yükle (paylaşım ve dosya seçici) ve bildirim izni akışları k
   `Mercimek çorbası, 1,5 kepçe · 225 g, 137 kcal`. Seçici `Kahvaltı.*137 kcal` ya da `.*1,5 kepçe.*` gibi yazılır.
 - Bugün'de "Önceki gün" / "Sonraki gün" düğmeleri vardır; sonraki gün bugünden 7 gün sonra devre dışı kalır; başka bir günde "Bugüne dön" düğmesi çıkar. "Bugün" başlığı hem sayfa
   başlığı hem sekme adıdır (`Bugün(, tab.*)?` ikisini de eşler).
+- Katalog: başlık ve arama sayfayla birlikte kayar; "Kendi ürününü ekle" başlığın yanındaki yuvarlak "+" düğmesidir
+  (`catalog-add-custom`). Liste satırı tek öğedir: `Mercimek çorbası, Yemek · 1 kepçe, 92 kcal` (ad, tür · varsayılan
+  porsiyon, o porsiyonun kcal'i).
+- Yemek detayı: porsiyon hapları `1 kepçe \\(150 g\\)` biçimindedir; "1 kepçe · 150 g" besin kartındaki miktar
+  satırıdır, dokunulmaz. "Günlüğe ekle" altbilgide sabittir (`add-to-diary`); iOS'ta klavye onu örter, önce
+  `subflows/dismiss-keyboard.yaml`. Öğün ve Tarih satırları dokununca açılır.
 - Maestro 2.12'de `takeScreenshot` yolu çıktı klasörüne göre çözülür; `--test-output-dir` verilmezse
   görüntüler `~/.maestro/tests/<zaman>/<akış>/takeScreenshot/` altına gider.
 
 ## testID listesi
 
 `onboarding-birth-year`, `onboarding-height`, `onboarding-weight`, `add-breakfast|lunch|dinner|snack`,
-`catalog-search`, `amount-input`, `add-to-diary`, `custom-name`, `custom-kcal`, `custom-protein`, `custom-carbs`,
+`catalog-search`, `catalog-add-custom`, `amount-input`, `add-to-diary`, `custom-name`, `custom-kcal`, `custom-protein`, `custom-carbs`,
 `custom-fat`, `custom-portion-name-N`, `custom-portion-grams-N`, `weight-input`, `water-goal-input`, `delete-all-input`.

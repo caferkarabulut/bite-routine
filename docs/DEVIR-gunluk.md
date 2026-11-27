@@ -2,6 +2,14 @@
 
 En yeni girdi en üstte. [`DEVIR.md`](DEVIR.md)'den taşınan ayrıntı buraya gelir. Her girdi şunları yazar: ne yapıldı (dosyalar, commit'ler), kim yaptı (model, hesap), kararlar, doğrulama (komut ve sonucu), açık kalanlar. Girdiler sonradan düzeltilmez; yanlış bir girdi yeni bir girdiyle düzeltilir.
 
+## 2026-11-27 14:05 — Kullanıcı istekleri: ürün ekleme, Ekle düğmesi, başlıklar, profil; kalan ekranlar
+
+- Kullanıcı #48, #49'u merge etti; #50 ölü dala gitti → PR #51.
+- Kullanıcı istekleri ve kararlar KARARLAR'da (7 satır). Yönetici tuvali güncelledi (sürüm 9–10): Bugün/Geçmiş/Katalog ortalı 24 px başlık, Bugün "Ekle", Katalog sırası + "Kendi ürününü ekle" kartı, kısa Profil/Onboarding, hatırlatıcı bildirim notu, yeni `U-UrunEkle` (zorunlu alanlar, ipucu kartı, içecek notu).
+- Codex `gpt-6.1-sol` (dört çağrı, `olcum run`): today-add (high), history (medium), settings (high), product-form (high, R2). Yönetici her birinde son mesajı, `git status`'u ve dosya kapsamını kontrol edip commit etti (kanca kontrolü ile).
+- today-add iOS Release iPhone 17: 518 test, 9 akış, design-tour PASS; ekran görüntüsü yöneticide kontrol edildi.
+- Not: `mealSlotForTime` aynı saat kuralını kullanıyor (akşam 22:00'ye kadar; 05:00 öncesi atıştırmalık).
+
 ## 2026-11-27 13:15 — Katalog + detay, kalan maketler, doğrulama runbook'u
 
 - `sonnet-worker-high` → `feat/catalog-redesign` (`092ba67`..`bce7ad3`, taban `6f3a5a9`): `CatalogScreen.tsx`, `FoodDetailScreen.tsx`, `foodView.ts`, `amountStep.ts` (adım: porsiyon 0,5 / gram 10), `Screen` `footer` prop'u, SearchBar/SegmentedControl/Chip düzeltmeleri, Maestro seçicileri. npm test 491 (performance zaman testi derleme yükünde 2 kez kaldı, tekrarlarda geçti). iOS 9 akış + design-tour, Android 10 akış PASS. Yönetici commit mesajlarını kancayla, katalog ve detay ekran görüntülerini kontrol etti. PR #50 (#49'un üstüne).

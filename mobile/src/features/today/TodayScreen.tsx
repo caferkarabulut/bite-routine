@@ -1,13 +1,13 @@
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { addWater, getWater, listEntriesByDate, useDb } from "../../db";
 import { addDays, isValidLocalDate, nutrientsForGrams, sumNutrients, todayInIstanbul } from "../../domain";
 import { formatDate, formatWeekday, useI18n } from "../../i18n";
 import { useAppState } from "../../state/AppState";
 import type { DiaryEntry, LocalDate } from "../../types";
-import { ErrorState, IconButton, Loading, Screen, colors, typography } from "../../ui";
+import { ErrorState, Icon, IconButton, Loading, Screen, colors, fonts, mealSlotForTime, shadow, spacing, typography, useSideInsets } from "../../ui";
 import { CalorieCard } from "./CalorieCard";
 import { canGoForward, dayTitleKind } from "./dayTitle";
 import { MealsCard } from "./MealsCard";
@@ -23,6 +23,7 @@ function paramDate(value: string | string[] | undefined): LocalDate | null {
 export function TodayScreen() {
   const { t, lang } = useI18n();
   const db = useDb();
+  const sideInsets = useSideInsets(spacing.lg);
   const { targets, settings, dataVersion, notifyDataChanged } = useAppState();
   const params = useLocalSearchParams<{ date?: string }>();
   const paramValue = paramDate(params.date);
@@ -155,23 +156,54 @@ export function TodayScreen() {
   }
 
   return (
-    <Screen edges={["top"]} {...header}>
-      <CalorieCard total={total} targets={targets} />
-      <WaterCard
-        waterMl={data.waterMl}
-        goalMl={settings.waterGoalMl}
-        busy={waterBusy}
-        error={waterError}
-        canUndo={lastAdd !== null}
-        onAdd={(ml) => void changeWater(ml, true)}
-        onUndo={() => lastAdd && void changeWater(-lastAdd.ml, false)}
-      />
-      <MealsCard date={date} entries={data.entries} />
-      <Text style={[typography.small, { textAlign: "center" }]}>{t("disclaimer")}</Text>
-    </Screen>
+    <View style={styles.container}>
+      <Screen edges={["top"]} {...header}>
+        <View style={styles.content}>
+          <CalorieCard total={total} targets={targets} />
+          <WaterCard
+            waterMl={data.waterMl}
+            goalMl={settings.waterGoalMl}
+            busy={waterBusy}
+            error={waterError}
+            canUndo={lastAdd !== null}
+            onAdd={(ml) => void changeWater(ml, true)}
+            onUndo={() => lastAdd && void changeWater(-lastAdd.ml, false)}
+          />
+          <MealsCard date={date} entries={data.entries} />
+          <Text style={[typography.small, { textAlign: "center" }]}>{t("disclaimer")}</Text>
+        </View>
+      </Screen>
+      <Pressable
+        testID="today-add"
+        accessibilityRole="button"
+        accessibilityLabel={t("features.today.addFoodOrDrink")}
+        onPress={() => router.push({ pathname: "/catalog", params: { date, meal: mealSlotForTime() } })}
+        style={({ pressed }) => [styles.addButton, { right: sideInsets.paddingRight }, pressed ? { backgroundColor: colors.primaryPressed } : null]}
+      >
+        <Icon name="plus" size={24} color={colors.onPrimary} />
+        <Text style={styles.addLabel}>{t("features.today.add")}</Text>
+      </Pressable>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: { flex: 1 },
+  // The tab bar already carries the bottom safe-area inset.
+  content: { gap: spacing.md, paddingBottom: 52 + spacing.lg * 2 },
+  addButton: {
+    position: "absolute",
+    bottom: spacing.lg,
+    height: 52,
+    paddingLeft: 16,
+    paddingRight: 20,
+    borderRadius: 26,
+    backgroundColor: colors.primary,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
+    ...shadow.card,
+  },
+  addLabel: { fontFamily: fonts.bold, fontSize: 17, color: colors.onPrimary },
   backToday: { minHeight: 32, justifyContent: "center", paddingHorizontal: 8 },
 });

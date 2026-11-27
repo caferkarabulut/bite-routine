@@ -20,6 +20,14 @@ const fill = async (label: string, value: string) => fireEvent.changeText(screen
 const save = async () => fireEvent.press(screen.getByRole("button", { name: "Kaydet" }));
 
 describe("CustomFoodScreen", () => {
+  it.each([
+    ["tr", "Bu ürünü sen ekliyorsun. Değerler resmi olarak doğrulanmaz; listede “Senin eklediğin” diye görünür. Yalnız bu telefonda saklanır."],
+    ["en", "You are adding this item yourself. Its values are not officially verified and it shows as “Added by you”. It is stored only on this phone."],
+  ] as const)("explains the user-entered values before saving in %s", async (lang, note) => {
+    await renderWithApp(<CustomFoodScreen />, db, lang);
+    expect(await screen.findByText(note)).toBeTruthy();
+  });
+
   it("validates the required fields and ranges", async () => {
     await renderWithApp(<CustomFoodScreen />, db);
     await screen.findByLabelText("Yemek adı");

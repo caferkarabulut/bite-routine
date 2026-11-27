@@ -1,6 +1,6 @@
 import { router, useLocalSearchParams } from "expo-router";
-import { useEffect, useMemo, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { memo, useEffect, useMemo, useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { CATEGORY_ORDER, categoryLabel, foldTr, getCatalogItem, searchCatalog } from "../../catalog";
 import { listCustomFoods, listFavorites, useDb } from "../../db";
@@ -9,28 +9,28 @@ import { formatDate, formatKcal, useI18n } from "../../i18n";
 import { useAppState } from "../../state/AppState";
 import type { CustomFood, FoodRef, MealSlot } from "../../types";
 import {
-  Button,
   Card,
-  ChoiceChips,
+  Chip,
   Divider,
   EmptyState,
-  ListRow,
-  TextField,
+  Icon,
+  IconButton,
+  Screen,
+  SearchBar,
+  SegmentedControl,
   colors,
+  fonts,
+  mealSlotForTime,
   spacing,
   typography,
-  mealSlotForTime,
-  useSideInsets,
 } from "../../ui";
-import { asLocalDate, asMealSlot, viewOfCatalogItem, viewOfCustomFood, type FoodView } from "./foodView";
+import { AddedByYouPill } from "./AddedByYouPill";
+import { asLocalDate, asMealSlot, defaultServing, viewOfCatalogItem, viewOfCustomFood, type FoodView } from "./foodView";
 
 type Segment = "all" | "favorites" | "mine";
 
-type Row =
-  | { type: "header"; key: string; title: string }
-  | { type: "category"; key: string; category: string; title: string }
-  | { type: "back"; key: string; title: string }
-  | { type: "food"; key: string; food: FoodView };
+/** One titled card of food rows. `title` is omitted when the card is the only content. */
+type Section = { key: string; title?: string; foods: FoodView[] };
 
 const CATEGORY_LIMIT = 300;
 const SEARCH_LIMIT = 50;
@@ -39,7 +39,6 @@ export function CatalogScreen() {
   const { t, lang } = useI18n();
   const db = useDb();
   const { dataVersion } = useAppState();
-  const sideInsets = useSideInsets(spacing.lg);
   const params = useLocalSearchParams<{ date?: string; meal?: string }>();
   const date = asLocalDate(params.date);
   const meal = asMealSlot(params.meal);
@@ -75,15 +74,13 @@ export function CatalogScreen() {
 
   const q = foldTr(debounced);
 
-  const rows = useMemo<Row[]>(() => {
-    const matchingCustom = customFoods
-      .filter((f) => !q || foldTr(f.nameTr).includes(q))
-      .map<Row>((f) => ({ type: "food", key: f.id, food: viewOfCustomFood(f) }));
+  const sections = useMemo<Section[]>(() => {
+    const matchingCustom = customFoods.filter((f) => !q || foldTr(f.nameTr).includes(q)).map(viewOfCustomFood);
 
-    if (segment === "mine") return matchingCustom;
+    if (segment === "mine") return [{ key: "mine", foods: matchingCustom }];
 
     if (segment === "favorites") {
-      const out: Row[] = [];
+      const foods: FoodView[] = [];
       for (const ref of favorites) {
         let food: FoodView | null = null;
         if (ref.kind === "custom") {
@@ -95,40 +92,24 @@ export function CatalogScreen() {
         }
         if (!food) continue;
         if (q && !foldTr(food.nameTr).includes(q) && !foldTr(food.name).includes(q)) continue;
-        out.push({ type: "food", key: `${ref.kind}:${ref.id}`, food });
+        foods.push(food);
       }
-      return out;
+      return [{ key: "favorites", foods }];
     }
 
     // segment "all"
     if (q) {
-      const out: Row[] = [];
-      if (matchingCustom.length > 0) {
-        out.push({ type: "header", key: "h-mine", title: t("catalog.myFoods") }, ...matchingCustom);
-      }
-      const found = searchCatalog(debounced, { limit: SEARCH_LIMIT });
-      if (matchingCustom.length > 0 && found.length > 0) {
-        out.push({ type: "header", key: "h-catalog", title: t("catalog.title") });
-      }
-      for (const item of found) out.push({ type: "food", key: item.id, food: viewOfCatalogItem(item, lang) });
+      const found = searchCatalog(debounced, { limit: SEARCH_LIMIT }).map((item) => viewOfCatalogItem(item, lang));
+      if (matchingCustom.length === 0) return [{ key: "catalog", foods: found }];
+      const out: Section[] = [{ key: "mine", title: t("catalog.myFoods"), foods: matchingCustom }];
+      if (found.length > 0) out.push({ key: "catalog", title: t("catalog.title"), foods: found });
       return out;
     }
     if (category) {
-      const out: Row[] = [{ type: "back", key: "back", title: t("features.catalog.backToCategories") }];
-      for (const item of searchCatalog("", { category, limit: CATEGORY_LIMIT })) {
-        out.push({ type: "food", key: item.id, food: viewOfCatalogItem(item, lang) });
-      }
-      return out;
+      const foods = searchCatalog("", { category, limit: CATEGORY_LIMIT }).map((item) => viewOfCatalogItem(item, lang));
+      return [{ key: "category", title: categoryLabel(category, lang), foods }];
     }
-    return [
-      { type: "header", key: "h-categories", title: t("catalog.categories") },
-      ...CATEGORY_ORDER.map<Row>((c) => ({
-        type: "category",
-        key: `cat:${c}`,
-        category: c,
-        title: categoryLabel(c, lang),
-      })),
-    ];
+    return [];
   }, [segment, q, debounced, category, customFoods, favorites, lang, t]);
 
   const openFood = (food: FoodView) => {
@@ -138,73 +119,8 @@ export function CatalogScreen() {
     });
   };
 
-  const renderItem = ({ item }: { item: Row }) => {
-    switch (item.type) {
-      case "header":
-        return (
-          <Text accessibilityRole="header" style={[typography.label, { paddingTop: spacing.md }]}>
-            {item.title}
-          </Text>
-        );
-      case "category":
-        return (
-          <ListRow title={item.title} right="›" onPress={() => setCategory(item.category)} />
-        );
-      case "back":
-        return <ListRow title={`‹ ${item.title}`} onPress={() => setCategory(null)} />;
-      case "food": {
-        const f = item.food;
-        const kindLabel = f.isCustom ? t("catalog.kinds.custom") : t(`catalog.kinds.${f.ref.kind as "dish" | "food" | "packaged"}`);
-        const subtitle = [kindLabel, f.brand].filter(Boolean).join(" · ");
-        return (
-          <ListRow
-            title={f.name}
-            subtitle={subtitle}
-            right={f.per100g.kcal === null ? t("common.noData") : `${formatKcal(f.per100g.kcal, lang)}\n${t("catalog.per100g")}`}
-            onPress={() => openFood(f)}
-          />
-        );
-      }
-    }
-  };
-
-  const showFilterHint = segment === "all" && !q && !category;
-
-  const header = (
-    <View style={{ gap: spacing.md, paddingBottom: spacing.sm }}>
-      {adding ? (
-        <Card style={{ backgroundColor: colors.primarySoft }}>
-          <Text accessibilityRole="summary" style={typography.label}>
-            {t("features.catalog.addingFor", {
-              meal: t(`meals.${(meal ?? mealSlotForTime()) as MealSlot}`),
-              date: formatDate(date ?? todayInIstanbul(), lang),
-            })}
-          </Text>
-        </Card>
-      ) : null}
-      <TextField
-        testID="catalog-search"
-        label={t("features.catalog.searchLabel")}
-        placeholder={t("catalog.searchPlaceholder")}
-        value={query}
-        onChangeText={setQuery}
-        returnKeyType="search"
-        autoCorrect={false}
-        clearButtonMode="while-editing"
-      />
-      <ChoiceChips<Segment>
-        options={[
-          { value: "all", label: t("catalog.all") },
-          { value: "favorites", label: t("catalog.favorites") },
-          { value: "mine", label: t("catalog.myFoods") },
-        ]}
-        value={segment}
-        onChange={setSegment}
-      />
-      <Button label={t("features.catalog.createCustom")} variant="secondary" onPress={() => router.push("/custom-food")} />
-      {showFilterHint ? null : <Divider />}
-    </View>
-  );
+  const showCategories = segment === "all" && !q && !category;
+  const hasFoods = sections.some((s) => s.foods.length > 0);
 
   const empty = (() => {
     if (segment === "favorites" && !q) return <EmptyState message={t("catalog.noFavorites")} />;
@@ -215,18 +131,162 @@ export function CatalogScreen() {
   })();
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.background }}>
-      <FlatList
-        data={rows}
-        keyExtractor={(r) => r.key}
-        renderItem={renderItem}
-        ListHeaderComponent={header}
-        ListEmptyComponent={empty}
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={[{ padding: spacing.lg, flexGrow: 1 }, sideInsets]}
-        initialNumToRender={20}
-        windowSize={7}
+    <Screen
+      edges={["top"]}
+      largeTitle={t("catalog.title")}
+      headerRight={
+        <IconButton
+          testID="catalog-add-custom"
+          icon="plus"
+          variant="tinted"
+          accessibilityLabel={t("features.catalog.createCustom")}
+          onPress={() => router.push("/custom-food")}
+        />
+      }
+    >
+      {adding ? (
+        <Card style={{ backgroundColor: colors.primarySoft }}>
+          <Text accessibilityRole="summary" style={typography.label}>
+            {t("features.catalog.addingFor", {
+              meal: t(`meals.${(meal ?? mealSlotForTime()) as MealSlot}`),
+              date: formatDate(date ?? todayInIstanbul(), lang),
+            })}
+          </Text>
+        </Card>
+      ) : null}
+      <SearchBar
+        testID="catalog-search"
+        accessibilityLabel={t("features.catalog.searchLabel")}
+        placeholder={t("catalog.searchPlaceholder")}
+        value={query}
+        onChangeText={setQuery}
+        onCancel={() => setQuery("")}
       />
-    </View>
+      <SegmentedControl<Segment>
+        options={[
+          { value: "all", label: t("catalog.all") },
+          { value: "favorites", label: t("catalog.favorites") },
+          { value: "mine", label: t("catalog.myFoods") },
+        ]}
+        value={segment}
+        onChange={setSegment}
+      />
+
+      {showCategories ? (
+        <View style={styles.section}>
+          <Heading>{t("catalog.categories")}</Heading>
+          <View style={styles.pills}>
+            {CATEGORY_ORDER.map((c) => (
+              <Chip key={c} label={categoryLabel(c, lang)} onPress={() => setCategory(c)} />
+            ))}
+          </View>
+        </View>
+      ) : null}
+
+      {segment === "all" && !q && category ? (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t("features.catalog.backToCategories")}
+          onPress={() => setCategory(null)}
+          style={styles.back}
+        >
+          <Icon name="chevronLeft" size={20} color={colors.text} />
+          <Text style={styles.backText}>{t("features.catalog.backToCategories")}</Text>
+        </Pressable>
+      ) : null}
+
+      {showCategories ? null : hasFoods ? (
+        sections.map((section) =>
+          section.foods.length === 0 ? null : (
+            <View key={section.key} style={styles.section}>
+              {section.title ? <Heading>{section.title}</Heading> : null}
+              <FoodCard foods={section.foods} onOpen={openFood} />
+            </View>
+          ),
+        )
+      ) : (
+        empty
+      )}
+    </Screen>
   );
 }
+
+function Heading({ children }: { children: string }) {
+  return (
+    <Text accessibilityRole="header" style={styles.heading}>
+      {children}
+    </Text>
+  );
+}
+
+/** Rounded surface card of food rows with hairline dividers. */
+function FoodCard({ foods, onOpen }: { foods: FoodView[]; onOpen: (food: FoodView) => void }) {
+  return (
+    <Card padded={false} style={{ gap: 0 }}>
+      {foods.map((food, i) => (
+        <View key={`${food.ref.kind}:${food.ref.id}`}>
+          {i > 0 ? <Divider inset={spacing.lg} /> : null}
+          <FoodRow food={food} onOpen={onOpen} />
+        </View>
+      ))}
+    </Card>
+  );
+}
+
+const FoodRow = memo(function FoodRow({ food, onOpen }: { food: FoodView; onOpen: (food: FoodView) => void }) {
+  const { t, lang } = useI18n();
+  const kind = food.isCustom ? t("catalog.kinds.custom") : t(`catalog.kinds.${food.ref.kind as "dish" | "food" | "packaged"}`);
+  const serving = defaultServing(food, lang);
+  const subtitle = [kind, food.brand, serving.label].filter(Boolean).join(" · ");
+  const kcal = serving.kcal === null ? t("common.noData") : formatKcal(serving.kcal, lang);
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessible
+      accessibilityLabel={`${food.name}, ${subtitle}, ${kcal}${food.isCustom ? `, ${t("features.catalog.addedByYouLabel")}` : ""}`}
+      onPress={() => onOpen(food)}
+      style={({ pressed }) => [styles.row, pressed ? { opacity: 0.6 } : null]}
+    >
+      <View style={styles.rowText}>
+        <Text style={styles.rowTitle}>{food.name}</Text>
+        {food.isCustom ? (
+          <View style={styles.rowSubtitle}>
+            <AddedByYouPill />
+            <Text style={typography.footnote}>{serving.label}</Text>
+          </View>
+        ) : (
+          <Text style={typography.footnote}>{subtitle}</Text>
+        )}
+      </View>
+      <Text style={styles.rowKcal}>{kcal}</Text>
+    </Pressable>
+  );
+});
+
+const styles = StyleSheet.create({
+  section: { gap: spacing.sm, marginTop: spacing.xs },
+  heading: { fontFamily: fonts.bold, fontSize: 20, lineHeight: 25, color: colors.text, marginLeft: spacing.xs },
+  pills: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
+  back: {
+    minHeight: 44,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.xs,
+    alignSelf: "flex-start",
+    paddingRight: spacing.md,
+  },
+  backText: { fontFamily: fonts.semibold, fontSize: 17, color: colors.text },
+  row: {
+    minHeight: 60,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: spacing.md,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.sm,
+  },
+  rowSubtitle: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: spacing.xs },
+  rowText: { flex: 1, minWidth: 0 },
+  rowTitle: { fontFamily: fonts.regular, fontSize: 16, lineHeight: 21, color: colors.text },
+  rowKcal: { fontFamily: fonts.regular, fontSize: 15, lineHeight: 20, color: colors.text, fontVariant: ["tabular-nums"] },
+});

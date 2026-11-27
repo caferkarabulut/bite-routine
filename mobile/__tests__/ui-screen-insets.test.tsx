@@ -48,6 +48,28 @@ describe("Screen bottom inset", () => {
   });
 });
 
+describe("Screen footer", () => {
+  it("moves the bottom inset from the scroll content to the sticky footer", async () => {
+    await renderScreen(
+      <Screen edges={["top", "bottom"]} footer={<Text>Ekle</Text>}>
+        <Text>x</Text>
+      </Screen>,
+    );
+    expect(scrollPaddingBottom()).toBe(0);
+    expect(StyleSheet.flatten(screen.getByTestId("screen-footer").props.style).paddingBottom).toBe(34);
+    expect(screen.getByText("Ekle")).toBeTruthy();
+  });
+
+  it("keeps a minimum footer padding without a bottom inset", async () => {
+    await renderScreen(
+      <Screen edges={[]} footer={<Text>Ekle</Text>}>
+        <Text>x</Text>
+      </Screen>,
+    );
+    expect(StyleSheet.flatten(screen.getByTestId("screen-footer").props.style).paddingBottom).toBe(12);
+  });
+});
+
 describe("Screen side insets and large title", () => {
   const cover = {
     frame: { x: 0, y: 0, width: 390, height: 600 },
@@ -105,5 +127,27 @@ describe("Screen side insets and large title", () => {
     expect(screen.getByRole("header", { name: "Bugün" })).toBeTruthy();
     expect(screen.getByText("26 Kasım Perşembe")).toBeTruthy();
     expect(screen.getByText("sağ")).toBeTruthy();
+  });
+});
+
+
+describe("Screen centred header", () => {
+  it.each(["left", "right", "neither"])("keeps both 44×44 slots when %s has no control", async (missing) => {
+    await renderScreen(
+      <Screen
+        centerHeader
+        largeTitle="Bugün"
+        subtitle="26 Kasım Perşembe"
+        headerLeft={missing === "right" ? <Text>sol</Text> : undefined}
+        headerRight={missing === "left" ? <Text>sağ</Text> : undefined}
+      >
+        <Text>x</Text>
+      </Screen>,
+    );
+    expect(screen.getByRole("header", { name: "Bugün" })).toHaveStyle({ fontSize: 24, lineHeight: 30 });
+    expect(screen.getByText("26 Kasım Perşembe")).toHaveStyle({ fontSize: 14, lineHeight: 19, fontWeight: "500" });
+    for (const side of ["left", "right"]) {
+      expect(screen.getByTestId(`center-header-${side}`)).toHaveStyle({ width: 44, height: 44 });
+    }
   });
 });

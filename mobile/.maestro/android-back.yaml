@@ -52,8 +52,11 @@ appId: com.biteroutine.mobile
       - runFlow:
           file: subflows/dismiss-keyboard.yaml
       - scrollUntilVisible:
-          element: "+ Kendi yemeğini oluştur"
-      - tapOn: "+ Kendi yemeğini oluştur"
+          element:
+            id: catalog-add-custom
+          direction: UP
+      - tapOn:
+          id: catalog-add-custom
       - assertVisible:
           id: custom-name
       - pressKey: back

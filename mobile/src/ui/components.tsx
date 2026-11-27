@@ -36,6 +36,11 @@ type ScreenProps = {
   headerLeft?: ReactNode;
   /** Centred content under the subtitle of the centred header. */
   headerBelow?: ReactNode;
+  /**
+   * Opt-in sticky footer under the scrolling content (scrolling screens only). It carries the bottom safe-area
+   * inset instead of the scroll content, so the last content row is not padded twice.
+   */
+  footer?: ReactNode;
 };
 
 /**
@@ -56,11 +61,14 @@ export function Screen({
   centerHeader,
   headerLeft,
   headerBelow,
+  footer,
 }: ScreenProps) {
   // Context read (not useSafeAreaInsets) so a missing provider means 0 instead of throwing.
   const insets = useContext(SafeAreaInsetsContext);
+  const bottomInset = edges.includes("bottom") ? (insets?.bottom ?? 0) : 0;
+  const stickyFooter = scroll && footer ? footer : null;
   const inset = {
-    paddingBottom: edges.includes("bottom") ? (insets?.bottom ?? 0) : 0,
+    paddingBottom: stickyFooter ? 0 : bottomInset,
     paddingLeft: insets?.left ?? 0,
     paddingRight: insets?.right ?? 0,
   };
@@ -85,15 +93,38 @@ export function Screen({
   return (
     <SafeAreaView style={styles.screen} edges={edges.filter((e) => e === "top")}>
       {scroll ? (
-        <ScrollView
-          testID="screen-scroll"
-          keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="interactive"
-          automaticallyAdjustKeyboardInsets
-          contentContainerStyle={[styles.scrollContent, inset]}
-        >
-          {content}
-        </ScrollView>
+        stickyFooter ? (
+          <View style={styles.screen}>
+            <ScrollView
+              testID="screen-scroll"
+              keyboardShouldPersistTaps="handled"
+              keyboardDismissMode="interactive"
+              automaticallyAdjustKeyboardInsets
+              contentContainerStyle={[styles.scrollContent, inset]}
+            >
+              {content}
+            </ScrollView>
+            <View
+              testID="screen-footer"
+              style={[
+                styles.footer,
+                { paddingBottom: Math.max(bottomInset, spacing.md), paddingLeft: inset.paddingLeft + spacing.lg, paddingRight: inset.paddingRight + spacing.lg },
+              ]}
+            >
+              {stickyFooter}
+            </View>
+          </View>
+        ) : (
+          <ScrollView
+            testID="screen-scroll"
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="interactive"
+            automaticallyAdjustKeyboardInsets
+            contentContainerStyle={[styles.scrollContent, inset]}
+          >
+            {content}
+          </ScrollView>
+        )
       ) : (
         <View testID="screen-view" style={[styles.screen, inset]}>
           {content}
@@ -116,18 +147,20 @@ function CenteredHeader({
   right?: ReactNode;
   below?: ReactNode;
 }) {
-  const sub = typeof subtitle === "string" ? <Text style={[styles.largeSubtitle, styles.centerText]}>{subtitle}</Text> : subtitle;
+  const sub = typeof subtitle === "string" ? <Text style={styles.centerSubtitle}>{subtitle}</Text> : subtitle;
   return (
     <View style={styles.centerHeader}>
-      <View style={styles.centerBody}>
-        <Text accessibilityRole="header" style={[typography.largeTitle, styles.centerTitle]}>
-          {title}
-        </Text>
-        {sub}
-        {below}
+      <View style={styles.centerRow}>
+        <View testID="center-header-left" style={styles.centerSide}>{left ?? <View style={styles.centerSpacer} />}</View>
+        <View style={styles.centerBody}>
+          <Text accessibilityRole="header" style={[typography.largeTitle, styles.centerTitle]}>
+            {title}
+          </Text>
+          {sub}
+        </View>
+        <View testID="center-header-right" style={styles.centerSide}>{right ?? <View style={styles.centerSpacer} />}</View>
       </View>
-      <View style={[styles.centerSide, { left: 0 }]}>{left}</View>
-      <View style={[styles.centerSide, { right: 0 }]}>{right}</View>
+      {below ? <View style={styles.centerBelow}>{below}</View> : null}
     </View>
   );
 }
@@ -454,13 +487,23 @@ const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.background },
   scrollContent: { flexGrow: 1 },
   padded: { padding: spacing.lg, gap: spacing.md },
+  footer: {
+    paddingTop: 10,
+    gap: spacing.sm,
+    backgroundColor: colors.background,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: colors.border,
+  },
   largeHeader: { paddingTop: spacing.xs },
   largeHeaderRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
   centerHeader: { paddingTop: spacing.xs, justifyContent: "center" },
-  centerBody: { alignItems: "center", paddingHorizontal: 48 },
-  centerTitle: { fontSize: 30, lineHeight: 36, textAlign: "center" },
-  centerText: { textAlign: "center" },
-  centerSide: { position: "absolute", top: 0, bottom: 0, justifyContent: "center" },
+  centerRow: { flexDirection: "row", alignItems: "center" },
+  centerBody: { flex: 1, alignItems: "center", paddingHorizontal: spacing.xs },
+  centerBelow: { alignItems: "center" },
+  centerTitle: { fontSize: 24, lineHeight: 30, textAlign: "center" },
+  centerSubtitle: { fontFamily: fonts.regular, fontWeight: "500", fontSize: 14, lineHeight: 19, color: colors.textMuted, textAlign: "center" },
+  centerSpacer: { width: 44, height: 44 },
+  centerSide: { width: 44, height: 44, alignItems: "center", justifyContent: "center" },
   largeSubtitle: { fontFamily: fonts.semibold, fontSize: 15, lineHeight: 20, color: colors.textMuted },
   card: {
     backgroundColor: colors.surface,
