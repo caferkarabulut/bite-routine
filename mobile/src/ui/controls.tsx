@@ -1,6 +1,6 @@
 // Design-pass controls (Faz 3). Owned by the coordinator; feature agents use but do not edit these.
-import { useState, type ReactNode } from "react";
-import { Pressable, StyleSheet, Switch, Text, TextInput, View, type StyleProp, type ViewStyle } from "react-native";
+import { useRef, useState, type ComponentRef, type ReactNode } from "react";
+import { Keyboard, Pressable, StyleSheet, Switch, Text, TextInput, View, type StyleProp, type ViewStyle } from "react-native";
 
 import { parseAmount } from "../domain/amount";
 import { formatNumber, useOptionalI18n } from "../i18n";
@@ -136,12 +136,14 @@ export function SearchBar({
   const i18n = useOptionalI18n();
   const t = (key: "ui.clearSearch" | "ui.cancelSearch" | "common.search", fallback: string) => i18n?.t(key) ?? fallback;
   const [focused, setFocused] = useState(false);
+  const inputRef = useRef<ComponentRef<typeof TextInput>>(null);
   const label = accessibilityLabel ?? placeholder ?? t("common.search", "Search");
   return (
     <View style={styles.searchRow} accessibilityRole="search">
       <View style={[styles.searchField, focused ? styles.searchFieldFocused : null]}>
         <Icon name="search" size={20} color={colors.textMuted} />
         <TextInput
+          ref={inputRef}
           testID={testID}
           value={value}
           onChangeText={onChangeText}
@@ -171,7 +173,14 @@ export function SearchBar({
         ) : null}
       </View>
       {onCancel && (focused || value.length > 0) ? (
-        <Pressable accessibilityRole="button" onPress={onCancel} style={styles.searchCancel}>
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => {
+            inputRef.current?.blur();
+            onCancel();
+          }}
+          style={styles.searchCancel}
+        >
           <Text style={styles.searchCancelText}>{t("ui.cancelSearch", "Cancel")}</Text>
         </Pressable>
       ) : null}
@@ -214,7 +223,7 @@ export function SegmentedControl<T extends string>({
             }}
             style={[styles.segment, selected ? styles.segmentSelected : null]}
           >
-            <Text numberOfLines={1} style={[styles.segmentText, selected ? styles.segmentTextSelected : null]}>
+            <Text style={[styles.segmentText, selected ? styles.segmentTextSelected : null]}>
               {o.label}
             </Text>
           </Pressable>
@@ -308,11 +317,14 @@ export function Stepper({
   step = 1,
   testID,
   style,
+  showDone = false,
 }: {
   value: string;
   onChangeText: (text: string) => void;
   /** Accessibility label of the text field. */
   label: string;
+  /** Shows a "Done" button while the field is focused (number pads have no return key on iOS). */
+  showDone?: boolean;
   min?: number;
   max?: number;
   step?: number;
@@ -322,6 +334,7 @@ export function Stepper({
 }) {
   const i18n = useOptionalI18n();
   const lang = i18n?.lang ?? "tr";
+  const [focused, setFocused] = useState(false);
   const current = parseStepperText(value);
   const canDecrease = current === null || current > min;
   const canIncrease = current === null || current < max;
@@ -347,6 +360,8 @@ export function Stepper({
         keyboardType="decimal-pad"
         inputMode="decimal"
         selectTextOnFocus
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         style={[styles.stepperInput, typography.number]}
       />
       <IconButton
@@ -356,6 +371,17 @@ export function Stepper({
         disabled={!canIncrease}
         testID={testID ? `${testID}-increase` : undefined}
       />
+      {showDone && focused ? (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={i18n?.t("common.done") ?? "Done"}
+          onPress={() => Keyboard.dismiss()}
+          hitSlop={4}
+          style={styles.stepperDone}
+        >
+          <Text style={styles.stepperDoneText}>{i18n?.t("common.done") ?? "Done"}</Text>
+        </Pressable>
+      ) : null}
     </View>
   );
 }
@@ -533,9 +559,16 @@ const styles = StyleSheet.create({
     padding: 3,
     minHeight: TOUCH,
   },
-  segment: { flex: 1, alignItems: "center", justifyContent: "center", borderRadius: radius.sm, paddingHorizontal: spacing.xs },
+  segment: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: radius.sm,
+    paddingHorizontal: spacing.xs,
+    paddingVertical: spacing.xs,
+  },
   segmentSelected: { backgroundColor: colors.surface, ...shadow.segment },
-  segmentText: { fontFamily: fonts.semibold, fontSize: 14, color: colors.text },
+  segmentText: { fontFamily: fonts.semibold, fontSize: 14, textAlign: "center", color: colors.text },
   segmentTextSelected: { fontFamily: fonts.bold },
   chip: {
     minHeight: TOUCH,
@@ -568,6 +601,8 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     textAlignVertical: "center",
   },
+  stepperDone: { minHeight: TOUCH, minWidth: TOUCH, alignItems: "center", justifyContent: "center", paddingHorizontal: spacing.sm },
+  stepperDoneText: { fontFamily: fonts.bold, fontSize: 15, color: colors.text },
   macro: { flex: 1, gap: spacing.xs },
   macroValue: { fontFamily: fonts.bold, fontSize: 15, lineHeight: 20, color: colors.text },
   macroTarget: { fontFamily: fonts.regular, color: colors.textMuted },

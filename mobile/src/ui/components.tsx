@@ -36,6 +36,11 @@ type ScreenProps = {
   headerLeft?: ReactNode;
   /** Centred content under the subtitle of the centred header. */
   headerBelow?: ReactNode;
+  /**
+   * Opt-in sticky footer under the scrolling content (scrolling screens only). It carries the bottom safe-area
+   * inset instead of the scroll content, so the last content row is not padded twice.
+   */
+  footer?: ReactNode;
 };
 
 /**
@@ -56,11 +61,14 @@ export function Screen({
   centerHeader,
   headerLeft,
   headerBelow,
+  footer,
 }: ScreenProps) {
   // Context read (not useSafeAreaInsets) so a missing provider means 0 instead of throwing.
   const insets = useContext(SafeAreaInsetsContext);
+  const bottomInset = edges.includes("bottom") ? (insets?.bottom ?? 0) : 0;
+  const stickyFooter = scroll && footer ? footer : null;
   const inset = {
-    paddingBottom: edges.includes("bottom") ? (insets?.bottom ?? 0) : 0,
+    paddingBottom: stickyFooter ? 0 : bottomInset,
     paddingLeft: insets?.left ?? 0,
     paddingRight: insets?.right ?? 0,
   };
@@ -85,15 +93,38 @@ export function Screen({
   return (
     <SafeAreaView style={styles.screen} edges={edges.filter((e) => e === "top")}>
       {scroll ? (
-        <ScrollView
-          testID="screen-scroll"
-          keyboardShouldPersistTaps="handled"
-          keyboardDismissMode="interactive"
-          automaticallyAdjustKeyboardInsets
-          contentContainerStyle={[styles.scrollContent, inset]}
-        >
-          {content}
-        </ScrollView>
+        stickyFooter ? (
+          <View style={styles.screen}>
+            <ScrollView
+              testID="screen-scroll"
+              keyboardShouldPersistTaps="handled"
+              keyboardDismissMode="interactive"
+              automaticallyAdjustKeyboardInsets
+              contentContainerStyle={[styles.scrollContent, inset]}
+            >
+              {content}
+            </ScrollView>
+            <View
+              testID="screen-footer"
+              style={[
+                styles.footer,
+                { paddingBottom: Math.max(bottomInset, spacing.md), paddingLeft: inset.paddingLeft + spacing.lg, paddingRight: inset.paddingRight + spacing.lg },
+              ]}
+            >
+              {stickyFooter}
+            </View>
+          </View>
+        ) : (
+          <ScrollView
+            testID="screen-scroll"
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="interactive"
+            automaticallyAdjustKeyboardInsets
+            contentContainerStyle={[styles.scrollContent, inset]}
+          >
+            {content}
+          </ScrollView>
+        )
       ) : (
         <View testID="screen-view" style={[styles.screen, inset]}>
           {content}
@@ -454,6 +485,13 @@ const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.background },
   scrollContent: { flexGrow: 1 },
   padded: { padding: spacing.lg, gap: spacing.md },
+  footer: {
+    paddingTop: 10,
+    gap: spacing.sm,
+    backgroundColor: colors.background,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: colors.border,
+  },
   largeHeader: { paddingTop: spacing.xs },
   largeHeaderRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
   centerHeader: { paddingTop: spacing.xs, justifyContent: "center" },
