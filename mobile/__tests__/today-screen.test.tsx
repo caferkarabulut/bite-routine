@@ -137,7 +137,7 @@ describe("TodayScreen day selection", () => {
     await renderWithApp(<TodayScreen />, db);
     await screen.findByLabelText("2.000 kcal kaldı");
     expect(screen.getByRole("header", { name: "Bugün" })).toBeTruthy();
-    expect(screen.getByRole("button", { name: "Sonraki gün" }).props.accessibilityState?.disabled).toBe(true);
+    expect(screen.queryByText("Bugüne dön")).toBeNull();
     await fireEvent.press(screen.getByRole("button", { name: "Önceki gün" }));
     expect(await screen.findByText("Dünkü yemek")).toBeTruthy();
     expect(screen.getByRole("header", { name: "Dün" })).toBeTruthy();
@@ -145,6 +145,22 @@ describe("TodayScreen day selection", () => {
     await fireEvent.press(screen.getByRole("button", { name: "Önceki gün" }));
     await screen.findAllByText("Henüz yemek yok");
     expect(screen.getByRole("header", { name: /^(Pazartesi|Salı|Çarşamba|Perşembe|Cuma|Cumartesi|Pazar)$/ })).toBeTruthy();
+    await fireEvent.press(screen.getByRole("button", { name: "Bugüne dön" }));
+    expect(await screen.findByLabelText("2.000 kcal kaldı")).toBeTruthy();
+    expect(screen.getByRole("header", { name: "Bugün" })).toBeTruthy();
+  });
+
+  it("browses forward up to 7 days and names tomorrow", async () => {
+    const db = await makeDb();
+    await seedProfile(db);
+    await renderWithApp(<TodayScreen />, db);
+    await screen.findByLabelText("2.000 kcal kaldı");
+    const next = () => screen.getByRole("button", { name: "Sonraki gün" });
+    await fireEvent.press(next());
+    expect(await screen.findByRole("header", { name: "Yarın" })).toBeTruthy();
+    for (let i = 0; i < 6; i++) await fireEvent.press(next());
+    await screen.findAllByText("Henüz yemek yok");
+    expect(next().props.accessibilityState?.disabled).toBe(true);
   });
 
   it("opens the day from a valid date param", async () => {

@@ -30,6 +30,12 @@ type ScreenProps = {
   subtitle?: ReactNode;
   /** Actions next to the subtitle (or the title when there is no subtitle). */
   headerRight?: ReactNode;
+  /** Opt-in centred header: title and subtitle centred, `headerLeft` / `headerRight` at the outer edges. */
+  centerHeader?: boolean;
+  /** Left-edge action of the centred header. */
+  headerLeft?: ReactNode;
+  /** Centred content under the subtitle of the centred header. */
+  headerBelow?: ReactNode;
 };
 
 /**
@@ -47,6 +53,9 @@ export function Screen({
   largeTitle,
   subtitle,
   headerRight,
+  centerHeader,
+  headerLeft,
+  headerBelow,
 }: ScreenProps) {
   // Context read (not useSafeAreaInsets) so a missing provider means 0 instead of throwing.
   const insets = useContext(SafeAreaInsetsContext);
@@ -56,7 +65,11 @@ export function Screen({
     paddingRight: insets?.right ?? 0,
   };
   const header = largeTitle ? (
-    <LargeTitleHeader title={largeTitle} subtitle={subtitle} headerRight={headerRight} />
+    centerHeader ? (
+      <CenteredHeader title={largeTitle} subtitle={subtitle} left={headerLeft} right={headerRight} below={headerBelow} />
+    ) : (
+      <LargeTitleHeader title={largeTitle} subtitle={subtitle} headerRight={headerRight} />
+    )
   ) : null;
   const content = padded ? (
     <View style={styles.padded}>
@@ -87,6 +100,35 @@ export function Screen({
         </View>
       )}
     </SafeAreaView>
+  );
+}
+
+function CenteredHeader({
+  title,
+  subtitle,
+  left,
+  right,
+  below,
+}: {
+  title: string;
+  subtitle?: ReactNode;
+  left?: ReactNode;
+  right?: ReactNode;
+  below?: ReactNode;
+}) {
+  const sub = typeof subtitle === "string" ? <Text style={[styles.largeSubtitle, styles.centerText]}>{subtitle}</Text> : subtitle;
+  return (
+    <View style={styles.centerHeader}>
+      <View style={styles.centerBody}>
+        <Text accessibilityRole="header" style={[typography.largeTitle, styles.centerTitle]}>
+          {title}
+        </Text>
+        {sub}
+        {below}
+      </View>
+      <View style={[styles.centerSide, { left: 0 }]}>{left}</View>
+      <View style={[styles.centerSide, { right: 0 }]}>{right}</View>
+    </View>
   );
 }
 
@@ -414,6 +456,11 @@ const styles = StyleSheet.create({
   padded: { padding: spacing.lg, gap: spacing.md },
   largeHeader: { paddingTop: spacing.xs },
   largeHeaderRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
+  centerHeader: { paddingTop: spacing.xs, justifyContent: "center" },
+  centerBody: { alignItems: "center", paddingHorizontal: 48 },
+  centerTitle: { fontSize: 30, lineHeight: 36, textAlign: "center" },
+  centerText: { textAlign: "center" },
+  centerSide: { position: "absolute", top: 0, bottom: 0, justifyContent: "center" },
   largeSubtitle: { fontFamily: fonts.semibold, fontSize: 15, lineHeight: 20, color: colors.textMuted },
   card: {
     backgroundColor: colors.surface,

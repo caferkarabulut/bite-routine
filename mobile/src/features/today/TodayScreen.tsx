@@ -1,15 +1,15 @@
 import { useLocalSearchParams } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 
 import { addWater, getWater, listEntriesByDate, useDb } from "../../db";
 import { addDays, isValidLocalDate, nutrientsForGrams, sumNutrients, todayInIstanbul } from "../../domain";
 import { formatDate, formatWeekday, useI18n } from "../../i18n";
 import { useAppState } from "../../state/AppState";
 import type { DiaryEntry, LocalDate } from "../../types";
-import { ErrorState, IconButton, Loading, Screen, typography } from "../../ui";
+import { ErrorState, IconButton, Loading, Screen, colors, typography } from "../../ui";
 import { CalorieCard } from "./CalorieCard";
-import { dayTitleKind } from "./dayTitle";
+import { canGoForward, dayTitleKind } from "./dayTitle";
 import { MealsCard } from "./MealsCard";
 import { WaterCard } from "./WaterCard";
 
@@ -94,25 +94,45 @@ export function TodayScreen() {
 
   const today = todayInIstanbul();
   const kind = dayTitleKind(date, today);
-  const title = kind === "today" ? t("common.today") : kind === "yesterday" ? t("today.yesterday") : formatWeekday(date, lang);
+  const title =
+    kind === "today"
+      ? t("common.today")
+      : kind === "yesterday"
+        ? t("today.yesterday")
+        : kind === "tomorrow"
+          ? t("today.tomorrow")
+          : formatWeekday(date, lang);
   const header = {
+    centerHeader: true,
     largeTitle: title,
     subtitle: formatDate(date, lang),
-    headerRight: (
-      <View style={styles.arrows}>
-        <IconButton
-          icon="chevronLeft"
-          accessibilityLabel={t("today.previousDay")}
-          onPress={() => changeDate(addDays(date, -1))}
-        />
-        <IconButton
-          icon="chevronRight"
-          accessibilityLabel={t("today.nextDay")}
-          disabled={date >= today}
-          onPress={() => changeDate(addDays(date, 1))}
-        />
-      </View>
+    headerLeft: (
+      <IconButton
+        icon="chevronLeft"
+        accessibilityLabel={t("today.previousDay")}
+        onPress={() => changeDate(addDays(date, -1))}
+      />
     ),
+    headerRight: (
+      <IconButton
+        icon="chevronRight"
+        accessibilityLabel={t("today.nextDay")}
+        disabled={!canGoForward(date, today)}
+        onPress={() => changeDate(addDays(date, 1))}
+      />
+    ),
+    headerBelow:
+      date !== today ? (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t("today.goToToday")}
+          hitSlop={8}
+          onPress={() => changeDate(today)}
+          style={styles.backToday}
+        >
+          <Text style={[typography.label, { color: colors.primary }]}>{t("today.goToToday")}</Text>
+        </Pressable>
+      ) : null,
   };
 
   if (error) {
@@ -153,6 +173,5 @@ export function TodayScreen() {
 }
 
 const styles = StyleSheet.create({
-  // The 44 pt touch boxes carry ~11 pt of empty space around the 22 pt glyph; pull the row to the content edge.
-  arrows: { flexDirection: "row", gap: 4, marginRight: -10 },
+  backToday: { minHeight: 32, justifyContent: "center", paddingHorizontal: 8 },
 });

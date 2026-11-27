@@ -1,5 +1,5 @@
 import { formatWeekday } from "../src/i18n";
-import { dayTitleKind } from "../src/features/today/dayTitle";
+import { canGoForward, dayTitleKind } from "../src/features/today/dayTitle";
 import { entryAmountText } from "../src/features/today/entryAmount";
 import { glassFills, glassSizeMl } from "../src/features/today/water";
 
@@ -59,7 +59,15 @@ describe("dayTitleKind", () => {
     expect(dayTitleKind("2026-11-27", "2026-11-27")).toBe("today");
     expect(dayTitleKind("2026-11-26", "2026-11-27")).toBe("yesterday");
     expect(dayTitleKind("2026-11-25", "2026-11-27")).toBe("weekday");
-    expect(dayTitleKind("2026-11-28", "2026-11-27")).toBe("weekday");
+    expect(dayTitleKind("2026-11-28", "2026-11-27")).toBe("tomorrow");
+    expect(dayTitleKind("2026-11-29", "2026-11-27")).toBe("weekday");
+  });
+
+  it("allows forward navigation up to 7 days after today", () => {
+    expect(canGoForward("2026-11-27", "2026-11-27")).toBe(true);
+    expect(canGoForward("2026-12-03", "2026-11-27")).toBe(true);
+    expect(canGoForward("2026-12-04", "2026-11-27")).toBe(false);
+    expect(canGoForward("2026-12-05", "2026-11-27")).toBe(false);
   });
 });
 

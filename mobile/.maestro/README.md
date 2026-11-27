@@ -68,7 +68,7 @@ Yedekle/Geri yükle (paylaşım ve dosya seçici) ve bildirim izni akışları k
   "N kcal kaldı"dır).
 - Bugün'de bir öğün başlığı tek öğedir: `Kahvaltı  137 kcal` (ad + öğün toplamı). Kayıt satırı da tek öğedir:
   `Mercimek çorbası, 1,5 kepçe · 225 g, 137 kcal`. Seçici `Kahvaltı.*137 kcal` ya da `.*1,5 kepçe.*` gibi yazılır.
-- Bugün'de "Önceki gün" / "Sonraki gün" düğmeleri vardır; sonraki gün bugünde devre dışıdır. "Bugün" başlığı hem sayfa
+- Bugün'de "Önceki gün" / "Sonraki gün" düğmeleri vardır; sonraki gün bugünden 7 gün sonra devre dışı kalır; başka bir günde "Bugüne dön" düğmesi çıkar. "Bugün" başlığı hem sayfa
   başlığı hem sekme adıdır (`Bugün(, tab.*)?` ikisini de eşler).
 - Maestro 2.12'de `takeScreenshot` yolu çıktı klasörüne göre çözülür; `--test-output-dir` verilmezse
   görüntüler `~/.maestro/tests/<zaman>/<akış>/takeScreenshot/` altına gider.
