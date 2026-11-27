@@ -1,4 +1,4 @@
-import { barFraction, buildWeightChart, summarizeDay, summarizeWeek, weekEnd } from "../src/features/history/aggregate";
+import { barFraction, buildWeightChart, formatWeekRange, summarizeDay, summarizeWeek, weekEnd } from "../src/features/history/aggregate";
 import type { DiaryEntry, Nutrients, WeightLog } from "../src/types";
 
 function entry(date: string, per100g: Nutrients, grams = 100): DiaryEntry {
@@ -103,5 +103,17 @@ describe("buildWeightChart", () => {
 
   it("centres a flat series", () => {
     expect(buildWeightChart([log(1, 70), log(2, 70)])!.points.map((p) => p.fraction)).toEqual([0.5, 0.5]);
+  });
+});
+
+
+describe("formatWeekRange", () => {
+  it("compacts a single month in both languages", () => {
+    expect(formatWeekRange("2026-11-21", "2026-11-27", "tr")).toBe("21–27 Kasım");
+    expect(formatWeekRange("2026-11-21", "2026-11-27", "en")).toBe("21–27 November");
+  });
+  it("keeps both months and includes years across New Year", () => {
+    expect(formatWeekRange("2026-10-28", "2026-11-03", "tr")).toBe("28 Ekim–3 Kasım");
+    expect(formatWeekRange("2026-12-28", "2027-01-03", "tr")).toBe("28 Aralık 2026–3 Ocak 2027");
   });
 });
