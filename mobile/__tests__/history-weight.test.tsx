@@ -7,7 +7,8 @@ import { freezeDate, freshDb, renderWithApp, TODAY } from "./helpers/history-har
 import { guard, resetGuard } from "./helpers/prevent-remove";
 
 jest.mock("expo-localization", () => ({ useLocales: () => [{ languageCode: "tr" }] }));
-jest.mock("expo-router", () => ({ usePreventRemove: require("./helpers/prevent-remove").usePreventRemove }));
+const mockBack = jest.fn();
+jest.mock("expo-router", () => ({ router: { back: (...args: unknown[]) => mockBack(...args) }, usePreventRemove: require("./helpers/prevent-remove").usePreventRemove }));
 
 const profile = {
   birthYear: 1990,
@@ -32,6 +33,14 @@ async function enter(text: string) {
 }
 
 describe("WeightScreen", () => {
+  it("offers a back action in the centered header", async () => {
+    const db = await freshDb();
+    await renderWithApp(<WeightScreen />, db);
+    await screen.findByText("Bugünün kilosu");
+    await fireEvent.press(screen.getByRole("button", { name: "Geri" }));
+    expect(mockBack).toHaveBeenCalled();
+    expect(screen.getByTestId("weight-input")).toBeTruthy();
+  });
   it("adds today's weight with a Turkish comma and lists it", async () => {
     const db = await freshDb();
     await renderWithApp(<WeightScreen />, db);

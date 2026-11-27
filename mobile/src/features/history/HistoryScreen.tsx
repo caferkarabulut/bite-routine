@@ -7,8 +7,8 @@ import { addDays, todayInIstanbul } from "../../domain";
 import { formatDate, formatGrams, formatNumber, useI18n } from "../../i18n";
 import { useAppState } from "../../state/AppState";
 import type { DiaryEntry, WeightLog } from "../../types";
-import { Card, EmptyState, ErrorState, Loading, Screen, SectionTitle, colors, radius, spacing, typography, TOUCH } from "../../ui";
-import { barFraction, summarizeWeek, weekEnd, type DaySummary } from "./aggregate";
+import { Card, Divider, EmptyState, ErrorState, Icon, IconButton, Loading, Screen, colors, fonts, palette, radius, spacing, typography, TOUCH } from "../../ui";
+import { barFraction, formatWeekRange, summarizeWeek, weekEnd, type DaySummary } from "./aggregate";
 
 type Loaded = { entries: DiaryEntry[]; latestWeight: WeightLog | null };
 
@@ -43,29 +43,22 @@ export function HistoryScreen() {
 
   const week = useMemo(() => (data ? summarizeWeek(end, data.entries) : null), [data, end]);
 
-  const nav = (
-    <View style={styles.navRow}>
-      <ArrowButton label={t("features.history.previousWeek")} symbol="‹" onPress={() => setOffset((o) => o + 1)} />
-      <View style={styles.rangeLabel} accessible accessibilityLabel={rangeText()}>
-        <Text style={typography.label}>{rangeText()}</Text>
-        {offset === 0 ? <Text style={typography.small}>{t("features.history.thisWeek")}</Text> : null}
-      </View>
-      <ArrowButton
-        label={t("features.history.nextWeek")}
-        symbol="›"
-        disabled={offset === 0}
-        onPress={() => setOffset((o) => Math.max(0, o - 1))}
-      />
-    </View>
-  );
-
-  function rangeText(): string {
-    return t("features.history.rangeLabel", { start: formatDate(start, lang), end: formatDate(end, lang) });
-  }
+  const header = {
+    edges: ["top"] as ("top" | "bottom")[],
+    largeTitle: t("tabs.history"),
+    centerHeader: true,
+    subtitle: offset === 0
+      ? t("features.history.currentWeekRange", { range: formatWeekRange(start, end, lang) })
+      : formatWeekRange(start, end, lang),
+    headerLeft: <IconButton icon="chevronLeft" accessibilityLabel={t("features.history.previousWeek")} onPress={() => setOffset((o) => o + 1)} />,
+    headerRight: offset > 0
+      ? <IconButton icon="chevronRight" accessibilityLabel={t("features.history.nextWeek")} onPress={() => setOffset((o) => Math.max(0, o - 1))} />
+      : undefined,
+  };
 
   if (failed) {
     return (
-      <Screen edges={[]}>
+      <Screen {...header}>
         <ErrorState
           message={t("features.history.loadFailed")}
           retryLabel={t("errors.retry")}
@@ -76,45 +69,57 @@ export function HistoryScreen() {
   }
   if (!data || !week) {
     return (
-      <Screen edges={[]}>
+      <Screen {...header}>
         <Loading label={t("features.history.loading")} />
       </Screen>
     );
   }
 
   return (
-    <Screen edges={[]}>
-      {nav}
+    <Screen {...header}>
       <Card>
-        <SectionTitle>{t("features.history.weekSummary")}</SectionTitle>
-        <Text style={typography.body}>
-          {week.averageKcal === null
-            ? t("features.history.averageNone")
-            : t("features.history.averageKcal", { kcal: formatNumber(week.averageKcal, lang, 0) })}
-        </Text>
-        <Text style={typography.muted}>{t("features.history.loggedDays", { count: week.loggedDays })}</Text>
+        <View style={styles.summaryRow}>
+          <Text accessibilityRole="header" style={typography.section}>{t("features.history.weekSummary")}</Text>
+          <Text style={typography.footnote}>{t("features.history.loggedDays", { count: week.loggedDays })}</Text>
+        </View>
+        {week.averageKcal === null ? <Text style={typography.muted}>{t("features.history.averageNone")}</Text> : (
+          <View accessible accessibilityLabel={t("features.history.averageKcal", { kcal: formatNumber(week.averageKcal, lang, 0) })} style={styles.summaryRow}>
+            <Text style={styles.average}>{t("features.history.kcalOnly", { kcal: formatNumber(week.averageKcal, lang, 0) })}</Text>
+            <Text style={typography.footnote}>{t("features.history.dailyAverage")}</Text>
+          </View>
+        )}
       </Card>
       {week.loggedDays === 0 ? <EmptyState message={t("history.noRecordsWeek")} /> : null}
-      {week.days.map((day) => (
-        <DayCard key={day.date} day={day} target={targets?.kcal ?? null} />
-      ))}
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={t("features.history.weightCardTitle")}
-        accessibilityHint={t("features.history.weightCardHint")}
-        onPress={() => router.push("/weight")}
-        style={styles.weightCard}
-      >
-        <Text style={typography.heading}>{t("features.history.weightCardTitle")}</Text>
-        <Text style={typography.muted}>
-          {data.latestWeight
-            ? t("features.history.weightCardLatest", {
-                kg: formatNumber(data.latestWeight.kg, lang, 1),
-                date: formatDate(data.latestWeight.date, lang),
-              })
-            : t("features.history.weightCardEmpty")}
-        </Text>
-      </Pressable>
+      <Card padded={false} style={styles.daysCard}>
+        {week.days.map((day, i) => (
+          <View key={day.date}>
+            {i > 0 ? <Divider /> : null}
+            <DayCard day={day} target={targets?.kcal ?? null} />
+          </View>
+        ))}
+      </Card>
+      <Card padded={false}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t("features.history.weightCardTitle")}
+          accessibilityHint={t("features.history.weightCardHint")}
+          onPress={() => router.push("/weight")}
+          style={styles.weightCard}
+        >
+          <View style={styles.weightText}>
+            <Text style={typography.section}>{t("features.history.weightCardTitle")}</Text>
+            <Text style={typography.footnote}>
+              {data.latestWeight
+                ? t("features.history.weightCardLatest", {
+                    kg: formatNumber(data.latestWeight.kg, lang, 1),
+                    date: formatDate(data.latestWeight.date, lang),
+                  })
+                : t("features.history.weightCardEmpty")}
+            </Text>
+          </View>
+          <Icon name="chevronRight" size={16} />
+        </Pressable>
+      </Card>
     </Screen>
   );
 }
@@ -145,29 +150,28 @@ function DayCard({ day, target }: { day: DaySummary; target: number | null }) {
       onPress={() => router.push({ pathname: "/", params: { date: day.date } })}
       style={({ pressed }) => [styles.dayCard, pressed ? { backgroundColor: colors.primarySoft } : null]}
     >
-      <Text style={typography.label}>{dateText}</Text>
-      {day.status === "empty" ? (
-        <Text style={typography.muted}>{t("features.history.noEntries")}</Text>
-      ) : (
+      <View style={styles.dayHeading}>
+        <Text style={styles.dayDate}>{dateText}</Text>
+        <View style={styles.dayValue}>
+          <Text style={[typography.small, { flexShrink: 1 }, day.status === "incomplete" ? { color: colors.warning } : null]}>
+            {day.status === "empty" ? t("features.history.noEntries") : kcal === null ? t("features.history.incomplete") : target !== null
+              ? t("features.history.kcalOfTarget", { kcal: formatNumber(kcal, lang, 0), target: formatNumber(target, lang, 0) })
+              : t("features.history.kcalOnly", { kcal: formatNumber(kcal, lang, 0) })}
+          </Text>
+          <Icon name="chevronRight" size={16} />
+        </View>
+      </View>
+      {day.status !== "empty" ? (
         <>
-          {kcal === null ? (
-            <Text style={[typography.body, { color: colors.warning }]}>{t("features.history.incomplete")}</Text>
-          ) : (
-            <Text style={typography.body}>
-              {target !== null
-                ? t("features.history.kcalOfTarget", { kcal: formatNumber(kcal, lang, 0), target: formatNumber(target, lang, 0) })
-                : t("features.history.kcalOnly", { kcal: formatNumber(kcal, lang, 0) })}
-            </Text>
-          )}
           {kcal !== null && target !== null ? (
             <View style={styles.track}>
               <View
                 testID={`bar-${day.date}`}
-                style={[styles.fill, { width: `${fraction * 100}%`, backgroundColor: kcal > target ? colors.warning : colors.primary }]}
+                style={[styles.fill, { width: `${fraction * 100}%`, backgroundColor: kcal > target ? colors.warning : palette.accent }]}
               />
             </View>
           ) : null}
-          <Text style={typography.muted}>
+          <Text style={typography.small}>
             {t("features.history.macroLine", {
               protein: formatGrams(protein, lang),
               carbs: formatGrams(carbs, lang),
@@ -178,47 +182,21 @@ function DayCard({ day, target }: { day: DaySummary; target: number | null }) {
             <Text style={[typography.small, { color: colors.warning }]}>{t("features.history.incompleteReason")}</Text>
           ) : null}
         </>
-      )}
-    </Pressable>
-  );
-}
-
-function ArrowButton({ label, symbol, onPress, disabled }: { label: string; symbol: string; onPress: () => void; disabled?: boolean }) {
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={label}
-      accessibilityState={{ disabled: !!disabled }}
-      disabled={disabled}
-      onPress={onPress}
-      style={[styles.arrow, disabled ? { opacity: 0.3 } : null]}
-    >
-      <Text style={styles.arrowText}>{symbol}</Text>
+      ) : null}
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  navRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
-  rangeLabel: { flex: 1, alignItems: "center", minHeight: TOUCH, justifyContent: "center" },
-  arrow: { width: TOUCH, height: TOUCH, alignItems: "center", justifyContent: "center" },
-  arrowText: { fontSize: 28, color: colors.primary },
-  dayCard: {
-    minHeight: TOUCH,
-    padding: spacing.lg,
-    gap: spacing.xs,
-    backgroundColor: colors.surface,
-    borderRadius: radius.lg,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  track: { height: 8, borderRadius: radius.pill, backgroundColor: colors.border, overflow: "hidden" },
+  summaryRow: { flexDirection: "row", flexWrap: "wrap", alignItems: "baseline", justifyContent: "space-between", gap: spacing.sm },
+  average: { fontFamily: fonts.extrabold, fontSize: 30, lineHeight: 36, color: palette.accentText, fontVariant: ["tabular-nums"] },
+  daysCard: { gap: 0, paddingHorizontal: spacing.lg },
+  dayCard: { minHeight: TOUCH, paddingVertical: spacing.sm, gap: spacing.xs, justifyContent: "center" },
+  dayHeading: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: spacing.xs },
+  dayDate: { flexShrink: 1, ...typography.footnote, fontFamily: fonts.bold, color: colors.text },
+  dayValue: { flexDirection: "row", alignItems: "center", gap: spacing.xs, flexShrink: 1 },
+  track: { height: 4, borderRadius: radius.pill, backgroundColor: palette.track, overflow: "hidden" },
   fill: { height: "100%", borderRadius: radius.pill },
-  weightCard: {
-    minHeight: TOUCH,
-    padding: spacing.lg,
-    gap: spacing.xs,
-    backgroundColor: colors.primarySoft,
-    borderRadius: radius.lg,
-  },
+  weightText: { flex: 1, gap: spacing.xs },
+  weightCard: { minHeight: 54, padding: spacing.lg, flexDirection: "row", alignItems: "center", gap: spacing.sm },
 });

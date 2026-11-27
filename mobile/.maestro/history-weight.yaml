@@ -17,6 +17,12 @@ appId: com.biteroutine.mobile
     timeout: 5000
 - assertVisible: "Günlük ortalama: 137 kcal"
 - assertVisible: "1 / 7 gün kayıtlı"
+- assertNotVisible: "Sonraki hafta"
+- tapOn: "Önceki hafta"
+- assertVisible: "Sonraki hafta"
+- tapOn: "Sonraki hafta"
+- assertNotVisible: "Sonraki hafta"
+- assertVisible: "Günlük ortalama: 137 kcal"
 - scrollUntilVisible:
     element: ".*: 137 / .* kcal"
 # "Kilo" can sit under the tab bar and still count as visible: center it before tapping.

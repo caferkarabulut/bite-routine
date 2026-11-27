@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Alert, Keyboard, Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -14,10 +15,10 @@ import {
   ErrorState,
   Loading,
   Screen,
-  SectionTitle,
+  IconButton,
   TextField,
   colors,
-  radius,
+  palette,
   spacing,
   typography,
   TOUCH,
@@ -126,9 +127,16 @@ export function WeightScreen() {
     );
   };
 
+  const header = {
+    edges: ["top", "bottom"] as ("top" | "bottom")[],
+    largeTitle: t("features.history.weightTitle"),
+    centerHeader: true,
+    headerLeft: <IconButton icon="chevronLeft" accessibilityLabel={t("features.history.back")} onPress={() => router.back()} />,
+  };
+
   if (failed) {
     return (
-      <Screen>
+      <Screen {...header}>
         <ErrorState
           message={t("features.history.weightLoadFailed")}
           retryLabel={t("errors.retry")}
@@ -139,7 +147,7 @@ export function WeightScreen() {
   }
   if (!weights) {
     return (
-      <Screen>
+      <Screen {...header}>
         <Loading label={t("common.loading")} />
       </Screen>
     );
@@ -148,9 +156,9 @@ export function WeightScreen() {
   const newestFirst = [...weights].reverse();
 
   return (
-    <Screen>
+    <Screen {...header}>
       <Card>
-        <SectionTitle>{t("features.history.weightToday")}</SectionTitle>
+        <Text accessibilityRole="header" style={typography.section}>{t("features.history.weightToday")}</Text>
         <TextField
           testID="weight-input"
           label={t("features.history.weightInput")}
@@ -165,9 +173,9 @@ export function WeightScreen() {
           error={error}
           hint={hasToday ? t("features.history.weightSameDay") : undefined}
         />
-        <Button label={t("features.history.weightSave")} onPress={onSave} loading={busy} />
+        <Button label={t("features.history.weightSave")} onPress={onSave} loading={busy} size="md" />
         {notice ? (
-          <Text accessibilityRole="alert" style={typography.muted}>
+          <Text accessibilityRole="alert" style={[typography.footnote, { color: palette.successText }]}>
             {notice}
           </Text>
         ) : null}
@@ -179,8 +187,10 @@ export function WeightScreen() {
                 kg: formatNumber(offerKg, lang, 1),
               })}
             </Text>
-            <Button label={t("features.history.offerAction")} onPress={onUpdateProfile} variant="secondary" />
-            <Button label={t("features.history.offerDismiss")} onPress={() => setOfferKg(null)} variant="ghost" />
+            <View style={styles.offerActions}>
+              <View style={styles.offerPrimary}><Button label={t("features.history.offerAction")} onPress={onUpdateProfile} variant="secondary" size="md" /></View>
+              <Button label={t("features.history.offerDismiss")} onPress={() => setOfferKg(null)} variant="ghost" size="md" />
+            </View>
           </View>
         ) : null}
       </Card>
@@ -189,14 +199,14 @@ export function WeightScreen() {
 
       {newestFirst.length > 0 ? (
         <Card>
-          <SectionTitle>{t("features.history.entries")}</SectionTitle>
+          <Text accessibilityRole="header" style={typography.section}>{t("features.history.entries")}</Text>
           {newestFirst.map((w, i) => (
             <View key={w.id}>
               {i > 0 ? <Divider /> : null}
               <View style={styles.entryRow}>
                 <View style={{ flex: 1 }}>
-                  <Text style={typography.body}>{t("features.history.entryRow", { kg: formatNumber(w.kg, lang, 1) })}</Text>
-                  <Text style={typography.muted}>{formatDate(w.date, lang)}</Text>
+                  <Text style={typography.section}>{t("features.history.entryRow", { kg: formatNumber(w.kg, lang, 1) })}</Text>
+                  <Text style={typography.footnote}>{formatDate(w.date, lang)}</Text>
                 </View>
                 <Pressable
                   accessibilityRole="button"
@@ -229,9 +239,11 @@ function WeightChartView({ chart }: { chart: NonNullable<ReturnType<typeof build
         });
   return (
     <Card>
-      <SectionTitle>{t("features.history.chartTitle")}</SectionTitle>
-      <Text style={typography.body}>{summary}</Text>
-      <View accessible accessibilityRole="image" accessibilityLabel={summary} style={styles.chart}>
+      <Text accessibilityRole="header" style={typography.section}>{t("features.history.chartTitle")}</Text>
+      <Text style={typography.footnote}>{summary}</Text>
+      <View accessible accessibilityRole="image" accessibilityLabel={summary}
+        accessibilityHint={t("features.history.chartScale")}
+        style={[styles.chart, { gap: chart.points.length > 12 ? 2 : spacing.md }]}>
         {chart.points.map((p) => (
           <View key={p.id} style={styles.barSlot}>
             <View
@@ -250,11 +262,13 @@ function WeightChartView({ chart }: { chart: NonNullable<ReturnType<typeof build
 }
 
 const styles = StyleSheet.create({
-  offer: { gap: spacing.sm, padding: spacing.md, backgroundColor: colors.primarySoft, borderRadius: radius.md },
-  entryRow: { minHeight: TOUCH, flexDirection: "row", alignItems: "center", gap: spacing.md, paddingVertical: spacing.xs },
+  offer: { gap: spacing.sm, paddingTop: spacing.sm, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: palette.divider },
+  offerActions: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: spacing.sm },
+  offerPrimary: { flexGrow: 1, flexBasis: 180 },
+  entryRow: { minHeight: 56, flexDirection: "row", alignItems: "center", gap: spacing.md, paddingVertical: spacing.xs },
   deleteBtn: { minHeight: TOUCH, minWidth: TOUCH, alignItems: "center", justifyContent: "center", paddingHorizontal: spacing.sm },
-  chart: { height: CHART_HEIGHT, flexDirection: "row", alignItems: "flex-end", gap: 2 },
+  chart: { height: CHART_HEIGHT, flexDirection: "row", alignItems: "flex-end", gap: spacing.md, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: palette.divider },
   barSlot: { flex: 1, justifyContent: "flex-end" },
-  bar: { width: "100%", backgroundColor: colors.primary, borderTopLeftRadius: 2, borderTopRightRadius: 2 },
-  minMax: { flexDirection: "row", justifyContent: "space-between" },
+  bar: { width: "100%", backgroundColor: palette.accent, borderTopLeftRadius: spacing.xs, borderTopRightRadius: spacing.xs },
+  minMax: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm, justifyContent: "space-between" },
 });
