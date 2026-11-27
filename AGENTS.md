@@ -19,6 +19,7 @@
 - Commit, PR ve kod/belge dosyalarına yapay zekâ aracı imzası veya "ile yapıldı" notu eklenmez.
 - İmzalama sertifikası, keystore, mağaza API anahtarı veya `.env` dosyası commit edilmez.
 - `mobile/` içinde iş bitmeden: `npm run check:deps`, `npm run typecheck`, `npm run lint`, `npm test`. Expo API'leri için `mobile/AGENTS.md` kurallarına uy.
+- Ekran ya da akış değiştiren iş iOS + Android Release ve Maestro ile doğrulanır: [`mobile/docs/DOGRULAMA.md`](mobile/docs/DOGRULAMA.md) (komutlar, simülatör/emülatör, sonuç okuma).
 - Commit mesajları kısa; PR açıklaması yapılan değişikliği ve doğrulamayı birkaç cümleyle anlatır. Merge ve mağazaya gönderim yalnız açık görev kapsamında yapılır.
 - Sonuçta çalışan kontrolleri, kalan engeli ve gereken manuel işlemi kısa raporla.
 
