@@ -4,7 +4,7 @@ import { Alert } from "react-native";
 import { addEntry, getCustomFood, listCustomFoods, listEntriesByDate, saveCustomFood, type Db } from "../src/db";
 import { CustomFoodScreen } from "../src/features/catalog/CustomFoodScreen";
 import { createDb, renderWithApp } from "./helpers/catalogscreen-harness";
-import { params, router } from "./helpers/catalogscreen-router";
+import { params, router, titles } from "./helpers/catalogscreen-router";
 import { attemptLeave, guard, resetGuard } from "./helpers/prevent-remove";
 
 jest.mock("expo-router", () => require("./helpers/catalogscreen-router"));
@@ -20,6 +20,15 @@ const fill = async (label: string, value: string) => fireEvent.changeText(screen
 const save = async () => fireEvent.press(screen.getByRole("button", { name: "Kaydet" }));
 
 describe("CustomFoodScreen", () => {
+  // A <Stack.Screen> inside the form re-sets the navigator options on every render; on an iOS modal
+  // that froze the form (typing, taps and Save had no effect). Header options live in the route file.
+  it("does not render Stack.Screen inside the form", async () => {
+    titles.length = 0;
+    await renderWithApp(<CustomFoodScreen />, db);
+    await screen.findByLabelText("Yemek adı");
+    expect(titles).toHaveLength(0);
+  });
+
   it.each([
     ["tr", "Bu ürünü sen ekliyorsun. Değerler resmi olarak doğrulanmaz; listede “Senin eklediğin” diye görünür. Yalnız bu telefonda saklanır."],
     ["en", "You are adding this item yourself. Its values are not officially verified and it shows as “Added by you”. It is stored only on this phone."],

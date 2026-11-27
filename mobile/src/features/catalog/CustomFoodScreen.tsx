@@ -1,4 +1,4 @@
-import { Stack, router, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, View } from "react-native";
 
@@ -196,7 +196,6 @@ function CustomFoodForm({ food }: { food: CustomFood | null }) {
       headerLeft={<IconButton icon="chevronLeft" accessibilityLabel={t("common.back")} onPress={() => router.back()} />}
       footer={<Button label={t("common.save")} onPress={save} loading={saving} />}
     >
-      <Stack.Screen options={{ headerShown: false }} />
       <Card>
         <TextField testID="custom-name" label={`${t("features.catalog.customForm.name")} *`} accessibilityLabel={t("customFood.name")} value={name} onChangeText={setName} error={errors.name} maxLength={80} />
         <TextField testID="custom-brand" label={t("features.catalog.customForm.brand")} placeholder={t("features.catalog.customForm.brandPlaceholder")} value={brand} onChangeText={setBrand} error={errors.brand} maxLength={60} />
