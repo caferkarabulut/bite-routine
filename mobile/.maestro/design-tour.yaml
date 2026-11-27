@@ -230,6 +230,15 @@ appId: com.biteroutine.mobile
 
 # --- 8. Custom food form (modal), closed without saving ---
 - tapOn: "Katalog(, tab.*)?"
+# The catalog keeps the earlier query ("eti"): clear it to get the empty-search view with the card.
+- scrollUntilVisible:
+    element:
+      id: catalog-search
+    direction: UP
+- tapOn:
+    id: catalog-search
+- eraseText: 30
+- runFlow: subflows/dismiss-keyboard.yaml
 - scrollUntilVisible:
     element:
       id: catalog-add-custom
@@ -247,9 +256,10 @@ appId: com.biteroutine.mobile
 - waitForAnimationToEnd
 - takeScreenshot: tour-23-custom-food-bottom
 - runFlow: subflows/go-back.yaml
+# The catalog keeps its scroll position (search box is off screen); the card proves we are back on it.
 - extendedWaitUntil:
     visible:
-      id: catalog-search
+      id: catalog-add-custom
     timeout: 5000
 
 # --- 9. History and weight ---
