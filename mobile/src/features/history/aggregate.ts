@@ -79,3 +79,14 @@ export function buildWeightChart(weights: readonly WeightLog[], limit = 30): Wei
     last: recent[recent.length - 1].kg,
   };
 }
+
+/** Compact real date range; retain both years when the window crosses New Year. */
+export function formatWeekRange(start: LocalDate, end: LocalDate, lang: "tr" | "en"): string {
+  const locale = lang === "tr" ? "tr-TR" : "en-GB";
+  const crossesYear = start.slice(0, 4) !== end.slice(0, 4);
+  const full = new Intl.DateTimeFormat(locale, { day: "numeric", month: "long", ...(crossesYear ? { year: "numeric" } as const : {}), timeZone: "Europe/Istanbul" });
+  const first = start.slice(0, 7) === end.slice(0, 7)
+    ? String(Number(start.slice(8)))
+    : full.format(new Date(`${start}T12:00:00Z`));
+  return `${first}–${full.format(new Date(`${end}T12:00:00Z`))}`;
+}
