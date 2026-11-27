@@ -194,6 +194,8 @@ export const tr = {
     recipes:
       "Türk yemeklerinin değerleri, malzeme bazlı tariflerden gram ve kcal cinsinden hesaplanmıştır.",
     openUrl: "Kaynağı aç",
+    fontTitle: "Yazı tipi",
+    font: "Nunito yazı tipi © The Nunito Project Authors. SIL Open Font License 1.1 ile lisanslıdır.",
   },
   disclaimer: "Değerler yaklaşıktır, tıbbi tavsiye değildir.",
   common: {
@@ -221,6 +223,13 @@ export const tr = {
     optional: "isteğe bağlı",
     approx: "yaklaşık",
     confirmDelete: "Silmek istediğine emin misin?",
+  },
+  ui: {
+    decrease: "Azalt",
+    increase: "Artır",
+    clearSearch: "Aramayı temizle",
+    cancelSearch: "İptal",
+    time: "Saat",
   },
   errors: {
     generic: "Bir şeyler ters gitti. Lütfen tekrar dene.",

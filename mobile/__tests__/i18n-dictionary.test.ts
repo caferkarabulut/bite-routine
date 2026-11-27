@@ -35,6 +35,8 @@ describe("dictionaries", () => {
     expect(tr.sources.usda).toContain("USDA FoodData Central");
     expect(tr.sources.off).toContain("ODbL");
     expect(en.sources.off).toContain("Open Food Facts");
+    expect(tr.sources.font).toContain("SIL Open Font License 1.1");
+    expect(en.sources.font).toContain("The Nunito Project Authors");
   });
 });
 

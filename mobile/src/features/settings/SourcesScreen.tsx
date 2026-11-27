@@ -40,6 +40,11 @@ export function SourcesScreen() {
         />
       </Card>
 
+      <SectionTitle>{t("sources.fontTitle")}</SectionTitle>
+      <Card>
+        <Text style={typography.body}>{t("sources.font")}</Text>
+      </Card>
+
       <SectionTitle>{t("features.settings.disclaimerTitle")}</SectionTitle>
       <Card>
         <Text style={typography.body}>{t("disclaimer")}</Text>

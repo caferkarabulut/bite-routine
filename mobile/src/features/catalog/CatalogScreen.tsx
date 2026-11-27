@@ -8,7 +8,20 @@ import { todayInIstanbul } from "../../domain";
 import { formatDate, formatKcal, useI18n } from "../../i18n";
 import { useAppState } from "../../state/AppState";
 import type { CustomFood, FoodRef, MealSlot } from "../../types";
-import { Button, Card, ChoiceChips, Divider, EmptyState, ListRow, TextField, colors, spacing, typography, mealSlotForTime } from "../../ui";
+import {
+  Button,
+  Card,
+  ChoiceChips,
+  Divider,
+  EmptyState,
+  ListRow,
+  TextField,
+  colors,
+  spacing,
+  typography,
+  mealSlotForTime,
+  useSideInsets,
+} from "../../ui";
 import { asLocalDate, asMealSlot, viewOfCatalogItem, viewOfCustomFood, type FoodView } from "./foodView";
 
 type Segment = "all" | "favorites" | "mine";
@@ -26,6 +39,7 @@ export function CatalogScreen() {
   const { t, lang } = useI18n();
   const db = useDb();
   const { dataVersion } = useAppState();
+  const sideInsets = useSideInsets(spacing.lg);
   const params = useLocalSearchParams<{ date?: string; meal?: string }>();
   const date = asLocalDate(params.date);
   const meal = asMealSlot(params.meal);
@@ -209,7 +223,7 @@ export function CatalogScreen() {
         ListHeaderComponent={header}
         ListEmptyComponent={empty}
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{ padding: spacing.lg, flexGrow: 1 }}
+        contentContainerStyle={[{ padding: spacing.lg, flexGrow: 1 }, sideInsets]}
         initialNumToRender={20}
         windowSize={7}
       />

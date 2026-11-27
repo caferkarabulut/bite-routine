@@ -1,8 +1,12 @@
 # From Today: add 1,5 kepçe Mercimek çorbası to breakfast.
 appId: com.biteroutine.mobile
 ---
-# The meal cards start under the tab bar on small screens: scroll first, otherwise the tap hits a tab.
-- scroll
+# The meal cards start under the tab bar on small screens, and a plain `scroll` on a tall screen can push the
+# Kahvaltı button off the top: bring exactly that button to the middle before tapping.
+- scrollUntilVisible:
+    element:
+      id: add-breakfast
+    centerElement: true
 - tapOn:
     id: add-breakfast
 - tapOn:

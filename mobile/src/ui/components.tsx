@@ -9,27 +9,66 @@ import {
   Text,
   TextInput,
   View,
+  type StyleProp,
   type TextInputProps,
   type ViewStyle,
 } from "react-native";
 import { SafeAreaInsetsContext, SafeAreaView } from "react-native-safe-area-context";
 
 import { useOptionalI18n } from "../i18n";
-import { colors, radius, spacing, typography, TOUCH } from "./theme";
+import { Icon, type IconName } from "./Icon";
+import { colors, fonts, palette, radius, shadow, spacing, typography, TOUCH } from "./theme";
 
-type ScreenProps = { children: ReactNode; scroll?: boolean; padded?: boolean; edges?: ("top" | "bottom")[] };
+type ScreenProps = {
+  children: ReactNode;
+  scroll?: boolean;
+  padded?: boolean;
+  edges?: ("top" | "bottom")[];
+  /** Large in-content title (iOS "large title" pattern) for screens without a navigation header. */
+  largeTitle?: string;
+  /** Line under the large title, e.g. the date. */
+  subtitle?: ReactNode;
+  /** Actions next to the subtitle (or the title when there is no subtitle). */
+  headerRight?: ReactNode;
+};
 
 /**
  * Full-screen container with safe areas. Stack headers already handle the top edge and the tab bar the
  * bottom one, so tab screens pass `edges={[]}`. The bottom inset is applied as padding inside the scroll
  * content (not as a SafeAreaView edge) so the last button can scroll clear of the Android gesture bar and
- * the iOS home indicator, and is never counted twice.
+ * the iOS home indicator, and is never counted twice. Left and right insets (landscape notch, the camera
+ * island of a foldable's cover screen) always pad the content.
  */
-export function Screen({ children, scroll = true, padded = true, edges = ["bottom"] }: ScreenProps) {
+export function Screen({
+  children,
+  scroll = true,
+  padded = true,
+  edges = ["bottom"],
+  largeTitle,
+  subtitle,
+  headerRight,
+}: ScreenProps) {
   // Context read (not useSafeAreaInsets) so a missing provider means 0 instead of throwing.
   const insets = useContext(SafeAreaInsetsContext);
-  const bottomInset = edges.includes("bottom") ? (insets?.bottom ?? 0) : 0;
-  const content = padded ? <View style={styles.padded}>{children}</View> : children;
+  const inset = {
+    paddingBottom: edges.includes("bottom") ? (insets?.bottom ?? 0) : 0,
+    paddingLeft: insets?.left ?? 0,
+    paddingRight: insets?.right ?? 0,
+  };
+  const header = largeTitle ? (
+    <LargeTitleHeader title={largeTitle} subtitle={subtitle} headerRight={headerRight} />
+  ) : null;
+  const content = padded ? (
+    <View style={styles.padded}>
+      {header}
+      {children}
+    </View>
+  ) : (
+    <>
+      {header}
+      {children}
+    </>
+  );
   return (
     <SafeAreaView style={styles.screen} edges={edges.filter((e) => e === "top")}>
       {scroll ? (
@@ -38,19 +77,51 @@ export function Screen({ children, scroll = true, padded = true, edges = ["botto
           keyboardShouldPersistTaps="handled"
           keyboardDismissMode="interactive"
           automaticallyAdjustKeyboardInsets
-          contentContainerStyle={[styles.scrollContent, { paddingBottom: bottomInset }]}
+          contentContainerStyle={[styles.scrollContent, inset]}
         >
           {content}
         </ScrollView>
       ) : (
-        <View style={[styles.screen, { paddingBottom: bottomInset }]}>{content}</View>
+        <View testID="screen-view" style={[styles.screen, inset]}>
+          {content}
+        </View>
       )}
     </SafeAreaView>
   );
 }
 
-export function Card({ children, style }: { children: ReactNode; style?: ViewStyle }) {
-  return <View style={[styles.card, style]}>{children}</View>;
+function LargeTitleHeader({ title, subtitle, headerRight }: { title: string; subtitle?: ReactNode; headerRight?: ReactNode }) {
+  const sub = typeof subtitle === "string" ? <Text style={styles.largeSubtitle}>{subtitle}</Text> : subtitle;
+  return (
+    <View style={styles.largeHeader}>
+      <View style={styles.largeHeaderRow}>
+        <Text accessibilityRole="header" style={[typography.largeTitle, { flex: 1 }]}>
+          {title}
+        </Text>
+        {!subtitle ? headerRight : null}
+      </View>
+      {subtitle ? (
+        <View style={styles.largeHeaderRow}>
+          <View style={{ flex: 1 }}>{sub}</View>
+          {headerRight}
+        </View>
+      ) : null}
+    </View>
+  );
+}
+
+/**
+ * Left/right safe-area padding for screens that render their own list instead of <Screen>.
+ * `base` is the content padding to add the insets to.
+ */
+export function useSideInsets(base = 0): { paddingLeft: number; paddingRight: number } {
+  const insets = useContext(SafeAreaInsetsContext);
+  return { paddingLeft: base + (insets?.left ?? 0), paddingRight: base + (insets?.right ?? 0) };
+}
+
+/** Borderless surface with a soft shadow. `padded={false}` for list cards whose rows bring their own padding. */
+export function Card({ children, style, padded = true }: { children: ReactNode; style?: StyleProp<ViewStyle>; padded?: boolean }) {
+  return <View style={[styles.card, padded ? styles.cardPadded : null, style]}>{children}</View>;
 }
 
 export function SectionTitle({ children }: { children: ReactNode }) {
@@ -62,11 +133,17 @@ export function SectionTitle({ children }: { children: ReactNode }) {
 }
 
 type ButtonVariant = "primary" | "secondary" | "danger" | "ghost";
+type ButtonSize = "sm" | "md" | "lg";
+
+const BUTTON_HEIGHT: Record<ButtonSize, number> = { sm: 36, md: 48, lg: 56 };
+const BUTTON_FONT: Record<ButtonSize, number> = { sm: 14, md: 16, lg: 17 };
 
 export function Button({
   label,
   onPress,
   variant = "primary",
+  size = "lg",
+  icon,
   disabled = false,
   loading = false,
   accessibilityHint,
@@ -76,12 +153,18 @@ export function Button({
   onPress: () => void;
   testID?: string;
   variant?: ButtonVariant;
+  /** sm 36 (touch area extended to the minimum with hitSlop), md 48, lg 56. */
+  size?: ButtonSize;
+  /** Leading icon. */
+  icon?: IconName;
   disabled?: boolean;
   loading?: boolean;
   accessibilityHint?: string;
 }) {
   const inactive = disabled || loading;
   const v = buttonVariants[variant];
+  const height = BUTTON_HEIGHT[size];
+  const slop = Math.max(0, Math.ceil((TOUCH - height) / 2));
   return (
     <Pressable
       testID={testID}
@@ -91,21 +174,40 @@ export function Button({
       accessibilityState={{ disabled: inactive, busy: loading }}
       disabled={inactive}
       onPress={onPress}
-      style={({ pressed }) => [styles.button, v.container, { opacity: inactive ? 0.45 : pressed ? 0.75 : 1 }]}
+      hitSlop={slop || undefined}
+      style={({ pressed }) => [
+        styles.button,
+        { minHeight: height, paddingHorizontal: size === "sm" ? spacing.md : spacing.lg },
+        v.container,
+        pressed && v.pressed ? v.pressed : null,
+        { opacity: inactive ? 0.45 : pressed && !v.pressed ? 0.7 : 1 },
+      ]}
     >
-      {loading ? <ActivityIndicator color={v.text.color} /> : <Text style={[styles.buttonText, v.text]}>{label}</Text>}
+      {loading ? (
+        <ActivityIndicator color={v.text} />
+      ) : (
+        <View style={styles.buttonInner}>
+          {icon ? <Icon name={icon} size={BUTTON_FONT[size] + 3} color={v.text} /> : null}
+          <Text style={[styles.buttonText, { color: v.text, fontSize: BUTTON_FONT[size] }]}>{label}</Text>
+        </View>
+      )}
     </Pressable>
   );
 }
 
-const buttonVariants: Record<ButtonVariant, { container: ViewStyle; text: { color: string } }> = {
-  primary: { container: { backgroundColor: colors.primary }, text: { color: "#ffffff" } },
-  secondary: {
-    container: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.primary },
-    text: { color: colors.primary },
+const buttonVariants: Record<ButtonVariant, { container: ViewStyle; pressed?: ViewStyle; text: string }> = {
+  primary: {
+    container: { backgroundColor: colors.primary },
+    pressed: { backgroundColor: colors.primaryPressed },
+    text: colors.onPrimary,
   },
-  danger: { container: { backgroundColor: colors.danger }, text: { color: "#ffffff" } },
-  ghost: { container: { backgroundColor: "transparent" }, text: { color: colors.primary } },
+  secondary: {
+    container: { backgroundColor: colors.surface, borderWidth: 1.5, borderColor: colors.primary },
+    pressed: { backgroundColor: colors.primarySoft },
+    text: colors.primary,
+  },
+  danger: { container: { backgroundColor: colors.danger }, text: colors.onPrimary },
+  ghost: { container: { backgroundColor: "transparent" }, pressed: { backgroundColor: colors.primarySoft }, text: colors.primary },
 };
 
 type FieldProps = Omit<TextInputProps, "style"> & { label: string; error?: string | null; hint?: string; suffix?: string };
@@ -202,42 +304,63 @@ export function ListRow({
   right,
   onPress,
   accessibilityHint,
+  leading,
+  trailing,
+  testID,
 }: {
   title: string;
   subtitle?: string;
   right?: ReactNode;
   onPress?: () => void;
   accessibilityHint?: string;
+  /** Icon name or any element before the text. */
+  leading?: IconName | ReactNode;
+  /** Separate action after the row (e.g. an IconButton); it is its own touch target, outside the row button. */
+  trailing?: ReactNode;
+  testID?: string;
 }) {
+  const lead = typeof leading === "string" ? <Icon name={leading as IconName} size={22} color={colors.primary} /> : leading;
   const body = (
     <>
+      {lead}
       <View style={{ flex: 1, gap: 2 }}>
         <Text style={typography.body} numberOfLines={2}>
           {title}
         </Text>
         {subtitle ? <Text style={typography.muted}>{subtitle}</Text> : null}
       </View>
-      {typeof right === "string" ? <Text style={typography.label}>{right}</Text> : right}
+      {typeof right === "string" ? <Text style={[typography.label, typography.number]}>{right}</Text> : right}
     </>
   );
-  if (!onPress) return <View style={styles.row}>{body}</View>;
-  return (
+  const row = !onPress ? (
+    <View testID={testID} style={[styles.row, trailing ? { flex: 1 } : null]}>
+      {body}
+    </View>
+  ) : (
     <Pressable
+      testID={testID}
       accessibilityRole="button"
       accessibilityLabel={[title, subtitle, typeof right === "string" && /[\p{L}\p{N}]/u.test(right) ? right.replace(/\n/g, " ") : null]
         .filter(Boolean)
         .join(", ")}
       accessibilityHint={accessibilityHint}
       onPress={onPress}
-      style={({ pressed }) => [styles.row, pressed ? { backgroundColor: colors.primarySoft } : null]}
+      style={({ pressed }) => [styles.row, trailing ? { flex: 1 } : null, pressed ? { backgroundColor: colors.primarySoft } : null]}
     >
       {body}
     </Pressable>
   );
+  if (!trailing) return row;
+  return (
+    <View style={styles.rowWithTrailing}>
+      {row}
+      {trailing}
+    </View>
+  );
 }
 
-export function Divider() {
-  return <View style={styles.divider} />;
+export function Divider({ inset = 0 }: { inset?: number }) {
+  return <View style={[styles.divider, inset ? { marginHorizontal: inset } : null]} />;
 }
 
 export function EmptyState({ message, action }: { message: string; action?: ReactNode }) {
@@ -289,49 +412,59 @@ const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.background },
   scrollContent: { flexGrow: 1 },
   padded: { padding: spacing.lg, gap: spacing.md },
+  largeHeader: { paddingTop: spacing.xs },
+  largeHeaderRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
+  largeSubtitle: { fontFamily: fonts.semibold, fontSize: 15, lineHeight: 20, color: colors.textMuted },
   card: {
-    padding: spacing.lg,
     backgroundColor: colors.surface,
-    borderRadius: radius.lg,
-    borderWidth: 1,
-    borderColor: colors.border,
+    borderRadius: radius.xl,
     gap: spacing.sm,
+    ...shadow.card,
   },
+  cardPadded: { padding: spacing.lg },
   button: {
-    minHeight: TOUCH,
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
+    paddingVertical: spacing.sm,
     borderRadius: radius.md,
     alignItems: "center",
     justifyContent: "center",
   },
-  buttonText: { fontSize: 16, fontWeight: "600", textAlign: "center" },
+  buttonInner: { flexDirection: "row", alignItems: "center", justifyContent: "center", gap: spacing.sm },
+  buttonText: { fontFamily: fonts.bold, textAlign: "center" },
   field: { gap: spacing.xs },
   inputRow: {
-    minHeight: TOUCH,
+    minHeight: TOUCH + 4,
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.sm,
     paddingHorizontal: spacing.md,
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.border,
+    backgroundColor: colors.inputBg,
+    borderWidth: palette.inputBorderWidth,
+    borderColor: colors.inputBorder,
     borderRadius: radius.md,
   },
-  input: { flex: 1, fontSize: 16, color: colors.text, paddingVertical: spacing.sm },
+  // Fills the row height: Nunito has tall ascent/descent, and an Android EditText whose text is taller than the
+  // view becomes vertically scrollable and swallows the drag that should scroll the screen.
+  input: {
+    flex: 1,
+    alignSelf: "stretch",
+    fontFamily: fonts.regular,
+    fontSize: 16,
+    color: colors.text,
+    paddingVertical: 0,
+    textAlignVertical: "center",
+  },
   chips: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
   chip: {
-    minHeight: 40,
-    paddingHorizontal: spacing.md,
+    minHeight: TOUCH,
+    paddingHorizontal: spacing.lg,
     justifyContent: "center",
     borderRadius: radius.pill,
-    borderWidth: 1,
-    borderColor: colors.border,
     backgroundColor: colors.surface,
+    ...shadow.raised,
   },
-  chipSelected: { backgroundColor: colors.primary, borderColor: colors.primary },
-  chipText: { fontSize: 14, color: colors.text },
-  chipTextSelected: { color: "#ffffff", fontWeight: "600" },
+  chipSelected: { backgroundColor: colors.primary },
+  chipText: { fontFamily: fonts.regular, fontSize: 15, color: colors.text },
+  chipTextSelected: { fontFamily: fonts.bold, color: colors.onPrimary },
   row: {
     minHeight: TOUCH,
     flexDirection: "row",
@@ -341,8 +474,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xs,
     borderRadius: radius.sm,
   },
-  divider: { height: StyleSheet.hairlineWidth, backgroundColor: colors.border },
+  rowWithTrailing: { flexDirection: "row", alignItems: "center", gap: spacing.xs },
+  divider: { height: StyleSheet.hairlineWidth, backgroundColor: colors.divider },
   centered: { flexGrow: 1, alignItems: "center", justifyContent: "center", gap: spacing.md, padding: spacing.xl },
-  progressTrack: { height: 8, borderRadius: radius.pill, backgroundColor: colors.border, overflow: "hidden" },
+  progressTrack: { height: 8, borderRadius: radius.pill, backgroundColor: colors.track, overflow: "hidden" },
   progressFill: { height: "100%", borderRadius: radius.pill },
 });

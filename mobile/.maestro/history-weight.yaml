@@ -19,8 +19,10 @@ appId: com.biteroutine.mobile
 - assertVisible: "1 / 7 gün kayıtlı"
 - scrollUntilVisible:
     element: ".*: 137 / .* kcal"
+# "Kilo" can sit under the tab bar and still count as visible: center it before tapping.
 - scrollUntilVisible:
     element: "Kilo"
+    centerElement: true
 - tapOn: "Kilo"
 - extendedWaitUntil:
     visible: "Bugünün kilosu"

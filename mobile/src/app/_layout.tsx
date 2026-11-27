@@ -7,7 +7,7 @@ import { DatabaseProvider } from "../db";
 import { syncReminders } from "../features/settings/reminders";
 import { I18nProvider, useI18n } from "../i18n";
 import { AppStateProvider, useAppState } from "../state/AppState";
-import { colors, ErrorState, Loading } from "../ui";
+import { colors, ErrorState, fonts, Loading } from "../ui";
 
 export default function RootLayout() {
   return (
@@ -55,6 +55,7 @@ function RootStack() {
       screenOptions={{
         headerStyle: { backgroundColor: colors.background },
         headerTintColor: colors.primary,
+        headerTitleStyle: { fontFamily: fonts.bold, color: colors.text },
         headerBackButtonDisplayMode: "minimal",
         contentStyle: { backgroundColor: colors.background },
       }}
