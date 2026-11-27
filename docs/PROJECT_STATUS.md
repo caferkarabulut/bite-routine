@@ -30,4 +30,7 @@ Kapsam dışı: hesap, senkronizasyon, barkod, fotoğrafla tahmin, abonelik, rek
 
 ## Notlar
 
+- FUTURE: kullanıcının kendi kategorilerini oluşturması (kullanıcı, 2026-11-27).
+- FUTURE: kullanıcı eklediği ürünü Open Food Facts'e göndererek herkes için katalog çeşitliliği (sunucusuz yol); barkod okuma.
+
 - Google Play hesabı kişisel ve yeni: yayından önce 12 test kullanıcısının 14 gün kapalı testte kalması gerekir. Kapalı test ilk çalışan sürümle başlatılabilir.
