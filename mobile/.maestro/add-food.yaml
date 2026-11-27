@@ -4,6 +4,20 @@ appId: com.biteroutine.mobile
     clearState: true
 - runFlow: subflows/onboarding.yaml
 - assertVisible: "0 kcal"
+- tapOn:
+    id: today-add
+- assertVisible:
+    id: catalog-search
+- runFlow: subflows/back-from-push.yaml
+# iOS tab navigation has no edge-swipe back; return using the Today tab if still in Catalog.
+- runFlow:
+    when:
+      visible:
+        id: catalog-search
+    commands:
+      - tapOn: "Bugün(, tab.*)?"
+- assertVisible:
+    id: today-add
 - runFlow: subflows/add-lentil-soup.yaml
 # Calorie card (Today keeps its scroll offset after returning, so scroll to the top first).
 - scrollUntilVisible:

@@ -24,6 +24,7 @@ import {
   spacing,
   typography,
 } from "../../ui";
+import { AddedByYouPill } from "./AddedByYouPill";
 import { asLocalDate, asMealSlot, defaultServing, viewOfCatalogItem, viewOfCustomFood, type FoodView } from "./foodView";
 
 type Segment = "all" | "favorites" | "mine";
@@ -241,13 +242,21 @@ const FoodRow = memo(function FoodRow({ food, onOpen }: { food: FoodView; onOpen
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={`${food.name}, ${subtitle}, ${kcal}`}
+      accessible
+      accessibilityLabel={`${food.name}, ${subtitle}, ${kcal}${food.isCustom ? `, ${t("features.catalog.addedByYouLabel")}` : ""}`}
       onPress={() => onOpen(food)}
       style={({ pressed }) => [styles.row, pressed ? { opacity: 0.6 } : null]}
     >
       <View style={styles.rowText}>
         <Text style={styles.rowTitle}>{food.name}</Text>
-        <Text style={typography.footnote}>{subtitle}</Text>
+        {food.isCustom ? (
+          <View style={styles.rowSubtitle}>
+            <AddedByYouPill />
+            <Text style={typography.footnote}>{serving.label}</Text>
+          </View>
+        ) : (
+          <Text style={typography.footnote}>{subtitle}</Text>
+        )}
       </View>
       <Text style={styles.rowKcal}>{kcal}</Text>
     </Pressable>
@@ -276,6 +285,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.sm,
   },
+  rowSubtitle: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: spacing.xs },
   rowText: { flex: 1, minWidth: 0 },
   rowTitle: { fontFamily: fonts.regular, fontSize: 16, lineHeight: 21, color: colors.text },
   rowKcal: { fontFamily: fonts.regular, fontSize: 15, lineHeight: 20, color: colors.text, fontVariant: ["tabular-nums"] },

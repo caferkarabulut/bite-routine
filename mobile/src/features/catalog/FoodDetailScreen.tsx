@@ -33,6 +33,7 @@ import {
   typography,
   type AmountValue,
 } from "../../ui";
+import { AddedByYouPill } from "./AddedByYouPill";
 import { amountStepRange } from "./amountStep";
 import { asLocalDate, asMealSlot, asString, viewOfCatalogItem, viewOfCustomFood, type FoodView } from "./foodView";
 
@@ -248,7 +249,10 @@ function FoodDetail({
         <Text accessibilityRole="header" style={typography.title}>
           {food.name}
         </Text>
-        <Text style={styles.kindLine}>{kindLine}</Text>
+        <View style={{ flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: spacing.sm }}>
+          {food.isCustom ? <AddedByYouPill /> : null}
+          <Text style={styles.kindLine}>{kindLine}</Text>
+        </View>
       </View>
 
       <Card style={{ gap: spacing.md }}>

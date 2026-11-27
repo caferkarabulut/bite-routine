@@ -129,3 +129,25 @@ describe("Screen side insets and large title", () => {
     expect(screen.getByText("sağ")).toBeTruthy();
   });
 });
+
+
+describe("Screen centred header", () => {
+  it.each(["left", "right", "neither"])("keeps both 44×44 slots when %s has no control", async (missing) => {
+    await renderScreen(
+      <Screen
+        centerHeader
+        largeTitle="Bugün"
+        subtitle="26 Kasım Perşembe"
+        headerLeft={missing === "right" ? <Text>sol</Text> : undefined}
+        headerRight={missing === "left" ? <Text>sağ</Text> : undefined}
+      >
+        <Text>x</Text>
+      </Screen>,
+    );
+    expect(screen.getByRole("header", { name: "Bugün" })).toHaveStyle({ fontSize: 24, lineHeight: 30 });
+    expect(screen.getByText("26 Kasım Perşembe")).toHaveStyle({ fontSize: 14, lineHeight: 19, fontWeight: "500" });
+    for (const side of ["left", "right"]) {
+      expect(screen.getByTestId(`center-header-${side}`)).toHaveStyle({ width: 44, height: 44 });
+    }
+  });
+});

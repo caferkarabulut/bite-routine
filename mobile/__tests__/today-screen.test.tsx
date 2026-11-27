@@ -4,6 +4,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { getWater } from "../src/db";
 import { addDays, todayInIstanbul } from "../src/domain";
 import { TodayScreen } from "../src/features/today/TodayScreen";
+import { freezeDate } from "./helpers/history-harness";
 import { makeDb, renderWithApp, seedEntry, seedProfile } from "./helpers/today-harness";
 
 jest.mock("expo-localization", () => ({ useLocales: () => [{ languageCode: "tr", languageTag: "tr-TR" }] }));
@@ -126,6 +127,41 @@ describe("TodayScreen meals", () => {
     expect(adds[2].props.accessibilityLabel).toBe("Akşam yemeği öğününe yemek ekle");
     await fireEvent.press(adds[2]);
     expect(router.push).toHaveBeenLastCalledWith({ pathname: "/catalog", params: { date: today, meal: "dinner" } });
+  });
+});
+
+describe("TodayScreen floating add", () => {
+  afterEach(() => jest.useRealTimers());
+
+  it.each([
+    ["2026-11-27T01:59:00Z", "snack"],
+    ["2026-11-27T02:00:00Z", "breakfast"],
+    ["2026-11-27T08:00:00Z", "lunch"],
+    ["2026-11-27T13:00:00Z", "dinner"],
+    ["2026-11-27T18:59:00Z", "dinner"],
+    ["2026-11-27T19:00:00Z", "snack"],
+    ["2026-11-27T21:00:00Z", "snack"],
+  ])("uses Istanbul time at %s and the displayed day", async (instant, meal) => {
+    freezeDate(instant);
+    const db = await makeDb();
+    mockParams.mockReturnValue({ date: "2026-01-05" });
+    await renderWithApp(<TodayScreen />, db);
+    const add = await screen.findByTestId("today-add");
+    expect(screen.getByRole("button", { name: "Yemek veya içecek ekle" })).toBe(add);
+    expect(screen.getByText("Ekle")).toBeTruthy();
+    await fireEvent.press(add);
+    expect(router.push).toHaveBeenLastCalledWith({ pathname: "/catalog", params: { date: "2026-01-05", meal } });
+  });
+
+  it("chooses the meal when pressed, even if time changed after rendering", async () => {
+    freezeDate("2026-11-27T07:59:00Z"); // 10:59 in Istanbul
+    const db = await makeDb();
+    await renderWithApp(<TodayScreen />, db, "en");
+    await screen.findByRole("button", { name: "Add food or drink" });
+    expect(screen.getByText("Add")).toBeTruthy();
+    jest.setSystemTime(new Date("2026-11-27T08:00:00Z"));
+    await fireEvent.press(screen.getByTestId("today-add"));
+    expect(router.push).toHaveBeenLastCalledWith({ pathname: "/catalog", params: { date: "2026-11-27", meal: "lunch" } });
   });
 });
 

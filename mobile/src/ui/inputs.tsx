@@ -1,7 +1,7 @@
 // Shared diary inputs used by several screens. Owned by the coordinator.
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import { addDays, gramsForPortion, parseAmount, todayInIstanbul } from "../domain";
+import { addDays, defaultMealForTime, gramsForPortion, parseAmount, todayInIstanbul } from "../domain";
 import { formatDate, formatGrams, formatNumber, useI18n } from "../i18n";
 import { MEAL_SLOTS, type LocalDate, type MealSlot, type Portion, type PortionSnapshot } from "../types";
 import { ChoiceChips, TextField } from "./components";
@@ -108,10 +108,7 @@ export function mealSlotForTime(now: Date = new Date()): MealSlot {
   const hour = Number(
     new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Istanbul", hour: "2-digit", hourCycle: "h23" }).format(now),
   );
-  if (hour < 11) return "breakfast";
-  if (hour < 16) return "lunch";
-  if (hour < 21) return "dinner";
-  return "snack";
+  return defaultMealForTime(hour);
 }
 
 /** Previous / current day / next row. The future is allowed up to 7 days ahead. */

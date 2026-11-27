@@ -27,6 +27,7 @@ describe("FoodDetailScreen", () => {
     await renderWithApp(<FoodDetailScreen />, db);
     expect(await screen.findByRole("header", { name: "Mercimek çorbası" })).toBeTruthy();
     expect(screen.getByText("Yemek · Çorbalar")).toBeTruthy();
+    expect(screen.queryByText("Senin eklediğin")).toBeNull();
     expect(screen.getByText("1 kepçe · 150 g")).toBeTruthy();
     expect(screen.getByText("100 g için 61 kcal.")).toBeTruthy();
     expect(screen.getByRole("button", { name: "Günlüğe ekle, 92 kcal" })).toBeTruthy();
@@ -138,6 +139,21 @@ describe("FoodDetailScreen", () => {
     expect(e.food).toEqual({ kind: "custom", id: food.id });
     expect(e.grams).toBe(100);
     expect(e.per100g).toEqual({ kcal: 300, protein: null, carbs: 40, fat: null });
+  });
+
+  it.each([
+    ["tr", "Senin eklediğin", "Bu ürünü sen ekledin. Değerler resmi olarak doğrulanmadı; yalnız bu telefonda saklanır."],
+    ["en", "Added by you", "You added this item. Its values are not officially verified; it is stored only on this phone."],
+  ] as const)("labels custom food and explains its unverified values in %s", async (lang, pill, note) => {
+    const food = await saveCustomFood(db, {
+      nameTr: "Evde granola",
+      per100g: { kcal: 400, protein: null, carbs: null, fat: null },
+      portions: [],
+    });
+    params.current = { id: food.id };
+    await renderWithApp(<FoodDetailScreen />, db, lang);
+    expect(await screen.findByText(pill)).toBeTruthy();
+    expect(screen.getByText(note)).toBeTruthy();
   });
 
   it("toggles the favorite", async () => {

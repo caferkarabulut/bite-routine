@@ -147,18 +147,20 @@ function CenteredHeader({
   right?: ReactNode;
   below?: ReactNode;
 }) {
-  const sub = typeof subtitle === "string" ? <Text style={[styles.largeSubtitle, styles.centerText]}>{subtitle}</Text> : subtitle;
+  const sub = typeof subtitle === "string" ? <Text style={styles.centerSubtitle}>{subtitle}</Text> : subtitle;
   return (
     <View style={styles.centerHeader}>
-      <View style={styles.centerBody}>
-        <Text accessibilityRole="header" style={[typography.largeTitle, styles.centerTitle]}>
-          {title}
-        </Text>
-        {sub}
-        {below}
+      <View style={styles.centerRow}>
+        <View testID="center-header-left" style={styles.centerSide}>{left ?? <View style={styles.centerSpacer} />}</View>
+        <View style={styles.centerBody}>
+          <Text accessibilityRole="header" style={[typography.largeTitle, styles.centerTitle]}>
+            {title}
+          </Text>
+          {sub}
+        </View>
+        <View testID="center-header-right" style={styles.centerSide}>{right ?? <View style={styles.centerSpacer} />}</View>
       </View>
-      <View style={[styles.centerSide, { left: 0 }]}>{left}</View>
-      <View style={[styles.centerSide, { right: 0 }]}>{right}</View>
+      {below ? <View style={styles.centerBelow}>{below}</View> : null}
     </View>
   );
 }
@@ -495,10 +497,13 @@ const styles = StyleSheet.create({
   largeHeader: { paddingTop: spacing.xs },
   largeHeaderRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
   centerHeader: { paddingTop: spacing.xs, justifyContent: "center" },
-  centerBody: { alignItems: "center", paddingHorizontal: 48 },
-  centerTitle: { fontSize: 30, lineHeight: 36, textAlign: "center" },
-  centerText: { textAlign: "center" },
-  centerSide: { position: "absolute", top: 0, bottom: 0, justifyContent: "center" },
+  centerRow: { flexDirection: "row", alignItems: "center" },
+  centerBody: { flex: 1, alignItems: "center", paddingHorizontal: spacing.xs },
+  centerBelow: { alignItems: "center" },
+  centerTitle: { fontSize: 24, lineHeight: 30, textAlign: "center" },
+  centerSubtitle: { fontFamily: fonts.regular, fontWeight: "500", fontSize: 14, lineHeight: 19, color: colors.textMuted, textAlign: "center" },
+  centerSpacer: { width: 44, height: 44 },
+  centerSide: { width: 44, height: 44, alignItems: "center", justifyContent: "center" },
   largeSubtitle: { fontFamily: fonts.semibold, fontSize: 15, lineHeight: 20, color: colors.textMuted },
   card: {
     backgroundColor: colors.surface,
