@@ -2,6 +2,23 @@
 
 En yeni girdi en üstte. [`DEVIR.md`](DEVIR.md)'den taşınan ayrıntı buraya gelir. Her girdi şunları yazar: ne yapıldı (dosyalar, commit'ler), kim yaptı (model, hesap), kararlar, doğrulama (komut ve sonucu), açık kalanlar. Girdiler sonradan düzeltilmez; yanlış bir girdi yeni bir girdiyle düzeltilir.
 
+## 2026-11-27 13:15 — Katalog + detay, kalan maketler, doğrulama runbook'u
+
+- `sonnet-worker-high` → `feat/catalog-redesign` (`092ba67`..`bce7ad3`, taban `6f3a5a9`): `CatalogScreen.tsx`, `FoodDetailScreen.tsx`, `foodView.ts`, `amountStep.ts` (adım: porsiyon 0,5 / gram 10), `Screen` `footer` prop'u, SearchBar/SegmentedControl/Chip düzeltmeleri, Maestro seçicileri. npm test 491 (performance zaman testi derleme yükünde 2 kez kaldı, tekrarlarda geçti). iOS 9 akış + design-tour, Android 10 akış PASS. Yönetici commit mesajlarını kancayla, katalog ve detay ekran görüntülerini kontrol etti. PR #50 (#49'un üstüne).
+- Codex `gpt-6.1-sol` medium (iki çağrı, `olcum run`): Geçmiş, Kilo, Ayarlar, Profil, Onboarding maketleri (scratchpad'de; repo değişmedi). Yönetici dosyaları ve biçimi kontrol edip tuvale ekledi (sürüm 7 ve 8).
+- Kullanıcı isteğiyle: `mobile/docs/DOGRULAMA.md` (iOS + Android Release + Maestro runbook'u, AGENTS.md'den bağlantılı; PR #48), yerel `.claude/skills/mobil-dogrula/SKILL.md`, hafızaya "işçi raporunu kontrol et, boşta cihazları kapat".
+- Simülatörler, emülatör, Gradle daemon kapatıldı.
+
+## 2026-11-27 12:12 — Bugün ekranı (3.3 pilotu), kota okuması
+
+- Kullanıcı #46 ve #47'yi merge etti.
+- Kota: `rate-limit-status.json` 13 Kasım'dan beri yazılmıyordu (masaüstü uygulaması statusLine çalıştırmıyor). opus-orchestration SKILL.md (yerel `~/Developer/claude_skills`, commit edilmedi; uzak depo başka hesapta) ve AGENTS.md artık kotayı `get_usage` aracından okuyor; PR #48.
+- `sonnet-worker-high` → `feat/today-redesign` `9f80a24`, `5023fa1`: `CalorieCard`, `WaterCard`, `MealsCard`, `entryAmount.ts`, `water.ts`, `dayTitle.ts`, Today sekmesinde `headerShown: false`, i18n anahtarları, Maestro seçicileri. iOS iPhone 17: 9 akış + design-tour PASS. Yönetici Android release'i doğruladı: 9 akış + android-back PASS (yeni worktree'de ilk derleme `ANDROID_HOME` eksikliğinden kaldı).
+- Kullanıcı ekranı onayladı; başlık ve tarihin ortalanmasını, okların iki yana ayrılmasını istedi; ileri gezinmenin korunmasını onayladı.
+- `sonnet-worker` → `bb51910`: `Screen`'e isteğe bağlı `centerHeader`/`headerLeft`/`headerBelow`, 7 gün ileri, "Yarın", "Bugüne dön" (`today.goToToday` metni "Bugüne git" → "Bugüne dön"; `DayNavigator` da aynı metni kullanır). npm test 476; iOS 9 + design-tour, Android 10 akış PASS.
+- Yönetici: KARARLAR'a iki satır (`6f3a5a9`), `feat/today-redesign` push, PR #49.
+- `sonnet-worker-high` başlatıldı: Katalog + yemek detayı (`feat/catalog-redesign`, taban `6f3a5a9`).
+
 ## 2026-11-27 04:05 — #46 doğrulaması
 
 - Kullanıcı #37–#45'in hepsini merge etmiş; GitHub Pages yayında (`main` `/docs`).
