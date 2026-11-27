@@ -163,3 +163,12 @@ export function newId(prefix: string): string {
 export function nowIso(): string {
   return new Date().toISOString();
 }
+
+/** Optional metadata added after the original backup format. */
+export function isCustomFoodBrand(v: unknown): boolean {
+  return v === undefined || v === null || (typeof v === "string" && v.length <= 60);
+}
+
+export function isCustomFoodKind(v: unknown): boolean {
+  return v === undefined || v === null || v === "food" || v === "drink";
+}

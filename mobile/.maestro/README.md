@@ -70,8 +70,9 @@ Yedekle/Geri yükle (paylaşım ve dosya seçici) ve bildirim izni akışları k
   `Mercimek çorbası, 1,5 kepçe · 225 g, 137 kcal`. Seçici `Kahvaltı.*137 kcal` ya da `.*1,5 kepçe.*` gibi yazılır.
 - Bugün'de "Önceki gün" / "Sonraki gün" düğmeleri vardır; sonraki gün bugünden 7 gün sonra devre dışı kalır; başka bir günde "Bugüne dön" düğmesi çıkar. "Bugün" başlığı hem sayfa
   başlığı hem sekme adıdır (`Bugün(, tab.*)?` ikisini de eşler).
-- Katalog: başlık ve arama sayfayla birlikte kayar; "Kendi ürününü ekle" başlığın yanındaki yuvarlak "+" düğmesidir
-  (`catalog-add-custom`). Liste satırı tek öğedir: `Mercimek çorbası, Yemek · 1 kepçe, 92 kcal` (ad, tür · varsayılan
+- Katalog: başlık ve arama sayfayla birlikte kayar; boş aramada sıra Kategoriler, "Kendi ürününü ekle" kartı
+  (`catalog-add-custom`), Son eklenenler'dir. Kart kategorilerin altında kalır: `scrollUntilVisible` (aşağı) +
+  `centerElement: true` kullan. Liste satırı tek öğedir: `Mercimek çorbası, Yemek · 1 kepçe, 92 kcal` (ad, tür · varsayılan
   porsiyon, o porsiyonun kcal'i).
 - Yemek detayı: porsiyon hapları `1 kepçe \\(150 g\\)` biçimindedir; "1 kepçe · 150 g" besin kartındaki miktar
   satırıdır, dokunulmaz. "Günlüğe ekle" altbilgide sabittir (`add-to-diary`); iOS'ta klavye onu örter, önce

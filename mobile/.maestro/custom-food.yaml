@@ -4,6 +4,10 @@ appId: com.biteroutine.mobile
     clearState: true
 - runFlow: subflows/onboarding.yaml
 - tapOn: "Katalog(, tab.*)?"
+- scrollUntilVisible:
+    element:
+      id: catalog-add-custom
+    centerElement: true
 - tapOn:
     id: catalog-add-custom
 - tapOn:
@@ -58,8 +62,9 @@ appId: com.biteroutine.mobile
     visible: "Test Börek.*"
     timeout: 5000
 - tapOn: "Test Börek.*"
+# The kind line also carries the default amount ("Kendi yemeğim · 80 g").
 - extendedWaitUntil:
-    visible: "Kendi yemeğim"
+    visible: "Kendi yemeğim.*"
     timeout: 5000
 - scrollUntilVisible:
     element: "Dilim \\(80 g\\)"

@@ -35,9 +35,14 @@ export type CatalogItem = {
   source: Record<string, unknown>;
 };
 
+export type CustomFoodKind = "food" | "drink";
+
 /** A food the user created on this device. id: "custom-<random>". */
 export type CustomFood = {
   id: string;
+  /** Absent in older backups; defaults to no brand and food. */
+  brand?: string | null;
+  kind?: CustomFoodKind | null;
   nameTr: string;
   per100g: Nutrients;
   portions: Portion[];

@@ -82,6 +82,10 @@ export const MIGRATIONS: readonly string[] = [
     created_at TEXT NOT NULL
   );
   `,
+  `
+  ALTER TABLE custom_foods ADD COLUMN brand TEXT;
+  ALTER TABLE custom_foods ADD COLUMN kind TEXT DEFAULT 'food' CHECK (kind IN ('food', 'drink'));
+  `,
 ];
 
 export const LATEST_SCHEMA_VERSION = MIGRATIONS.length;

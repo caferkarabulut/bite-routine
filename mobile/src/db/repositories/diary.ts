@@ -188,3 +188,20 @@ export async function deleteEntry(db: Db, id: string): Promise<void> {
   if (typeof id !== "string") fail("invalid_value", "id must be a string");
   await db.runAsync("DELETE FROM diary_entries WHERE id = ?", [id]);
 }
+
+/** Distinct logged foods, ordered by last creation (not the diary day or later edits).
+ * Resolve references against the current catalog/custom foods before taking the visible eight,
+ * so deleted or discontinued items cannot crowd valid recent items out of the list.
+ */
+export async function listRecentFoodRefs(db: Db): Promise<DiaryEntry["food"][]> {
+  const rows = await db.getAllAsync<{ food_kind: DiaryEntry["food"]["kind"]; food_id: string }>(
+    `SELECT food_kind, food_id FROM (
+       SELECT food_kind, food_id,
+         ROW_NUMBER() OVER (PARTITION BY food_kind, food_id ORDER BY created_at DESC, rowid DESC) AS rank,
+         created_at, rowid AS entry_order
+       FROM diary_entries
+     ) WHERE rank = 1 ORDER BY created_at DESC, entry_order DESC`,
+    [],
+  );
+  return rows.map((r) => ({ kind: r.food_kind, id: r.food_id }));
+}

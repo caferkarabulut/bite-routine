@@ -49,12 +49,20 @@ appId: com.biteroutine.mobile
           id: add-to-diary
 
       # 4. Catalog -> custom food (modal screen): back returns to the catalog.
+      # The catalog keeps the earlier query ("mercimek"): clear it to get the empty-search view with the card.
+      - scrollUntilVisible:
+          element:
+            id: catalog-search
+          direction: UP
+      - tapOn:
+          id: catalog-search
+      - eraseText: 30
       - runFlow:
           file: subflows/dismiss-keyboard.yaml
       - scrollUntilVisible:
           element:
             id: catalog-add-custom
-          direction: UP
+          centerElement: true
       - tapOn:
           id: catalog-add-custom
       - assertVisible:
