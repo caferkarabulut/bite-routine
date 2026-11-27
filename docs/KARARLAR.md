@@ -4,6 +4,8 @@ Mimari ve ürün kararları, en yeni karar en üstte. Eski karar silinmez: karar
 
 | Tarih | Karar | Neden | Ayrıntı |
 |---|---|---|---|
+| 2026-11-27 | Bugün ekranı onaylandı (3.3 pilotu): halka kalori kartı, bardaklı su kartı (+200, +500, son eklemeyi geri al korunur), tek öğün kartı; başlık ve tarih ortada, önceki/sonraki gün okları iki yanda | Kullanıcı kararı (ekran görüntüleri onaylandı; başlığın ortalanmasını istedi) | `mobile/src/features/today/` |
+| 2026-11-27 | Bugün'de ileri gezinme korunur: 7 gün ileriye kadar; bugün dışındaki günde "Bugüne dön" | Kullanıcı kararı; mevcut özellik kaybolmasın | `dayTitle.ts` `canGoForward` |
 | 2026-11-26 | Destek e-postası `biteroutine0@gmail.com`; destek ve gizlilik sayfalarında, Google Play iletişim alanında | Kullanıcı kararı; mağazalar gerçek iletişim bilgisi ister | `docs/support/`, `docs/privacy/`, `docs/store/` |
 | 2026-11-26 | Görsel tasarım: Yön A "Sofra" yerleşimi + "Kömür ve adaçayı" paleti (#F4F1EA zemin, #1F1F1C kömür, #9DB39A adaçayı, #E8E2D3 kum), Nunito yazı tipi, büyük köşeler | Kullanıcı kararı (maketler onaylandı) | Design tuvali "Bite Routine — tasarım yönleri"; `mobile/src/ui/theme.ts` |
 | 2026-11-26 | Adaçayı (#9DB39A) yalnız dolgu (halka, çubuk); değer her zaman metinle de gösterilir; yeşil metin için #4A6647 | Adaçayı açık zeminde 2,1:1; metin kontrastı ≥4,5:1 kalsın | `theme.ts` kontrast testi |
