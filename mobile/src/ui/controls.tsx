@@ -572,6 +572,7 @@ const styles = StyleSheet.create({
   segmentTextSelected: { fontFamily: fonts.bold },
   chip: {
     minHeight: TOUCH,
+    maxWidth: "100%",
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.xs,
@@ -581,7 +582,7 @@ const styles = StyleSheet.create({
     ...shadow.raised,
   },
   chipOn: { backgroundColor: colors.primary },
-  chipText: { fontFamily: fonts.regular, fontSize: 15, color: colors.text },
+  chipText: { flexShrink: 1, fontFamily: fonts.regular, fontSize: 15, color: colors.text },
   chipTextOn: { fontFamily: fonts.bold, color: colors.onPrimary },
   stepper: {
     flexDirection: "row",
