@@ -19,6 +19,7 @@
 - Commit, PR ve kod/belge dosyalarına yapay zekâ aracı imzası veya "ile yapıldı" notu eklenmez.
 - İmzalama sertifikası, keystore, mağaza API anahtarı veya `.env` dosyası commit edilmez.
 - `mobile/` içinde iş bitmeden: `npm run check:deps`, `npm run typecheck`, `npm run lint`, `npm test`. Expo API'leri için `mobile/AGENTS.md` kurallarına uy.
+- Ekran ya da akış değiştiren iş iOS + Android Release ve Maestro ile doğrulanır: [`mobile/docs/DOGRULAMA.md`](mobile/docs/DOGRULAMA.md) (komutlar, simülatör/emülatör, sonuç okuma).
 - Commit mesajları kısa; PR açıklaması yapılan değişikliği ve doğrulamayı birkaç cümleyle anlatır. Merge ve mağazaya gönderim yalnız açık görev kapsamında yapılır.
 - Sonuçta çalışan kontrolleri, kalan engeli ve gereken manuel işlemi kısa raporla.
 
@@ -56,14 +57,16 @@ Bu makinede yaşanmış, bir sonraki ajanın da düşebileceği tuzaklar. Her sa
 - 2026-11-13 — Claude Code'un `isolation: "worktree"` ajanları `main`'den açılır, o anki daldan değil. Çözüm: işçi talimatına taban commit'i yaz (`git reset --hard <taban>` ve doğrula).
 - 2026-11-13 — Arka plan kabuğunda `LANG` boş; CocoaPods "Unicode Normalization not appropriate for ASCII-8BIT" verir. Çözüm: `export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8`.
 - 2026-11-13 — PR #35 (`fix/ux-polish`) `main`'e değil, önceden merge edilmiş `feat/mobile-local`'e merge edildi; değişiklik `main`'e ulaşmadı. Çözüm: PR açarken ve merge etmeden önce taban dalın `main` olduğunu kontrol et.
+- 2026-11-27 — Üst üste açılan PR'da (#50, tabanı #49'un dalı) alttaki PR merge edildikten sonra üstteki merge edilince değişiklik ölü dala gitti, `main`'e ulaşmadı (#51 ile yeniden açıldı). Çözüm: üst üste PR açma; açıldıysa alttaki merge edilince üsttekinin tabanını hemen `main`'e çevir (`gh pr edit <n> --base main`).
 - 2026-11-27 — DEVIR "çalışan işçi yok" derken önceki Claude oturumu aynı worktree'de derleme ve Maestro sürdürüyordu; iki koşu çakıştı. Çözüm: derleme/test başlatmadan önce `pgrep -fl "[x]codebuild|[m]aestro|[g]radle"` ile başka süreç olmadığını kontrol et.
+- 2026-11-27 — `~/.claude/rate-limit-status.json` 13 Kasım'dan beri güncellenmiyordu, yüzdeler `null`: masaüstü uygulaması `statusLine` komutunu çalıştırmıyor. Çözüm: kota `mcp__ccd_session_mgmt__get_usage` ile okunur.
 - 2026-11-26 — Bu Mac'teki iOS 27.1 runtime yalnız "iPhone Duo"yu destekliyor; `simctl create` iPhone 17/18 Pro için "Incompatible device" verir. Çözüm: Duo'yu (kapalı = dış ekran) kullan ya da kullanıcı onayıyla başka bir iOS runtime indir.
 - 2026-11-26 — iOS derlemesi ile Android emülatörü aynı anda çalışınca emülatörde "system işlemi yanıt vermiyor" (ANR) penceresi çıkıyor ve Maestro akışları kalıyor. Çözüm: Maestro'yu derleme bitince çalıştır; pencere çıktıysa emülatörü `-no-snapshot-load` ile soğuk başlat.
 
 ## Yürütme düzeni (opus-orchestration, kurulum 2026-11-13)
 
 - Yönetici: üst düzey Opus oturumu. Kullanıcıyla konuşur, işi böler, her işçinin hattını, modelini ve effort'unu seçer; tek dağıtıcıdır. Spec'ten pahalıya gelmeyecek kadar küçük işler dışında kodu kendisi yazmaz.
-- Yürütücü hattı (kullanıcı kararı, 2026-11-13; skill kural 5'in önündedir): kodu ağırlıklı olarak Sonnet yazar — rutin iş `sonnet-worker`, zor iş `sonnet-worker-high`, spec'e sığmayan yargı gerektiren iş `opus-worker`. Tek Claude hesabı (Pro) olduğu için Sonnet de aynı kotadan düşer: her Claude işçisinden önce `~/.claude/rate-limit-status.json` okunur; 5 saatlik pencere ≥ %60 ya da 7 günlük ≥ %70 ise yeni kod işi Codex Sol'a gider.
+- Yürütücü hattı (kullanıcı kararı, 2026-11-13; skill kural 5'in önündedir): kodu ağırlıklı olarak Sonnet yazar — rutin iş `sonnet-worker`, zor iş `sonnet-worker-high`, spec'e sığmayan yargı gerektiren iş `opus-worker`. Tek Claude hesabı (Pro) olduğu için Sonnet de aynı kotadan düşer: her Claude işçisinden önce kota okunur (masaüstü uygulamasında `mcp__ccd_session_mgmt__get_usage`, terminal CLI'de `~/.claude/rate-limit-status.json`; 15 dakikadan eski ya da boş dosya "bilinmiyor" sayılır); 5 saatlik pencere ≥ %60 ya da 7 günlük ≥ %70 ise yeni kod işi Codex Sol'a gider.
 - Codex: Luna araştırma, kod keşfi, toplu/mekanik işler ve tam spec'li küçük R0/R1 işler; Sol Claude'un yazdığı kodun karşı aile review'u ve kota yedeği; Astra yalnız Sol `xhigh`'ın çözemediği akıl yürütme işi. Her çağrıda effort açık, `< /dev/null`, son mesaj dosyaya, arka planda.
 - Risk seviyeleri: varsayılan R0–R3 (skill tablosu). Bu projede R2: besin değeri hesabı ve katalog hattı (`catalog/`), yalnız ekleyen SQLite migration'ları. R3: veriyi dönüştüren ya da silen migration, yedekleme/geri yükleme, "tüm verileri sil", imzalama ve mağaza gönderimi.
 - Review: R2/R3'te yazarın karşı ailesi — Sonnet/Opus yazdıysa Sol (`high`); Codex yazdıysa `sonnet-worker-high` (R2) ya da `opus-worker-high` (R3). R3 ayrıca kullanıcı onayı ister.
