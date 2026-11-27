@@ -2,6 +2,13 @@
 
 En yeni girdi en üstte. [`DEVIR.md`](DEVIR.md)'den taşınan ayrıntı buraya gelir. Her girdi şunları yazar: ne yapıldı (dosyalar, commit'ler), kim yaptı (model, hesap), kararlar, doğrulama (komut ve sonucu), açık kalanlar. Girdiler sonradan düzeltilmez; yanlış bir girdi yeni bir girdiyle düzeltilir.
 
+## 2026-11-27 13:15 — Katalog + detay, kalan maketler, doğrulama runbook'u
+
+- `sonnet-worker-high` → `feat/catalog-redesign` (`092ba67`..`bce7ad3`, taban `6f3a5a9`): `CatalogScreen.tsx`, `FoodDetailScreen.tsx`, `foodView.ts`, `amountStep.ts` (adım: porsiyon 0,5 / gram 10), `Screen` `footer` prop'u, SearchBar/SegmentedControl/Chip düzeltmeleri, Maestro seçicileri. npm test 491 (performance zaman testi derleme yükünde 2 kez kaldı, tekrarlarda geçti). iOS 9 akış + design-tour, Android 10 akış PASS. Yönetici commit mesajlarını kancayla, katalog ve detay ekran görüntülerini kontrol etti. PR #50 (#49'un üstüne).
+- Codex `gpt-6.1-sol` medium (iki çağrı, `olcum run`): Geçmiş, Kilo, Ayarlar, Profil, Onboarding maketleri (scratchpad'de; repo değişmedi). Yönetici dosyaları ve biçimi kontrol edip tuvale ekledi (sürüm 7 ve 8).
+- Kullanıcı isteğiyle: `mobile/docs/DOGRULAMA.md` (iOS + Android Release + Maestro runbook'u, AGENTS.md'den bağlantılı; PR #48), yerel `.claude/skills/mobil-dogrula/SKILL.md`, hafızaya "işçi raporunu kontrol et, boşta cihazları kapat".
+- Simülatörler, emülatör, Gradle daemon kapatıldı.
+
 ## 2026-11-27 12:12 — Bugün ekranı (3.3 pilotu), kota okuması
 
 - Kullanıcı #46 ve #47'yi merge etti.
