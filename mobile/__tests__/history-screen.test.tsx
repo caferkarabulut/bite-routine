@@ -50,7 +50,7 @@ describe("HistoryScreen", () => {
     expect(screen.getAllByText("Eksik veri")).toHaveLength(1);
     expect(screen.getByText("Bazı kayıtların besin değeri bilinmiyor.")).toBeTruthy();
     expect(screen.getAllByText("Kayıt yok")).toHaveLength(4);
-    expect(screen.getByText("Günlük ortalama: 1.500 kcal")).toBeTruthy();
+    expect(screen.getByLabelText("Günlük ortalama: 1.500 kcal")).toBeTruthy();
     expect(screen.getByText("3 / 7 gün kayıtlı")).toBeTruthy();
     expect(screen.getByTestId(`bar-${TODAY}`).props.style).toEqual(expect.arrayContaining([expect.objectContaining({ width: "50%" })]));
   });
@@ -59,17 +59,19 @@ describe("HistoryScreen", () => {
     const db = await freshDb();
     await addEntry(db, entryInput("2026-11-03", full));
     await renderWithApp(<HistoryScreen />, db);
-    await screen.findByText("Bu hafta");
-    expect(screen.getByRole("button", { name: "Sonraki hafta" })).toBeDisabled();
+    await screen.findByText("Bu hafta · 7–13 Kasım");
+    expect(screen.queryByRole("button", { name: "Sonraki hafta" })).toBeNull();
+    expect(screen.getByTestId("center-header-right")).toBeTruthy();
 
     await fireEvent.press(screen.getByRole("button", { name: "Önceki hafta" }));
     await waitFor(() => expect(screen.getByText("1 / 7 gün kayıtlı")).toBeTruthy());
-    expect(screen.queryByText("Bu hafta")).toBeNull();
+    expect(screen.queryByText("Bu hafta · 7–13 Kasım")).toBeNull();
     expect(screen.getByRole("button", { name: "Sonraki hafta" })).toBeEnabled();
 
     await fireEvent.press(screen.getByRole("button", { name: "Sonraki hafta" }));
-    await screen.findByText("Bu hafta");
-    expect(screen.getByRole("button", { name: "Sonraki hafta" })).toBeDisabled();
+    await screen.findByText("Bu hafta · 7–13 Kasım");
+    expect(screen.queryByRole("button", { name: "Sonraki hafta" })).toBeNull();
+    expect(screen.getByTestId("center-header-right")).toBeTruthy();
   });
 
   it("opens the Today tab with the date when a day is tapped", async () => {
