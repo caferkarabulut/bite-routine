@@ -65,7 +65,7 @@ function RootStack() {
       <Stack.Screen name="profile" options={{ title: t("profile.title") }} />
       {/* The food detail draws its own back bar and heart. */}
       <Stack.Screen name="food/[id]" options={{ headerShown: false }} />
-      <Stack.Screen name="custom-food" options={{ title: t("customFood.title"), presentation: "modal" }} />
+      <Stack.Screen name="custom-food" options={{ headerShown: false, presentation: "modal" }} />
       <Stack.Screen name="entry/[id]" options={{ title: t("common.edit") }} />
       <Stack.Screen name="weight" options={{ title: t("weight.title") }} />
       <Stack.Screen name="sources" options={{ title: t("sources.title") }} />
