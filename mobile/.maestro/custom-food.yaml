@@ -4,7 +4,8 @@ appId: com.biteroutine.mobile
     clearState: true
 - runFlow: subflows/onboarding.yaml
 - tapOn: "Katalog(, tab.*)?"
-- tapOn: "+ Kendi yemeğini oluştur"
+- tapOn:
+    id: catalog-add-custom
 - tapOn:
     id: custom-name
 - inputText: "Test Börek"
@@ -61,8 +62,9 @@ appId: com.biteroutine.mobile
     visible: "Kendi yemeğim"
     timeout: 5000
 - scrollUntilVisible:
-    element: "Dilim.*"
-- tapOn: "Dilim.*"
+    element: "Dilim \\(80 g\\)"
+    centerElement: true
+- tapOn: "Dilim \\(80 g\\)"
 - scrollUntilVisible:
     element:
       id: add-to-diary
