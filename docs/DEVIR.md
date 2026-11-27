@@ -2,30 +2,27 @@
 
 > Yeni oturum (bu makine, başka makine, Codex, ikinci hesap) **önce bunu okur**, sonra [`AGENTS.md`](../AGENTS.md)'ye uyar. Durum değişen her turun sonunda bir kez güncellenir. Geçmiş: [`DEVIR-gunluk.md`](DEVIR-gunluk.md). Kapsam ve fazlar: [`PROJECT_STATUS.md`](PROJECT_STATUS.md).
 
-**Son güncelleme:** 2026-11-27 14:05 (Europe/Istanbul) — Claude Opus 5.5 (yönetici), ana hesap, bu Mac
+**Son güncelleme:** 2026-11-27 18:30 (Europe/Istanbul) — Claude Opus 5.5 (yönetici), ana hesap, bu Mac
 
 ## ▶ BURADAN DEVAM ET
 
 > Yalnız şu anki durum yazılır; en çok ~25 satır, her seferinde üstüne yazılır. Biten iş günlüğe taşınır.
 
-- **Şu an:** Faz 3.3 son tur. Tüm ekran maketleri onaylı (tuval "komur"). Kod dalları hazır, doğrulama sürüyor.
-- **Git:** `main` = `be852b5` (#48, #49 merge). #50 yanlışlıkla `feat/today-redesign`'a merge edildi → aynı dal PR #51 ile `main`'e açıldı (kullanıcı merge etmeli).
-- **Dallar (hepsi `feat/today-add-button` üstünde, o da `feat/catalog-redesign` üstünde):**
-  - `feat/today-add-button` `299729c`+bu not: Bugün "Ekle" düğmesi, 24 px başlık, "Senin eklediğin" etiketi (Codex Sol). iOS: 518 test, 9 akış, design-tour PASS. Android: koşuyor.
-  - `feat/history-redesign` `dcba3b9`: Geçmiş + Kilo (Codex Sol). Birim 521 test PASS; iOS/Android doğrulanmadı.
-  - `feat/settings-redesign` `f6183e2`: Ayarlar + Profil (Güncelle) + Onboarding (Codex Sol). Birim 523 test PASS; iOS/Android doğrulanmadı.
-  - `feat/product-form` `b8a0e80`: Katalog sırası, son eklenenler, genişletilmiş ürün formu, ekleyen migration (marka, tür) (Codex Sol, R2). Birim 549 test PASS; **R2 review (sonnet-worker-high) bekliyor**, kota sıfırlanınca (15:10); iOS/Android doğrulanmadı. Sözleşme: scratchpad `review-product/CONTRACT.md` (dal mesajında da özet).
-- **Sıradaki adım:** today-add Android sonucu → PR (#51 merge edilince taban `main`). Sonra sırayla history, settings, product-form: `mobile/docs/DOGRULAMA.md` ile iOS + Android, design-tour seçicilerini güncelle (işçilere yasaktı), PR. product-form PR'ı R2 review ACCEPT olmadan açılmaz.
-- **Kota:** `get_usage`. 14:00'te 5 saatlik %81 (15:10 sıfırlanır), haftalık %35. Kod işleri Codex Sol'da.
-- **Tasarım tuvali:** https://claude.ai/artifact/Qw7AjeWyQT9SW7QadBahM5 (sürüm 10).
-- **Kullanıcıdan beklenen:** #51 merge; sonraki PR'lar.
-- **Dikkat:** Üst üste PR tuzağı (AGENTS). Aynı anda tek derleme/Maestro. Boşta simülatör/emülatör kapat. `mobil-dogrula` skill'i.
+- **Şu an:** Faz 3.3 (ekran tasarımı) bitti. Sıradaki: Faz 3.4 marka görselleri (ikon, açılış ekranı, ilk açılış tanıtım sayfaları, mağaza görselleri). Yeni oturum talimatı: [`docs/YENI-OTURUM-PROMPT.md`](YENI-OTURUM-PROMPT.md).
+- **Git:** `main`'de #48–#54 (Bugün, Katalog + detay, Ekle düğmesi + "Senin eklediğin", Geçmiş + Kilo, Ayarlar + Profil + Onboarding). Açık: #55 `feat/product-form` (katalog sırası, son eklenenler, genişletilmiş ürün formu, ekleyen migration v2; R2 review iki tur, P0/P1 yok) ve bu notu taşıyan Kilo grafiği PR'ı.
+- **Çalışan işçi:** yok. Simülatör ve emülatör kapalı.
+- **Kullanıcı kararı bekleyen:** uygulama ikonu yönü (A kalori halkası — yönetici önerisi, B tabak/kaşık, C "B" monogramı; yeni oturum hepsini ve varyantlarını tuvalde çizecek).
+- **Kota:** masaüstü uygulamasında `mcp__ccd_session_mgmt__get_usage`. Kod işleri Codex Sol (high); cihaz/hata ayıklama `sonnet-worker-high`.
+- **Tasarım tuvali:** https://claude.ai/artifact/Qw7AjeWyQT9SW7QadBahM5 (sürüm 10; "Kömür ve adaçayı" sayfası onaylı ekranlar).
+- **Palet:** bg #f4f1ea, yüzey #fbf9f4, birincil/metin #1f1f1c, kum #e8e2d3, adaçayı #9db39a (yalnız süs), yeşil metin #4a6647, soluk metin #5c584f, su #5a7f99.
+- **Dikkat:** PR'lar hep doğrudan `main`'e (üst üste PR tuzağı, AGENTS). Aynı anda tek derleme/Maestro. Codex sandbox'ı Maestro koşamaz: cihaz doğrulaması yöneticide ya da Claude işçisinde. Yeni worktree'de Android derlemesi `ANDROID_HOME` ister (`mobile/docs/DOGRULAMA.md`). `.claude/worktrees/` altındaki eski iş worktree'leri (dalları merge edildi) temizlenebilir.
+- **Açık küçük notlar:** #55 review P2'leri (porsiyon başına makro toplamı ve porsiyon gramı geçersiz değerleri için test boşluğu; son eklenenler sorgusu tüm günlüğü tarıyor). Katalog kategorisinde 300 satır sanallaştırılmamış. Faz 3.5'te ele alınır.
 
 ## Sıradaki işler (öncelik sırasıyla)
 
-1. Yukarıdaki dalların doğrulaması ve PR'ları; product-form R2 review.
-2. Faz 3.4: uygulama ikonu ve açılış ekranı.
-3. Faz 3.5: erişilebilirlik/kontrast/büyük metin; katalog listesinin sanallaştırılması; design-tour "sonra" görüntüleri.
+1. #55 ve bu PR'ın merge'i (kullanıcı).
+2. Faz 3.4 (yeni oturum): ikon + adaptive/monochrome katmanlar + bildirim ikonu, açılış ekranı, ilk açılış tanıtım sayfaları, mağaza görseli çerçeveleri.
+3. Faz 3.5: erişilebilirlik/kontrast/büyük metin; katalog listesinin sanallaştırılması; #55 P2 test boşlukları; design-tour "sonra" görüntüleri.
 4. Fiziksel cihaz testi (Faz 4) — ertelendi.
 5. Hesap işleri: EAS, App Store Connect, Play Console, kapalı test.
 

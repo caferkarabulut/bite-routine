@@ -1,6 +1,13 @@
 import { router } from "expo-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Alert, Keyboard, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Keyboard,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 import { addWeight, deleteWeight, listWeights, useDb } from "../../db";
 import { parseAmount, todayInIstanbul } from "../../domain";
@@ -40,7 +47,8 @@ export function parseWeight(text: string): number | null {
 export function WeightScreen() {
   const { t, lang } = useI18n();
   const db = useDb();
-  const { profile, saveProfile, dataVersion, notifyDataChanged } = useAppState();
+  const { profile, saveProfile, dataVersion, notifyDataChanged } =
+    useAppState();
   const [weights, setWeights] = useState<WeightLog[] | null>(null);
   const [failed, setFailed] = useState(false);
   const [attempt, setAttempt] = useState(0);
@@ -67,7 +75,10 @@ export function WeightScreen() {
     };
   }, [db, dataVersion, attempt]);
 
-  const chart = useMemo(() => (weights ? buildWeightChart(weights, 30) : null), [weights]);
+  const chart = useMemo(
+    () => (weights ? buildWeightChart(weights, 30) : null),
+    [weights],
+  );
   const today = todayInIstanbul();
   const hasToday = weights?.some((w) => w.date === today) ?? false;
 
@@ -86,7 +97,9 @@ export function WeightScreen() {
       notifyDataChanged();
       setText("");
       setNotice(t("features.history.weightSaved"));
-      setOfferKg(profile && Math.abs(profile.weightKg - kg) >= 0.05 ? kg : null);
+      setOfferKg(
+        profile && Math.abs(profile.weightKg - kg) >= 0.05 ? kg : null,
+      );
     } catch {
       setError(t("errors.saveFailed"));
     } finally {
@@ -111,7 +124,10 @@ export function WeightScreen() {
   const confirmDelete = (w: WeightLog) => {
     Alert.alert(
       t("features.history.deleteTitle"),
-      t("features.history.deleteMessage", { date: formatDate(w.date, lang), kg: formatNumber(w.kg, lang, 1) }),
+      t("features.history.deleteMessage", {
+        date: formatDate(w.date, lang),
+        kg: formatNumber(w.kg, lang, 1),
+      }),
       [
         { text: t("common.cancel"), style: "cancel" },
         {
@@ -131,7 +147,13 @@ export function WeightScreen() {
     edges: ["top", "bottom"] as ("top" | "bottom")[],
     largeTitle: t("features.history.weightTitle"),
     centerHeader: true,
-    headerLeft: <IconButton icon="chevronLeft" accessibilityLabel={t("features.history.back")} onPress={() => router.back()} />,
+    headerLeft: (
+      <IconButton
+        icon="chevronLeft"
+        accessibilityLabel={t("features.history.back")}
+        onPress={() => router.back()}
+      />
+    ),
   };
 
   if (failed) {
@@ -158,7 +180,9 @@ export function WeightScreen() {
   return (
     <Screen {...header}>
       <Card>
-        <Text accessibilityRole="header" style={typography.section}>{t("features.history.weightToday")}</Text>
+        <Text accessibilityRole="header" style={typography.section}>
+          {t("features.history.weightToday")}
+        </Text>
         <TextField
           testID="weight-input"
           label={t("features.history.weightInput")}
@@ -173,9 +197,17 @@ export function WeightScreen() {
           error={error}
           hint={hasToday ? t("features.history.weightSameDay") : undefined}
         />
-        <Button label={t("features.history.weightSave")} onPress={onSave} loading={busy} size="md" />
+        <Button
+          label={t("features.history.weightSave")}
+          onPress={onSave}
+          loading={busy}
+          size="md"
+        />
         {notice ? (
-          <Text accessibilityRole="alert" style={[typography.footnote, { color: palette.successText }]}>
+          <Text
+            accessibilityRole="alert"
+            style={[typography.footnote, { color: palette.successText }]}
+          >
             {notice}
           </Text>
         ) : null}
@@ -188,33 +220,61 @@ export function WeightScreen() {
               })}
             </Text>
             <View style={styles.offerActions}>
-              <View style={styles.offerPrimary}><Button label={t("features.history.offerAction")} onPress={onUpdateProfile} variant="secondary" size="md" /></View>
-              <Button label={t("features.history.offerDismiss")} onPress={() => setOfferKg(null)} variant="ghost" size="md" />
+              <View style={styles.offerPrimary}>
+                <Button
+                  label={t("features.history.offerAction")}
+                  onPress={onUpdateProfile}
+                  variant="secondary"
+                  size="md"
+                />
+              </View>
+              <Button
+                label={t("features.history.offerDismiss")}
+                onPress={() => setOfferKg(null)}
+                variant="ghost"
+                size="md"
+              />
             </View>
           </View>
         ) : null}
       </Card>
 
-      {chart ? <WeightChartView chart={chart} /> : <EmptyState message={t("features.history.weightEmpty")} />}
+      {chart ? (
+        <WeightChartView chart={chart} />
+      ) : (
+        <EmptyState message={t("features.history.weightEmpty")} />
+      )}
 
       {newestFirst.length > 0 ? (
         <Card>
-          <Text accessibilityRole="header" style={typography.section}>{t("features.history.entries")}</Text>
+          <Text accessibilityRole="header" style={typography.section}>
+            {t("features.history.entries")}
+          </Text>
           {newestFirst.map((w, i) => (
             <View key={w.id}>
               {i > 0 ? <Divider /> : null}
               <View style={styles.entryRow}>
                 <View style={{ flex: 1 }}>
-                  <Text style={typography.section}>{t("features.history.entryRow", { kg: formatNumber(w.kg, lang, 1) })}</Text>
-                  <Text style={typography.footnote}>{formatDate(w.date, lang)}</Text>
+                  <Text style={typography.section}>
+                    {t("features.history.entryRow", {
+                      kg: formatNumber(w.kg, lang, 1),
+                    })}
+                  </Text>
+                  <Text style={typography.footnote}>
+                    {formatDate(w.date, lang)}
+                  </Text>
                 </View>
                 <Pressable
                   accessibilityRole="button"
-                  accessibilityLabel={t("features.history.deleteEntry", { date: formatDate(w.date, lang) })}
+                  accessibilityLabel={t("features.history.deleteEntry", {
+                    date: formatDate(w.date, lang),
+                  })}
                   onPress={() => confirmDelete(w)}
                   style={styles.deleteBtn}
                 >
-                  <Text style={[typography.label, { color: colors.danger }]}>{t("common.delete")}</Text>
+                  <Text style={[typography.label, { color: colors.danger }]}>
+                    {t("common.delete")}
+                  </Text>
                 </Pressable>
               </View>
             </View>
@@ -227,11 +287,17 @@ export function WeightScreen() {
 
 const CHART_HEIGHT = 96;
 
-function WeightChartView({ chart }: { chart: NonNullable<ReturnType<typeof buildWeightChart>> }) {
+function WeightChartView({
+  chart,
+}: {
+  chart: NonNullable<ReturnType<typeof buildWeightChart>>;
+}) {
   const { t, lang } = useI18n();
   const summary =
     chart.points.length === 1
-      ? t("features.history.chartSingle", { kg: formatNumber(chart.last, lang, 1) })
+      ? t("features.history.chartSingle", {
+          kg: formatNumber(chart.last, lang, 1),
+        })
       : t("features.history.chartSummary", {
           count: chart.points.length,
           from: formatNumber(chart.first, lang, 1),
@@ -239,36 +305,103 @@ function WeightChartView({ chart }: { chart: NonNullable<ReturnType<typeof build
         });
   return (
     <Card>
-      <Text accessibilityRole="header" style={typography.section}>{t("features.history.chartTitle")}</Text>
+      <Text accessibilityRole="header" style={typography.section}>
+        {t("features.history.chartTitle")}
+      </Text>
       <Text style={typography.footnote}>{summary}</Text>
-      <View accessible accessibilityRole="image" accessibilityLabel={summary}
-        accessibilityHint={t("features.history.chartScale")}
-        style={[styles.chart, { gap: chart.points.length > 12 ? 2 : spacing.md }]}>
-        {chart.points.map((p) => (
-          <View key={p.id} style={styles.barSlot}>
-            <View
-              testID={`weight-bar-${p.date}`}
-              style={[styles.bar, { height: 8 + p.fraction * (CHART_HEIGHT - 8) }]}
-            />
+      {chart.points.length === 1 ? (
+        <Text style={typography.muted}>
+          {t("features.history.chartNeedsTwo")}
+        </Text>
+      ) : (
+        <>
+          <View
+            accessible
+            accessibilityRole="image"
+            accessibilityLabel={summary}
+            accessibilityHint={t("features.history.chartScale")}
+            style={[
+              styles.chart,
+              { gap: chart.points.length > 12 ? 2 : spacing.md },
+            ]}
+          >
+            {chart.points.map((p) => (
+              <View key={p.id} style={styles.barSlot}>
+                <View
+                  testID={`weight-bar-${p.date}`}
+                  style={[
+                    styles.bar,
+                    { height: 8 + p.fraction * (CHART_HEIGHT - 8) },
+                  ]}
+                />
+              </View>
+            ))}
           </View>
-        ))}
-      </View>
-      <View style={styles.minMax}>
-        <Text style={typography.small}>{t("features.history.chartMin", { kg: formatNumber(chart.min, lang, 1) })}</Text>
-        <Text style={typography.small}>{t("features.history.chartMax", { kg: formatNumber(chart.max, lang, 1) })}</Text>
-      </View>
+          <View style={styles.minMax}>
+            <Text style={typography.small}>
+              {t("features.history.chartMin", {
+                kg: formatNumber(chart.min, lang, 1),
+              })}
+            </Text>
+            <Text style={typography.small}>
+              {t("features.history.chartMax", {
+                kg: formatNumber(chart.max, lang, 1),
+              })}
+            </Text>
+          </View>
+        </>
+      )}
     </Card>
   );
 }
 
 const styles = StyleSheet.create({
-  offer: { gap: spacing.sm, paddingTop: spacing.sm, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: palette.divider },
-  offerActions: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: spacing.sm },
+  offer: {
+    gap: spacing.sm,
+    paddingTop: spacing.sm,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: palette.divider,
+  },
+  offerActions: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: spacing.sm,
+  },
   offerPrimary: { flexGrow: 1, flexBasis: 180 },
-  entryRow: { minHeight: 56, flexDirection: "row", alignItems: "center", gap: spacing.md, paddingVertical: spacing.xs },
-  deleteBtn: { minHeight: TOUCH, minWidth: TOUCH, alignItems: "center", justifyContent: "center", paddingHorizontal: spacing.sm },
-  chart: { height: CHART_HEIGHT, flexDirection: "row", alignItems: "flex-end", gap: spacing.md, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: palette.divider },
+  entryRow: {
+    minHeight: 56,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.md,
+    paddingVertical: spacing.xs,
+  },
+  deleteBtn: {
+    minHeight: TOUCH,
+    minWidth: TOUCH,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: spacing.sm,
+  },
+  chart: {
+    height: CHART_HEIGHT,
+    flexDirection: "row",
+    alignItems: "flex-end",
+    gap: spacing.md,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: palette.divider,
+  },
   barSlot: { flex: 1, justifyContent: "flex-end" },
-  bar: { width: "100%", backgroundColor: palette.accent, borderTopLeftRadius: spacing.xs, borderTopRightRadius: spacing.xs },
-  minMax: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm, justifyContent: "space-between" },
+  bar: {
+    width: "100%",
+    backgroundColor: palette.accent,
+    borderTopLeftRadius: spacing.xs,
+    borderTopRightRadius: spacing.xs,
+  },
+  minMax: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: spacing.sm,
+    justifyContent: "space-between",
+  },
 });

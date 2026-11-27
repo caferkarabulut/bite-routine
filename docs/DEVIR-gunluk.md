@@ -2,6 +2,15 @@
 
 En yeni girdi en üstte. [`DEVIR.md`](DEVIR.md)'den taşınan ayrıntı buraya gelir. Her girdi şunları yazar: ne yapıldı (dosyalar, commit'ler), kim yaptı (model, hesap), kararlar, doğrulama (komut ve sonucu), açık kalanlar. Girdiler sonradan düzeltilmez; yanlış bir girdi yeni bir girdiyle düzeltilir.
 
+## 2026-11-27 18:30 — Faz 3.3 kapanış
+
+- Kullanıcı #52, #53, #54'ü merge etti (#51 #52 ile birlikte girdi).
+- #53 Geçmiş + Kilo (Codex Sol medium), #54 Ayarlar + Profil + Onboarding (Codex Sol high; yönetici design-tour seçicilerini güncelledi): ikisi de iOS 9 akış + design-tour, Android 10 akış PASS; ekran görüntüleri yöneticide kontrol edildi.
+- #55 product-form (Codex Sol high, R2): tur 1 `sonnet-worker-high` ACCEPT (P2=3; 9 bozmadan 8'ini testler yakaladı). Cihazda gerçek hata çıktı: iOS modalında `Stack.Screen` form içinde olduğu için form donuyordu → `sonnet-worker-high` route dosyasına taşıdı (`2e46ada`), akışları güncelledi. Yönetici modalın yerel başlığını kapattı (`684171f`, çift başlık) ve iOS'ta modal çıkışını ekrandaki "Geri" ile yaptı (`f5d2167`; uyarı açıkken iOS aşağı kaydırmayı engelliyor). Tur 2 dar review Codex Sol high: P2=1 (bulunamadı ekranında geri düğmesi) → `e1631ba` + test. #54 ile birleşik hâli iOS + Android'de yeniden koşuldu.
+- Kilo grafiği: tek kayıtta çubuk yerine "Grafik için en az 2 kayıt gerekir." (`fix/weight-chart-single`); iOS history-weight + design-tour PASS.
+- Ana çalışma klasörünün `node_modules`'u eskiydi (#46 paketleri yoktu): `npm ci` ile düzeldi.
+- Yeni oturum talimatı `docs/YENI-OTURUM-PROMPT.md` yazıldı (Faz 3.4).
+
 ## 2026-11-27 14:05 — Kullanıcı istekleri: ürün ekleme, Ekle düğmesi, başlıklar, profil; kalan ekranlar
 
 - Kullanıcı #48, #49'u merge etti; #50 ölü dala gitti → PR #51.

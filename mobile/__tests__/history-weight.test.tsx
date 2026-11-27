@@ -50,6 +50,9 @@ describe("WeightScreen", () => {
     expect((await listWeights(db)).map((w) => [w.date, w.kg])).toEqual([[TODAY, 72.4]]);
     expect(await screen.findByText("72,4 kg")).toBeTruthy();
     expect(screen.getByText("Tek kayıt: 72,4 kg")).toBeTruthy();
+    // A single bar says nothing: the chart shows a short note instead.
+    expect(screen.getByText("Grafik için en az 2 kayıt gerekir.")).toBeTruthy();
+    expect(screen.queryByTestId(`weight-bar-${TODAY}`)).toBeNull();
   });
 
   it("updates the same day instead of adding a second entry", async () => {
