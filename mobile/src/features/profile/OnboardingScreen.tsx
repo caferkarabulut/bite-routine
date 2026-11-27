@@ -1,11 +1,11 @@
 import { router } from "expo-router";
 import { useState } from "react";
-import { Text } from "react-native";
+import { Keyboard, Text, View } from "react-native";
 
 import { todayInIstanbul } from "../../domain";
 import { useI18n } from "../../i18n";
 import { useAppState } from "../../state/AppState";
-import { Button, SectionTitle, colors, typography } from "../../ui";
+import { Button, colors, spacing, typography } from "../../ui";
 import { FormScreen, ProfileFields, TargetsCard } from "./ProfileForm";
 import { EMPTY_VALUES, useProfileForm } from "./useProfileForm";
 
@@ -20,11 +20,12 @@ export function OnboardingScreen() {
 
   const submit = async () => {
     form.markAttempted();
-    if (!form.input) return;
+    if (!form.input || saving) return;
+    Keyboard.dismiss();
     setSaving(true);
     setSaveError(false);
     try {
-      await saveProfile({ ...form.input, kcalOverride: null, proteinOverride: null });
+      await saveProfile(form.input);
       router.replace("/");
     } catch {
       setSaveError(true);
@@ -33,29 +34,35 @@ export function OnboardingScreen() {
   };
 
   return (
-    <FormScreen top>
-      <Text accessibilityRole="header" style={typography.title}>
-        {t("app.name")}
-      </Text>
-      <Text style={typography.body}>{t("features.profile.welcomeText")}</Text>
-      <SectionTitle>{t("features.profile.formTitle")}</SectionTitle>
+    <FormScreen
+      title={t("features.profile.formTitle")}
+      subtitle={<Text style={[typography.label, { color: colors.accentText, textAlign: "center" }]}>{t("app.name")}</Text>}
+      headerBelow={<Text style={[typography.muted, { textAlign: "center" }]}>{t("features.profile.welcomeText")}</Text>}
+      footer={
+        <View style={{ gap: spacing.sm }}>
+          <Text style={[typography.small, { textAlign: "center" }]}>{t("disclaimer")}</Text>
+          {form.attempted && !form.input ? (
+            <Text accessibilityRole="alert" style={[typography.small, { color: colors.danger }]}>
+              {t("features.profile.fixErrors")}
+            </Text>
+          ) : null}
+          {saveError ? (
+            <Text accessibilityRole="alert" style={[typography.small, { color: colors.danger }]}>
+              {t("errors.saveFailed")}
+            </Text>
+          ) : null}
+          <Button label={t("features.profile.start")} onPress={() => void submit()} loading={saving} />
+        </View>
+      }
+    >
       <ProfileFields form={form} currentYear={currentYear} />
       <TargetsCard
-        title={t("features.profile.previewTitle")}
-        targets={form.calculated}
-        empty={t("features.profile.previewEmpty")}
+        title={t(form.values.kcalOverride.trim() || form.values.proteinOverride.trim()
+          ? "features.profile.resultTitle"
+          : "features.profile.previewTitle")}
+        form={form}
+        currentYear={currentYear}
       />
-      {form.attempted && !form.input ? (
-        <Text accessibilityRole="alert" style={[typography.small, { color: colors.danger }]}>
-          {t("features.profile.fixErrors")}
-        </Text>
-      ) : null}
-      {saveError ? (
-        <Text accessibilityRole="alert" style={[typography.small, { color: colors.danger }]}>
-          {t("errors.saveFailed")}
-        </Text>
-      ) : null}
-      <Button label={t("features.profile.start")} onPress={submit} loading={saving} />
     </FormScreen>
   );
 }

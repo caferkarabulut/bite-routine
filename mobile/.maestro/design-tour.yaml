@@ -12,9 +12,11 @@ appId: com.biteroutine.mobile
     timeout: 15000
 - takeScreenshot: tour-01-onboarding-top
 - tapOn: "Erkek"
+- tapOn: "Aktivite düzeyi"
 - scrollUntilVisible:
     element: "Orta aktif.*"
 - tapOn: "Orta aktif.*"
+- tapOn: "Amaç"
 - scrollUntilVisible:
     element: "Kilomu koru.*"
 - tapOn: "Kilomu koru.*"
@@ -38,7 +40,7 @@ appId: com.biteroutine.mobile
 - waitForAnimationToEnd
 - takeScreenshot: tour-02-onboarding-filled-top
 - scrollUntilVisible:
-    element: "Günlük hedefin \\(önizleme\\)"
+    element: "Hesaplanan hedefin"
 - scrollUntilVisible:
     element: "Başla"
 - waitForAnimationToEnd
@@ -332,11 +334,11 @@ appId: com.biteroutine.mobile
     direction: UP
 - tapOn: "Profil ve hedef.*"
 - extendedWaitUntil:
-    visible: "Profilin"
+    visible: "Güncelle"
     timeout: 5000
 - waitForAnimationToEnd
 - takeScreenshot: tour-33-profile-top
 - scrollUntilVisible:
-    element: "Kaydet"
+    element: "Güncelle"
 - waitForAnimationToEnd
 - takeScreenshot: tour-34-profile-bottom

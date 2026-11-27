@@ -8,9 +8,11 @@ appId: com.biteroutine.mobile
     visible: "Seni tanıyalım"
     timeout: 15000
 - tapOn: "Erkek"
+- tapOn: "Aktivite düzeyi"
 - scrollUntilVisible:
     element: "Orta aktif.*"
 - tapOn: "Orta aktif.*"
+- tapOn: "Amaç"
 - scrollUntilVisible:
     element: "Kilomu koru.*"
 - tapOn: "Kilomu koru.*"
@@ -35,7 +37,7 @@ appId: com.biteroutine.mobile
 - tapOn: "Seni tanıyalım"
 - waitForAnimationToEnd
 - scrollUntilVisible:
-    element: "Günlük hedefin \\(önizleme\\)"
+    element: "Hesaplanan hedefin"
 - assertNotVisible: "Bilgileri doldurunca.*"
 - scrollUntilVisible:
     element: "Başla"
