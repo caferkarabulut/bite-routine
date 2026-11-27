@@ -36,14 +36,14 @@ export function CustomFoodScreen() {
 
   if (id && food === undefined) {
     return (
-      <Screen>
+      <Screen edges={["top", "bottom"]} largeTitle={t("customFood.edit")} centerHeader headerLeft={<IconButton icon="chevronLeft" accessibilityLabel={t("common.back")} onPress={() => router.back()} />}>
         <Loading label={t("common.loading")} />
       </Screen>
     );
   }
   if (id && food === null) {
     return (
-      <Screen>
+      <Screen edges={["top", "bottom"]} largeTitle={t("customFood.edit")} centerHeader headerLeft={<IconButton icon="chevronLeft" accessibilityLabel={t("common.back")} onPress={() => router.back()} />}>
         <EmptyState message={t("features.catalog.notFound")} />
       </Screen>
     );

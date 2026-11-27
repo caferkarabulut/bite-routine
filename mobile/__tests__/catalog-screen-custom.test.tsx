@@ -214,6 +214,9 @@ describe("CustomFoodScreen", () => {
     params.current = { id: "custom-missing" };
     await renderWithApp(<CustomFoodScreen />, db);
     expect(await screen.findByText(/bulunamadı/)).toBeTruthy();
+    // The modal has no native header, so the screen draws its own back button.
+    fireEvent.press(screen.getByLabelText("Geri"));
+    expect(router.back).toHaveBeenCalled();
   });
 
   describe("unsaved changes guard", () => {
