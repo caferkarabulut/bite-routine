@@ -11,6 +11,10 @@ import { freshDb, renderWithApp, seedProfile } from "./helpers/settings-harness"
 const mockFiles = new Map<string, string>();
 const mockPush = jest.fn();
 
+jest.mock("@react-native-community/datetimepicker", () => {
+  const { View } = require("react-native");
+  return { __esModule: true, default: View };
+});
 jest.mock("expo-localization", () => ({ useLocales: () => [{ languageCode: "tr", languageTag: "tr-TR" }] }));
 jest.mock("expo-router", () => ({ useRouter: () => ({ push: mockPush }) }));
 jest.mock("expo-constants", () => ({ __esModule: true, default: { expoConfig: { version: "1.2.3" } } }));
@@ -79,6 +83,7 @@ describe("SettingsScreen", () => {
   it("shows the profile target, version and navigates", async () => {
     await mountSettings();
     expect(screen.getByText("Sürüm 1.2.3")).toBeTruthy();
+    expect(screen.getByText("Açtığın hatırlatıcılar için seçtiğin saatte telefonuna bildirim göndeririz. İlk açışta telefon izin ister; izni istediğin zaman telefonun ayarlarından kapatabilirsin.")).toBeTruthy();
     expect(screen.getByLabelText(/^Profil ve hedef, Günlük hedef: .* kcal$/)).toBeTruthy();
     await fireEvent.press(screen.getByLabelText(/^Profil ve hedef/));
     expect(mockPush).toHaveBeenCalledWith("/profile");
@@ -144,7 +149,7 @@ describe("SettingsScreen", () => {
       const db = await mountSettings();
       await fireEvent.press(toggle("Akşam yemeği hatırlatıcısı"));
       await waitFor(() => expect(notifications.scheduleNotificationAsync).toHaveBeenCalledTimes(1));
-      await fireEvent.press(screen.getAllByLabelText("Dakikayı artır")[2]);
+      await fireEvent(screen.getByTestId("reminder-time-meal-dinner"), "onValueChange", {}, new Date(2026, 0, 1, 19, 5));
       await waitFor(() => expect(notifications.scheduleNotificationAsync).toHaveBeenCalledTimes(2));
       expect(notifications.scheduleNotificationAsync).toHaveBeenLastCalledWith(
         expect.objectContaining({
@@ -152,7 +157,7 @@ describe("SettingsScreen", () => {
           trigger: expect.objectContaining({ type: "daily", hour: 19, minute: 5 }),
         }),
       );
-      await fireEvent.press(screen.getAllByLabelText("Saati azalt")[2]);
+      await fireEvent(screen.getByTestId("reminder-time-meal-dinner"), "onValueChange", {}, new Date(2026, 0, 1, 18, 5));
       await waitFor(() => expect(notifications.scheduleNotificationAsync).toHaveBeenCalledTimes(3));
       await fireEvent.press(toggle("Akşam yemeği hatırlatıcısı"));
       await waitFor(async () => {

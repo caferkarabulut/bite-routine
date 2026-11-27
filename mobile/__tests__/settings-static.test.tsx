@@ -6,6 +6,7 @@ import { SourcesScreen } from "../src/features/settings/SourcesScreen";
 import { I18nProvider } from "../src/i18n";
 import type { Language } from "../src/types";
 
+jest.mock("expo-router", () => ({ router: { back: jest.fn() } }));
 jest.mock("expo-localization", () => ({ useLocales: () => [{ languageCode: "tr", languageTag: "tr-TR" }] }));
 
 let openURL: jest.SpiedFunction<typeof Linking.openURL>;

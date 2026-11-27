@@ -1,13 +1,13 @@
 import Constants from "expo-constants";
 import { useRouter } from "expo-router";
-import { useEffect, useRef, useState } from "react";
-import { Alert, Keyboard, Text } from "react-native";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Alert, Keyboard, Text, View } from "react-native";
 
 import { importBackup, useDb, wipeAllData } from "../../db";
 import { parseAmount } from "../../domain";
 import { formatKcal, useI18n } from "../../i18n";
 import type { Language } from "../../types";
-import { Button, Card, ChoiceChips, colors, ListRow, Screen, SectionTitle, TextField, typography } from "../../ui";
+import { Button, Card, ChoiceChips, colors, Divider, SettingsRow, Screen, TextField, spacing, typography } from "../../ui";
 import { useAppState } from "../../state/AppState";
 import { backupCounts, createAndShareBackup, pickBackup, ShareUnavailableError } from "./backupFiles";
 import { DeleteAllModal } from "./DeleteAllModal";
@@ -131,19 +131,16 @@ export function SettingsScreen() {
   const version = Constants.expoConfig?.version ?? "";
 
   return (
-    <Screen edges={[]}>
-      <SectionTitle>{t("features.settings.sectionProfile")}</SectionTitle>
-      <Card>
-        <ListRow
+    <Screen edges={["top"]} largeTitle={t("settings.title")} centerHeader>
+      <SettingsSection title={t("features.settings.sectionProfile")} padded={false}>
+        <SettingsRow
           title={t("settings.profile")}
           subtitle={targets ? t("features.settings.targetLine", { kcal: formatKcal(targets.kcal, lang) }) : t("features.settings.noProfile")}
-          right="›"
           onPress={() => router.push("/profile")}
         />
-      </Card>
+      </SettingsSection>
 
-      <SectionTitle>{t("features.settings.sectionLanguage")}</SectionTitle>
-      <Card>
+      <SettingsSection title={t("features.settings.sectionLanguage")}>
         <ChoiceChips<LanguageChoice>
           label={t("settings.language")}
           options={[
@@ -154,10 +151,9 @@ export function SettingsScreen() {
           value={choice}
           onChange={(v) => setLanguage(v === "system" ? null : v)}
         />
-      </Card>
+      </SettingsSection>
 
-      <SectionTitle>{t("features.settings.sectionWater")}</SectionTitle>
-      <Card>
+      <SettingsSection title={t("features.settings.sectionWater")}>
         <TextField
           testID="water-goal-input"
           label={t("settings.waterGoal")}
@@ -168,37 +164,40 @@ export function SettingsScreen() {
           }}
           keyboardType="number-pad"
           inputMode="numeric"
-          suffix="ml"
+          suffix={t("units.ml")}
           error={waterError}
         />
         <Button label={t("common.save")} variant="secondary" onPress={saveWater} />
         <StatusText status={waterStatus} />
-      </Card>
+      </SettingsSection>
 
-      <SectionTitle>{t("features.settings.sectionReminders")}</SectionTitle>
-      <RemindersSection
-        reminders={settings.reminders}
-        onChange={(reminders) => saveSettings({ ...settings, reminders })}
-      />
+      <View style={{ gap: spacing.sm }}>
+        <SectionHeading>{t("features.settings.sectionReminders")}</SectionHeading>
+        <RemindersSection
+          reminders={settings.reminders}
+          onChange={(reminders) => saveSettings({ ...settings, reminders })}
+        />
+      </View>
 
-      <SectionTitle>{t("features.settings.sectionData")}</SectionTitle>
-      <Card>
+      <SettingsSection title={t("features.settings.sectionData")}>
         <Text style={typography.muted}>{t("settings.backupHint")}</Text>
         <Button label={t("settings.backup")} variant="secondary" disabled={busy} onPress={() => void backup()} />
         <Text style={typography.muted}>{t("settings.restoreHint")}</Text>
         <Button label={t("settings.restore")} variant="secondary" disabled={busy} onPress={() => void restore()} />
         <Text style={typography.muted}>{t("settings.deleteAllHint")}</Text>
         <Button label={t("settings.deleteAll")} variant="danger" disabled={busy} onPress={() => setDeleteOpen(true)} />
-      </Card>
-      <StatusText status={status} />
+        <StatusText status={status} />
+      </SettingsSection>
 
-      <SectionTitle>{t("features.settings.sectionAbout")}</SectionTitle>
-      <Card>
-        <ListRow title={t("settings.sources")} right="›" onPress={() => router.push("/sources")} />
-        <ListRow title={t("settings.privacy")} right="›" onPress={() => router.push("/privacy")} />
-        {version ? <Text style={typography.muted}>{t("settings.version", { version })}</Text> : null}
-        <Text style={typography.small}>{t("disclaimer")}</Text>
-      </Card>
+      <SettingsSection title={t("features.settings.sectionAbout")} padded={false}>
+        <SettingsRow title={t("settings.sources")} onPress={() => router.push("/sources")} />
+        <Divider inset={spacing.lg} />
+        <SettingsRow title={t("settings.privacy")} onPress={() => router.push("/privacy")} />
+        <View style={{ padding: spacing.lg, gap: spacing.sm }}>
+          {version ? <Text style={typography.muted}>{t("settings.version", { version })}</Text> : null}
+          <Text style={typography.small}>{t("disclaimer")}</Text>
+        </View>
+      </SettingsSection>
 
       <DeleteAllModal
         visible={deleteOpen}
@@ -220,5 +219,18 @@ function StatusText({ status }: { status: Status }) {
     >
       {status.text}
     </Text>
+  );
+}
+
+function SectionHeading({ children }: { children: string }) {
+  return <Text accessibilityRole="header" style={[typography.label, { color: colors.textMuted, marginLeft: spacing.xs }]}>{children}</Text>;
+}
+
+function SettingsSection({ title, children, padded = true }: { title: string; children: ReactNode; padded?: boolean }) {
+  return (
+    <View style={{ gap: spacing.sm }}>
+      <SectionHeading>{title}</SectionHeading>
+      <Card padded={padded} style={padded ? undefined : { gap: 0 }}>{children}</Card>
+    </View>
   );
 }

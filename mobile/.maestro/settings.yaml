@@ -10,6 +10,18 @@ appId: com.biteroutine.mobile
 - tapOn: "Türkçe"
 - assertVisible: "Ayarlar(, tab.*)?"
 - assertVisible: "Bugün(, tab.*)?"
+# Profile saves all edits together and confirms in place before returning.
+- tapOn: "Profil ve hedef.*"
+- tapOn:
+    id: onboarding-weight
+- eraseText: 6
+- inputText: "79"
+- runFlow:
+    file: subflows/dismiss-keyboard.yaml
+- tapOn: "Güncelle"
+- assertVisible: "Güncellendi."
+- tapOn: "Geri"
+- assertVisible: "Profil ve hedef.*"
 # Center the field: at the screen edge it ends up under the number pad and taps land on its keys.
 - scrollUntilVisible:
     element:
@@ -22,7 +34,7 @@ appId: com.biteroutine.mobile
 - runFlow:
     file: subflows/dismiss-keyboard.yaml
 - tapOn: "Kaydet"
-# UX: the confirmation is rendered below the Data card, far from the Kaydet button (off-screen).
+# The water goal confirmation stays in the same card as its save button.
 - takeScreenshot: settings-water-saved
 - scrollUntilVisible:
     element: "Su hedefi kaydedildi."
