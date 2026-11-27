@@ -56,6 +56,7 @@ Bu makinede yaşanmış, bir sonraki ajanın da düşebileceği tuzaklar. Her sa
 - 2026-11-13 — Claude Code'un `isolation: "worktree"` ajanları `main`'den açılır, o anki daldan değil. Çözüm: işçi talimatına taban commit'i yaz (`git reset --hard <taban>` ve doğrula).
 - 2026-11-13 — Arka plan kabuğunda `LANG` boş; CocoaPods "Unicode Normalization not appropriate for ASCII-8BIT" verir. Çözüm: `export LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8`.
 - 2026-11-13 — PR #35 (`fix/ux-polish`) `main`'e değil, önceden merge edilmiş `feat/mobile-local`'e merge edildi; değişiklik `main`'e ulaşmadı. Çözüm: PR açarken ve merge etmeden önce taban dalın `main` olduğunu kontrol et.
+- 2026-11-27 — DEVIR "çalışan işçi yok" derken önceki Claude oturumu aynı worktree'de derleme ve Maestro sürdürüyordu; iki koşu çakıştı. Çözüm: derleme/test başlatmadan önce `pgrep -fl "[x]codebuild|[m]aestro|[g]radle"` ile başka süreç olmadığını kontrol et.
 - 2026-11-26 — Bu Mac'teki iOS 27.1 runtime yalnız "iPhone Duo"yu destekliyor; `simctl create` iPhone 17/18 Pro için "Incompatible device" verir. Çözüm: Duo'yu (kapalı = dış ekran) kullan ya da kullanıcı onayıyla başka bir iOS runtime indir.
 - 2026-11-26 — iOS derlemesi ile Android emülatörü aynı anda çalışınca emülatörde "system işlemi yanıt vermiyor" (ANR) penceresi çıkıyor ve Maestro akışları kalıyor. Çözüm: Maestro'yu derleme bitince çalıştır; pencere çıktıysa emülatörü `-no-snapshot-load` ile soğuk başlat.
 

@@ -2,6 +2,17 @@
 
 En yeni girdi en üstte. [`DEVIR.md`](DEVIR.md)'den taşınan ayrıntı buraya gelir. Her girdi şunları yazar: ne yapıldı (dosyalar, commit'ler), kim yaptı (model, hesap), kararlar, doğrulama (komut ve sonucu), açık kalanlar. Girdiler sonradan düzeltilmez; yanlış bir girdi yeni bir girdiyle düzeltilir.
 
+## 2026-11-27 04:05 — #46 doğrulaması
+
+- Kullanıcı #37–#45'in hepsini merge etmiş; GitHub Pages yayında (`main` `/docs`).
+- Yönetici (Claude Opus 5.5) takılı Gradle'ı durdurdu (daemon + pid 53035), güncel `main`'i `feat/design-foundation`'a birleştirdi (`b282b21`, çakışmasız).
+- Önceki oturum (pid 14099, DEVIR'de "çalışan yok" görünüyordu) aynı worktree'de Duo'ya derleme ve Maestro koşuyordu; iki koşu çakıştı. Kullanıcı eski oturumu durdurdu. O oturumun son commit'i `dea9e4d` (Android'de Nunito yüksekliği yüzünden metin kutularının kaydırmayı yutması; `mobile/src/ui/components.tsx`, `controls.tsx`) tutuldu.
+- `sonnet-worker-high` → `b2559d6`: kök neden Maestro zamanlaması, uygulama değil. iPhone 17'de `scroll` Bugün'ü sona kaydırıp `add-breakfast`'ı başlığın arkasına itiyordu; su kartında "Son eklemeyi geri al" sekme çubuğunun altında kalıyordu. `subflows/add-lentil-soup.yaml`, `water.yaml` → `scrollUntilVisible` + `centerElement: true`; README tuzak satırı.
+- Doğrulama: check:deps, typecheck, lint, npm test (28 suite, 463 test) HEAD'de geçti. iOS Release iPhone 17 (iOS 27.2, tr-TR): 9 akış PASS (işçi koşusu). Design-tour düzeltmeden önce PASS (35 görüntü; yönetici Bugün, yemek detayı, geçmiş görüntülerine baktı). Android Release `bite-routine-pixel`: 9 akış + android-back PASS; edit-delete-entry ilk koşuda katalog dokunuşu detayı açmadı, iki tekrarda PASS (kararsız).
+- GitHub: `feat/design-foundation` push edildi, #46 açıklaması güncellendi ve taslaktan çıkarıldı. Bu not #47'ye (`docs/handoff-simulator`) yazıldı.
+- Temizlik: merge edilmiş 5 temiz worktree kaldırıldı (design-baseline, packaged-name-case, agent-setup, release-config, store-listing; dallar duruyor).
+- Açık: #46/#47 merge, 3.3 pilot.
+
 ## 2026-11-27 02:13 — Faz 3.1 seçim, katalog ad normalleştirme, destek e-postası, 3.2 temel
 
 - Kullanıcı Yön A düzenini seçti, paleti beğenmedi; başka uygulamanın "Kömür ve adaçayı" paleti + Nunito + büyük köşeler istendi. Yönetici (Claude Opus 5.5) tuvalde palet karşılaştırması ve "komur" sayfasını yaptı; kullanıcı onayladı. Kontrast: adaçayı 2.1:1 → yalnız süs, yeşil metin #4a6647.
