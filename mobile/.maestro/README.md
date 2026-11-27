@@ -57,15 +57,19 @@ Yedekle/Geri yükle (paylaşım ve dosya seçici) ve bildirim izni akışları k
   (örn. "Günlüğe ekle" yerine "0" yazılır). `subflows/dismiss-keyboard.yaml` Enter basar ve klavyenin
   kaybolmasını bekler. Klavyenin altında kalan bir hedefe dokunmadan önce bunu çağır.
 - **Sekme çubuğu**: sekmelerin erişilebilirlik adı `Katalog, tab, 2 of 4` biçimindedir; `"Katalog, tab.*"` kullan.
-- **Alttaki içerik**: Bugün'de öğün kartları ve su kartı sekme çubuğunun altında başlar. Dokunmadan önce
+- **Alttaki içerik**: Bugün'de öğün kartı küçük ekranlarda sekme çubuğunun altında başlar. Dokunmadan önce
   `scroll` / `scrollUntilVisible` kullan, yoksa dokunuş bir sekmeye gider. `scrollUntilVisible` ekran sınırında
   olan ama klavyenin altında kalan öğeyi "görünür" sayar.
 - **Sekme çubuğunun altında kalan hedef**: `scrollUntilVisible` ve düz `scroll` hedefi sekme çubuğunun altında
   bırakabilir ya da ekranın üstüne itebilir (iPhone 17'de "Kahvaltı +Ekle" üstte, "Son eklemeyi geri al" altta
   kaldı); dokunuş sessizce başka yere gider. Dokunacağın hedefte `centerElement: true` kullan.
 - **Kaydırma konumu**: Bugün'e dönüşte kaydırma konumu korunur; üstteki toplamlar için önce
-  `scrollUntilVisible: Kalori, direction: UP`.
-- Porsiyon adları sayı içerir (`1 kepçe`), Bugün satırı bu yüzden `1,5 1 kepçe` okunur.
+  `scrollUntilVisible: Yenen, direction: UP` ("Yenen", kalori kartındaki etiket; halka erişilebilirlik adı
+  "N kcal kaldı"dır).
+- Bugün'de bir öğün başlığı tek öğedir: `Kahvaltı  137 kcal` (ad + öğün toplamı). Kayıt satırı da tek öğedir:
+  `Mercimek çorbası, 1,5 kepçe · 225 g, 137 kcal`. Seçici `Kahvaltı.*137 kcal` ya da `.*1,5 kepçe.*` gibi yazılır.
+- Bugün'de "Önceki gün" / "Sonraki gün" düğmeleri vardır; sonraki gün bugünde devre dışıdır. "Bugün" başlığı hem sayfa
+  başlığı hem sekme adıdır (`Bugün(, tab.*)?` ikisini de eşler).
 - Maestro 2.12'de `takeScreenshot` yolu çıktı klasörüne göre çözülür; `--test-output-dir` verilmezse
   görüntüler `~/.maestro/tests/<zaman>/<akış>/takeScreenshot/` altına gider.
 

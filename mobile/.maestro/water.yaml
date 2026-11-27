@@ -11,7 +11,7 @@ appId: com.biteroutine.mobile
 - assertVisible: "200 / 2.000 ml"
 - tapOn: "500 ml ekle"
 - assertVisible: "700 / 2.000 ml"
-# The undo link sits below the buttons, under the tab bar on iOS and Android: center it so the tap misses the bar.
+# Undo appears next to the water total after an add; center it so the tap misses the tab bar on small screens.
 - scrollUntilVisible:
     element: "Son eklemeyi geri al"
     centerElement: true

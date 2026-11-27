@@ -6,7 +6,7 @@ appId: com.biteroutine.mobile
 - runFlow: subflows/add-lentil-soup.yaml
 # Scroll to the top first: Android only exposes on-screen rows, so the entry must be in view to be matched.
 - scrollUntilVisible:
-    element: "Kalori"
+    element: "Yenen"
     direction: UP
 - extendedWaitUntil:
     visible: "Mercimek çorbası.*"
@@ -28,12 +28,12 @@ appId: com.biteroutine.mobile
     element: "Kaydet"
 - tapOn: "Kaydet"
 - scrollUntilVisible:
-    element: "Kalori"
+    element: "Yenen"
     direction: UP
 - scrollUntilVisible:
-    element: ".*, 2 kepçe, .*"
-- assertVisible: "183 kcal"
-- tapOn: ".*, 2 kepçe, .*"
+    element: ".*, 2 kepçe · .*"
+- assertVisible: ".*183 kcal"
+- tapOn: ".*, 2 kepçe · .*"
 - extendedWaitUntil:
     visible:
       id: amount-input
@@ -43,10 +43,10 @@ appId: com.biteroutine.mobile
 - tapOn: "Kaydı sil"
 - tapOn: "Sil"
 - extendedWaitUntil:
-    visible: "Bugün henüz bir şey eklemedin."
+    visible: "Henüz yemek yok"
     timeout: 5000
 - assertNotVisible: "Mercimek çorbası.*"
 - scrollUntilVisible:
-    element: "Kalori"
+    element: "Yenen"
     direction: UP
-- assertVisible: "0 / .* kcal"
+- assertVisible: "0 kcal"
