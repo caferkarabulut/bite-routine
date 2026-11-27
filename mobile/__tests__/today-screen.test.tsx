@@ -27,8 +27,11 @@ describe("TodayScreen summary", () => {
     await seedEntry(db, today, { grams: 100 }); // 100 kcal
     await seedEntry(db, today, { grams: 200, mealSlot: "lunch" }); // 200 kcal
     await renderWithApp(<TodayScreen />, db);
-    expect(await screen.findByText("300 / 2.000 kcal")).toBeTruthy();
-    expect(screen.getByText("1.700 kcal kaldı")).toBeTruthy();
+    expect(await screen.findByLabelText("1.700 kcal kaldı")).toBeTruthy(); // ring
+    expect(screen.getByText("1.700")).toBeTruthy();
+    expect(screen.getByText("kcal kaldı")).toBeTruthy();
+    expect(screen.getByText("300 kcal")).toBeTruthy(); // Yenen
+    expect(screen.getByText("2.000 kcal")).toBeTruthy(); // Hedef
     expect(screen.getByText("30 / 100 g")).toBeTruthy(); // protein
     expect(screen.getByText(/Değerler yaklaşıktır/)).toBeTruthy();
   });
@@ -38,7 +41,9 @@ describe("TodayScreen summary", () => {
     await seedProfile(db);
     await seedEntry(db, today, { grams: 2500 });
     await renderWithApp(<TodayScreen />, db);
-    expect(await screen.findByText("500 kcal fazla")).toBeTruthy();
+    expect(await screen.findByLabelText("500 kcal fazla")).toBeTruthy();
+    expect(screen.getByText("500")).toBeTruthy();
+    expect(screen.getByText("kcal fazla")).toBeTruthy();
     expect(screen.queryByText(/kaldı/)).toBeNull();
   });
 
@@ -52,7 +57,7 @@ describe("TodayScreen summary", () => {
       per100g: { kcal: 50, protein: null, carbs: 1, fat: 1 },
     });
     await renderWithApp(<TodayScreen />, db);
-    expect(await screen.findByText("150 / 2.000 kcal")).toBeTruthy();
+    expect(await screen.findByText("150 kcal")).toBeTruthy();
     expect(screen.getAllByText("Veri yok")).toHaveLength(1); // protein only
     expect(screen.getByText(/toplamlar eksik olabilir/)).toBeTruthy();
   });
@@ -66,12 +71,22 @@ describe("TodayScreen summary", () => {
     expect(screen.queryByText(/kcal kaldı/)).toBeNull();
   });
 
-  it("shows the empty day state", async () => {
+  it("shows an untouched day with every meal empty", async () => {
     const db = await makeDb();
     await seedProfile(db);
     await renderWithApp(<TodayScreen />, db);
-    expect(await screen.findByText("Bugün henüz bir şey eklemedin.")).toBeTruthy();
-    expect(screen.getByText("0 / 2.000 kcal")).toBeTruthy();
+    expect(await screen.findByLabelText("2.000 kcal kaldı")).toBeTruthy();
+    expect(screen.getByText("0 kcal")).toBeTruthy(); // Yenen
+    expect(screen.getAllByText("Henüz yemek yok")).toHaveLength(4);
+    expect(screen.queryByText("Bugün henüz bir şey eklemedin.")).toBeNull();
+  });
+
+  it("asks for a profile when there are no targets", async () => {
+    const db = await makeDb();
+    await renderWithApp(<TodayScreen />, db);
+    expect(await screen.findByText("Hedefini görmek için önce profilini tamamla.")).toBeTruthy();
+    await fireEvent.press(screen.getByRole("button", { name: "Profili tamamla" }));
+    expect(router.push).toHaveBeenCalledWith("/profile");
   });
 });
 
@@ -88,10 +103,12 @@ describe("TodayScreen meals", () => {
     });
     await renderWithApp(<TodayScreen />, db);
     await screen.findByText("Yumurta");
-    const headers = screen.getAllByRole("header").map((h) => h.props.children);
-    expect(headers).toEqual(["Kahvaltı", "Öğle yemeği", "Akşam yemeği", "Atıştırmalık", "Su"]);
-    expect(screen.getByRole("button", { name: /^Yumurta, 1,5 × Orta adet, \d+ kcal$/ })).toBeTruthy();
+    const headers = screen.getAllByRole("header").map((h) => (Array.isArray(h.props.children) ? h.props.children[0] : h.props.children));
+    expect(headers).toEqual(["Bugün", "Su", "Kahvaltı", "Öğle yemeği", "Akşam yemeği", "Atıştırmalık"]);
+    expect(screen.getByRole("button", { name: /^Yumurta, 1,5 × Orta adet · 66 g, \d+ kcal$/ })).toBeTruthy();
     expect(screen.getByRole("button", { name: /^Elma, 100 g, \d+ kcal$/ })).toBeTruthy();
+    expect(screen.getByText("1,5 × Orta adet · 66 g")).toBeTruthy();
+    expect(screen.getByText("100 g")).toBeTruthy();
     expect(screen.getAllByText("66 kcal").length).toBeGreaterThanOrEqual(2); // meal total + row
     expect(screen.getAllByText("Henüz yemek yok")).toHaveLength(2);
   });
@@ -104,8 +121,9 @@ describe("TodayScreen meals", () => {
     await fireEvent.press(await screen.findByRole("button", { name: /Yumurta/ }));
     expect(router.push).toHaveBeenCalledWith({ pathname: "/entry/[id]", params: { id: entry.id } });
 
-    const adds = screen.getAllByRole("button", { name: "+ Ekle" });
+    const adds = screen.getAllByRole("button", { name: /öğününe yemek ekle$/ });
     expect(adds).toHaveLength(4);
+    expect(adds[2].props.accessibilityLabel).toBe("Akşam yemeği öğününe yemek ekle");
     await fireEvent.press(adds[2]);
     expect(router.push).toHaveBeenLastCalledWith({ pathname: "/catalog", params: { date: today, meal: "dinner" } });
   });
@@ -117,9 +135,16 @@ describe("TodayScreen day selection", () => {
     await seedProfile(db);
     await seedEntry(db, addDays(today, -1), { foodName: "Dünkü yemek" });
     await renderWithApp(<TodayScreen />, db);
-    await screen.findByText("Bugün henüz bir şey eklemedin.");
+    await screen.findByLabelText("2.000 kcal kaldı");
+    expect(screen.getByRole("header", { name: "Bugün" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Sonraki gün" }).props.accessibilityState?.disabled).toBe(true);
     await fireEvent.press(screen.getByRole("button", { name: "Önceki gün" }));
     expect(await screen.findByText("Dünkü yemek")).toBeTruthy();
+    expect(screen.getByRole("header", { name: "Dün" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Sonraki gün" }).props.accessibilityState?.disabled).toBe(false);
+    await fireEvent.press(screen.getByRole("button", { name: "Önceki gün" }));
+    await screen.findAllByText("Henüz yemek yok");
+    expect(screen.getByRole("header", { name: /^(Pazartesi|Salı|Çarşamba|Perşembe|Cuma|Cumartesi|Pazar)$/ })).toBeTruthy();
   });
 
   it("opens the day from a valid date param", async () => {
@@ -136,7 +161,8 @@ describe("TodayScreen day selection", () => {
     await seedProfile(db);
     mockParams.mockReturnValue({ date: "2026-02-31" });
     await renderWithApp(<TodayScreen />, db);
-    expect(await screen.findByText("Bugün henüz bir şey eklemedin.")).toBeTruthy();
+    expect(await screen.findByLabelText("2.000 kcal kaldı")).toBeTruthy();
+    expect(screen.getByRole("header", { name: "Bugün" })).toBeTruthy();
   });
 });
 
@@ -146,8 +172,7 @@ describe("TodayScreen water", () => {
     await seedProfile(db);
     await renderWithApp(<TodayScreen />, db);
     await screen.findByText("0 / 2.000 ml");
-    const undo = screen.getByRole("button", { name: "Son eklemeyi geri al" });
-    expect(undo.props.accessibilityState?.disabled).toBe(true);
+    expect(screen.queryByRole("button", { name: "Son eklemeyi geri al" })).toBeNull(); // nothing to undo yet
 
     await fireEvent.press(screen.getByRole("button", { name: "200 ml ekle" }));
     expect(await screen.findByText("200 / 2.000 ml")).toBeTruthy();
@@ -160,5 +185,6 @@ describe("TodayScreen water", () => {
     await fireEvent.press(screen.getByRole("button", { name: "Son eklemeyi geri al" }));
     await waitFor(() => expect(screen.getByText("0 / 2.000 ml")).toBeTruthy());
     expect(await getWater(db, today)).toBe(0);
+    expect(screen.queryByRole("button", { name: "Son eklemeyi geri al" })).toBeNull();
   });
 });

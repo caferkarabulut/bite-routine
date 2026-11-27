@@ -67,6 +67,12 @@ export function formatDate(date: LocalDate, lang: Language): string {
   return `${EN_WEEKDAYS[weekday]}, ${EN_MONTHS[month - 1]} ${day}`;
 }
 
+/** Full weekday name: "Cuma" / "Friday". */
+export function formatWeekday(date: LocalDate, lang: Language): string {
+  const { weekday } = dateParts(date);
+  return lang === "tr" ? TR_WEEKDAYS[weekday] : EN_WEEKDAYS[weekday];
+}
+
 /** Short weekday name for chart labels: "Per" / "Thu". */
 export function formatWeekdayShort(date: LocalDate, lang: Language): string {
   const { weekday } = dateParts(date);
