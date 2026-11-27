@@ -2,30 +2,32 @@
 
 > Yeni oturum (bu makine, başka makine, Codex, ikinci hesap) **önce bunu okur**, sonra [`AGENTS.md`](../AGENTS.md)'ye uyar. Durum değişen her turun sonunda bir kez güncellenir. Geçmiş: [`DEVIR-gunluk.md`](DEVIR-gunluk.md). Kapsam ve fazlar: [`PROJECT_STATUS.md`](PROJECT_STATUS.md).
 
-**Son güncelleme:** 2026-11-27 04:05 (Europe/Istanbul) — Claude Opus 5.5 (yönetici), ana hesap, bu Mac
+**Son güncelleme:** 2026-11-27 14:05 (Europe/Istanbul) — Claude Opus 5.5 (yönetici), ana hesap, bu Mac
 
 ## ▶ BURADAN DEVAM ET
 
 > Yalnız şu anki durum yazılır; en çok ~25 satır, her seferinde üstüne yazılır. Biten iş günlüğe taşınır.
 
-- **Şu an:** Faz 3.2 (tasarım temeli) doğrulandı; PR #46 taslaktan çıktı, merge bekliyor. Seçilen tasarım: Yön A düzeni + "Kömür ve adaçayı" paleti + Nunito (KARARLAR'da).
-- **Git:** `main` = `8a43782`. Açık PR'lar: #46 `feat/design-foundation` (HEAD `b2559d6`, güncel main birleştirildi), #47 `docs/handoff-simulator` (yalnız bu not ve AGENTS tuzak satırı). Sıra önemsiz.
-- **#46 doğrulaması:** check:deps, typecheck, lint, npm test (463) geçti. iOS Release iPhone 17 (tr-TR): 9 Maestro akışı geçti. Android Release Pixel emülatörü: 9 akış + android-back geçti; edit-delete-entry bir kez kaldı, iki tekrarda geçti (kararsız).
-- **Sıradaki adım:** Kullanıcı #46 ve #47'yi merge eder. Ardından 3.3 Bugün ekranı pilotu → kullanıcı onayı → diğer ekranlar paralel (katalog+detay, geçmiş+kilo, ayarlar+profil, onboarding).
-- **Simülatörler:** "iPhone 17" UDID `2B9ADD03-24A3-45F1-B184-D5B641679907` (iOS 27.2, tr-TR; #46 bunda doğrulandı) ve "iPhone 17 Pro (TR)" UDID `93B134AD-5280-4931-AAD5-857B26EEDF3C`. Android: AVD `bite-routine-pixel` (`emulator-5554`, tr-TR).
-- **Tasarım tuvali:** https://claude.ai/artifact/Qw7AjeWyQT9SW7QadBahM5 (sayfa "komur" = onaylı maketler: Bugün, Katalog, Yemek detayı).
-- **Palet:** bg #f4f1ea, yüzey #fbf9f4, birincil/metin #1f1f1c, kum #e8e2d3, adaçayı #9db39a (yalnız süs, 2.1:1), yeşil metin #4a6647, soluk metin #5c584f, su #5a7f99.
-- **Çalışan işçiler:** yok. Önceki oturum (pid 14099) kullanıcı tarafından durduruldu; Claude süreci boşta açık kalabilir.
-- **Kullanıcıdan beklenen:** #46 ve #47 merge.
-- **Dikkat:** iOS 27.1 runtime yalnız iPhone Duo destekler. RN `textTransform: uppercase` Türkçe değil; `toLocaleUpperCase('tr-TR')`. Paralel iOS derlemesi + emülatör Android'de ANR penceresi açabilir. Uzun iOS ekranında Maestro kaydırma sonrası hedefi `centerElement: true` ile ortalamalı (README). `.claude/worktrees/` altında 3 eski worktree yalnız işçi `PROGRESS-T*.md` notlarıyla duruyor (agent-a47c…, agent-a732…, agent-aaec…); PR'ları merge edildi, notlar gözden geçirilince kaldırılabilir.
+- **Şu an:** Faz 3.3 son tur. Tüm ekran maketleri onaylı (tuval "komur"). Kod dalları hazır, doğrulama sürüyor.
+- **Git:** `main` = `be852b5` (#48, #49 merge). #50 yanlışlıkla `feat/today-redesign`'a merge edildi → aynı dal PR #51 ile `main`'e açıldı (kullanıcı merge etmeli).
+- **Dallar (hepsi `feat/today-add-button` üstünde, o da `feat/catalog-redesign` üstünde):**
+  - `feat/today-add-button` `299729c`+bu not: Bugün "Ekle" düğmesi, 24 px başlık, "Senin eklediğin" etiketi (Codex Sol). iOS: 518 test, 9 akış, design-tour PASS. Android: koşuyor.
+  - `feat/history-redesign` `dcba3b9`: Geçmiş + Kilo (Codex Sol). Birim 521 test PASS; iOS/Android doğrulanmadı.
+  - `feat/settings-redesign` `f6183e2`: Ayarlar + Profil (Güncelle) + Onboarding (Codex Sol). Birim 523 test PASS; iOS/Android doğrulanmadı.
+  - `feat/product-form` `b8a0e80`: Katalog sırası, son eklenenler, genişletilmiş ürün formu, ekleyen migration (marka, tür) (Codex Sol, R2). Birim 549 test PASS; **R2 review (sonnet-worker-high) bekliyor**, kota sıfırlanınca (15:10); iOS/Android doğrulanmadı. Sözleşme: scratchpad `review-product/CONTRACT.md` (dal mesajında da özet).
+- **Sıradaki adım:** today-add Android sonucu → PR (#51 merge edilince taban `main`). Sonra sırayla history, settings, product-form: `mobile/docs/DOGRULAMA.md` ile iOS + Android, design-tour seçicilerini güncelle (işçilere yasaktı), PR. product-form PR'ı R2 review ACCEPT olmadan açılmaz.
+- **Kota:** `get_usage`. 14:00'te 5 saatlik %81 (15:10 sıfırlanır), haftalık %35. Kod işleri Codex Sol'da.
+- **Tasarım tuvali:** https://claude.ai/artifact/Qw7AjeWyQT9SW7QadBahM5 (sürüm 10).
+- **Kullanıcıdan beklenen:** #51 merge; sonraki PR'lar.
+- **Dikkat:** Üst üste PR tuzağı (AGENTS). Aynı anda tek derleme/Maestro. Boşta simülatör/emülatör kapat. `mobil-dogrula` skill'i.
 
 ## Sıradaki işler (öncelik sırasıyla)
 
-1. #46 merge; 3.3 Bugün pilotu; ardından diğer ekranlar. Bugün'de üst başlık ve gün gezgini ikisi de "Bugün" yazıyor; 3.3'te ele alınmalı.
-2. Faz 3.4: uygulama ikonu ve açılış ekranı (şu an Expo'nun şablon ikonu; mağazaya gönderilemez).
-3. Faz 3.5: erişilebilirlik/kontrast/büyük metin kontrolleri; design-tour ile "sonra" görüntüleri.
-4. Fiziksel cihaz testi (Faz 4) — kullanıcı şimdilik erteledi.
-5. Hesap işleri: `eas login` / `eas init`, App Store Connect ve Play Console kayıtları, 12 kişilik kapalı test (`mobile/docs/RELEASE.md`, `docs/store/`).
+1. Yukarıdaki dalların doğrulaması ve PR'ları; product-form R2 review.
+2. Faz 3.4: uygulama ikonu ve açılış ekranı.
+3. Faz 3.5: erişilebilirlik/kontrast/büyük metin; katalog listesinin sanallaştırılması; design-tour "sonra" görüntüleri.
+4. Fiziksel cihaz testi (Faz 4) — ertelendi.
+5. Hesap işleri: EAS, App Store Connect, Play Console, kapalı test.
 
 ## Kullanıcı tercihleri (onaylı — yeniden sorma)
 
