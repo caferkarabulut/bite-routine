@@ -3,8 +3,8 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { useI18n } from "../../i18n";
 import type { Reminder } from "../../types";
-import { Card, colors, Divider, radius, spacing, TOUCH, typography } from "../../ui";
-import { cancelReminder, ensurePermission, formatTime, mergeReminders, scheduleReminder, stepHour, stepMinute } from "./reminders";
+import { Card, colors, Divider, TimeField, spacing, TOUCH, typography } from "../../ui";
+import { cancelReminder, ensurePermission, mergeReminders, scheduleReminder } from "./reminders";
 
 type Props = {
   reminders: readonly Reminder[];
@@ -44,7 +44,7 @@ export function RemindersSection({ reminders, onChange }: Props) {
 
   return (
     <Card>
-      <Text style={typography.muted}>{t("settings.remindersHint")}</Text>
+      <Text style={typography.muted}>{t("features.settings.remindersNote")}</Text>
       {list.map((r, i) => (
         <View key={r.id}>
           {i > 0 ? <Divider /> : null}
@@ -92,79 +92,21 @@ function ReminderRow({
           {reminder.enabled ? t("features.settings.reminderEnabled") : t("features.settings.reminderDisabled")}
         </Text>
       </Pressable>
-      <View style={styles.time} accessibilityLabel={`${t("settings.reminderTime")} ${formatTime(reminder.hour, reminder.minute)}`}>
-        <Stepper
-          upLabel={t("features.settings.hourUp")}
-          downLabel={t("features.settings.hourDown")}
-          text={String(reminder.hour).padStart(2, "0")}
-          disabled={disabled}
-          onUp={() => onChange({ ...reminder, hour: stepHour(reminder.hour, 1) })}
-          onDown={() => onChange({ ...reminder, hour: stepHour(reminder.hour, -1) })}
-        />
-        <Text style={typography.heading}>:</Text>
-        <Stepper
-          upLabel={t("features.settings.minuteUp")}
-          downLabel={t("features.settings.minuteDown")}
-          text={String(reminder.minute).padStart(2, "0")}
-          disabled={disabled}
-          onUp={() => onChange({ ...reminder, minute: stepMinute(reminder.minute, 5) })}
-          onDown={() => onChange({ ...reminder, minute: stepMinute(reminder.minute, -5) })}
+      <View style={styles.time} pointerEvents={disabled ? "none" : "auto"} accessibilityElementsHidden={disabled} importantForAccessibility={disabled ? "no-hide-descendants" : "auto"}>
+        <Text style={typography.footnote}>{t("settings.reminderTime")}</Text>
+        <TimeField
+          testID={`reminder-time-${reminder.id}`}
+          label={t("features.settings.reminderTimeLabel", { name })}
+          value={{ hour: reminder.hour, minute: reminder.minute }}
+          onChange={({ hour, minute }) => { if (!disabled) onChange({ ...reminder, hour, minute }); }}
         />
       </View>
     </View>
   );
 }
 
-function Stepper({
-  upLabel,
-  downLabel,
-  text,
-  disabled,
-  onUp,
-  onDown,
-}: {
-  upLabel: string;
-  downLabel: string;
-  text: string;
-  disabled: boolean;
-  onUp: () => void;
-  onDown: () => void;
-}) {
-  return (
-    <View style={styles.stepper}>
-      <StepButton label={downLabel} symbol="−" onPress={onDown} disabled={disabled} />
-      <Text style={[typography.heading, { minWidth: 32, textAlign: "center" }]}>{text}</Text>
-      <StepButton label={upLabel} symbol="+" onPress={onUp} disabled={disabled} />
-    </View>
-  );
-}
-
-function StepButton({ label, symbol, onPress, disabled }: { label: string; symbol: string; onPress: () => void; disabled: boolean }) {
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel={label}
-      accessibilityState={{ disabled }}
-      disabled={disabled}
-      onPress={onPress}
-      style={styles.stepButton}
-    >
-      <Text style={styles.stepSymbol}>{symbol}</Text>
-    </Pressable>
-  );
-}
-
 const styles = StyleSheet.create({
   row: { gap: spacing.xs, paddingVertical: spacing.xs },
   toggle: { minHeight: TOUCH, flexDirection: "row", alignItems: "center", gap: spacing.md },
-  time: { flexDirection: "row", alignItems: "center", gap: spacing.xs },
-  stepper: { flexDirection: "row", alignItems: "center" },
-  stepButton: {
-    width: TOUCH,
-    height: TOUCH,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: radius.md,
-  },
-  stepSymbol: { fontSize: 24, color: colors.primary },
+  time: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: spacing.sm },
 });

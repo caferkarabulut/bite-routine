@@ -1,15 +1,13 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { formatGrams, formatKcal, useI18n, type TFunction } from "../../i18n";
 import type { Targets } from "../../types";
-import { Button, Card, ChoiceChips, Screen, SectionTitle, TextField, colors, radius, spacing, typography, TOUCH } from "../../ui";
+import { Button, Card, Divider, Icon, Screen, TextField, colors, fonts, radius, spacing, typography, TOUCH } from "../../ui";
 import {
   ACTIVITIES,
   GOALS,
-  HEIGHT_RANGE,
   SEXES,
-  WEIGHT_RANGE,
   birthYearRange,
   type FieldErrorCode,
   type ProfileField,
@@ -36,46 +34,54 @@ function errorText(t: TFunction, field: ProfileField, code: FieldErrorCode | und
   return t("errors.invalidNumber");
 }
 
-/** Single-choice list where each option has a one-line hint. */
-function OptionList<T extends string>({
-  label,
-  options,
-  value,
-  onChange,
-  error,
-}: {
+/** Compact row that reveals the existing choices and their explanations. */
+function OptionList<T extends string>({ label, options, value, onChange, error }: {
   label: string;
   options: { value: T; label: string; hint: string }[];
   value: T | null;
   onChange: (v: T) => void;
   error: string | null;
 }) {
+  const { t } = useI18n();
+  const [expanded, setExpanded] = useState(false);
+  const selected = options.find((o) => o.value === value);
   return (
-    <View style={{ gap: spacing.xs }}>
-      <Text style={typography.label}>{label}</Text>
-      <View accessibilityRole="radiogroup" accessibilityLabel={label} style={{ gap: spacing.sm }}>
-        {options.map((o) => {
-          const selected = o.value === value;
-          return (
+    <View>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={label}
+        accessibilityValue={{ text: selected?.label ?? t("features.profile.choose") }}
+        accessibilityState={{ expanded }}
+        onPress={() => setExpanded(!expanded)}
+        style={styles.choiceRow}
+      >
+        <View style={styles.choiceText}>
+          <Text style={typography.footnote}>{label}</Text>
+          <Text style={typography.bodyStrong}>{selected?.label ?? t("features.profile.choose")}</Text>
+        </View>
+        <Icon name={expanded ? "minus" : "chevronRight"} size={18} />
+      </Pressable>
+      {expanded ? (
+        <View accessibilityRole="radiogroup" accessibilityLabel={label} style={styles.options}>
+          {options.map((o) => (
             <Pressable
               key={o.value}
               accessibilityRole="radio"
-              accessibilityState={{ selected }}
+              accessibilityState={{ selected: o.value === value, checked: o.value === value }}
               accessibilityLabel={`${o.label}, ${o.hint}`}
-              onPress={() => onChange(o.value)}
-              style={[styles.option, selected ? styles.optionSelected : null]}
+              onPress={() => { onChange(o.value); setExpanded(false); }}
+              style={[styles.option, o.value === value ? styles.optionSelected : null]}
             >
-              <Text style={[typography.body, selected ? styles.optionTitleSelected : null]}>{o.label}</Text>
-              <Text style={typography.muted}>{o.hint}</Text>
+              <View style={styles.choiceText}>
+                <Text style={typography.bodyStrong}>{o.label}</Text>
+                <Text style={typography.footnote}>{o.hint}</Text>
+              </View>
+              {o.value === value ? <Icon name="check" size={18} /> : null}
             </Pressable>
-          );
-        })}
-      </View>
-      {error ? (
-        <Text accessibilityRole="alert" style={[typography.small, { color: colors.danger }]}>
-          {error}
-        </Text>
+          ))}
+        </View>
       ) : null}
+      {error ? <Text accessibilityRole="alert" style={styles.error}>{error}</Text> : null}
     </View>
   );
 }
@@ -85,69 +91,84 @@ export function ProfileFields({ form, currentYear }: { form: FormApi; currentYea
   const { values, setValue, visibleErrors: e } = form;
   const range = birthYearRange(currentYear);
   return (
-    <View style={{ gap: spacing.lg }}>
-      <TextField
-        testID="onboarding-birth-year"
-        label={t("profile.birthYear")}
-        value={values.birthYear}
-        onChangeText={(v) => setValue("birthYear", v.replace(/[^0-9]/g, "").slice(0, 4))}
-        keyboardType="number-pad"
-        inputMode="numeric"
-        maxLength={4}
-        placeholder={String(range.max - 20)}
-        error={errorText(t, "birthYear", e.birthYear, currentYear)}
-      />
-      <View style={{ gap: spacing.xs }}>
-        <ChoiceChips
-          label={t("sex.label")}
-          options={SEXES.map((s) => ({ value: s, label: t(`sex.${s}`) }))}
-          value={values.sex}
-          onChange={(v) => setValue("sex", v)}
+    <View style={{ gap: spacing.md }}>
+      <Card style={{ gap: spacing.sm }}>
+        <View style={styles.gridRow}>
+          <View style={styles.cell}>
+            <TextField
+              testID="onboarding-birth-year"
+              label={t("profile.birthYear")}
+              value={values.birthYear}
+              onChangeText={(v) => setValue("birthYear", v.replace(/[^0-9]/g, "").slice(0, 4))}
+              keyboardType="number-pad"
+              inputMode="numeric"
+              maxLength={4}
+              placeholder={String(range.max - 20)}
+              error={errorText(t, "birthYear", e.birthYear, currentYear)}
+            />
+          </View>
+          <View style={styles.cell}>
+            <Text style={typography.label}>{t("sex.label")}</Text>
+            <View accessibilityRole="radiogroup" accessibilityLabel={t("sex.label")} style={styles.sexRow}>
+              {SEXES.map((sex) => (
+                <Pressable
+                  key={sex}
+                  accessibilityRole="radio"
+                  accessibilityLabel={t(`sex.${sex}`)}
+                  accessibilityHint={t("sex.hint")}
+                  accessibilityState={{ selected: values.sex === sex, checked: values.sex === sex }}
+                  onPress={() => setValue("sex", sex)}
+                  style={[styles.sex, values.sex === sex ? styles.sexSelected : null]}
+                >
+                  <Text style={[styles.sexText, values.sex === sex ? { color: colors.onPrimary } : null]}>{t(`sex.${sex}`)}</Text>
+                </Pressable>
+              ))}
+            </View>
+            {e.sex ? <Text accessibilityRole="alert" style={styles.error}>{t("profile.errors.required")}</Text> : null}
+          </View>
+        </View>
+        <View style={styles.gridRow}>
+          <View style={styles.cell}>
+            <TextField
+              testID="onboarding-height"
+              label={t("profile.height")}
+              value={values.heightCm}
+              onChangeText={(v) => setValue("heightCm", v)}
+              keyboardType="decimal-pad"
+              inputMode="decimal"
+              error={errorText(t, "heightCm", e.heightCm, currentYear)}
+            />
+          </View>
+          <View style={styles.cell}>
+            <TextField
+              testID="onboarding-weight"
+              label={t("profile.weight")}
+              value={values.weightKg}
+              onChangeText={(v) => setValue("weightKg", v)}
+              keyboardType="decimal-pad"
+              inputMode="decimal"
+              error={errorText(t, "weightKg", e.weightKg, currentYear)}
+            />
+          </View>
+        </View>
+      </Card>
+      <Card padded={false} style={{ gap: 0 }}>
+        <OptionList
+          label={t("activity.label")}
+          options={ACTIVITIES.map((a) => ({ value: a, label: t(`activity.${a}`), hint: t(`activity.${a}Hint`) }))}
+          value={values.activity}
+          onChange={(v) => setValue("activity", v)}
+          error={e.activity ? t("profile.errors.required") : null}
         />
-        {e.sex ? (
-          <Text accessibilityRole="alert" style={[typography.small, { color: colors.danger }]}>
-            {t("profile.errors.required")}
-          </Text>
-        ) : (
-          <Text style={typography.small}>{t("sex.hint")}</Text>
-        )}
-      </View>
-      <TextField
-        testID="onboarding-height"
-        label={t("profile.height")}
-        value={values.heightCm}
-        onChangeText={(v) => setValue("heightCm", v)}
-        keyboardType="decimal-pad"
-        inputMode="decimal"
-        suffix={t("units.cm")}
-        hint={`${HEIGHT_RANGE.min}-${HEIGHT_RANGE.max}`}
-        error={errorText(t, "heightCm", e.heightCm, currentYear)}
-      />
-      <TextField
-        testID="onboarding-weight"
-        label={t("profile.weight")}
-        value={values.weightKg}
-        onChangeText={(v) => setValue("weightKg", v)}
-        keyboardType="decimal-pad"
-        inputMode="decimal"
-        suffix={t("units.kg")}
-        hint={`${WEIGHT_RANGE.min}-${WEIGHT_RANGE.max}`}
-        error={errorText(t, "weightKg", e.weightKg, currentYear)}
-      />
-      <OptionList
-        label={t("activity.label")}
-        options={ACTIVITIES.map((a) => ({ value: a, label: t(`activity.${a}`), hint: t(`activity.${a}Hint`) }))}
-        value={values.activity}
-        onChange={(v) => setValue("activity", v)}
-        error={e.activity ? t("profile.errors.required") : null}
-      />
-      <OptionList
-        label={t("goal.label")}
-        options={GOALS.map((g) => ({ value: g, label: t(`goal.${g}`), hint: t(`goal.${g}Hint`) }))}
-        value={values.goal}
-        onChange={(v) => setValue("goal", v)}
-        error={e.goal ? t("profile.errors.required") : null}
-      />
+        <Divider inset={spacing.lg} />
+        <OptionList
+          label={t("goal.label")}
+          options={GOALS.map((g) => ({ value: g, label: t(`goal.${g}`), hint: t(`goal.${g}Hint`) }))}
+          value={values.goal}
+          onChange={(v) => setValue("goal", v)}
+          error={e.goal ? t("profile.errors.required") : null}
+        />
+      </Card>
     </View>
   );
 }
@@ -167,7 +188,6 @@ export function OverrideFields({
   const hasOverride = values.kcalOverride.trim() !== "" || values.proteinOverride.trim() !== "";
   return (
     <View style={{ gap: spacing.md }}>
-      <SectionTitle>{t("targets.override")}</SectionTitle>
       <Text style={typography.muted}>{t("targets.overrideHint")}</Text>
       <TextField
         label={t("features.profile.overrideKcal")}
@@ -203,52 +223,80 @@ export function OverrideFields({
   );
 }
 
-/** Card with the daily targets and the standard explanation + disclaimer. */
-export function TargetsCard({ title, targets, empty }: { title: string; targets: Targets | null; empty: string }) {
+/** Compact summary; overrides stay hidden until explicitly requested. */
+export function TargetsCard({ title, form, currentYear }: { title: string; form: FormApi & { targets: Targets | null; calculated: Targets | null }; currentYear: number }) {
   const { t, lang } = useI18n();
+  const [expanded, setExpanded] = useState(false);
+  const { targets } = form;
+  const invalidOverride = !!(form.visibleErrors.kcalOverride || form.visibleErrors.proteinOverride);
+  const showOverrides = expanded || invalidOverride;
   return (
-    <Card>
-      <Text accessibilityRole="header" style={typography.heading}>
-        {title}
-      </Text>
+    <Card style={{ gap: spacing.sm }}>
+      <View style={styles.summary}>
+        <Text accessibilityRole="header" style={[typography.label, { flexShrink: 1 }]}>{title}</Text>
+        {targets ? <Text style={styles.kcal}>{formatKcal(targets.kcal, lang)}</Text> : null}
+      </View>
       {targets ? (
-        <View style={{ gap: spacing.xs }} accessible accessibilityLabel={`${title}: ${formatKcal(targets.kcal, lang)}`}>
-          <Text style={styles.kcal}>{formatKcal(targets.kcal, lang)}</Text>
-          <Text style={typography.body}>
-            {t("macros.protein")}: {formatGrams(targets.protein, lang)} · {t("macros.carbs")}: {formatGrams(targets.carbs, lang)} ·{" "}
-            {t("macros.fat")}: {formatGrams(targets.fat, lang)}
-          </Text>
+        <View style={styles.macros}>
+          {(["protein", "carbs", "fat"] as const).map((macro) => (
+            <View key={macro} style={styles.macro}>
+              <Text style={typography.footnote}>
+                {macro === "carbs" ? t("features.profile.carbsShort") : t(`macros.${macro}`)}{" "}
+                <Text style={typography.label}>{formatGrams(targets[macro], lang)}</Text>
+              </Text>
+            </View>
+          ))}
         </View>
-      ) : (
-        <Text style={typography.muted}>{empty}</Text>
-      )}
-      <Text style={typography.small}>{t("targets.explain")}</Text>
-      <Text style={typography.small}>{t("disclaimer")}</Text>
+      ) : <Text style={typography.muted}>{t("features.profile.previewEmpty")}</Text>}
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={t("features.profile.manualTargets")}
+        accessibilityState={{ expanded: showOverrides }}
+        onPress={() => setExpanded(!showOverrides)}
+        style={styles.manualLink}
+      >
+        <Text style={styles.linkText}>{t("features.profile.manualTargets")}</Text>
+      </Pressable>
+      {showOverrides ? <OverrideFields form={form} calculated={form.calculated} currentYear={currentYear} /> : null}
     </Card>
   );
 }
 
-/** Screen scaffold with keyboard avoidance. */
-/** `top` is for screens without a navigation header (onboarding). */
-export function FormScreen({ children, top = false }: { children: ReactNode; top?: boolean }) {
+/** Screen scaffold with the same centred header and sticky action on both forms. */
+export function FormScreen({ children, title, subtitle, headerBelow, headerLeft, footer }: {
+  children: ReactNode;
+  title: string;
+  subtitle?: ReactNode;
+  headerBelow?: ReactNode;
+  headerLeft?: ReactNode;
+  footer: ReactNode;
+}) {
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
-      <Screen edges={top ? ["top", "bottom"] : ["bottom"]}>{children}</Screen>
+      <Screen edges={["top", "bottom"]} largeTitle={title} centerHeader subtitle={subtitle} headerBelow={headerBelow} headerLeft={headerLeft} footer={footer}>
+        {children}
+      </Screen>
     </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
-  option: {
-    minHeight: TOUCH,
-    padding: spacing.md,
-    gap: 2,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.border,
-    backgroundColor: colors.surface,
-  },
-  optionSelected: { borderColor: colors.primary, backgroundColor: colors.primarySoft, borderWidth: 2 },
-  optionTitleSelected: { fontWeight: "700" },
-  kcal: { fontSize: 32, fontWeight: "700", color: colors.primary },
+  gridRow: { flexDirection: "row", gap: spacing.sm, alignItems: "flex-start" },
+  cell: { flex: 1, minWidth: 0, gap: spacing.xs },
+  sexRow: { flexDirection: "row", flexWrap: "wrap", gap: spacing.xs },
+  sex: { flexGrow: 1, flexBasis: 52, minHeight: TOUCH, padding: spacing.xs, borderRadius: radius.sm, backgroundColor: colors.searchBg, alignItems: "center", justifyContent: "center" },
+  sexSelected: { backgroundColor: colors.primary },
+  sexText: { ...typography.label, textAlign: "center" },
+  choiceRow: { minHeight: 60, flexDirection: "row", alignItems: "center", gap: spacing.sm, paddingVertical: spacing.sm, paddingHorizontal: spacing.lg },
+  choiceText: { flex: 1, minWidth: 0 },
+  options: { padding: spacing.sm, gap: spacing.xs },
+  option: { minHeight: TOUCH, padding: spacing.sm, borderRadius: radius.sm, flexDirection: "row", alignItems: "center", gap: spacing.sm },
+  optionSelected: { backgroundColor: colors.searchBg },
+  error: { ...typography.small, color: colors.danger },
+  summary: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: spacing.sm },
+  kcal: { fontFamily: fonts.extrabold, fontSize: 22, lineHeight: 28, color: colors.accentText, fontVariant: ["tabular-nums"] },
+  macros: { flexDirection: "row", gap: spacing.sm },
+  macro: { flex: 1, minWidth: 0 },
+  manualLink: { minHeight: TOUCH, justifyContent: "center", alignSelf: "flex-start" },
+  linkText: { ...typography.label, textDecorationLine: "underline" },
 });

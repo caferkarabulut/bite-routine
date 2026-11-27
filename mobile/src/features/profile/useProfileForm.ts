@@ -147,7 +147,7 @@ export function calculatedTargets(input: ProfileInput | null, today: string): Ta
 export function useProfileForm(initial: ProfileFormValues, currentYear: number, today: string) {
   const [values, setValues] = useState<ProfileFormValues>(initial);
   const [attempted, setAttempted] = useState(false);
-  const [start] = useState(initial);
+  const [start, setStart] = useState(initial);
   const isDirty = (Object.keys(start) as ProfileField[]).some((k) => values[k] !== start[k]);
 
   const setValue = useCallback(<K extends ProfileField>(field: K, value: ProfileFormValues[K]) => {
@@ -170,6 +170,7 @@ export function useProfileForm(initial: ProfileFormValues, currentYear: number, 
   }, [attempted, errors, values]);
 
   const markAttempted = useCallback(() => setAttempted(true), []);
+  const markSaved = useCallback((saved: ProfileFormValues) => setStart(saved), []);
 
-  return { values, setValue, errors, visibleErrors, input, calculated, targets, attempted, markAttempted, isDirty };
+  return { values, setValue, errors, visibleErrors, input, calculated, targets, attempted, markAttempted, markSaved, isDirty };
 }

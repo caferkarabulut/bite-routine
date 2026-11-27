@@ -5,9 +5,11 @@ appId: com.biteroutine.mobile
     clearState: true
 - assertVisible: "Seni tanıyalım"
 - tapOn: "Erkek"
+- tapOn: "Aktivite düzeyi"
 - scrollUntilVisible:
     element: "Orta aktif.*"
 - tapOn: "Orta aktif.*"
+- tapOn: "Amaç"
 - scrollUntilVisible:
     element: "Kilomu koru.*"
 - tapOn: "Kilomu koru.*"
@@ -33,7 +35,7 @@ appId: com.biteroutine.mobile
 - waitForAnimationToEnd
 # Live target preview replaces the empty-state text.
 - scrollUntilVisible:
-    element: "Günlük hedefin \\(önizleme\\)"
+    element: "Hesaplanan hedefin"
 - assertNotVisible: "Bilgileri doldurunca.*"
 # On Android only the card title is on screen at this point: bring the kcal value into view before asserting.
 - scrollUntilVisible:

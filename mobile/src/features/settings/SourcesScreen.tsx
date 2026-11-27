@@ -1,13 +1,19 @@
+import { router } from "expo-router";
 import { Linking, Text } from "react-native";
 
 import { useI18n } from "../../i18n";
-import { Button, Card, Screen, SectionTitle, typography } from "../../ui";
+import { Button, Card, IconButton, Screen, SectionTitle, typography } from "../../ui";
 
 export function SourcesScreen() {
   const { t } = useI18n();
   const open = (url: string) => void Linking.openURL(url).catch(() => {});
   return (
-    <Screen>
+    <Screen
+      edges={["top", "bottom"]}
+      largeTitle={t("sources.title")}
+      centerHeader
+      headerLeft={<IconButton icon="chevronLeft" accessibilityLabel={t("common.back")} onPress={() => router.back()} />}
+    >
       <SectionTitle>{t("features.settings.sourcesUsdaTitle")}</SectionTitle>
       <Card>
         <Text style={typography.body}>{t("sources.usda")}</Text>
