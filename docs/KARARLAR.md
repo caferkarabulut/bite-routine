@@ -4,6 +4,13 @@ Mimari ve ürün kararları, en yeni karar en üstte. Eski karar silinmez: karar
 
 | Tarih | Karar | Neden | Ayrıntı |
 |---|---|---|---|
+| 2026-11-27 | Kullanıcı kendi ürününü (yiyecek/içecek) paket etiketinden girebilir; listede ve detayda "Senin eklediğin", değerler "resmi olarak doğrulanmadı" diye belirtilir; yalnız o telefonda saklanır | Kullanıcı kararı; ürün çeşitliliği (yalnız o kullanıcı için; sunucu yok) | `CustomFoodScreen.tsx`, maket `U-UrunEkle` |
+| 2026-11-27 | Kendi ürününde ad, kcal, protein, karbonhidrat, yağ zorunlu; marka ve porsiyon isteğe bağlı; değerler 100 g ya da porsiyon için girilebilir (100 g'a çevrilir) | Kullanıcı kararı ("bazı değerler zorunlu") | `nutritionBasis.ts` |
+| 2026-11-27 | İçecekler 100 ml için girilir, hesapta 1 ml = 1 g sayılır | Kullanıcı yöneticinin önerisini onayladı | — |
+| 2026-11-27 | Katalog boş aramada sıra: Kategoriler → "Kendi ürününü ekle" kartı → Son eklenenler (son 8 farklı ürün) | Kullanıcı kararı | `CatalogScreen.tsx` |
+| 2026-11-27 | Bugün'de sağ altta "Ekle" düğmesi Katalog'u açar; öğün saate göre seçilir (05–11 kahvaltı, 11–16 öğle, 16–22 akşam, diğer atıştırmalık) | Kullanıcı kararı | `domain/meals.ts` |
+| 2026-11-27 | Tüm ekranlarda başlık ortada 24 px; sol ok hep solda, sağ ok sağda; gerek yoksa yer boş tutulur | Kullanıcı kararı | `CenteredHeader` |
+| 2026-11-27 | Profil kısa tek ekran: aktivite ve amaç açılır seçim, tek "Güncelle" her şeyi kaydeder; hatırlatıcılarda bildirim gönderileceği yazılır | Kullanıcı kararı | maket `S-Profil`, `S-Ayarlar` |
 | 2026-11-27 | Bugün ekranı onaylandı (3.3 pilotu): halka kalori kartı, bardaklı su kartı (+200, +500, son eklemeyi geri al korunur), tek öğün kartı; başlık ve tarih ortada, önceki/sonraki gün okları iki yanda | Kullanıcı kararı (ekran görüntüleri onaylandı; başlığın ortalanmasını istedi) | `mobile/src/features/today/` |
 | 2026-11-27 | Bugün'de ileri gezinme korunur: 7 gün ileriye kadar; bugün dışındaki günde "Bugüne dön" | Kullanıcı kararı; mevcut özellik kaybolmasın | `dayTitle.ts` `canGoForward` |
 | 2026-11-26 | Destek e-postası `biteroutine0@gmail.com`; destek ve gizlilik sayfalarında, Google Play iletişim alanında | Kullanıcı kararı; mağazalar gerçek iletişim bilgisi ister | `docs/support/`, `docs/privacy/`, `docs/store/` |
