@@ -60,6 +60,9 @@ Yedekle/Geri yükle (paylaşım ve dosya seçici) ve bildirim izni akışları k
 - **Alttaki içerik**: Bugün'de öğün kartları ve su kartı sekme çubuğunun altında başlar. Dokunmadan önce
   `scroll` / `scrollUntilVisible` kullan, yoksa dokunuş bir sekmeye gider. `scrollUntilVisible` ekran sınırında
   olan ama klavyenin altında kalan öğeyi "görünür" sayar.
+- **Sekme çubuğunun altında kalan hedef**: `scrollUntilVisible` ve düz `scroll` hedefi sekme çubuğunun altında
+  bırakabilir ya da ekranın üstüne itebilir (iPhone 17'de "Kahvaltı +Ekle" üstte, "Son eklemeyi geri al" altta
+  kaldı); dokunuş sessizce başka yere gider. Dokunacağın hedefte `centerElement: true` kullan.
 - **Kaydırma konumu**: Bugün'e dönüşte kaydırma konumu korunur; üstteki toplamlar için önce
   `scrollUntilVisible: Kalori, direction: UP`.
 - Porsiyon adları sayı içerir (`1 kepçe`), Bugün satırı bu yüzden `1,5 1 kepçe` okunur.

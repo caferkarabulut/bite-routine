@@ -5,13 +5,15 @@ appId: com.biteroutine.mobile
 - runFlow: subflows/onboarding.yaml
 - scrollUntilVisible:
     element: "200 ml ekle"
+    centerElement: true
 - assertVisible: "0 / 2.000 ml"
 - tapOn: "200 ml ekle"
 - assertVisible: "200 / 2.000 ml"
 - tapOn: "500 ml ekle"
 - assertVisible: "700 / 2.000 ml"
-# The undo link sits below the buttons, partly under the tab bar on Android.
+# The undo link sits below the buttons, under the tab bar on iOS and Android: center it so the tap misses the bar.
 - scrollUntilVisible:
     element: "Son eklemeyi geri al"
+    centerElement: true
 - tapOn: "Son eklemeyi geri al"
 - assertVisible: "200 / 2.000 ml"
